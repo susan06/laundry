@@ -18,6 +18,19 @@
      {!! HTML::style("assets/css/animate.min.css") !!}
     <!-- Custom Theme Style -->
     {!! HTML::style("assets/css/custom.min.css") !!}
+    <!-- Datatables -->
+    {!! HTML::style("vendors/datatables.net-bs/css/dataTables.bootstrap.min.css") !!}
+    {!! HTML::style("vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") !!}
+    {!! HTML::style("vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") !!}
+    {!! HTML::style("vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
+    {!! HTML::style("vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") !!}
+    {!! HTML::style("vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
+
+    <!-- PNotify -->
+    {!! HTML::style("vendors/pnotify/dist/pnotify.css") !!}
+    {!! HTML::style("vendors/pnotify/dist/pnotify.buttons.css") !!}
+    {!! HTML::style("vendors/pnotify/dist/pnotify.nonblock.css") !!}
+
     @yield('styles')  
     <!-- Scripts -->
     <script>
@@ -34,7 +47,8 @@
             @include('partials.navbar')
 
             @yield('content') 
-
+            
+            @include('partials.modals')
             <!-- footer content -->
             <footer>
               <div class="pull-right">
@@ -45,8 +59,6 @@
             <!-- /footer content -->
         </div>
     </div>
-
-    @include('partials.modals')
 
     <!--JQuery--> 
     {!! HTML::script('vendors/jquery/dist/jquery.min.js') !!}
@@ -68,12 +80,22 @@
     <!-- FastClick -->
     {!! HTML::script('vendors/fastclick/lib/fastclick.js') !!}
 
-    <!-- Custom Theme Scripts -->
-    {!! HTML::script('assets/js/custom.min.js') !!}
+    <!-- Datatables -->
+    {!! HTML::script('vendors/datatables.net/js/jquery.dataTables.min.js') !!}
+    {!! HTML::script('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') !!}
+    {!! HTML::script('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') !!}
+    {!! HTML::script('vendors/datatables.net-responsive/js/dataTables.responsive.min.js') !!}
+    {!! HTML::script('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') !!}
+    {!! HTML::script('vendors/datatables.net-scroller/js/datatables.scroller.min.js') !!}
+    {!! HTML::script('vendors/fastclick/lib/fastclick.js') !!}
 
-    <script type="text/javascript">
-        
-    </script>
+    <!-- PNotify -->
+    {!! HTML::script('vendors/pnotify/dist/pnotify.js') !!}
+    {!! HTML::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
+    {!! HTML::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+
+    <!-- Custom Theme Scripts -->
+    {!! HTML::script('assets/js/custom.js') !!}
 
      @yield('scripts')
 

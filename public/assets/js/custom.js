@@ -14,6 +14,16 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
+// datatable-responsive
+$(document).ready(function() {
+    $('#datatable-responsive').DataTable({
+      "searching": false,
+      "paging": false,
+      "bInfo": false,
+    });
+});
+// Sidebar
+
 // Sidebar
 $(document).ready(function() {
     // TODO: This is some kind of easy fix, maybe we can improve this
@@ -133,12 +143,6 @@ $(document).ready(function() {
 });
 // /Tooltip
 
-// Progressbar
-if ($(".progress .progress-bar")[0]) {
-    $('.progress .progress-bar').progressbar();
-}
-// /Progressbar
-
 // Switchery
 $(document).ready(function() {
     if ($(".js-switch")[0]) {
@@ -165,59 +169,6 @@ $(document).ready(function() {
 });
 // /iCheck
 
-// Table
-$('table input').on('ifChecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('table input').on('ifUnchecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
-
-var checkState = '';
-
-$('.bulk_action input').on('ifChecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
-    countChecked();
-});
-$('.bulk_action input').on('ifUnchecked', function () {
-    checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifChecked', function () {
-    checkState = 'all';
-    countChecked();
-});
-$('.bulk_action input#check-all').on('ifUnchecked', function () {
-    checkState = 'none';
-    countChecked();
-});
-
-function countChecked() {
-    if (checkState === 'all') {
-        $(".bulk_action input[name='table_records']").iCheck('check');
-    }
-    if (checkState === 'none') {
-        $(".bulk_action input[name='table_records']").iCheck('uncheck');
-    }
-
-    var checkCount = $(".bulk_action input[name='table_records']:checked").length;
-
-    if (checkCount) {
-        $('.column-title').hide();
-        $('.bulk-actions').show();
-        $('.action-cnt').html(checkCount + ' Records Selected');
-    } else {
-        $('.column-title').show();
-        $('.bulk-actions').hide();
-    }
-}
-
 // Accordion
 $(document).ready(function() {
     $(".expand").on("click", function () {
@@ -232,24 +183,7 @@ $(document).ready(function() {
     });
 });
 
-// NProgress
-if (typeof NProgress != 'undefined') {
-    $(document).ready(function () {
-        NProgress.start();
-    });
 
-    $(window).load(function () {
-        NProgress.done();
-    });
-}
-/**
- * Resize function without multiple trigger
- * 
- * Usage:
- * $(window).smartresize(function(){  
- *     // code here
- * });
- */
 (function($,sr){
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
@@ -277,3 +211,151 @@ if (typeof NProgress != 'undefined') {
     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
 
 })(jQuery,'smartresize');
+
+/**
+ * script general
+ * 
+ */
+
+$.ajaxSetup({
+    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+});
+
+//delete register
+$(document).on('click', '.btn-delete', function () {
+
+        var $this = $(this);
+        var row = $this.closest('tr');
+        $this.attr({'disabled': 'disabled'});
+        swal({   
+            title: $this.data('confirm-title'),   
+            text: $this.data('confirm-text'),   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: $this.data('confirm-delete'),   
+            closeOnConfirm: true },
+            function(isConfirm){   
+                if (isConfirm) {  
+                    $.ajax({
+                        type: 'POST',
+                        url: $this.data('href'),
+                        dataType: 'json',
+                        data: { 'id': $this.data('id') },
+                        success: function (request) {                           
+                            if(request.success) {  
+                                snackbar_event(request.message, 'deleted');
+                            } else {
+                                row.addClass('danger');
+                                snackbar_event(request.message, 'error');
+                            }
+                        },
+                        error: function () {
+                            snackbar_event(request.message, 'error');
+                            row.addClass('danger');
+                        }
+                    });     
+            } 
+        });
+});
+
+//open  create or edit modal
+$(document).on('click', '.edit-modal', function () {
+    var $this = $(this);
+    $.ajax({
+        url: $this.data('href'),
+        type:'GET',
+        success: function(response) {
+            if(response.success){
+                $('#myModalLabel').html($this.attr('title'));
+                $('#content-modal').html(response.view);
+                $('#general-modal').modal('show');
+            } else {
+                notify('error', response.message);
+            }
+           
+        }
+    });
+});
+
+//save or update form modal
+$(document).on('click', '.btn-submit', function (e) {
+    var form = $('#form-modal'); 
+    e.preventDefault();
+    $.ajax({
+        url: form.attr('action'),
+        type: $('#form-modal input[name="_method"]').val(),
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(response) {
+            if(response.success){
+                $('#general-modal').modal('hide');
+                notify('success', response.message);
+                getPages(CURRENT_URL);
+            } else {
+                notify('error', response.message);
+            }
+           
+        }
+    });
+});
+
+// search register all
+$(document).on('click', '.search', function () {
+    var term = $('#search').val();
+    var $this = $(this);
+    if(term){
+        $.ajax({
+            url: CURRENT_URL,
+            type:"GET",
+            data:{ search: term },
+            dataType: 'json',
+            success: function(response) {
+                if(response.success){
+                    $('#content-table').html(response.view);
+                } else {
+                    notify('error', response.message);
+                }
+            },
+            error: function (status) {
+                console.log(status);
+            }
+        });
+    } else {
+        //
+    }
+});
+
+$(document).ready(function() {
+    $(document).on('click', '.pagination a', function (e) {
+        getPages($(this).attr('href'));
+        e.preventDefault();
+    });
+});
+
+function getPages(page) {
+    $.ajax({
+        url: page,
+        type:"GET",
+        dataType: 'json',
+        success: function(response) {
+            if(response.success){
+                $('#content-table').html(response.view);
+                CURRENT_URL = page;
+            }
+        },
+        error: function (status) {
+            console.log(status);
+        }
+    });
+}
+
+function notify(type, message){
+    new PNotify({
+      text: message,
+      type: type,
+      hide: true,
+      styling: 'bootstrap3'
+    });
+}
+// /script general

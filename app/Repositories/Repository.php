@@ -20,16 +20,23 @@ abstract class Repository implements RepositoryInterface
      */
     protected $model;
 
+    /**
+     * @var attributes
+     *
+     */
+    protected $attributes;
 
     /**
      * Repository constructor.
      *
      * @param $modelClass
+     * @param $attributes
      *
      */
-    public function __construct($modelClass)
+    public function __construct($modelClass, array $attributes)
     {
         $this->model = $modelClass;
+        $this->attributes = $attributes;
     }
 
     /**
@@ -134,14 +141,27 @@ abstract class Repository implements RepositoryInterface
      * return the result paginated for the take value and with the attributes.
      *
      * @param int $take
-     * @param array $attributes
+     * @param string $search
      *
      * @return mixed
      *
      */
-    public function paginate($take = 10, array $attributes = ['*'])
+
+    public function paginate($take = 10, $search = null)
     {
-        return $this->model->paginate($take, $attributes);
+        if ($search) {
+            $result = $this->model->where( function ($q) use($search) {
+                foreach ($this->attributes as $attribute) {
+                    $q->orwhere($attribute, "like", "%{$search}%");
+                }
+            })->paginate($take)->appends(['search' => $search]);
+        } else {
+            $result = $this->model->paginate($take);
+
+        }
+
+        return $result;
+
     }
 
     /**

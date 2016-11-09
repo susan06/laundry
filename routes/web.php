@@ -51,4 +51,9 @@ Route::group([
         ->name('setting.update');
  });
 
+/**
+ * Roles
+*/
+Route::resource('role', 'RoleController');
+
  

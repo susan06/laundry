@@ -94,12 +94,12 @@ interface RepositoryInterface
      * return the result paginated for the take value and with the attributes.
      *
      * @param int $take
-     * @param array $attributes
+     * @param string $search
      *
      * @return mixed
      *
      */
-    public function paginate($take = 10, array $attributes = ['*']);
+    public function paginate($take = 10, $search = null);
 
     /**
      * With

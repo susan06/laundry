@@ -14,6 +14,15 @@ class Role extends Model
     protected $table = 'roles';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'display_name', 'description', 'removable'
+    ];
+
+    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool

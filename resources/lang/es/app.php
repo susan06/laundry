@@ -17,9 +17,11 @@ return [
     'notifications' => 'Notificaciones',
     'setting_notifications' => 'Ajustes de notificaciones',
     'action' => 'Acción',
+    'actions' => 'Acciones',
     'search' => 'Buscar',
     'personal_data' => 'Datos personales',
     'update' => 'Actualizar',
+    'error_again' => 'Error, intente de nuevo',
 
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -102,6 +104,7 @@ return [
     'time' => 'Tiempo',
     'start' => 'Empieza',
     'finish' => 'Finaliza',
+    'close' => 'Cerrar',
 
     // Dashboard
     'welcome' => 'Bienvenido',
@@ -116,6 +119,7 @@ return [
     'latest_registrations' => 'Ultimos registros',
     'view_all_users' => 'Ver a Todos los Usuarios',
     'no_records_found' => 'No se encontrarón registros.',
+    'no_record_found' => 'Ocurrió un error, no se pudo encontrar el registro',
     'update_profile' => 'Actualizar Perfil',
     'my_sessions' => 'Mis Sesiones',
     'activity' => 'Actividad',
@@ -234,6 +238,7 @@ return [
     'edit_role' => 'Editar Rol',
     'delete_role' => 'Eliminar Rol',
     'are_you_sure_delete_role' => 'Seguro que desea eliminar este rol?',
+    'role_updated' => 'Rol actualizado',
 
     // Settings
     'authentication_settings' => 'Configuración de autenticación',
@@ -488,4 +493,5 @@ return [
     'are_you_sure_sign_out' => 'Seguro que desea salir?',
 
     'all_rights_reserved' => 'Todos los derechos están reservados.',
+    'write_here' => 'Escribe aquí',
 ];
