@@ -225,49 +225,50 @@ $.ajaxSetup({
 $(document).on('click', '.btn-delete', function () {
 
         var $this = $(this);
-        var row = $this.closest('tr');
-        $this.attr({'disabled': 'disabled'});
+        //var row = $this.closest('tr');
         swal({   
-            title: $this.data('confirm-title'),   
+            title: $this.attr('title'),   
             text: $this.data('confirm-text'),   
             type: "warning",   
             showCancelButton: true,   
+            cancelButtonText: lang.cancel,
             confirmButtonColor: "#DD6B55",   
             confirmButtonText: $this.data('confirm-delete'),   
             closeOnConfirm: true },
             function(isConfirm){   
                 if (isConfirm) {  
                     $.ajax({
-                        type: 'POST',
+                        type: 'DELETE',
                         url: $this.data('href'),
                         dataType: 'json',
                         data: { 'id': $this.data('id') },
-                        success: function (request) {                           
-                            if(request.success) {  
-                                snackbar_event(request.message, 'deleted');
+                        success: function (response) {                           
+                            if(response.success) {  
+                                notify('success', response.message);
+                                getPages(CURRENT_URL);
+                                //row.remove();
                             } else {
-                                row.addClass('danger');
-                                snackbar_event(request.message, 'error');
+                                notify('error', response.message);
                             }
                         },
                         error: function () {
-                            snackbar_event(request.message, 'error');
-                            row.addClass('danger');
+                            //
                         }
                     });     
             } 
         });
 });
 
-//open  create or edit modal
-$(document).on('click', '.edit-modal', function () {
+//open create or edit modal
+$(document).on('click', '.create-edit-modal', function () {
     var $this = $(this);
+    var title = $this.attr("title");
     $.ajax({
         url: $this.data('href'),
         type:'GET',
         success: function(response) {
             if(response.success){
-                $('#myModalLabel').html($this.attr('title'));
+                $('#myModalLabel').text(title);
                 $('#content-modal').html(response.view);
                 $('#general-modal').modal('show');
             } else {
@@ -280,11 +281,16 @@ $(document).on('click', '.edit-modal', function () {
 
 //save or update form modal
 $(document).on('click', '.btn-submit', function (e) {
-    var form = $('#form-modal'); 
     e.preventDefault();
+    var form = $('#form-modal'); 
+    console.log(form.valid());
+    var type = $('#form-modal input[name="_method"]').val();
+    if(typeof type == "undefined") {
+        type = form.attr('method');
+    }
     $.ajax({
         url: form.attr('action'),
-        type: $('#form-modal input[name="_method"]').val(),
+        type: type,
         data: form.serialize(),
         dataType: 'json',
         success: function(response) {

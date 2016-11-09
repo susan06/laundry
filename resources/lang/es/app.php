@@ -22,6 +22,7 @@ return [
     'personal_data' => 'Datos personales',
     'update' => 'Actualizar',
     'error_again' => 'Error, intente de nuevo',
+    'selected_item' => 'Seleccionar',
 
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -39,6 +40,8 @@ return [
     'more_info' => 'Más información',
     'view_activity_log' => 'Ver registro de actividad',
     'user_agent' => 'Agente de Usuario',
+    'user_updated' => 'Usuario actualizado',
+    'user_created' => 'Usuario creado',
 
     //Installation
     'installation' => 'Instalacion',
@@ -321,6 +324,7 @@ return [
     'user_sessions' => 'Sesiones de Usuario',
     'view_user' => 'Ver Usuario',
     'delete_user' => 'Eliminar Usuario',
+    'deleted_user' => 'Usuario eliminado',
     'are_you_sure_delete_user' => 'Seguro que desea eliminar este usuario?',
     'yes_delete_him' => 'Sí, eliminar!',
     'import_users_settings' => 'ajustes de importación de usuarios',

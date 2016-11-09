@@ -2,8 +2,12 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+
+use App\Support\User\UserStatus;
 
 class User extends Authenticatable
 {
@@ -15,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'lastname', 'email', 'password', 'status', 'lang', 'role_id'
     ];
 
     /**
@@ -26,6 +30,59 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    /**
+     * Functions
+     *
+     */
+    public function full_name()
+    {
+        return $this->name.' '.$this->lastname;
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
+    public function isUnconfirmed()
+    {
+        return $this->status == UserStatus::UNCONFIRMED;
+    }
+
+    public function isActive()
+    {
+        return $this->status == UserStatus::ACTIVE;
+    }
+
+    public function isBanned()
+    {
+        return $this->status == UserStatus::BANNED;
+    }
+
+    public function labelClass()
+    {
+        switch($this->status) {
+            case UserStatus::ACTIVE:
+                $class = 'success';
+                break;
+
+            case UserStatus::BANNED:
+                $class = 'danger';
+                break;
+
+            default:
+                $class = 'warning';
+        }
+
+        return $class;
+    }
 
     /**
      * Relationships

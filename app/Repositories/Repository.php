@@ -206,4 +206,15 @@ abstract class Repository implements RepositoryInterface
         return $this->model->destroy($id);
     }
 
+     /**
+     * lists
+     *
+     * @param string $column
+     * @param string $key
+     */
+    public function lists($column = 'name', $key = 'id')
+    {
+        return $this->model->all([$column,$key])->sortBy($column)->pluck($column, $key)->all();
+    }
+
 }

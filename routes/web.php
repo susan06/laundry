@@ -52,6 +52,12 @@ Route::group([
  });
 
 /**
+ * Users
+*/
+Route::resource('user', 'UserController');
+
+
+/**
  * Roles
 */
 Route::resource('role', 'RoleController');

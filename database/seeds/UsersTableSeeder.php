@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Support\User\UserStatus;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -21,6 +23,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
         ]);
         //cliente
         $role = DB::table('roles')->where('name', 'client')->first();
@@ -31,6 +35,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'client@client.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
         ]);
         //conductor
         $role = DB::table('roles')->where('name', 'driver')->first();
@@ -41,6 +47,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'driver@driver.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
         ]);
         //asesor de servicios
         $role = DB::table('roles')->where('name', 'supervisor')->first();
@@ -51,6 +59,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'service@advisor.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
         ]);
     }
 }

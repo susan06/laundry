@@ -34,7 +34,7 @@
         @if (Auth::user()->role->name == 'admin')
         <li><a><i class="fa fa-users"></i> @lang('app.users') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="#">@lang('app.users')</a></li>
+            <li><a href="{{ route('user.index') }}">@lang('app.users')</a></li>
             <li><a href="{{ route('role.index') }}">@lang('app.roles')</a></li>
           </ul>
         </li>

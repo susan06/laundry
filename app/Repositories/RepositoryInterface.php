@@ -131,4 +131,12 @@ interface RepositoryInterface
      */
     public function delete($id);
 
+    /**
+     * lists
+     *
+     * @param string $column
+     * @param string $key
+     */
+    public function lists($column = 'name', $key = 'id');
+
 }

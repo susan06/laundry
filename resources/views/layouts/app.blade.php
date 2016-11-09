@@ -15,7 +15,9 @@
     <!-- font-awesome.css -->
     {!! HTML::style("vendors/font-awesome/css/font-awesome.min.css") !!}
     <!-- Animate.css -->
-     {!! HTML::style("assets/css/animate.min.css") !!}
+    {!! HTML::style("assets/css/animate.min.css") !!}
+    <!-- sweetalert -->
+    {!! HTML::style("assets/css/sweetalert.css") !!}
     <!-- Custom Theme Style -->
     {!! HTML::style("assets/css/custom.min.css") !!}
     <!-- Datatables -->
@@ -93,6 +95,10 @@
     {!! HTML::script('vendors/pnotify/dist/pnotify.js') !!}
     {!! HTML::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
     {!! HTML::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+
+    <script>
+       var lang = {"cancel" : "@lang('app.cancel')"};
+    </script>
 
     <!-- Custom Theme Scripts -->
     {!! HTML::script('assets/js/custom.js') !!}
