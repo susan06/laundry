@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Coupon extends Model
 {
      /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'roles';
+    protected $table = 'coupons';
 
     /**
      * The attributes that are mass assignable.
@@ -19,25 +19,16 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name', 'description', 'removable'
+        'code', 'validity', 'percentage', 'created_by'
     ];
 
-     /**
-     * Field type
-     *
-     * @var array
-     */
-    protected $casts = [
-        'removable' => 'boolean'
-    ];
-
-     /**
+    /**
      * Relationships
      *
      */
     public function user()
     {
-        return $this->hasOne(User::class, 'role_id');
+        return $this->hasOne(User::class, 'created_by');
     }
 
 }

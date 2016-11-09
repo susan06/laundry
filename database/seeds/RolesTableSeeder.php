@@ -38,5 +38,14 @@ class RolesTableSeeder extends Seeder
             'description' => 'system Service Supervisor',
             'removable' => false
         ]);
+
+        DB::table('roles')->insert([
+            'name' => 'branch-office',
+            'display_name' => 'Branch Office',
+            'description' => 'system Branch Office',
+            'removable' => false
+        ]);
+
+        
     }
 }

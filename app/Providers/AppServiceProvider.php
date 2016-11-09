@@ -10,6 +10,9 @@ use App\Repositories\User\UserRepository;
 use App\Repositories\Role\EloquentRole;
 use App\Repositories\Role\RoleRepository;
 
+use App\Repositories\Coupon\EloquentCoupon;
+use App\Repositories\Coupon\CouponRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -31,5 +34,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserRepository::class, EloquentUser::class);
         $this->app->singleton(RoleRepository::class, EloquentRole::class);
+        $this->app->singleton(CouponRepository::class, EloquentCoupon::class);
     }
 }

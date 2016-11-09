@@ -92,4 +92,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class, 'created_by');
+    }
 }
