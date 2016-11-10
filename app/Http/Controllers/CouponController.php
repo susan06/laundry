@@ -36,6 +36,7 @@ class CouponController extends Controller
      */
     public function index(Request $request)
     {
+        $code = str_random(15);
         $coupons = $this->coupons->paginate(10, $request->search);
         if ( $request->ajax() ) {
             if (count($coupons)) {
@@ -51,7 +52,7 @@ class CouponController extends Controller
             }
         }
 
-        return view('coupons.index', compact('coupons','coupon'));
+        return view('coupons.index', compact('coupons','code'));
     }
 
     /**
@@ -82,8 +83,8 @@ class CouponController extends Controller
             'code' => encrypt($request->code),
             'percentage' => $request->percentage,
             'validity' => $request->validity,
+            'status' => CouponStatus::VALID,
             'created_by' => Auth::id(),
-            'status' => CouponStatus::VALID
         ];
         $coupon = $this->coupons->create($data);
         if ( $coupon ) {
