@@ -20,4 +20,9 @@ interface UserRepository extends RepositoryInterface
      *
      */
     public function paginate_search($take = 10, $search = null);
+
+     /**
+     * lists representative
+     */
+    public function lists_representative();
 }

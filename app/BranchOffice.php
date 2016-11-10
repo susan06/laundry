@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\BranchOffice\BranchOfficeStatus;
 
@@ -20,7 +21,7 @@ class BranchOffice extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'phone', 'representative_id'
+        'name', 'phone', 'representative_id', 'status', 'created_by'
     ];
 
   	/**
@@ -40,11 +41,11 @@ class BranchOffice extends Model
     public function labelClass()
     {
         switch($this->status) {
-            case BranchOffice::SERVICE:
+            case BranchOfficeStatus::SERVICE:
                 $class = 'success';
                 break;
 
-            case BranchOffice::OUTSERVICE:
+            case BranchOfficeStatus::OUTSERVICE:
                 $class = 'danger';
                 break;
 
@@ -61,7 +62,7 @@ class BranchOffice extends Model
      */
     public function representative()
     {
-        return $this->hasOne(User::class, 'representative_id');
+        return $this->belongsTo(User::class, 'representative_id');
     }
 
     public function locations()
