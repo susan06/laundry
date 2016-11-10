@@ -72,7 +72,7 @@
     {!! HTML::script('assets/js/moment/moment.min.js') !!}
 
     <!-- Laravel Javascript Validation -->
-    {!! HTML::script('vendors/jsvalidation/js/jsvalidation.js') !!}
+    {!! HTML::script('vendor/jsvalidation/js/jsvalidation.js') !!}
 
     <!--sweet alert--> 
     {!! HTML::script('assets/js/sweetalert/sweetalert.min.js') !!}
