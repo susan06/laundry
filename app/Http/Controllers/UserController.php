@@ -35,11 +35,9 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, RoleRepository $roleRepository)
+    public function index(Request $request)
     {
         $users = $this->users->paginate_search(10, $request->search);
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
-        $roles = ['' => trans('app.selected_item')] + $roleRepository->lists('display_name');
         if ( $request->ajax() ) {
             if (count($users)) {
                 return response()->json([
@@ -54,7 +52,7 @@ class UserController extends Controller
             }
         }
 
-        return view('users.index', compact('users','status','roles'));
+        return view('users.index', compact('users'));
     }
 
     /**

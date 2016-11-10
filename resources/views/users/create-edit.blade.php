@@ -42,11 +42,15 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
-  <button type="submit" class="btn btn-primary btn-submit">@lang('app.update')</button>
+  @if($edit)
+    <button type="submit" class="btn btn-primary btn-submit">@lang('app.update')</button>
+  @else
+      <button type="submit" class="btn btn-primary btn-submit">@lang('app.save')</button>
+  @endif
 </div>
 {!! Form::close() !!}
 
-@section('scripts_modal')
+@section('scripts')
 
 @if($edit)
   {!! JsValidator::formRequest('App\Http\Requests\User\UpdateUser', '#form-modal') !!}

@@ -283,7 +283,7 @@ $(document).on('click', '.create-edit-modal', function () {
 $(document).on('click', '.btn-submit', function (e) {
     e.preventDefault();
     var form = $('#form-modal'); 
-    console.log(form.valid());
+    //console.log(form.valid());
     var type = $('#form-modal input[name="_method"]').val();
     if(typeof type == "undefined") {
         type = form.attr('method');

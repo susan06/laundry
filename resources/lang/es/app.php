@@ -23,6 +23,7 @@ return [
     'update' => 'Actualizar',
     'error_again' => 'Error, intente de nuevo',
     'selected_item' => 'Seleccionar',
+    'close' => 'Cerrar',
 
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -145,13 +146,12 @@ return [
     'login_to' => 'Loguearse en',
 
     'email' => 'Email',
-    'your_email' => 'Su E-Mail',
+    'your_email' => 'Su email',
     'username' => 'Usuario',
     'confirm_password' => 'Confirmar contraseña',
     'i_accept' => 'Yo acepto',
     'terms_of_service' => 'Terminos de servicios',
-    'close' => 'Close',
-    'validate' => 'Validate',
+    'validate' => 'Validar',
     'send' => 'Enviar',
     'back' => 'Regresar',
     'register' => 'Registrar',
@@ -398,7 +398,7 @@ return [
     'upload_photo' => 'Subir Fotografía',
     'gravatar' => 'Gravatar',
     'cancel' => 'Cancelar',
-    'save' => 'Salvar',
+    'save' => 'Guardar',
     'no_photo' => 'Sin Fotografía',
     'user_details' => 'Detalles de Usuario',
     'role' => 'Rol',
@@ -454,6 +454,8 @@ return [
     'Active' => 'Activos',
     'Banned' => 'Desactivados',
     'Unconfirmed' => 'No Confirmados',
+    'Valid' => 'Valido',
+    'Useless' => 'Usado',
 
     'user_created' => 'Usuario creado con éxito.',
     'user_updated' => 'Usuario actualizado correctamente.',
@@ -498,4 +500,17 @@ return [
 
     'all_rights_reserved' => 'Todos los derechos están reservados.',
     'write_here' => 'Escribe aquí',
+
+    //coupons
+    'coupons' => 'Cupones',
+    'coupon_created' => 'Cupón creado',
+    'coupon_updated' => 'Cupón actualizado',
+    'coupon_deleted' => 'Cupón eliminado',
+    'create_coupon' => 'Crear cupón',
+    'edit_coupon' => 'Editar cupón',
+    'delete_coupon' => 'Eliminar cupón',
+    'are_you_sure_delete_coupon' => 'Seguro que desea eliminar este cupón?',
+    'code' => 'Código',
+    'validity' => 'Valido hasta',
+    'percentage' => 'Porcentaje',
 ];

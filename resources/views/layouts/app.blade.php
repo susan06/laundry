@@ -96,6 +96,9 @@
     {!! HTML::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
     {!! HTML::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
 
+    <!-- bootstrap-daterangepicker -->
+    {!! HTML::script('assets/js/moment/moment.min.js') !!}
+
     <script>
        var lang = {"cancel" : "@lang('app.cancel')"};
     </script>

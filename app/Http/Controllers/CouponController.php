@@ -5,17 +5,53 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Auth;
+use App\Coupon;
+use App\Repositories\Coupon\CouponRepository;
+use App\Http\Requests\Coupon\CreateCoupon;
+use App\Http\Requests\Coupon\UpdateCoupon;
+use App\Support\Coupon\CouponStatus;
 
 class CouponController extends Controller
 {
+    /**
+     * @var CouponRepository
+     */
+    private $coupons;
+
+    /**
+     * CouponController constructor.
+     * @param CouponRepository $coupons
+     */
+    public function __construct(CouponRepository $coupons)
+    {
+        $this->middleware('auth');
+        $this->coupons = $coupons;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $coupons = $this->coupons->paginate(10, $request->search);
+        if ( $request->ajax() ) {
+            if (count($coupons)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('coupons.list', compact('coupons'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('coupons.index', compact('coupons','coupon'));
     }
 
     /**
@@ -25,7 +61,13 @@ class CouponController extends Controller
      */
     public function create()
     {
-        //
+        $edit = false;
+        $code = str_random(15);
+
+        return response()->json([
+            'success' => true,
+            'view' => view('coupons.create-edit', compact('edit','code'))->render()
+        ]);
     }
 
     /**
@@ -34,9 +76,29 @@ class CouponController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateCoupon $request)
     {
-        //
+        $data = [
+            'code' => encrypt($request->code),
+            'percentage' => $request->percentage,
+            'validity' => $request->validity,
+            'created_by' => Auth::id(),
+            'status' => CouponStatus::VALID
+        ];
+        $coupon = $this->coupons->create($data);
+        if ( $coupon ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.coupon_created')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 
     /**
@@ -58,7 +120,18 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit = true;
+        if ( $coupon = $this->coupons->find($id) ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('coupons.create-edit', compact('coupon','edit'))->render()
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.no_record_found')
+            ]);
+        }
     }
 
     /**
@@ -68,9 +141,25 @@ class CouponController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCoupon $request, $id)
     {
-        //
+        $coupon = $this->coupons->update(
+            $id, 
+            $request->only('validity', 'percentage')
+        );
+        if ( $coupon ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.coupon_updated')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 
     /**
@@ -81,6 +170,16 @@ class CouponController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ( $this->coupons->delete($id) ) {
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.coupon_deleted')
+            ]);
+        } else {
+            return response()->json([
+                'success'=> false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 }

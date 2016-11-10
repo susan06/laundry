@@ -18,6 +18,7 @@ class CreateCouponsSetupTable extends Migration
             $table->string('code')->unique();
             $table->date('validity');
             $table->integer('percentage');
+            $table->string('status');
             $table->integer('created_by');
             $table->timestamps();
         });

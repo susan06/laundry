@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Support\Coupon\CouponStatus;
+
 class CouponsTableSeeder extends Seeder
 {
     /**
@@ -12,9 +14,37 @@ class CouponsTableSeeder extends Seeder
     public function run()
     {
         DB::table('coupons')->insert([
-            'code' => bcrypt(str_random(15)),
-            'validity' => '2016-11-30',
+            'code' => encrypt(str_random(15)),
+            'validity' => '2016-11-15',
             'percentage' => 20,
+            'status' => CouponStatus::VALID,
+            'created_by' => 1,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('coupons')->insert([
+            'code' => encrypt(str_random(15)),
+            'validity' => '2016-11-20',
+            'percentage' => 10,
+            'status' => CouponStatus::USELESS,
+            'created_by' => 1,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('coupons')->insert([
+            'code' => encrypt(str_random(15)),
+            'validity' => '2016-11-25',
+            'percentage' => 20,
+            'status' => CouponStatus::VALID,
+            'created_by' => 1,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+
+        DB::table('coupons')->insert([
+            'code' => encrypt(str_random(15)),
+            'validity' => '2016-11-30',
+            'percentage' => 10,
+            'status' => CouponStatus::USELESS,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
         ]);

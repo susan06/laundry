@@ -23,9 +23,9 @@ class UpdateUser extends FormRequest
      */
     public function rules()
     {
-        $user = $this->route('user');
+        $id = $this->route('user');
         return [
-            'email' => 'required|email|unique:users,email,' .$user->id,
+            'email' => 'required|email|unique:users,email,' .$id,
             'name' => 'required|min:3',
             'lastname' => 'required|min:3',
             'status' => 'required',

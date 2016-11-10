@@ -62,4 +62,9 @@ Route::resource('user', 'UserController');
 */
 Route::resource('role', 'RoleController');
 
+/**
+ * Coupons
+*/
+Route::resource('coupon', 'CouponController');
+
  

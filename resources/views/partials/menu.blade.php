@@ -30,16 +30,24 @@
           <a href="{{ url('home') }}" title="@lang('app.home')"><i class="fa fa-home"></i> @lang('app.home')
           </a>
         </li>
-        <!--Users and Roles -->
+        
         @if (Auth::user()->role->name == 'admin')
+        <!--Users and Roles -->
         <li><a><i class="fa fa-users"></i> @lang('app.users') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{ route('user.index') }}">@lang('app.users')</a></li>
             <li><a href="{{ route('role.index') }}">@lang('app.roles')</a></li>
           </ul>
         </li>
-        @endif
         <!--//Users and Roles -->
+        <!--Coupons -->
+        <li>
+          <a href="{{ route('coupon.index') }}" title="@lang('app.coupons')"><i class="fa fa-tags"></i> @lang('app.coupons')
+          </a>
+        </li>
+        <!--//Coupons -->
+        @endif
+       
         </ul>
       </div>
     </div>

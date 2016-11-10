@@ -7,5 +7,5 @@ use App\Repositories\RepositoryInterface;
 
 interface CouponRepository extends RepositoryInterface
 {
-    //
+     //
 }
