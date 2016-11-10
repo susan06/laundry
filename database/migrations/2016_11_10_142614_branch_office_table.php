@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class BranchOfficeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,20 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('branch_offices', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('role_id')->unsigned();
             $table->string('name');
-            $table->string('lastname');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('phone');
+            $table->integer('representative_id')->unsigned();
             $table->string('status', 20);
-            $table->string('lang')->nullable();
-            $table->rememberToken();
+            $table->integer('created_by');
             $table->timestamps();
             $table->engine = 'InnoDB';
-
-            $table->foreign('role_id')->references('id')->on('roles')
-                ->onUpdate('cascade')->onDelete('cascade');
+            
+            $table->foreign('representative_id')->references('id')->on('users')
+            ->onUpdate('cascade')->onDelete('cascade');
         });
+     
     }
 
     /**
@@ -38,6 +36,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('branch_offices');
     }
 }

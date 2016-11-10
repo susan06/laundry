@@ -513,4 +513,8 @@ return [
     'code' => 'Código',
     'validity' => 'Valido hasta',
     'percentage' => 'Porcentaje',
+
+    //sucursales
+    'In service' => 'En servicio',
+    'Out of service' => 'Fuera de servicio',
 ];

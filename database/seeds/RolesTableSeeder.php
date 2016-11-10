@@ -40,9 +40,9 @@ class RolesTableSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'branch-office',
-            'display_name' => 'Branch Office',
-            'description' => 'system Branch Office',
+            'name' => 'branch-representative',
+            'display_name' => 'Branch Representative',
+            'description' => 'system Branch Representative',
             'removable' => false
         ]);
 
