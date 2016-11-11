@@ -91,4 +91,24 @@ class ClientsController extends Controller
     {
         return view('clients.terms');
     }
+
+    /**
+     * Show the frequent questions.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function frequentQuestions()
+    {
+        return view('clients.questions');
+    }
+
+    /**
+     * Show the privacy policies.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function privacyPolicies()
+    {
+        return view('clients.privacy');
+    }
 }

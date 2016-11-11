@@ -26,6 +26,9 @@ return [
     'close' => 'Cerrar',
     'clients' => 'Clientes',
     'terms_and_conditions' => 'Términos y Condiciones',
+    'frequent_questions' => 'Preguntas Frecuentes',
+    'privacy_policies' => 'Políticas de Privacidad',
+
 
     // Activity Log Section
     'activity_log' => 'Registros',

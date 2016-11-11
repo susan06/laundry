@@ -19,6 +19,6 @@ return [
     'accept_terms_and_conditions'     => 'Aceptar términos y condiciones.',
     'receive_promotion_and_discounts' => 'Recibir promociones y descuentos.',
     'terms_and_conditions'            => 'Términos y Condiciones',
-
-
+    'frequent_questions'              => 'Preguntas Frecuentes',
+    'privacy_policies'                => 'Políticas de Privacidad',
 ];

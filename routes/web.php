@@ -84,3 +84,19 @@ Route::get('terms', [
     'as' => 'clients.terms',
     'uses' => 'ClientsController@termsAndConditions'
 ]);
+
+/**
+ * Frequent Questions
+*/
+Route::get('questions', [
+    'as' => 'clients.questions',
+    'uses' => 'ClientsController@frequentQuestions'
+]);
+
+/**
+ * Privacy Policies
+*/
+Route::get('privacy', [
+    'as' => 'clients.privacy',
+    'uses' => 'ClientsController@privacyPolicies'
+]);
