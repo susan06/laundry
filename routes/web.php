@@ -67,6 +67,10 @@ Route::resource('role', 'RoleController');
 */
 Route::resource('coupon', 'CouponController');
 
+/**
+ * Coupons
+*/
+Route::resource('branch-office', 'branchOfficeController');
  
 /**
  * Clients

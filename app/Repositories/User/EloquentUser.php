@@ -3,6 +3,7 @@
 namespace App\Repositories\User;
 
 use App\User;
+use App\Role;
 use App\Repositories\Repository;
 
 class EloquentUser extends Repository implements UserRepository
@@ -12,7 +13,7 @@ class EloquentUser extends Repository implements UserRepository
      *
      * @var array
      */
-    protected $attributes = ['name', 'lastname', 'email', 'status'];
+    protected $attributes = ['name', 'lastname', 'email'];
 
     /**
      * EloquentUser constructor
@@ -52,6 +53,20 @@ class EloquentUser extends Repository implements UserRepository
 
         }
 
+        return $result;
+    }
+
+     /**
+     * lists representative
+     */
+    public function lists_representative()
+    {
+        $result = array();
+        $role = Role::where('name','branch-representative')->first();
+        $users = User::where('role_id', $role->id)->get();
+        foreach ($users as $user) {
+            $result[$user->id] = $user->full_name();
+        }
         return $result;
     }
 

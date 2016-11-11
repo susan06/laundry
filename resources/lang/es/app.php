@@ -515,4 +515,17 @@ return [
     'code' => 'Código',
     'validity' => 'Valido hasta',
     'percentage' => 'Porcentaje',
+
+    //sucursales
+    'In service' => 'En servicio',
+    'Out of service' => 'Fuera de servicio',
+    'branch_offices' => 'Sucursales',
+    'branch_office_created' => 'Sucursal creada',
+    'branch_office_updated' => 'Sucursal actualizada',
+    'branch_office_deleted' => 'Sucursal eliminada',
+    'create_branch_office' => 'Crear Sucursal',
+    'edit_branch_office' => 'Editar Sucursal',
+    'delete_branch_office' => 'Eliminar Sucursal',
+    'representative' => 'Representante',
+    'are_you_sure_delete_branch_office' => 'Seguro que desea eliminar esta Sucursal?',
 ];

@@ -21,6 +21,7 @@ class CreateCouponsSetupTable extends Migration
             $table->string('status')->default('Valid');
             $table->integer('created_by');
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
@@ -31,6 +32,6 @@ class CreateCouponsSetupTable extends Migration
      */
     public function down()
     {
-         Schema::drop('coupons');
+        Schema::drop('coupons');
     }
 }

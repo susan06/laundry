@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.coupons'))
+@section('page-title', trans('app.branch_offices'))
 
 @section('content')
 
@@ -11,7 +11,7 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>@lang('app.coupons')</h3>
+              <h3>@lang('app.branch_offices')</h3>
             </div>
             <div>
               <div class="col-md-6 col-sm-7 col-xs-12 form-group pull-right top_search">
@@ -28,43 +28,45 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('coupon.create') }}" class="btn btn-primary btn-sm create-edit-modal" title="@lang('app.create_coupon')">@lang('app.create_coupon')</button>
+            <button type="button" data-href="{{ route('branch-office.create') }}" class="btn btn-primary btn-sm create-edit-modal" title="@lang('app.create_branch_office')">@lang('app.create_branch_office')</button>
             </p>
 
             <div id="content-table">
               <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                 <thead>
                   <th>#</th>
-                  <th>@lang('app.percentage')</th>
-                  <th>@lang('app.validity')</th>
+                  <th>@lang('app.name')</th>
+                  <th>@lang('app.phone')</th>
+                  <th>@lang('app.representative')</th>
                   <th>@lang('app.registration_date')</th>
                   <th>@lang('app.status')</th>
                   <th class="text-center">@lang('app.actions')</th>
                 </thead>
                 <tbody>
-                @if (count($coupons))
-                    @foreach ($coupons as $key => $coupon)
+                @if (count($branch_offices))
+                    @foreach ($branch_offices as $key => $branch_office)
                         <tr>
-                            <td>{{ ($coupons->currentpage()-1) * $coupons->perpage() + $key + 1 }}</td>
-                            <td>{{ $coupon->percentage }}</td>
-                            <td>{{ $coupon->validity }}</td>
-                            <td>{{ $coupon->created_at }}</td>
+                            <td>{{ ($branch_offices->currentpage()-1) * $branch_offices->perpage() + $key + 1 }}</td>
+                            <td>{{ $branch_office->name }}</td>
+                            <td>{{ $branch_office->phone }}</td>
+                            <td>{{ $branch_office->representative->full_name() }}</td>
+                            <td>{{ $branch_office->created_at }}</td>
                             <td>
-                              <span class="label label-{{ $coupon->labelClass() }}">{{ trans("app.{$coupon->status}") }}</span>
+                              <span class="label label-{{ $branch_office->labelClass() }}">{{ trans("app.{$branch_office->status}") }}</span>
                             </td>
                             <td class="text-center">
-                            @if($coupon->status == 'Valid')
-                                <button type="button" data-href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-round btn-primary btn-xs create-edit-modal"
-                                   title="@lang('app.edit_coupon')" data-toggle="tooltip" data-placement="top">
+     
+                                <button type="button" data-href="{{ route('branch-office.edit', $branch_office->id) }}" class="btn btn-round btn-primary btn-xs create-edit-modal"
+                                   title="@lang('app.edit_branch_office')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                            @endif
-                            @if($coupon->status == 'Useless')
-                                <button type="button" data-href="{{ route('coupon.destroy', $coupon->id) }}" 
+ 
+                            @if($branch_office->status == 'Out of service')
+                                <button type="button" data-href="{{ route('branch-office.destroy', $branch_office->id) }}" 
                                   class="btn btn-round btn-danger btn-xs btn-delete" 
-                                  data-confirm-text="@lang('app.are_you_sure_delete_coupon')"
+                                  data-confirm-text="@lang('app.are_you_sure_delete_branch_office')"
                                   data-confirm-delete="@lang('app.yes_delete_him')"
-                                  title="@lang('app.delete_coupon')" data-toggle="tooltip" data-placement="top">
+                                  title="@lang('app.delete_branch_office')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-trash"></i>
                                 </button>
                              @endif
@@ -73,12 +75,12 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6"><em>@lang('app.no_records_found')</em></td>
+                        <td colspan="7"><em>@lang('app.no_records_found')</em></td>
                     </tr>
                 @endif
                 </tbody>
               </table>
-              {{ $coupons->links() }}
+              {{ $branch_offices->links() }}
             </div>
 
           </div>

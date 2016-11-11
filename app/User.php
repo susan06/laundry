@@ -31,7 +31,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
     /**
      * Functions
      *
@@ -97,4 +96,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Coupon::class, 'created_by');
     }
+
+    public function branch_office()
+    {
+        return $this->hasOne(BranchOffice::class, 'representative_id');
+    }
+
 }

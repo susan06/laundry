@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Repositories\User;
+namespace App\Repositories\BranchOffice;
 
-use App\User;
-use \Laravel\Socialite\Contracts\User as SocialUser;
+use App\BranchOffice;
 use App\Repositories\RepositoryInterface;
 
-interface UserRepository extends RepositoryInterface
+interface BranchOfficeRepository extends RepositoryInterface
 {
-     /**
+    /**
      * Paginate and search
      *
      * return the result paginated for the take value and with the attributes.
@@ -20,9 +19,4 @@ interface UserRepository extends RepositoryInterface
      *
      */
     public function paginate_search($take = 10, $search = null);
-
-     /**
-     * lists representative
-     */
-    public function lists_representative();
 }

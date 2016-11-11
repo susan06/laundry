@@ -61,13 +61,25 @@ class UsersTableSeeder extends Seeder
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        //sucursales
-        $role = DB::table('roles')->where('name', 'branch-office')->first();
+        //representante de sucursal
+        $role = DB::table('roles')->where('name', 'branch-representative')->first();
         DB::table('users')->insert([
             'role_id' => $role->id,
             'name' => 'Carlos',
             'lastname' => 'Suarez',
-            'email' => 'branch@office.com',
+            'email' => 'carlos@representative.com',
+            'lang' => 'es',
+            'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+        //representante de sucursal
+        $role = DB::table('roles')->where('name', 'branch-representative')->first();
+        DB::table('users')->insert([
+            'role_id' => $role->id,
+            'name' => 'Luis',
+            'lastname' => 'Mendez',
+            'email' => 'luis@representative.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
             'status' => UserStatus::ACTIVE,

@@ -20,6 +20,7 @@ class CreateRolesTable extends Migration
             $table->string('description')->nullable();
             $table->boolean('removable')->default(true);
             $table->timestamps();
+            $table->engine = 'InnoDB';
         });
     }
 
