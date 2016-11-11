@@ -47,6 +47,15 @@
         </li>
         <!--//Coupons -->
         @endif
+
+        <!--Clients -->
+        <li><a><i class="fa fa-users"></i> @lang('app.clients') <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{{ route('clients.create') }}">@lang('app.clients')</a></li>
+            <li><a href="{{ route('clients.terms') }}">@lang('app.terms_and_conditions')</a></li>
+          </ul>
+        </li>
+        <!--//Clients -->
        
         </ul>
       </div>

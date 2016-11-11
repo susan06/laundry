@@ -24,6 +24,8 @@ return [
     'error_again' => 'Error, intente de nuevo',
     'selected_item' => 'Seleccionar',
     'close' => 'Cerrar',
+    'clients' => 'Clientes',
+    'terms_and_conditions' => 'Términos y Condiciones',
 
     // Activity Log Section
     'activity_log' => 'Registros',

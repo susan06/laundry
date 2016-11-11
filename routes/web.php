@@ -68,3 +68,15 @@ Route::resource('role', 'RoleController');
 Route::resource('coupon', 'CouponController');
 
  
+/**
+ * Clients
+*/
+Route::resource('clients', 'ClientsController');
+
+/**
+ * Terms and Conditions
+*/
+Route::get('terms', [
+    'as' => 'clients.terms',
+    'uses' => 'ClientsController@termsAndConditions'
+]);
