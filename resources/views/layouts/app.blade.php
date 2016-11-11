@@ -19,7 +19,7 @@
     <!-- sweetalert -->
     {!! HTML::style("assets/css/sweetalert.css") !!}
     <!-- Custom Theme Style -->
-    {!! HTML::style("assets/css/custom.min.css") !!}
+    {!! HTML::style("assets/css/custom.css") !!}
     <!-- Datatables -->
     {!! HTML::style("vendors/datatables.net-bs/css/dataTables.bootstrap.min.css") !!}
     {!! HTML::style("vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") !!}
@@ -40,6 +40,9 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    @yield('scripts_head') 
+
 </head>
 <body class="nav-md">
     <div class="container body">

@@ -28,7 +28,7 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('user.create') }}" class="btn btn-primary btn-sm create-edit-modal" title="@lang('app.create_user')">@lang('app.create_user')</button>
+            <button type="button" data-href="{{ route('user.create') }}" class="btn btn-primary btn-sm create-edit" data-model="modal" title="@lang('app.create_user')">@lang('app.create_user')</button>
             </p>
 
             <div id="content-table">

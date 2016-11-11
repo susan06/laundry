@@ -11,7 +11,7 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>@lang('app.branch_offices')</h3>
+              <h3 id="content-title">@lang('app.branch_offices')</h3>
             </div>
             <div>
               <div class="col-md-6 col-sm-7 col-xs-12 form-group pull-right top_search">
@@ -23,12 +23,11 @@
                 </div>
               </div>
             </div>
-            <div class="clearfix"></div>
           </div>
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('branch-office.create') }}" class="btn btn-primary btn-sm create-edit-modal" title="@lang('app.create_branch_office')">@lang('app.create_branch_office')</button>
+            <button type="button" data-href="{{ route('branch-office.create') }}" class="btn btn-primary btn-sm create-edit" data-model="content" title="@lang('app.create_branch_office')">@lang('app.create_branch_office')</button>
             </p>
 
             <div id="content-table">
@@ -92,6 +91,7 @@
 
 @endsection
 
-@section('scripts')
-
+@section('scripts_head')
+@parent
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{env('API_KEY_GOOGLE')}}&libraries=places&language=es"></script>
 @endsection

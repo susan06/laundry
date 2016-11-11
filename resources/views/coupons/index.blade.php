@@ -28,7 +28,7 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('coupon.create') }}" class="btn btn-primary btn-sm create-edit-modal" title="@lang('app.create_coupon')">@lang('app.create_coupon')</button>
+            <button type="button" data-href="{{ route('coupon.create') }}" class="btn btn-primary btn-sm create-edit" data-model="modal"title="@lang('app.create_coupon')">@lang('app.create_coupon')</button>
             </p>
 
             <div id="content-table">

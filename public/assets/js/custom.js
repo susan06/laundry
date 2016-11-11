@@ -259,18 +259,29 @@ $(document).on('click', '.btn-delete', function () {
         });
 });
 
-//open create or edit modal
-$(document).on('click', '.create-edit-modal', function () {
+var current_model = null;
+var current_title = null;
+//open create or edit in modal or content
+$(document).on('click', '.create-edit', function () {
     var $this = $(this);
     var title = $this.attr("title");
+    current_model = $this.data('model');
     $.ajax({
         url: $this.data('href'),
         type:'GET',
         success: function(response) {
             if(response.success){
-                $('#myModalLabel').text(title);
-                $('#content-modal').html(response.view);
-                $('#general-modal').modal('show');
+                if(current_model == 'modal') {
+                    $('#modal-title').text(title);
+                    $('#content-modal').html(response.view);
+                    $('#general-modal').modal('show');
+                } else {
+                    $('.top_search').hide();
+                    $('.create-edit').hide();
+                    current_title = $('#content-title').text();
+                    $('#content-title').text(title);
+                    $('#content-table').html(response.view);
+                }
             } else {
                 notify('error', response.message);
             }
@@ -295,7 +306,13 @@ $(document).on('click', '.btn-submit', function (e) {
         dataType: 'json',
         success: function(response) {
             if(response.success){
-                $('#general-modal').modal('hide');
+                if(current_model == 'modal') {
+                    $('#general-modal').modal('hide');
+                } else {
+                    $('#content-title').text(current_title);
+                    $('.create-edit').show();
+                    $('.top_search').show();
+                }
                 notify('success', response.message);
                 getPages(CURRENT_URL);
             } else {
@@ -304,6 +321,15 @@ $(document).on('click', '.btn-submit', function (e) {
            
         }
     });
+});
+
+//cancel return page old
+$(document).on('click', '.btn-cancel', function (e) {
+    e.preventDefault();
+    getPages(CURRENT_URL);
+    $('#content-title').text(current_title);
+    $('.create-edit').show();
+    $('.top_search').show();
 });
 
 // search register all
@@ -364,4 +390,13 @@ function notify(type, message){
       styling: 'bootstrap3'
     });
 }
+
+function loadScript(src){
+
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    document.getElementsByTagName("head")[0].appendChild(script);
+    script.src = src;
+}
+
 // /script general
