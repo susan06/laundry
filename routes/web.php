@@ -101,6 +101,8 @@ Route::get('orders', [
     'uses' => 'ClientsController@myOrders'
 ]);
 
+
+
 /**
  * Frequent Questions
 */
@@ -115,4 +117,12 @@ Route::get('questions', [
 Route::get('privacy', [
     'as' => 'clients.privacy',
     'uses' => 'ClientsController@privacyPolicies'
+]);
+
+/**
+ * Invit a Friend
+*/
+Route::get('invite', [
+    'as' => 'clients.invite',
+    'uses' => 'ClientsController@inviteFriend'
 ]);

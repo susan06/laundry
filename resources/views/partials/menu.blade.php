@@ -69,6 +69,7 @@
             <li><a href="{{ route('clients.terms') }}">@lang('app.terms_and_conditions')</a></li>
             <li><a href="{{ route('clients.questions') }}">@lang('app.frequent_questions')</a></li>
             <li><a href="{{ route('clients.privacy') }}">@lang('app.privacy_policies')</a></li>
+            <li><a href="{{ route('clients.invite') }}">@lang('app.invite_friend')</a></li>
           </ul>
         </li>
         <!--//Clients -->

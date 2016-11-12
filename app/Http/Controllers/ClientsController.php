@@ -103,6 +103,16 @@ class ClientsController extends Controller
     }
 
     /**
+     * Show the client´s profile.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myProfile()
+    {
+        return view('clients.profile');
+    }
+
+    /**
      * Show the terms and conditions.
      *
      * @return \Illuminate\Http\Response
@@ -130,5 +140,15 @@ class ClientsController extends Controller
     public function privacyPolicies()
     {
         return view('clients.privacy');
+    }
+
+    /**
+     * Show the form for invite friend.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function inviteFriend()
+    {
+        return view('clients.invite');
     }
 }

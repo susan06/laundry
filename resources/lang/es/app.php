@@ -27,10 +27,11 @@ return [
     'clients' => 'Clientes',
     'registration' => 'Registro', 
     'request_services' => 'Solicitar Servicios',
-    'my_orders' => 'Mis órdenes',
+    'my_orders' => 'Mis Órdenes',
     'terms_and_conditions' => 'Términos y Condiciones',
     'frequent_questions' => 'Preguntas Frecuentes',
     'privacy_policies' => 'Políticas de Privacidad',
+    'invite_friend' => 'Invitar a un Amigo',
 
 
     // Activity Log Section
