@@ -458,9 +458,9 @@ return [
     'recaptcha_disabled' => 'reCAPTCHA desactivado con éxito.',
 
     'all' => 'Todos',
-    'Active' => 'Activos',
-    'Banned' => 'Desactivados',
-    'Unconfirmed' => 'No Confirmados',
+    'Active' => 'Activo',
+    'Banned' => 'Desactivado',
+    'Unconfirmed' => 'No Confirmado',
     'Valid' => 'Valido',
     'Useless' => 'Usado',
 

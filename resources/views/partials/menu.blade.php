@@ -40,6 +40,12 @@
           </ul>
         </li>
         <!--//Users and Roles -->
+        <!--Clients -->
+        <li>
+          <a href="{{ route('admin.client.index') }}" title="@lang('app.clients')"><i class="fa fa-users"></i> @lang('app.clients')
+          </a>
+        </li>
+        <!--//Clients -->
         <!--Coupons -->
         <li>
           <a href="{{ route('coupon.index') }}" title="@lang('app.coupons')"><i class="fa fa-tags"></i> @lang('app.coupons')

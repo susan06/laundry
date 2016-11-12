@@ -38,8 +38,15 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function paginate_search($take = 10, $search = null)
     {
+
+        $query = User::whereHas(
+                'role', function($q){
+                    $q->where('name','!=', 'client');
+                }
+            );
+
         if ($search) {
-            $result = User::where( function ($q) use($search) {
+            $query->where( function ($q) use($search) {
                 foreach ($this->attributes as $attribute) {
                     $q->orwhere($attribute, "like", "%{$search}%");
                 }
@@ -47,10 +54,45 @@ class EloquentUser extends Repository implements UserRepository
                     $qu->where('name', "like", "%{$search}%");
                     $qu->where('display_name', "like", "%{$search}%");
                 });
-            })->paginate($take)->appends(['search' => $search]);
-        } else {
-            $result = $this->model->paginate($take);
+            });
+        }
 
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;
+    }
+
+     /**
+     * Client Paginate and search
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function client_paginate_search($take = 10, $search = null)
+    {
+        $query = User::where('role_id', 2);
+
+        if ($search) {
+            $query->where( function ($q) use($search) {
+                foreach ($this->attributes as $attribute) {
+                    $q->orwhere($attribute, "like", "%{$search}%");
+                }
+            });
+        }
+
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
         }
 
         return $result;

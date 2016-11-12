@@ -56,6 +56,32 @@ class UserController extends Controller
     }
 
     /**
+     * Display a listing the clients.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function client_index(Request $request)
+    {
+        $clients = $this->users->client_paginate_search(10, $request->search);
+        if ( $request->ajax() ) {
+            if (count($clients)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('users.clients.list', compact('clients'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('users.clients.index', compact('clients'));
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

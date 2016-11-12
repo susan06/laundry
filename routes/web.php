@@ -52,10 +52,10 @@ Route::group([
  });
 
 /**
- * Users
+ * Adminitrations of Users
 */
+Route::get('user/clients', 'UserController@client_index')->name('admin.client.index');
 Route::resource('user', 'UserController');
-
 
 /**
  * Roles
