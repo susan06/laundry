@@ -332,10 +332,19 @@ $(document).on('click', '.btn-cancel', function (e) {
     $('.top_search').show();
 });
 
+//reset search
+$(document).on('click', '.search-cancel', function (e) {
+    e.preventDefault();
+    getPages(CURRENT_URL);
+    $('#search').val('');
+    $(this).hide();
+});
+
 // search register all
 $(document).on('click', '.search', function () {
     var term = $('#search').val();
     var $this = $(this);
+    $('.search-cancel').show();
     if(term){
         $.ajax({
             url: CURRENT_URL,

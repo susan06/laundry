@@ -46,14 +46,17 @@ class EloquentUser extends Repository implements UserRepository
             );
 
         if ($search) {
-            $query->where( function ($q) use($search) {
-                foreach ($this->attributes as $attribute) {
-                    $q->orwhere($attribute, "like", "%{$search}%");
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                   foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
+                    $q->whereHas('role', function($qu) use($term) {
+                        $qu->orwhere('name', "like", "%{$term}%");
+                        $qu->orwhere('display_name', "like", "%{$term}%");
+                    });
                 }
-                $q->whereHas('role', function($qu) use($search) {
-                    $qu->where('name', "like", "%{$search}%");
-                    $qu->where('display_name', "like", "%{$search}%");
-                });
             });
         }
 
@@ -82,9 +85,12 @@ class EloquentUser extends Repository implements UserRepository
         $query = User::where('role_id', 2);
 
         if ($search) {
-            $query->where( function ($q) use($search) {
-                foreach ($this->attributes as $attribute) {
-                    $q->orwhere($attribute, "like", "%{$search}%");
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                   foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
                 }
             });
         }

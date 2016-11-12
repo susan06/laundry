@@ -150,11 +150,16 @@ abstract class Repository implements RepositoryInterface
     public function paginate($take = 10, $search = null)
     {
         if ($search) {
-            $result = $this->model->where( function ($q) use($search) {
-                foreach ($this->attributes as $attribute) {
-                    $q->orwhere($attribute, "like", "%{$search}%");
+
+            $searchTerms = explode(' ', $search);
+            $result = $this->model->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                   foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
                 }
             })->paginate($take)->appends(['search' => $search]);
+
         } else {
             $result = $this->model->paginate($take);
 
