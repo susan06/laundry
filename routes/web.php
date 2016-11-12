@@ -101,7 +101,13 @@ Route::get('orders', [
     'uses' => 'ClientsController@myOrders'
 ]);
 
-
+/**
+ * My Profile
+*/
+Route::get('profile', [
+    'as' => 'clients.profile',
+    'uses' => 'ClientsController@myProfile'
+]);
 
 /**
  * Frequent Questions

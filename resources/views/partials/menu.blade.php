@@ -66,6 +66,7 @@
             <li><a href="{{ route('clients.create') }}">@lang('app.registration')</a></li>
             <li><a href="{{ route('clients.services') }}">@lang('app.request_services')</a></li>
             <li><a href="{{ route('clients.orders') }}">@lang('app.my_orders')</a></li>
+            <li><a href="{{ route('clients.profile') }}">@lang('app.my_profile')</a></li>
             <li><a href="{{ route('clients.terms') }}">@lang('app.terms_and_conditions')</a></li>
             <li><a href="{{ route('clients.questions') }}">@lang('app.frequent_questions')</a></li>
             <li><a href="{{ route('clients.privacy') }}">@lang('app.privacy_policies')</a></li>
