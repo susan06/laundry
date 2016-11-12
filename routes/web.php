@@ -78,6 +78,11 @@ Route::resource('branch-office', 'branchOfficeController');
 Route::resource('clients', 'ClientsController');
 
 /**
+ * Driver
+*/
+Route::resource('driver', 'DriverController');
+
+/**
  * Request Services
 */
 Route::get('services', [
@@ -131,4 +136,12 @@ Route::get('privacy', [
 Route::get('invite', [
     'as' => 'clients.invite',
     'uses' => 'ClientsController@inviteFriend'
+]);
+
+/**
+ * My Itinerary
+*/
+Route::get('itinerary', [
+    'as' => 'driver.itinerary',
+    'uses' => 'DriverController@myItinerary'
 ]);

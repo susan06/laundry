@@ -25,6 +25,7 @@ return [
     'selected_item' => 'Seleccionar',
     'close' => 'Cerrar',
     'clients' => 'Clientes',
+    'client' => 'Cliente',
     'registration' => 'Registro', 
     'request_services' => 'Solicitar Servicios',
     'my_orders' => 'Mis Órdenes',
@@ -32,6 +33,9 @@ return [
     'frequent_questions' => 'Preguntas Frecuentes',
     'privacy_policies' => 'Políticas de Privacidad',
     'invite_friend' => 'Invitar a un Amigo',
+    'driver' => 'Conductor',
+    'my_itinerary' => 'Mi Itinerario',
+    'see_order' => 'Ver Orden',
 
 
     // Activity Log Section
