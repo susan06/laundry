@@ -18,13 +18,23 @@
   </div>
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="text" class="form-control" id="inputSuccess3" placeholder="@lang('client.password')">
+    <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
+  </div>
+
+  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="@lang('client.confirm_password')">
+    <span class="fa fa-lock form-control-feedback left" aria-hidden="true"></span>
+  </div>
+
+  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('client.mobile')">
     <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
   </div>
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('client.telephone')">
-    <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="@lang('client.telephone')">
+    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
   </div>
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -38,14 +48,34 @@
 <fieldset>
 <legend>@lang('client.credit_card_details')</legend>
 
+  <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="radio">
+        <label>
+          <input type="radio" name="radio-inline" checked>
+                          <i></i>Visa</label>
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="radio-inline">
+                          <i></i>MasterCard</label>
+      </div>
+    </div>
+
+
+  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess5" placeholder="@lang('client.name_on_card')">
+    <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
+  </div> 
+
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
     <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('client.number')">
     <span class="fa fa-credit-card form-control-feedback right" aria-hidden="true"></span>
   </div>                 
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('client.cvv')">
-    <span class="fa fa-credit-card form-control-feedback right" aria-hidden="true"></span>
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess5" placeholder="@lang('client.cvv')">
+    <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
   </div>
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -54,8 +84,8 @@
   </div>
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('client.year_of_expiration')">
-    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess5" placeholder="@lang('client.year_of_expiration')">
+    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
   </div>
 
   <div class="col-md-9 col-sm-9 col-xs-12">

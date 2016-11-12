@@ -78,11 +78,27 @@ Route::resource('branch-office', 'branchOfficeController');
 Route::resource('clients', 'ClientsController');
 
 /**
+ * Request Services
+*/
+Route::get('services', [
+    'as' => 'clients.services',
+    'uses' => 'ClientsController@requestServices'
+]);
+
+/**
  * Terms and Conditions
 */
 Route::get('terms', [
     'as' => 'clients.terms',
     'uses' => 'ClientsController@termsAndConditions'
+]);
+
+/**
+ * Orders
+*/
+Route::get('orders', [
+    'as' => 'clients.orders',
+    'uses' => 'ClientsController@myOrders'
 ]);
 
 /**

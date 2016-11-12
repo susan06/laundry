@@ -57,7 +57,9 @@
         <!--Clients -->
         <li><a><i class="fa fa-users"></i> @lang('app.clients') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{{ route('clients.create') }}">@lang('app.clients')</a></li>
+            <li><a href="{{ route('clients.create') }}">@lang('app.registration')</a></li>
+            <li><a href="{{ route('clients.services') }}">@lang('app.request_services')</a></li>
+            <li><a href="{{ route('clients.orders') }}">@lang('app.my_orders')</a></li>
             <li><a href="{{ route('clients.terms') }}">@lang('app.terms_and_conditions')</a></li>
             <li><a href="{{ route('clients.questions') }}">@lang('app.frequent_questions')</a></li>
             <li><a href="{{ route('clients.privacy') }}">@lang('app.privacy_policies')</a></li>

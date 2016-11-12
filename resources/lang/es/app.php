@@ -25,6 +25,9 @@ return [
     'selected_item' => 'Seleccionar',
     'close' => 'Cerrar',
     'clients' => 'Clientes',
+    'registration' => 'Registro', 
+    'request_services' => 'Solicitar Servicios',
+    'my_orders' => 'Mis órdenes',
     'terms_and_conditions' => 'Términos y Condiciones',
     'frequent_questions' => 'Preguntas Frecuentes',
     'privacy_policies' => 'Políticas de Privacidad',
@@ -288,7 +291,6 @@ return [
     'enable' => 'Habilitar',
 
     'allow_registration' => 'Permite el registro?',
-    'terms_and_conditions' => 'Términos y condiciones',
     'the_user_has_to_confirm' => 'El usuario tiene que confirmar que está de acuerdo con los términos y condiciones con el fin de crear una cuenta.',
     'email_confirmation' => 'Confirmación de Email',
 

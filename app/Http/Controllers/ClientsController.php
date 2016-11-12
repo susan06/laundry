@@ -83,6 +83,26 @@ class ClientsController extends Controller
     }
 
     /**
+     * Show the form for request services.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function requestServices()
+    {
+        return view('clients.services');
+    }
+
+    /**
+     * Show the list of orders.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myOrders()
+    {
+        return view('clients.orders');
+    }
+
+    /**
      * Show the terms and conditions.
      *
      * @return \Illuminate\Http\Response
