@@ -80,6 +80,30 @@ class UserController extends Controller
         return view('users.clients.index', compact('clients'));
     }
 
+    /**
+     * Display a listing the drivers.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function driver_index(Request $request)
+    {
+        $drivers = $this->users->driver_paginate_search(10, $request->search);
+        if ( $request->ajax() ) {
+            if (count($drivers)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('users.drivers.list', compact('drivers'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('users.drivers.index', compact('drivers'));
+    }
 
     /**
      * Show the form for creating a new resource.

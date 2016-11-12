@@ -46,6 +46,12 @@
           </a>
         </li>
         <!--//Clients -->
+         <!--Drivers -->
+        <li>
+          <a href="{{ route('admin.driver.index') }}" title="@lang('app.drivers')"><i class="fa fa-car"></i> @lang('app.drivers')
+          </a>
+        </li>
+        <!--//Drivers -->
         <!--Coupons -->
         <li>
           <a href="{{ route('coupon.index') }}" title="@lang('app.coupons')"><i class="fa fa-tags"></i> @lang('app.coupons')

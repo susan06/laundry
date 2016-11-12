@@ -34,6 +34,19 @@ interface UserRepository extends RepositoryInterface
      */
     public function client_paginate_search($take = 10, $search = null);
 
+    /**
+     * Driver Paginate and search
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function driver_paginate_search($take = 10, $search = null);
+
      /**
      * lists representative
      */

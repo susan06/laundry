@@ -75,9 +75,6 @@
     <!-- moment -->
     {!! HTML::script('assets/js/moment/moment.min.js') !!}
 
-    <!-- Laravel Javascript Validation -->
-    {!! HTML::script('vendor/jsvalidation/js/jsvalidation.js') !!}
-
     <!--sweet alert--> 
     {!! HTML::script('assets/js/sweetalert/sweetalert.min.js') !!}
 

@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        //cliente
+        //clientes
         $role = DB::table('roles')->where('name', 'client')->first();
         DB::table('users')->insert([
             'role_id' => $role->id,
@@ -37,7 +37,17 @@ class UsersTableSeeder extends Seeder
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        //conductor
+        DB::table('users')->insert([
+            'role_id' => $role->id,
+            'name' => 'Cristian',
+            'lastname' => 'Medina',
+            'email' => 'client2@client.com',
+            'lang' => 'es',
+            'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+        //conductores
         $role = DB::table('roles')->where('name', 'driver')->first();
         DB::table('users')->insert([
             'role_id' => $role->id,
@@ -49,19 +59,39 @@ class UsersTableSeeder extends Seeder
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        //asesor de servicios
+        DB::table('users')->insert([
+            'role_id' => $role->id,
+            'name' => 'Carla',
+            'lastname' => 'Marquez',
+            'email' => 'driver2@driver.com',
+            'lang' => 'es',
+            'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+        //asesores de servicios
         $role = DB::table('roles')->where('name', 'supervisor')->first();
         DB::table('users')->insert([
             'role_id' => $role->id,
-            'name' => 'Carlos',
-            'lastname' => 'Suarez',
+            'name' => 'Josué',
+            'lastname' => 'Parra',
             'email' => 'service@advisor.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        //representante de sucursal
+        DB::table('users')->insert([
+            'role_id' => $role->id,
+            'name' => 'Antony',
+            'lastname' => 'Diaz',
+            'email' => 'service2@advisor.com',
+            'lang' => 'es',
+            'password' => bcrypt('secret'),
+            'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+        //representantes de sucursal
         $role = DB::table('roles')->where('name', 'branch-representative')->first();
         DB::table('users')->insert([
             'role_id' => $role->id,
@@ -73,8 +103,6 @@ class UsersTableSeeder extends Seeder
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        //representante de sucursal
-        $role = DB::table('roles')->where('name', 'branch-representative')->first();
         DB::table('users')->insert([
             'role_id' => $role->id,
             'name' => 'Luis',

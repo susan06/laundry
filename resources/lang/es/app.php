@@ -540,4 +540,15 @@ return [
     'are_you_sure_delete_branch_office' => 'Seguro que desea eliminar esta Sucursal?',
     'address_principal' => 'Dirección principal',
     'address_add' => 'Agregar direcciones',
+
+    //Conductores
+    'drivers' => 'Conductores',
+    'driver' => 'Conductor',
+    'driver_created' => 'Conductor creada',
+    'driver_updated' => 'Conductor actualizada',
+    'driver_deleted' => 'Conductor eliminada',
+    'create_driver' => 'Crear Conductor',
+    'edit_driver' => 'Editar Conductor',
+    'delete_driver' => 'Eliminar Conductor',
+    'are_you_sure_delete_driver' => 'Seguro que desea eliminar esta Conductor?',
 ];

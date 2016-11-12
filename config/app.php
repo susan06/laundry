@@ -172,7 +172,7 @@ return [
          */
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
+        //Laravel\Socialite\SocialiteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         //
@@ -235,7 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        //'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
 

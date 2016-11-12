@@ -42,6 +42,7 @@ class EloquentUser extends Repository implements UserRepository
         $query = User::whereHas(
                 'role', function($q){
                     $q->where('name','!=', 'client');
+                    $q->where('name','!=', 'driver');
                 }
             );
 
@@ -83,6 +84,41 @@ class EloquentUser extends Repository implements UserRepository
     public function client_paginate_search($take = 10, $search = null)
     {
         $query = User::where('role_id', 2);
+
+        if ($search) {
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                   foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
+                }
+            });
+        }
+
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;
+    }
+
+     /**
+     * Driver Paginate and search
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function driver_paginate_search($take = 10, $search = null)
+    {
+        $query = User::where('role_id', 3);
 
         if ($search) {
             $searchTerms = explode(' ', $search);

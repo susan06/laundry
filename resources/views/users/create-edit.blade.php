@@ -25,6 +25,7 @@
     {!! Form::text('email', old('email'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'email']) !!}
     </div>
   </div>
+
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.role') <span class="required">*</span>
     </label>
@@ -32,6 +33,7 @@
       {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'role_id']) !!}
     </div>
   </div>
+ 
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.status') <span class="required">*</span>
     </label>
@@ -50,12 +52,3 @@
 </div>
 {!! Form::close() !!}
 
-@section('scripts')
-
-@if($edit)
-  {!! JsValidator::formRequest('App\Http\Requests\User\UpdateUser', '#form-modal') !!}
-@else
-  {!! JsValidator::formRequest('App\Http\Requests\User\CreateUser', '#form-modal') !!}
-@endif
-
-@endsection

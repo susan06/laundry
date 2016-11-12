@@ -55,6 +55,7 @@ Route::group([
  * Adminitrations of Users
 */
 Route::get('user/clients', 'UserController@client_index')->name('admin.client.index');
+Route::get('user/drivers', 'UserController@driver_index')->name('admin.driver.index');
 Route::resource('user', 'UserController');
 
 /**
