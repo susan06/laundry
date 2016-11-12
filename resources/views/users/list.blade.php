@@ -18,7 +18,7 @@
               <span class="label label-{{ $user->labelClass() }}">{{ trans("app.{$user->status}") }}</span>
             </td>
             <td class="text-center">
-                <button type="button" data-href="{{ route('user.edit', $user->id) }}" class="btn btn-round btn-primary btn-xs create-edit-modal"
+                <button type="button" data-href="{{ route('user.edit', $user->id) }}" class="btn btn-round btn-primary btn-xs create-edit" data-model="modal"
                    title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                 </button>

@@ -34,7 +34,7 @@
   </div> 
   @endif
   <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.address')">@lang('app.address') <span class="required">*</span>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.address_add')">@lang('app.address_add') 
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
       {!! Form::text('address', old('address'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'address_search']) !!}
@@ -43,8 +43,8 @@
 
   <div id="map-form" style="width:80%;height:400px;margin-left:auto; margin-right:auto;"></div>
 
-  {{ Form::hidden('lat', old('lat'), ['id' => 'lat']) }}
-  {{ Form::hidden('lng', old('lng'), ['id' => 'lng']) }}
+  {{ Form::text('lat', old('lat'), ['id' => 'lat', 'class' => 'form-control']) }}
+  {{ Form::text('lng', old('lng'), ['id' => 'lng', 'class' => 'form-control']) }}
 
   <div class="ln_solid"></div>
   <div class="form-group">
@@ -58,5 +58,6 @@
     </div>
   </div>
 {!! Form::close() !!}
+
 
 {!! HTML::script('assets/js/maps.js') !!}

@@ -538,4 +538,6 @@ return [
     'delete_branch_office' => 'Eliminar Sucursal',
     'representative' => 'Representante',
     'are_you_sure_delete_branch_office' => 'Seguro que desea eliminar esta Sucursal?',
+    'address_principal' => 'Dirección principal',
+    'address_add' => 'Agregar direcciones',
 ];

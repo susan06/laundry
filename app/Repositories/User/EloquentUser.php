@@ -49,7 +49,7 @@ class EloquentUser extends Repository implements UserRepository
             $searchTerms = explode(' ', $search);
             $query->where( function ($q) use($searchTerms) {
                 foreach ($searchTerms as $term) {
-                   foreach ($this->attributes as $attribute) {
+                    foreach ($this->attributes as $attribute) {
                         $q->orwhere($attribute, "like", "%{$term}%");
                     }
                     $q->whereHas('role', function($qu) use($term) {

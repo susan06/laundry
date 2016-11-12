@@ -38,14 +38,17 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
     public function paginate_search($take = 10, $search = null)
     {
         if ($search) {
-            $result = BranchOffice::where( function ($q) use($search) {
-                foreach ($this->attributes as $attribute) {
-                    $q->orwhere($attribute, "like", "%{$search}%");
+            $searchTerms = explode(' ', $search);
+            $result = BranchOffice::where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
+                    $q->whereHas('representative', function($qu) use($term) {
+                        $qu->orwhere('name', "like", "%{$term}%");
+                        $qu->orwhere('lastname', "like", "%{$term}%");
+                    });
                 }
-                $q->whereHas('representative', function($qu) use($search) {
-                    $qu->where('name', "like", "%{$search}%");
-                    $qu->where('lastname', "like", "%{$search}%");
-                });
             })->paginate($take)->appends(['search' => $search]);
         } else {
             $result = $this->model->paginate($take);

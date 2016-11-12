@@ -52,8 +52,9 @@
             @include('partials.navbar')
 
             @yield('content') 
-            
+
             @include('partials.modals')
+            
             <!-- footer content -->
             <footer>
               <div class="pull-right">

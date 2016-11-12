@@ -1,5 +1,6 @@
 var map = null;
 var infowindow = null;
+var i = 1;
 /*
 var componentForm = {
   locality: 'long_name',
@@ -9,8 +10,9 @@ var componentForm = {
 
 function openInfoWindow(marker) {
     var markerLatLng = marker.getPosition();
-    infowindow.setContent('<div class="lat-lng"><strong>Latitude:</strong><br> ' + markerLatLng.lat() + '<br><strong>Longitude:</strong><br>' + markerLatLng.lng()+'</div>');
+    infowindow.setContent('<div class="lat-lng"><strong>address ' + i +':</strong><br><strong>Latitude:</strong><br> ' + markerLatLng.lat() + '<br><strong>Longitude:</strong><br>' + markerLatLng.lng()+'</div>');
     infowindow.open(map, marker);
+    i++;
 }
 
 function initMap() {
@@ -31,7 +33,8 @@ function initMap() {
   var marker = new google.maps.Marker({
     map: map,
     draggable: true,
-    anchorPoint: new google.maps.Point(0, -29)
+    anchorPoint: new google.maps.Point(0, -29),
+    title: 'address '+ i
   });
 
   autocomplete.addListener('place_changed', function() {
@@ -72,7 +75,17 @@ function initMap() {
 
   google.maps.event.addListener(marker, 'dragend', function(){ openInfoWindow(marker); });
   google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });
+  google.maps.event.addListener(map, 'click', function(event) {addMark(event.latLng); });
 
+}
+
+function addMark(location){
+  marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    title: 'address '+ i
+  });
+  openInfoWindow(marker);
 }
 
 /*

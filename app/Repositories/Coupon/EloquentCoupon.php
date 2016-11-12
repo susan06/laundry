@@ -12,7 +12,7 @@ class EloquentCoupon extends Repository implements CouponRepository
      *
      * @var array
      */
-    protected $attributes = ['validity', 'percentage', 'status'];
+    protected $attributes = ['validity', 'percentage'];
 
     /**
      * EloquentCoupon constructor

@@ -13,6 +13,7 @@ class LocationsBranchOfficeSeeder extends Seeder
     {
         DB::table('branch_office_locations')->insert([
             'branch_office_id' => 1,
+            'label' => 'address 1',
             'lat' => '9.760786787003136',
             'lng' => '-63.15146337933351',
             'address' => 'Cocuizas, carrera 5, casa #43',
@@ -20,6 +21,7 @@ class LocationsBranchOfficeSeeder extends Seeder
 
         DB::table('branch_office_locations')->insert([
             'branch_office_id' => 2,
+            'label' => 'address 1',
             'lat' => '9.760786787003136',
             'lng' => '-63.15146337933351',
             'address' => 'Cocuizas, carrera 5, casa #50',

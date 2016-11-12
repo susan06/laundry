@@ -16,6 +16,7 @@ class LocationsBranchOfficeTable extends Migration
         Schema::create('branch_office_locations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('branch_office_id')->unsigned();
+            $table->string('label');
             $table->string('lat');
             $table->string('lng');
             $table->string('address');

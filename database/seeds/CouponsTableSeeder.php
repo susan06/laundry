@@ -16,7 +16,7 @@ class CouponsTableSeeder extends Seeder
         DB::table('coupons')->insert([
             'code' => encrypt(str_random(15)),
             'validity' => '2016-11-15',
-            'percentage' => 20,
+            'percentage' => '20%',
             'status' => CouponStatus::VALID,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
@@ -25,7 +25,7 @@ class CouponsTableSeeder extends Seeder
         DB::table('coupons')->insert([
             'code' => encrypt(str_random(15)),
             'validity' => '2016-11-20',
-            'percentage' => 10,
+            'percentage' => '10%',
             'status' => CouponStatus::USELESS,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
@@ -34,7 +34,7 @@ class CouponsTableSeeder extends Seeder
         DB::table('coupons')->insert([
             'code' => encrypt(str_random(15)),
             'validity' => '2016-11-25',
-            'percentage' => 20,
+            'percentage' => '20%',
             'status' => CouponStatus::VALID,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
@@ -43,7 +43,7 @@ class CouponsTableSeeder extends Seeder
         DB::table('coupons')->insert([
             'code' => encrypt(str_random(15)),
             'validity' => '2016-11-30',
-            'percentage' => 10,
+            'percentage' => '20%',
             'status' => CouponStatus::USELESS,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
