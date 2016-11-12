@@ -13,16 +13,7 @@
             <div class="title_left">
               <h3 id="content-title">@lang('app.branch_offices')</h3>
             </div>
-            <div>
-              <div class="col-md-6 col-sm-7 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                  <input type="text" id="search" class="form-control" placeholder="@lang('app.write_here')">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default search" type="button">@lang('app.search')</button>
-                  </span>
-                </div>
-              </div>
-            </div>
+            @include('partials.search')
           </div>
         
           <div class="x_content">
