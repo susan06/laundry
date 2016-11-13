@@ -16,7 +16,7 @@
                   <span class="label label-{{ $driver->labelClass() }}">{{ trans("app.{$driver->status}") }}</span>
                 </td>
                 <td class="text-center">
-                    <button type="button" data-href="{{ route('user.edit', $driver->id).'?role=false' }}" class="btn btn-round btn-primary btn-xs create-edit" data-model="modal"
+                    <button type="button" data-href="{{ route('user.edit', $driver->id).'?role=false' }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="modal"
                        title="@lang('app.edit_driver')" data-toggle="tooltip" data-placement="top">
                         <i class="fa fa-edit"></i>
                     </button>

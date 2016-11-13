@@ -261,8 +261,8 @@ $(document).on('click', '.btn-delete', function () {
 
 var current_model = null;
 var current_title = null;
-//open create or edit in modal or content
-$(document).on('click', '.create-edit', function () {
+//open create show or edit in modal or content
+$(document).on('click', '.create-edit-show', function () {
     var $this = $(this);
     var title = $this.attr("title");
     current_model = $this.data('model');
@@ -277,7 +277,7 @@ $(document).on('click', '.create-edit', function () {
                     $('#general-modal').modal('show');
                 } else {
                     $('.top_search').hide();
-                    $('.create-edit').hide();
+                    $('.btn-create').hide();
                     current_title = $('#content-title').text();
                     $('#content-title').text(title);
                     $('#content-table').html(response.view);
@@ -289,7 +289,6 @@ $(document).on('click', '.create-edit', function () {
         }
     });
 });
-
 //save or update form modal
 $(document).on('click', '.btn-submit', function (e) {
     e.preventDefault();
@@ -310,7 +309,7 @@ $(document).on('click', '.btn-submit', function (e) {
                     $('#general-modal').modal('hide');
                 } else {
                     $('#content-title').text(current_title);
-                    $('.create-edit').show();
+                    $('.btn-create').show();
                     $('.top_search').show();
                 }
                 notify('success', response.message);

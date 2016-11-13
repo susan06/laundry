@@ -551,4 +551,29 @@ return [
     'edit_driver' => 'Editar Conductor',
     'delete_driver' => 'Eliminar Conductor',
     'are_you_sure_delete_driver' => 'Seguro que desea eliminar esta Conductor?',
+
+    //Conductores
+    'faqs' => 'Preguntas Frecuentes',
+    'faq_created' => 'Pregunta creada',
+    'faq_updated' => 'Pregunta actualizada',
+    'faq_deleted' => 'Pregunta eliminada',
+    'create_faq' => 'Crear Pregunta',
+    'edit_faq' => 'Editar Pregunta',
+    'delete_faq' => 'Eliminar Pregunta',
+    'are_you_sure_delete_faq' => 'Seguro que desea eliminar esta pregunta?',
+    'Published' => 'Publicada',
+    'No Published' => 'No publicada',
+    'question' => 'Pregunta',
+    'answer' => 'Respuesta',
+    'show_faq' => 'Ver respuesta',
+
+    //clientes
+    'clients' => 'Clientes',
+    'client_created' => 'Cliente creada',
+    'client_updated' => 'Cliente actualizada',
+    'client_deleted' => 'Cliente eliminada',
+    'create_client' => 'Crear Cliente',
+    'edit_client' => 'Editar Cliente',
+    'delete_client' => 'Eliminar Cliente',
+    'are_you_sure_delete_client' => 'Seguro que desea eliminar este cliente?',
 ];

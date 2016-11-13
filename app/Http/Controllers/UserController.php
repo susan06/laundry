@@ -119,7 +119,7 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'view' => view('users.create-edit', compact('user','edit','status','roles', 'role'))->render()
+            'view' => view('users.create-edit', compact('edit','status','roles', 'role'))->render()
         ]);
     }
 

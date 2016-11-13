@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\Faq\FaqStatus;
 
@@ -21,15 +22,6 @@ class Faq extends Model
      */
     protected $fillable = [
         'question', 'answer', 'status', 'created_by'
-    ];
-
-    /**
-     * Field type
-     *
-     * @var array
-     */
-    protected $casts = [
-        'status' => 'boolean'
     ];
 
     /**

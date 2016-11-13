@@ -19,7 +19,7 @@
               </td>
               <td class="text-center">
               @if($coupon->status == 'Valid')
-                  <button type="button" data-href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-round btn-primary btn-xs create-edit-modal"
+                  <button type="button" data-href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="modal"
                      title="@lang('app.edit_coupon')" data-toggle="tooltip" data-placement="top">
                       <i class="fa fa-edit"></i>
                   </button>

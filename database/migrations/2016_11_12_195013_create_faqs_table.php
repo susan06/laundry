@@ -17,7 +17,7 @@ class CreateFaqsTable extends Migration
             $table->increments('id');
             $table->text('question');
             $table->text('answer');
-            $table->boolean('status')->default(true);
+            $table->string('status')->default('Published');
             $table->integer('created_by');
             $table->timestamps();
             $table->engine = 'MyISAM';

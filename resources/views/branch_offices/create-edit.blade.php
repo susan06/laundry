@@ -43,8 +43,8 @@
 
   <div id="map-form" style="width:80%;height:400px;margin-left:auto; margin-right:auto;"></div>
 
-  {{ Form::text('lat', old('lat'), ['id' => 'lat', 'class' => 'form-control']) }}
-  {{ Form::text('lng', old('lng'), ['id' => 'lng', 'class' => 'form-control']) }}
+  {{ Form::text('lat', old('lat'), ['id' => 'lat']) }}
+  {{ Form::text('lng', old('lng'), ['id' => 'lng']) }}
 
   <div class="ln_solid"></div>
   <div class="form-group">

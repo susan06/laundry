@@ -42,7 +42,7 @@
         <!--//Users and Roles -->
         <!--Clients -->
         <li>
-          <a href="{{ route('admin.client.index') }}" title="@lang('app.clients')"><i class="fa fa-users"></i> @lang('app.clients')
+          <a href="{{ route('admin.client.index') }}" title="@lang('app.clients')"><i class="fa fa-child"></i> @lang('app.clients')
           </a>
         </li>
         <!--//Clients -->
@@ -61,6 +61,12 @@
         <!--branch offices -->
         <li>
           <a href="{{ route('branch-office.index') }}" title="@lang('app.branch_offices')"><i class="fa fa-building-o"></i> @lang('app.branch_offices')
+          </a>
+        </li>
+        <!--//branch offices -->
+        <!--branch offices -->
+        <li>
+          <a href="{{ route('faq.index') }}" title="@lang('app.faqs')"><i class="fa fa-question"></i> @lang('app.faqs')
           </a>
         </li>
         <!--//branch offices -->

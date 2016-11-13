@@ -59,7 +59,7 @@ Route::get('user/drivers', 'UserController@driver_index')->name('admin.driver.in
 Route::resource('user', 'UserController');
 
 /**
- * Roles
+ *  Adminitrations of Roles
 */
 Route::resource('role', 'RoleController');
 
@@ -82,6 +82,11 @@ Route::resource('clients', 'ClientsController');
  * Driver
 */
 Route::resource('driver', 'DriverController');
+
+/**
+ * Faqs
+*/
+Route::resource('faq', 'FaqController');
 
 /**
  * Request Services

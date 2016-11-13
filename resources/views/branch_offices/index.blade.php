@@ -18,7 +18,7 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('branch-office.create') }}" class="btn btn-primary btn-sm create-edit" data-model="content" title="@lang('app.create_branch_office')">@lang('app.create_branch_office')</button>
+            <button type="button" data-href="{{ route('branch-office.create') }}" class="btn btn-primary btn-sm create-edit-show btn-create" data-model="content" title="@lang('app.create_branch_office')">@lang('app.create_branch_office')</button>
             </p>
 
             <div id="content-table">
@@ -46,7 +46,7 @@
                             </td>
                             <td class="text-center">
      
-                                <button type="button" data-href="{{ route('branch-office.edit', $branch_office->id) }}" class="btn btn-round btn-primary btn-xs create-edit-modal"
+                                <button type="button" data-href="{{ route('branch-office.edit', $branch_office->id) }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="content"
                                    title="@lang('app.edit_branch_office')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>
