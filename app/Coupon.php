@@ -53,7 +53,7 @@ class Coupon extends Model
 
     public function getValidityAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
+        return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
     }
 
     public function getCreatedAtAttribute($date)

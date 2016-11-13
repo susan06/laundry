@@ -25,8 +25,8 @@ class CreateCoupon extends FormRequest
     {
         return [
             'code' => 'required|unique:coupons,code',
-            'validity' => 'required|date',
-            'percentage' => 'required|integer',
+            'validity' => 'required',
+            'percentage' => 'required',
         ];
     }
 }

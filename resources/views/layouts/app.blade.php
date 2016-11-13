@@ -33,6 +33,9 @@
     {!! HTML::style("vendors/pnotify/dist/pnotify.buttons.css") !!}
     {!! HTML::style("vendors/pnotify/dist/pnotify.nonblock.css") !!}
 
+    <!-- bootstrap datetimepicker -->
+    {!! HTML::style('vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') !!}
+
     @yield('styles')  
     <!-- Scripts -->
     <script>

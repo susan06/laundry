@@ -24,7 +24,9 @@ class UpdateCoupon extends FormRequest
     public function rules()
     {
         return [
-            //
+            'code' => 'required',
+            'validity' => 'required',
+            'percentage' => 'required',
         ];
     }
 }

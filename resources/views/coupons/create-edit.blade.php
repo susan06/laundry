@@ -15,14 +15,14 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.validity')">@lang('app.validity') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('validity', old('validity'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'validity']) !!}
+    {!! Form::text('validity', isset($coupon->validity) ? date_format(date_create($coupon->validity), 'd-m-Y') : old('validity'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'validity', 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.percentage')">@lang('app.percentage') <span class="required">*</span>
     </label>
     <div class="col-md-2 col-sm-2 col-xs-4">
-    {!! Form::number('percentage', old('percentage'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'percentage']) !!}
+    {!! Form::text('percentage', old('percentage'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'percentage', 'data-inputmask' => "'mask': '99%'"]) !!}
     </div>
   </div>
 </div>
@@ -36,3 +36,29 @@
 </div>
 {!! Form::close() !!}
 
+ <!-- jquery.inputmask -->
+ {!! HTML::script('vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+ <!-- moment -->
+ {!! HTML::script('assets/js/moment/moment.min.js') !!}
+ <!-- bootstrap-daterangepicker -->
+ {!! HTML::script('vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+
+<script>
+  $(document).ready(function() {
+
+      $(":input").inputmask();
+
+      @if($edit)
+        $('#validity').datetimepicker({
+          format: 'DD-MM-YYYY',
+          ignoreReadonly: true
+        });
+      @else
+        $('#validity').datetimepicker({
+          format: 'DD-MM-YYYY',
+          minDate: new Date(),
+          ignoreReadonly: true
+        });
+      @endif
+  });
+</script>

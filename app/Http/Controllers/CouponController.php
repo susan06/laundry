@@ -82,7 +82,7 @@ class CouponController extends Controller
         $data = [
             'code' => encrypt($request->code),
             'percentage' => $request->percentage,
-            'validity' => $request->validity,
+            'validity' => date_format(date_create($request->validity), 'Y-m-d'),
             'status' => CouponStatus::VALID,
             'created_by' => Auth::id(),
         ];
@@ -144,9 +144,13 @@ class CouponController extends Controller
      */
     public function update(UpdateCoupon $request, $id)
     {
+        $data = [
+            'percentage' => $request->percentage,
+            'validity' => date_format(date_create($request->validity), 'Y-m-d'),
+        ];
         $coupon = $this->coupons->update(
             $id, 
-            $request->only('validity', 'percentage')
+            $data
         );
         if ( $coupon ) {
 
