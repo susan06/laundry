@@ -19,7 +19,7 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('user.create') }}" class="btn btn-primary btn-sm create-edit" data-model="modal" title="@lang('app.create_user')">@lang('app.create_user')</button>
+            <button type="button" data-href="{{ route('user.create', 'role=true') }}" class="btn btn-primary btn-sm create-edit" data-model="modal" title="@lang('app.create_user')">@lang('app.create_user')</button>
             </p>
 
             <div id="content-table">
@@ -44,7 +44,7 @@
                               <span class="label label-{{ $user->labelClass() }}">{{ trans("app.{$user->status}") }}</span>
                             </td>
                             <td class="text-center">
-                                <button type="button" data-href="{{ route('user.edit', $user->id) }}" class="btn btn-round btn-primary btn-xs create-edit" data-model="modal"
+                                <button type="button" data-href="{{ route('user.edit', $user->id).'?role=true' }}" class="btn btn-round btn-primary btn-xs create-edit" data-model="modal"
                                    title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>

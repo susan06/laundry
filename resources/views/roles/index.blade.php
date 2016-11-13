@@ -62,6 +62,4 @@
 
 @section('scripts')
 
-{!! JsValidator::formRequest('App\Http\Requests\Role\UpdateRole', '#form-modal') !!}
-
 @endsection

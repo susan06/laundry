@@ -25,7 +25,7 @@
     {!! Form::text('email', old('email'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'email']) !!}
     </div>
   </div>
-
+  @if($role)
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.role') <span class="required">*</span>
     </label>
@@ -33,12 +33,15 @@
       {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'role_id']) !!}
     </div>
   </div>
- 
+  @else
+  <!-- role_id driver -->
+  {!! Form::hidden('role_id', '2' ) !!}
+  @endif 
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.status') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('status', $status, old('status'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status']) !!}
+      {!! Form::select('status', $status, 'Active', ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status']) !!}
     </div>
   </div>
 </div>

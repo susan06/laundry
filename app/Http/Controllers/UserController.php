@@ -110,15 +110,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(RoleRepository $roleRepository)
+    public function create(Request $request, RoleRepository $roleRepository)
     {
         $edit = false;
+        $role = ($request->role == 'true') ? true : false;
         $status = ['' => trans('app.selected_item')] + UserStatus::lists();
         $roles = ['' => trans('app.selected_item')] + $roleRepository->lists('display_name');
 
         return response()->json([
             'success' => true,
-            'view' => view('users.create-edit', compact('user','edit','status','roles'))->render()
+            'view' => view('users.create-edit', compact('user','edit','status','roles', 'role'))->render()
         ]);
     }
 
@@ -171,15 +172,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, RoleRepository $roleRepository)
+    public function edit($id, Request $request, RoleRepository $roleRepository)
     {
         $edit = true;
+        $role = ($request->role == 'true') ? true : false;
         $status = UserStatus::lists();
         $roles = $roleRepository->lists('display_name');
         if ( $user = $this->users->find($id) ) {
             return response()->json([
                 'success' => true,
-                'view' => view('users.create-edit', compact('user','edit','status','roles'))->render()
+                'view' => view('users.create-edit', compact('user','edit','status','roles', 'role'))->render()
             ]);
         } else {
             return response()->json([
