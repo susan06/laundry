@@ -327,7 +327,7 @@ $(document).on('click', '.btn-cancel', function (e) {
     e.preventDefault();
     getPages(CURRENT_URL);
     $('#content-title').text(current_title);
-    $('.create-edit').show();
+    $('.btn-create').show();
     $('.top_search').show();
 });
 

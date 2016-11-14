@@ -4307,3 +4307,14 @@ ul.notifications {
 .search-cancel {
   display: none;
 }
+#locations_table {
+  display: none;
+}
+.form-control-table {
+  border-radius: 0;
+  width: 100%;
+}
+.form-control-table:focus {
+  border-color: #CCD0D7;
+  box-shadow: none !important; 
+}

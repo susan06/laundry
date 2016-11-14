@@ -593,4 +593,11 @@ return [
     'country_default' => 'País por defecto',
     'timezone' => 'Zona Horaria',
 
+    'add_address' => 'Agregar direcciones',
+    'add_locations' => 'Agregar localizaciones',
+    'my_location' => 'Mi ubicación',
+    'location' => 'Localización',
+    'locations' => 'Localizaciones',
+    'address_add_autocomplete' => 'Agregar dirección por autocompletado',
+
 ];
