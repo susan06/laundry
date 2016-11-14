@@ -141,3 +141,10 @@ Auth::routes();
         'uses' => 'DriverController@myItinerary'
     ]);
 
+    /**
+     * See Order - Driver
+    */
+    Route::get('order', [
+        'as' => 'driver.order',
+        'uses' => 'DriverController@seeOrder'
+    ]);

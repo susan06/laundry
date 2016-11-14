@@ -50,6 +50,7 @@ return [
     'invite_friend'             => 'Invitar a un amigo',
     'emails'                    => 'Introduzca los correos separador por comas',
     'personal_note'             => 'Agrega una nota personal',
+    'delivery_notes'            => 'Detalles complementarios de la dirección:',
 
 
 ];

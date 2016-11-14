@@ -97,7 +97,7 @@
         <li><a><i class="fa fa-car"></i> @lang('app.driver') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{ route('driver.itinerary') }}">@lang('app.my_itinerary')</a></li>
-            <li><a href="">@lang('app.see_order')</a></li>
+            <li><a href="{{ route('driver.order') }}">@lang('app.see_order')</a></li>
           </ul>
         </li>
         <!--//Driver -->

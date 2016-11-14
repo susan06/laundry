@@ -13,4 +13,5 @@ return [
     'office'       => 'En Sucursal',
     'start'        => 'De Salida',
     'delivered'    => 'Entregada',
+    'see_order'    => 'Ver Orden',
 ];

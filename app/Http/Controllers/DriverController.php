@@ -91,4 +91,14 @@ class DriverController extends Controller
     {
         return view('driver.itinerary');
     }
+
+    /**
+     * Display the client´s order.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function seeOrder()
+    {
+        return view('driver.order');
+    }
 }
