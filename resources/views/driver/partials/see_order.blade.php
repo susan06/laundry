@@ -1,4 +1,29 @@
 <fieldset>
+<legend>@lang('driver.bag_code')</legend>
+
+  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="00000">
+    <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+  </div>
+
+  </fieldset>
+
+<fieldset>
+<legend>@lang('driver.branch_office_and_service')</legend>
+
+  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="@lang('driver.branch_office')">
+    <span class="fa fa-building-o form-control-feedback left" aria-hidden="true"></span>
+  </div>
+
+  <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+    <input type="text" class="form-control has-feedback-right" id="inputSuccess4" placeholder="@lang('driver.service')">
+    <span class="fa fa-bookmark-o form-control-feedback right" aria-hidden="true"></span>
+  </div>
+
+  </fieldset>
+
+<fieldset>
 <legend>@lang('client.client_data')</legend>
 <form class="form-horizontal form-label-left input_mask">
 
@@ -77,3 +102,4 @@
                             data-parsley-validation-threshold="10"></textarea>
                             </div>
 </fieldset>
+

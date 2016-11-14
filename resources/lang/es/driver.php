@@ -14,4 +14,8 @@ return [
     'start'        => 'De Salida',
     'delivered'    => 'Entregada',
     'see_order'    => 'Ver Orden',
+    'bag_code'     => 'Código de la Bolsa',
+    'branch_office_and_service' => 'Sucursal y Tipo de Servicio',
+    'branch_office'             => 'Sucursal',
+    'service'                   => 'Servicio',
 ];
