@@ -1,20 +1,18 @@
-var map = null;
-var infowindow = null;
-var count = 1;
-var marker = null;
+var icon_image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
 
 function addMark(location){
+  icon_image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
   marker = new google.maps.Marker({
     position: location,
     map: map,
     draggable: true,
     customInfo: count,
-    title: location_trans + ' ' + count
+    title: location_trans + ' ' + count,
+    icon: icon_image
   });
   add_location(JSON.parse(JSON.stringify(location)));
   openInfoWindow(marker);
   count++;
-
   google.maps.event.addListener(marker, 'dragend', function(){ changeInfoWindow(marker); });
   google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });
 }
@@ -27,21 +25,22 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function openInfoWindow(marker) {
+    infowindow.close();
+    infowindow = new google.maps.InfoWindow();
     var markerLatLng = marker.getPosition();
     infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Long:</strong><br>' + markerLatLng.lng() +'</div>');
     infowindow.open(map, marker);
     google.maps.event.addListener(marker, 'dragend', function(){ changeInfoWindow(marker); });
-    google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });
-    
+    google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });    
 }
 
 function changeInfoWindow(marker) {
     var markerLatLng = marker.getPosition();
-    var loc = {lat: markerLatLng.lat(), lng: markerLatLng.lng() };
-    infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + loc.lat + '<br><strong>Long:</strong><br>' + loc.lng +'</div>');
+    var loc_change = {lat: markerLatLng.lat(), lng: markerLatLng.lng() };
+    infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Long:</strong><br>' + markerLatLng.lng() +'</div>');
     infowindow.open(map, marker);
-    $('#lat_'+marker.customInfo).val(loc.lat);
-    $('#lng_'+marker.customInfo).val(loc.lng);
+    $('#lat_'+marker.customInfo).val(loc_change.lat);
+    $('#lng_'+marker.customInfo).val(loc_change.lng);
 }
 
 function add_location(loc) {
@@ -76,6 +75,13 @@ function add_location(loc) {
   input2.id    = 'lng_' + (count); 
   input2.value = loc.lng;
 
+  if(edit){
+    var input3 = document.createElement("input");
+    input3.type  = 'hidden';
+    input3.name  = 'location_id[]';
+    input3.value = 0;
+  }
+
   var td3    = document.createElement("TD");
 
   button               = document.createElement('button');
@@ -90,6 +96,9 @@ function add_location(loc) {
   td.appendChild(input);
   td1.appendChild(input1);
   td2.appendChild(input2);
+  if(edit){
+    td.appendChild(input3);
+  }
   td3.appendChild(button);
 
   tr.appendChild(td); 
@@ -115,24 +124,26 @@ function initMap() {
   infowindow = new google.maps.InfoWindow({map: map});
 
   // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+  if(!edit){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
 
-      infowindow.setPosition(pos);
-      infowindow.setContent(location_label);
-      map.setCenter(pos);
-      }, function() {
-        handleLocationError(true, infowindow, map.getCenter());
-      });
+        infowindow.setPosition(pos);
+        infowindow.setContent(location_label);
+        map.setCenter(pos);
+        }, function() {
+          handleLocationError(true, infowindow, map.getCenter());
+        });
     } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infowindow, map.getCenter());
     }
-  
+  }
+
   var input = (document.getElementById('address_search'));
   // country default system
   var options = {componentRestrictions: {country: country_default}};
@@ -144,7 +155,8 @@ function initMap() {
     map: map,
     draggable: true,
     customInfo: count,
-    title: location_trans + ' ' + count
+    title: location_trans + ' ' + count,
+    icon: icon_image
   });
 
   autocomplete.addListener('place_changed', function() {
@@ -168,8 +180,38 @@ function initMap() {
     marker.setVisible(true);
 
     addMark({lat: place.geometry.location.lat(), lng: place.geometry.location.lng()});
+    document.getElementById('address_search').value = '';
 
   });
+
+  if(edit){
+    locations_old = JSON.parse(locations);
+    var count_old = 1;
+
+    $.each(locations_old, function(index, item) {
+
+      icon_image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+      if(count_old == 1) { 
+        icon_image = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        map.setCenter(new google.maps.LatLng(item['lat'], item['lng']));
+        map.setZoom(15);  
+      } 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(item['lat'], item['lng']),
+        map: map,
+        draggable: true,
+        customInfo: count_old,
+        title: location_trans + ' ' + count_old,
+        icon: icon_image
+      });
+
+      openInfoWindow(marker);
+      infowindow.close();
+      count_old++;
+
+    });
+    
+  }
 
   google.maps.event.addListener(marker, 'dragend', function(){ changeInfoWindow(marker); });
   google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });

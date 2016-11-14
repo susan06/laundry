@@ -3,6 +3,7 @@
 namespace App\Repositories\BranchOffice;
 
 use App\BranchOffice;
+use App\LocationBranchOffice;
 use App\Repositories\Repository;
 
 class EloquentBranchOffice extends Repository implements BranchOfficeRepository
@@ -56,6 +57,44 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
         }
 
         return $result;
+    }
+
+    /**
+     *
+     * Creates a new location.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create_location(array $attributes)
+    {
+        LocationBranchOffice::create($attributes);
+    }
+
+     /**
+     *
+     * Update the location
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_location($id, array $newData)
+    {
+        LocationBranchOffice::where('id', $id)->update($newData);
+    }
+
+    /**
+     *
+     * Delete the location
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function delete_location($id)
+    {
+        LocationBranchOffice::destroy($id);
     }
 
 }

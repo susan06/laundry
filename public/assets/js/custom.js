@@ -263,6 +263,7 @@ var current_model = null;
 var current_title = null;
 //open create show or edit in modal or content
 $(document).on('click', '.create-edit-show', function () {
+    $('[data-toggle="tooltip"]').tooltip('hide');
     var $this = $(this);
     var title = $this.attr("title");
     current_model = $this.data('model');
@@ -308,9 +309,13 @@ $(document).on('click', '.btn-submit', function (e) {
                 if(current_model == 'modal') {
                     $('#general-modal').modal('hide');
                 } else {
-                    $('#content-title').text(current_title);
-                    $('.btn-create').show();
-                    $('.top_search').show();
+                    if(response.url_return) {
+                        getPages(response.url_return);
+                    } else {
+                        $('#content-title').text(current_title);
+                        $('.btn-create').show();
+                        $('.top_search').show();
+                    }
                 }
                 notify('success', response.message);
                 getPages(CURRENT_URL);

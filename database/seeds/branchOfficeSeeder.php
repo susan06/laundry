@@ -15,7 +15,7 @@ class branchOfficeSeeder extends Seeder
     {
         DB::table('branch_offices')->insert([
             'name' => 'sucursal 1',
-            'representative_id' => 5,
+            'representative_id' => 8,
             'phone' => '123456789',
             'created_by' => 1,
             'status' => BranchOfficeStatus::SERVICE,
@@ -25,7 +25,7 @@ class branchOfficeSeeder extends Seeder
 
         DB::table('branch_offices')->insert([
             'name' => 'sucursal 2',
-            'representative_id' => 6,
+            'representative_id' => 9,
             'phone' => '987654321',
             'created_by' => 1,
             'status' => BranchOfficeStatus::OUTSERVICE,

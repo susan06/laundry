@@ -63,13 +63,12 @@ class BranchOfficeController extends Controller
      */
     public function create(UserRepository $userRepository)
     {
-        $edit = false;
         $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
         $representatives = ['' => trans('app.selected_item')] + $userRepository->lists_representative();
 
         return response()->json([
             'success' => true,
-            'view' => view('branch_offices.create-edit', compact('user','edit','status','representatives'))->render()
+            'view' => view('branch_offices.create', compact('user','status','representatives'))->render()
         ]);
     }
 
@@ -89,11 +88,26 @@ class BranchOfficeController extends Controller
             'created_by' => Auth::id(),
         ];
         $branch_office = $this->branch_offices->create($data);
+
+        $locations = $request->address;
+        $lat = $request->lat;
+        $lng = $request->lng;
+
         if ( $branch_office ) {
+            foreach( $locations as $key => $value ) {
+                $this->branch_offices->create_location([ 
+                    'branch_office_id' => $branch_office->id,
+                    'address' => $value,           
+                    'lat' => $lat[$key],
+                    'lng' => $lng[$key]
+                    ]
+                );
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => trans('app.branch_office_created')
+                'message' => trans('app.branch_office_created'),
+                'url_return' => route('branch-office.edit', $branch_office->id)
             ]);
         } else {
             
@@ -123,16 +137,18 @@ class BranchOfficeController extends Controller
      */
     public function edit($id, UserRepository $userRepository)
     {
-        $edit = true;
+        $count = 1;
         $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
-        $representatives = ['' => trans('app.selected_item')] + $userRepository->lists_representative();
+        $representatives = $userRepository->lists_representative();
 
         if ( $branch_office = $this->branch_offices->find($id) ) {
+
             return response()->json([
                 'success' => true,
-                'view' => view('branch_offices.create-edit', compact('branch_office','edit','status','representatives'))->render()
+                'view' => view('branch_offices.edit', compact('branch_office','status','count','representatives'))->render()
             ]);
         } else {
+
             return response()->json([
                 'success' => false,
                 'message' => trans('app.no_record_found')
@@ -149,15 +165,52 @@ class BranchOfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $branch_office = $this->branch_offices->update(
+        $branch_office = $this->branch_offices->find($id);
+        $locations_old = $branch_office->locations->toArray();
+        $locations = $request->address;
+        $lat = $request->lat;
+        $lng = $request->lng;
+        $location_id = $request->location_id;
+        $delete_location = array();
+        $branch_office_update = $this->branch_offices->update(
             $id, 
             $request->only('name', 'phone', 'representative_id', 'status')
         );
-        if ( $branch_office ) {
+
+        if ( $branch_office_update ) {
+
+            foreach( $locations as $key => $value ) {
+                
+                if((int)$location_id[$key] == 0) {
+                    $this->branch_offices->create_location([ 
+                        'branch_office_id' => $id,
+                        'address' => $value,           
+                        'lat' => $lat[$key],
+                        'lng' => $lng[$key]
+                        ]
+                    );
+                } else {
+                    foreach ($locations_old as $loc_old) {
+                       if ( in_array($loc_old['id'], $location_id)  ) {
+                           $this->branch_offices->update_location(
+                                (int)$location_id[$key],
+                                [ 
+                                'address' => $value,           
+                                'lat' => $lat[$key],
+                                'lng' => $lng[$key]
+                                ]
+                            );
+                       } else {
+                            $this->branch_offices->delete_location($loc_old['id']);
+                       }
+                    }
+                }      
+            }
 
             return response()->json([
                 'success' => true,
-                'message' => trans('app.branch_office_updated')
+                'message' => trans('app.branch_office_updated'),
+                'url_return' => route('branch-office.edit', $id)
             ]);
         } else {
             

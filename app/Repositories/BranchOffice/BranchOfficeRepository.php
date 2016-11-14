@@ -19,4 +19,33 @@ interface BranchOfficeRepository extends RepositoryInterface
      *
      */
     public function paginate_search($take = 10, $search = null);
+
+    /**
+     *
+     * Creates a new location.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create_location(array $attributes);
+
+     /**
+     *
+     * Update the location
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_location($id, array $newData);
+
+    /**
+     *
+     * Delete the location
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function delete_location($id);
 }
