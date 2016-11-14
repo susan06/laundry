@@ -59,5 +59,7 @@
   </div>
 {!! Form::close() !!}
 
-
+<script type="text/javascript">
+  var country_default = Settings::get('country_default');
+</script>
 {!! HTML::script('assets/js/maps.js') !!}

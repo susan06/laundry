@@ -196,7 +196,7 @@ class UserController extends Controller
      *
      * @param  \Illuminate\Http\CreateUpdateUser  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response::JSON
      */
     public function update(UpdateUser $request, $id)
     {

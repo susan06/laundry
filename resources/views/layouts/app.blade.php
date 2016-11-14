@@ -110,7 +110,9 @@
     <!-- Custom Theme Scripts -->
     {!! HTML::script('assets/js/custom.js') !!}
 
-     @yield('scripts')
+    @include('partials.messages')
+    
+    @yield('scripts')
 
 
 </body>

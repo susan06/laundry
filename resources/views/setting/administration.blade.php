@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'titulo')
+@section('page-title', trans('app.setting'))
 
 @section('content')
 
@@ -11,12 +11,13 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>titulo</h3>
+              <h3>@lang('app.setting')</h3>
             </div>
             <div class="clearfix"></div>
           </div>
+
           <div class="x_content">
-              <!-- aqui contenido -->
+              @include('setting.administration_field')
           </div>
         </div>
       </div>
@@ -26,6 +27,12 @@
 
 @endsection
 
-@section('scripts')
+@section('styles')
+    <!-- Switchery -->
+    {!! HTML::style("vendors/switchery/dist/switchery.min.css") !!}
+@endsection
 
+@section('scripts')
+    <!-- Switchery -->
+    {!! HTML::script('vendors/switchery/dist/switchery.min.js') !!}
 @endsection

@@ -17,137 +17,127 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+    Route::get('/home', 'HomeController@index');
 
-/**
- * User Profile
-*/
-Route::group([
-     'prefix' => 'profile'
- ], function () {
- 	
- 	Route::get('/edit',
- 		'ProfileController@edit')
-		->name('profile.edit');
+    /**
+     * Setting of system
+    */
+    Route::group([
+         'prefix' => 'setting'
+     ], function () {
 
-	Route::get('/update',
-		'ProfileController@update')
-        ->name('profile.update');
- });
+        Route::get('/administration',
+            'SettingController@administration')
+            ->name('setting.administration');
 
-/**
- * User Setting
-*/
-Route::group([
-     'prefix' => 'settings'
- ], function () {
- 	
- 	Route::get('/edit',
- 		'SettingController@edit')
-		->name('setting.edit');
+     	Route::get('/conditions_and_privacy',
+     		'SettingController@conditions_and_privacy')
+    		->name('setting.conditions_and_privacy');
 
-	Route::get('/update',
-		'SettingController@update')
-        ->name('setting.update');
- });
+        Route::post('/update',
+            'SettingController@update')
+            ->name('setting.update');
 
-/**
- * Adminitrations of Users
-*/
-Route::get('user/clients', 'UserController@client_index')->name('admin.client.index');
-Route::get('user/drivers', 'UserController@driver_index')->name('admin.driver.index');
-Route::resource('user', 'UserController');
+     });
 
-/**
- *  Adminitrations of Roles
-*/
-Route::resource('role', 'RoleController');
+    /**
+     * Adminitrations of Users
+    */
+    Route::get('user/clients', 'UserController@client_index')->name('admin.client.index');
+    Route::get('user/drivers', 'UserController@driver_index')->name('admin.driver.index');
+    Route::resource('user', 'UserController');
 
-/**
- * Coupons
-*/
-Route::resource('coupon', 'CouponController');
+    /**
+     *  Adminitrations of Roles
+    */
+    Route::resource('role', 'RoleController');
 
-/**
- * Coupons
-*/
-Route::resource('branch-office', 'branchOfficeController');
- 
-/**
- * Clients
-*/
-Route::resource('clients', 'ClientsController');
+    /**
+     * Coupons
+    */
+    Route::resource('coupon', 'CouponController');
 
-/**
- * Driver
-*/
-Route::resource('driver', 'DriverController');
+    /**
+     * Coupons
+    */
+    Route::resource('branch-office', 'branchOfficeController');
+     
+    /**
+     * Clients
+    */
+    Route::resource('clients', 'ClientsController');
 
-/**
- * Faqs
-*/
-Route::resource('faq', 'FaqController');
+    /**
+     * Driver
+    */
+    Route::resource('driver', 'DriverController');
 
-/**
- * Request Services
-*/
-Route::get('services', [
-    'as' => 'clients.services',
-    'uses' => 'ClientsController@requestServices'
-]);
+    /**
+     * Faqs
+    */
+    Route::resource('faq', 'FaqController');
 
-/**
- * Terms and Conditions
-*/
-Route::get('terms', [
-    'as' => 'clients.terms',
-    'uses' => 'ClientsController@termsAndConditions'
-]);
+    /**
+     * Request Services
+    */
+    Route::get('services', [
+        'as' => 'clients.services',
+        'uses' => 'ClientsController@requestServices'
+    ]);
 
-/**
- * Orders
-*/
-Route::get('orders', [
-    'as' => 'clients.orders',
-    'uses' => 'ClientsController@myOrders'
-]);
+    /**
+     * Terms and Conditions
+    */
+    Route::get('terms', [
+        'as' => 'clients.terms',
+        'uses' => 'ClientsController@termsAndConditions'
+    ]);
 
-/**
- * My Profile
-*/
-Route::get('profile', [
-    'as' => 'clients.profile',
-    'uses' => 'ClientsController@myProfile'
-]);
+    /**
+     * Orders
+    */
+    Route::get('orders', [
+        'as' => 'clients.orders',
+        'uses' => 'ClientsController@myOrders'
+    ]);
 
-/**
- * Frequent Questions
-*/
-Route::get('questions', [
-    'as' => 'clients.questions',
-    'uses' => 'ClientsController@frequentQuestions'
-]);
+    /**
+     * My Profile
+    */
+    Route::get('profile', [
+        'as' => 'clients.profile',
+        'uses' => 'ClientsController@myProfile'
+    ]);
 
-/**
- * Privacy Policies
-*/
-Route::get('privacy', [
-    'as' => 'clients.privacy',
-    'uses' => 'ClientsController@privacyPolicies'
-]);
+    /**
+     * Frequent Questions
+    */
+    Route::get('questions', [
+        'as' => 'clients.questions',
+        'uses' => 'ClientsController@frequentQuestions'
+    ]);
 
-/**
- * Invit a Friend
-*/
-Route::get('invite', [
-    'as' => 'clients.invite',
-    'uses' => 'ClientsController@inviteFriend'
-]);
+    /**
+     * Privacy Policies
+    */
+    Route::get('privacy', [
+        'as' => 'clients.privacy',
+        'uses' => 'ClientsController@privacyPolicies'
+    ]);
 
-/**
- * My Itinerary
-*/
-Route::get('itinerary', [
-    'as' => 'driver.itinerary',
-    'uses' => 'DriverController@myItinerary'
-]);
+    /**
+     * Invit a Friend
+    */
+    Route::get('invite', [
+        'as' => 'clients.invite',
+        'uses' => 'ClientsController@inviteFriend'
+    ]);
+
+    /**
+     * My Itinerary
+    */
+    Route::get('itinerary', [
+        'as' => 'driver.itinerary',
+        'uses' => 'DriverController@myItinerary'
+    ]);
+

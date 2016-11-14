@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'titulo')
+@section('page-title', trans('app.terms_service'))
 
 @section('content')
 
@@ -11,12 +11,14 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>titulo</h3>
+              <h3>@lang('app.terms_service')</h3>
             </div>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-              <!-- aqui contenido -->
+            <div id="content-table">
+              @include('setting.conditions_privacy_field')
+            </div>
           </div>
         </div>
       </div>

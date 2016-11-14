@@ -576,4 +576,21 @@ return [
     'edit_client' => 'Editar Cliente',
     'delete_client' => 'Eliminar Cliente',
     'are_you_sure_delete_client' => 'Seguro que desea eliminar este cliente?',
+
+    //condiciones del servicio
+    'terms_service' => 'Condiciones del servicio',
+    'privacy_policy' => 'Política de Privacidad',
+    'terms_service_updated' => 'Condiciones del servicio actualizada',
+    'setting_updated' => 'Configuraciones actualizadas',
+    'setting' => 'Configuración',
+    'terms_and_conditions_show' => 'Mostra Términos y Condiciones',
+    'privacy_policy_show' => 'Mostrar políticas de privacidad',
+    'auto_registration' => 'Auto registro de clientes',
+
+    'spanish' => 'Español',
+    'english' => 'Inglés',
+    'language_default' => 'Lenguaje por defecto',
+    'country_default' => 'País por defecto',
+    'timezone' => 'Zona Horaria',
+
 ];

@@ -35,21 +35,24 @@
                 </div>
               <div>
                 <button type="submit" class="btn btn-default">Login</button>
+                @if(Settings::get('forgot_password'))
                 <a class="reset_pass" href="{{ url('/password/reset') }}">@lang('app.i_forgot_my_password')</a>
+                @endif
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
+              @if(Settings::get('reg_enabled'))
                 <p class="change_link">@lang('app.dont_have_an_account')
                   <a href="#signup" class="to_register">@lang('app.create_account')</a>
                 </p>
-
+              @endif
                 <div class="clearfix"></div>
                 <br />
 
                 <div>
-                  <h1>{{ config('app.name') }}</h1>
+                  <h1>{{ Settings::get('app_name') }}</h1>
                   <p>©2016 @lang('app.all_rights_reserved')</p>
                 </div>
               </div>

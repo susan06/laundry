@@ -2,7 +2,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="{{ url('home') }}" class="site_title"><i class="fa fa-car"></i> <span>{{ config('app.name') }}</span></a>
+      <a href="{{ url('home') }}" class="site_title"><i class="fa fa-car"></i> <span>{{ Settings::get('app_name') }}</span></a>
     </div>
 
     <div class="clearfix"></div>
@@ -64,12 +64,18 @@
           </a>
         </li>
         <!--//branch offices -->
-        <!--branch offices -->
+        <!--terms of service -->
         <li>
-          <a href="{{ route('faq.index') }}" title="@lang('app.faqs')"><i class="fa fa-question"></i> @lang('app.faqs')
+          <a href="{{ route('setting.conditions_and_privacy') }}" title="@lang('app.terms_service')"><i class="fa fa-info"></i> @lang('app.terms_service')
           </a>
         </li>
-        <!--//branch offices -->
+        <!--//terms of service -->
+        <!--setting -->
+        <li>
+          <a href="{{ route('setting.administration') }}" title="@lang('app.setting')"><i class="fa fa-cog"></i> @lang('app.setting')
+          </a>
+        </li>
+        <!--//setting -->
         @endif
 
         <!--Clients -->
