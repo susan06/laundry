@@ -60,7 +60,7 @@
         <!--//Coupons -->
         <!--branch offices -->
         <li>
-          <a href="{{ route('branch-office.index') }}" title="@lang('app.branch_offices')"><i class="fa fa-building-o"></i> @lang('app.branch_offices')
+          <a href="{{ route('admin-branch-office.index') }}" title="@lang('app.branch_offices')"><i class="fa fa-building-o"></i> @lang('app.branch_offices')
           </a>
         </li>
         <!--//branch offices -->

@@ -36,6 +36,7 @@ return [
     'driver' => 'Conductor',
     'my_itinerary' => 'Mi Itinerario',
     'see_order' => 'Ver Orden',
+    'price' => 'Precio',
 
 
     // Activity Log Section
@@ -552,7 +553,7 @@ return [
     'delete_driver' => 'Eliminar Conductor',
     'are_you_sure_delete_driver' => 'Seguro que desea eliminar esta Conductor?',
 
-    //Conductores
+    //Faqs
     'faqs' => 'Preguntas Frecuentes',
     'faq_created' => 'Pregunta creada',
     'faq_updated' => 'Pregunta actualizada',
@@ -593,11 +594,15 @@ return [
     'country_default' => 'País por defecto',
     'timezone' => 'Zona Horaria',
 
+    //sucursales
     'add_address' => 'Agregar direcciones',
     'add_locations' => 'Agregar localizaciones',
     'my_location' => 'Mi ubicación',
     'location' => 'Localización',
     'locations' => 'Localizaciones',
     'address_add_autocomplete' => 'Agregar dirección por autocompletado',
+    'show_services' => 'Ver servicios',
+    'Available' => 'Disponible',
+    'Not available' => 'No disponible',
 
 ];

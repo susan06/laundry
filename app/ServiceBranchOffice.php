@@ -2,18 +2,17 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use App\Support\BranchOffice\BranchOfficeStatus;
+use App\Support\BranchOffice\BranchServicesStatus;
 
-class BranchOffice extends Model
+class ServiceBranchOffice extends Model
 {
-   /**
+    /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'branch_offices';
+    protected $table = 'branch_office_services';
 
     /**
      * The attributes that are mass assignable.
@@ -21,13 +20,23 @@ class BranchOffice extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'phone', 'representative_id', 'status', 'created_by'
+        'name', 'price', 'branch_office_id'
     ];
 
-  	/**
+    /**
+     * Field type
+     *
+     * @var array
+     */
+    protected $casts = [
+        'price' => 'double'
+    ];
+
+    /**
      * Functions
      *
      */
+
     public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
@@ -38,14 +47,14 @@ class BranchOffice extends Model
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
     }
 
-    public function labelClass()
+  	public function labelClass()
     {
         switch($this->status) {
-            case BranchOfficeStatus::SERVICE:
+            case BranchServicesStatus::AVAILABLE:
                 $class = 'success';
                 break;
 
-            case BranchOfficeStatus::OUTSERVICE:
+            case BranchServicesStatus::NOTAVAILABLE:
                 $class = 'danger';
                 break;
 
@@ -55,23 +64,14 @@ class BranchOffice extends Model
 
         return $class;
     }
-    
+
      /**
      * Relationships
      *
      */
-    public function representative()
-    {
-        return $this->belongsTo(User::class, 'representative_id');
-    }
 
-    public function locations()
+     public function branchOffice()
     {
-        return $this->hasMany(LocationBranchOffice::class, 'branch_office_id');
-    }
-
-    public function services()
-    {
-        return $this->hasMany(ServiceBranchOffice::class, 'branch_office_id');
+        return $this->belongsTo(BranchOffice::class, 'branch_office_id');
     }
 }

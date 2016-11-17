@@ -58,10 +58,16 @@ Auth::routes();
     Route::resource('coupon', 'CouponController');
 
     /**
-     * Coupons
+     * Branch offices administrations
     */
-    Route::resource('branch-office', 'branchOfficeController');
-     
+    Route::resource('admin-branch-office', 'Admin\branchOfficeController');
+    
+    /**
+     * Branch offices administrations
+    */ 
+    Route::get('branch-office/{id}/services', 'BranchOfficeController@services')->name('branch-office.services');
+    Route::resource('branch-office', 'BranchOfficeController');
+
     /**
      * Clients
     */

@@ -30,3 +30,13 @@ $factory->define(App\Faq::class, function ($faker) {
         'created_at'    => \Carbon\Carbon::now(),    
     ];
 });
+
+$factory->define(App\ServiceBranchOffice::class, function ($faker) {
+    return [
+        'branch_office_id'      => App\BranchOffice::all()->random()->id,
+        'name'                  => $faker->sentence,
+        'price'                 => $faker->randomNumber(3),
+        'status'                => 'Available',
+        'created_at'            => \Carbon\Carbon::now(),    
+    ];
+});
