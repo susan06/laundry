@@ -140,6 +140,7 @@ return [
         'time'                  => 'hora',
         'subject'               => 'asunto',
         'message'               => 'mensaje',
+        'accept_terms'          => 'Términos y condiciones',
     ],
 
 ];

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Repositories\User\UserRepository;
 use App\Support\User\UserStatus;
+use App\Http\Requests\Auth\LoginRequest;
 
 class LoginController extends Controller
 {
@@ -63,19 +64,21 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function authenticate(Request $request)
+    public function authenticate(LoginRequest $request)
     {
         $credentials = ['email' => $request->get('email'), 'password' => $request->get('password')];
 
         if (Auth::attempt($credentials)) {
 
             $user = Auth::getProvider()->retrieveByCredentials($credentials);
-
+            
             if ($user->isUnconfirmed()) {
+                Auth::logout();
                 return redirect()->to('login')->withErrors(trans('app.please_confirm_your_email_first'));
             }
             
             if ($user->isBanned()) {
+                Auth::logout();
                 return redirect()->to('login')->withErrors(trans('app.your_account_is_banned'));
             }
 
@@ -85,7 +88,32 @@ class LoginController extends Controller
 
             return redirect()->intended('home');
 
+        } else {
+
+            return redirect()->back()->withErrors(trans('auth.failed'));
         }
+    }
+
+    /**
+     * Confirm user's email.
+     *
+     * @param $token
+     * @return \Illuminate\Http\Route
+     */
+    public function confirmEmail($token)
+    {
+        if ($user = $this->users->findByConfirmationToken($token)) {
+            $this->users->update($user->id, [
+                'status' => UserStatus::ACTIVE,
+                'confirmation_token' => null
+            ]);
+
+            return redirect()->to('login')
+                ->withSuccess(trans('app.email_confirmed_can_login'));
+        }
+
+        return redirect()->to('login')
+            ->withErrors(trans('app.wrong_confirmation_token'));
     }
 
     /**

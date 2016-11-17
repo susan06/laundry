@@ -154,4 +154,15 @@ class EloquentUser extends Repository implements UserRepository
         return $result;
     }
 
+     /**
+     * Find user by confirmation token.
+     *
+     * @param $token
+     * @return mixed
+     */
+    public function findByConfirmationToken($token)
+    {
+        return User::where('confirmation_token', $token)->first();
+    }
+
 }

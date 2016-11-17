@@ -19,6 +19,11 @@
     <!-- Custom Theme Style -->
     {!! HTML::style("assets/css/custom.min.css") !!}
 
+    <!-- PNotify -->
+    {!! HTML::style("vendors/pnotify/dist/pnotify.css") !!}
+    {!! HTML::style("vendors/pnotify/dist/pnotify.buttons.css") !!}
+    {!! HTML::style("vendors/pnotify/dist/pnotify.nonblock.css") !!}
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -37,6 +42,24 @@
 
     <!--Bootstrap--> 
     {!! HTML::script('vendors/bootstrap/dist/js/bootstrap.min.js') !!}
+
+    <!-- PNotify -->
+    {!! HTML::script('vendors/pnotify/dist/pnotify.js') !!}
+    {!! HTML::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
+    {!! HTML::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+
+    <script>
+        function notify(type, message){
+            new PNotify({
+              text: message,
+              type: type,
+              hide: true,
+              styling: 'bootstrap3'
+            });
+        }
+    </script>
+
+    @include('partials.messages')
 
     @yield('scripts')
 </body>

@@ -64,6 +64,13 @@
        {!! Form::checkbox('reg_enabled', 1, Settings::get('reg_enabled'), ['class' => 'js-switch']) !!}
     </div>
   </div>
+ <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.email_confirmation')">@lang('app.email_confirmation')</label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+       <input type="hidden" name="reg_email_confirmation" value="0">
+       {!! Form::checkbox('reg_email_confirmation', 1, Settings::get('reg_email_confirmation'), ['class' => 'js-switch']) !!}
+    </div>
+  </div>
   <div class="ln_solid"></div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary">@lang('app.update')</button>

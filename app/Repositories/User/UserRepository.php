@@ -3,7 +3,6 @@
 namespace App\Repositories\User;
 
 use App\User;
-use \Laravel\Socialite\Contracts\User as SocialUser;
 use App\Repositories\RepositoryInterface;
 
 interface UserRepository extends RepositoryInterface
@@ -51,4 +50,12 @@ interface UserRepository extends RepositoryInterface
      * lists representative
      */
     public function lists_representative();
+
+     /**
+     * Find user by confirmation token.
+     *
+     * @param $token
+     * @return mixed
+     */
+    public function findByConfirmationToken($token);
 }
