@@ -61,7 +61,7 @@
             <!-- footer content -->
             <footer>
               <div class="pull-right">
-                ©2016 - {{ config('app.name') }}</a>
+                ©2016 - {{ Settings::get('app_name') }}</a>
               </div>
               <div class="clearfix"></div>
             </footer>
