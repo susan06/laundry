@@ -11,11 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+    Route::get('/', function () {
+        return redirect()->route('login');
+    });
 
-Auth::routes();
+    Route::get('panel', 'Auth\LoginController@getPanel')->name('panel');
+
+    Route::get('logout', 'Auth\LoginController@getLogout')->name('auth.logout');
+
+    Route::post('authenticate', 'Auth\LoginController@authenticate');
+
+    Auth::routes();
 
     Route::get('/home', 'HomeController@index');
 

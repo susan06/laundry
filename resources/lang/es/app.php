@@ -37,6 +37,7 @@ return [
     'my_itinerary' => 'Mi Itinerario',
     'see_order' => 'Ver Orden',
     'price' => 'Precio',
+    'panel_administration' => 'Administración',
 
 
     // Activity Log Section
@@ -430,7 +431,7 @@ return [
     'phone_without_country_code' => 'Teléfono sin código de país',
 
     'please_confirm_your_email_first' => 'Por favor confirme su dirección de correo electrónico primero.',
-    'your_account_is_banned' => 'Su cuenta está prohibido por el administrador.',
+    'your_account_is_banned' => 'Su cuenta está desactivada por el administrador.',
     '2fa_token_invalid' => '2FA Token es invalida!',
     'account_create_confirm_email' => 'Su cuenta se creo con éxito! Por favor confirme su correo electrónico con el fin de conectarse.',
     'account_created_login' => 'Su cuenta se creo con éxito! Puede acceder ahora.',
