@@ -15,9 +15,9 @@
     <!-- font-awesome.css -->
     {!! HTML::style("vendors/font-awesome/css/font-awesome.min.css") !!}
     <!-- Animate.css -->
-     {!! HTML::style("assets/css/animate.min.css") !!}
+    {!! HTML::style("assets/css/animate.min.css") !!}
     <!-- Custom Theme Style -->
-    {!! HTML::style("assets/css/custom.min.css") !!}
+    {!! HTML::style("assets/css/custom.css") !!}
 
     <!-- PNotify -->
     {!! HTML::style("vendors/pnotify/dist/pnotify.css") !!}

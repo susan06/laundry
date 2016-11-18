@@ -115,6 +115,7 @@ return [
     'Type your message here ...' => 'Escribe tu mensaje aqui ...',
     'send' => 'Enviar',
     'See all messages' => 'Ver todos los mensajes',
+    'send_password_link_reset' => 'Enviar link de restablecimiento',
 
     //Activity Edu
     'activity_edu' => 'Actividades',
@@ -461,7 +462,7 @@ return [
     'website' => 'pagina web',
     'to_view_details_visit_link_below' => 'Para ver los detalles del usuario sólo hay que visitar el siguiente enlace:',
     'many_thanks' => 'Muchas gracias',
-    'request_for_password_reset_made' => 'La solicitud se ha hecho para restablecer su contraseña.',
+    'request_for_password_reset_made' => 'Solicitud para restablecer su contraseña.',
     'click_on_link_below' => 'Por favor, haga clic en este enlace de abajo con el fin de restablecer su contraseña:',
     'if_you_cant_click' => 'Si usted no puede Hacer clic en ese enlace, simplemente copia y pega siguiente URL en su navegador en la barra de direcciones:',
     'thank_you_for_registering' => 'Gracias por registrarse en: aplicación web.',
