@@ -37,11 +37,11 @@
 {!! Form::close() !!}
 
  <!-- jquery.inputmask -->
- {!! HTML::script('vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+ {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
  <!-- moment -->
- {!! HTML::script('assets/js/moment/moment.min.js') !!}
+ {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
  <!-- bootstrap-daterangepicker -->
- {!! HTML::script('vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+ {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
 
 <script>
   $(document).ready(function() {
