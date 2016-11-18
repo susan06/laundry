@@ -2,7 +2,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="{{ url('home') }}" class="site_title"><i class="fa fa-car"></i> <span>{{ Settings::get('app_name') }}</span></a>
+      <a href="{{ secure_url('home') }}" class="site_title"><i class="fa fa-car"></i> <span>{{ Settings::get('app_name') }}</span></a>
     </div>
 
     <div class="clearfix"></div>
@@ -27,7 +27,7 @@
         <h3>{{ Auth::user()->role->display_name }}</h3>
         <ul class="nav side-menu">
         <li>
-          <a href="{{ url('home') }}" title="@lang('app.home')"><i class="fa fa-home"></i> @lang('app.home')
+          <a href="{{ secure_url('home') }}" title="@lang('app.home')"><i class="fa fa-home"></i> @lang('app.home')
           </a>
         </li>
         
