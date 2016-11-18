@@ -11,18 +11,18 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
-    {!! HTML::style("vendors/bootstrap/dist/css/bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/bootstrap/dist/css/bootstrap.min.css") !!}
     <!-- font-awesome.css -->
-    {!! HTML::style("vendors/font-awesome/css/font-awesome.min.css") !!}
+    {!! HTML::style("public/vendors/font-awesome/css/font-awesome.min.css") !!}
     <!-- Animate.css -->
-    {!! HTML::style("assets/css/animate.min.css") !!}
+    {!! HTML::style("public/assets/css/animate.min.css") !!}
     <!-- Custom Theme Style -->
-    {!! HTML::style("assets/css/custom.css") !!}
+    {!! HTML::style("public/assets/css/custom.css") !!}
 
     <!-- PNotify -->
-    {!! HTML::style("vendors/pnotify/dist/pnotify.css") !!}
-    {!! HTML::style("vendors/pnotify/dist/pnotify.buttons.css") !!}
-    {!! HTML::style("vendors/pnotify/dist/pnotify.nonblock.css") !!}
+    {!! HTML::style("public/vendors/pnotify/dist/pnotify.css") !!}
+    {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
+    {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
 
     <!-- Scripts -->
     <script>
@@ -38,15 +38,15 @@
     <!-- Scripts -->
 
     <!--JQuery--> 
-    {!! HTML::script('vendors/jquery/dist/jquery.min.js') !!}
+    {!! HTML::script('public/vendors/jquery/dist/jquery.min.js') !!}
 
     <!--Bootstrap--> 
-    {!! HTML::script('vendors/bootstrap/dist/js/bootstrap.min.js') !!}
+    {!! HTML::script('public/vendors/bootstrap/dist/js/bootstrap.min.js') !!}
 
     <!-- PNotify -->
-    {!! HTML::script('vendors/pnotify/dist/pnotify.js') !!}
-    {!! HTML::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
-    {!! HTML::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+    {!! HTML::script('public/vendors/pnotify/dist/pnotify.js') !!}
+    {!! HTML::script('public/vendors/pnotify/dist/pnotify.buttons.js') !!}
+    {!! HTML::script('public/vendors/pnotify/dist/pnotify.nonblock.js') !!}
 
     <script>
         function notify(type, message){

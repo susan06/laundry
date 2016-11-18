@@ -29,10 +29,10 @@
 
 @section('styles')
     <!-- Switchery -->
-    {!! HTML::style("vendors/switchery/dist/switchery.min.css") !!}
+    {!! HTML::style("public/vendors/switchery/dist/switchery.min.css") !!}
 @endsection
 
 @section('scripts')
     <!-- Switchery -->
-    {!! HTML::script('vendors/switchery/dist/switchery.min.js') !!}
+    {!! HTML::script('public/vendors/switchery/dist/switchery.min.js') !!}
 @endsection

@@ -89,4 +89,4 @@
   var count = {{ $count }};
   var locations = '{!! json_encode($branch_office->locations) !!}';
 </script>
-{!! HTML::script('assets/js/maps.js') !!}
+{!! HTML::script('public/assets/js/maps.js') !!}

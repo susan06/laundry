@@ -11,30 +11,30 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
-    {!! HTML::style("vendors/bootstrap/dist/css/bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/bootstrap/dist/css/bootstrap.min.css") !!}
     <!-- font-awesome.css -->
-    {!! HTML::style("vendors/font-awesome/css/font-awesome.min.css") !!}
+    {!! HTML::style("public/vendors/font-awesome/css/font-awesome.min.css") !!}
     <!-- Animate.css -->
-    {!! HTML::style("assets/css/animate.min.css") !!}
+    {!! HTML::style("public/assets/css/animate.min.css") !!}
     <!-- sweetalert -->
-    {!! HTML::style("assets/css/sweetalert.css") !!}
+    {!! HTML::style("public/assets/css/sweetalert.css") !!}
     <!-- Custom Theme Style -->
-    {!! HTML::style("assets/css/custom.css") !!}
+    {!! HTML::style("public/assets/css/custom.css") !!}
     <!-- Datatables -->
-    {!! HTML::style("vendors/datatables.net-bs/css/dataTables.bootstrap.min.css") !!}
-    {!! HTML::style("vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") !!}
-    {!! HTML::style("vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") !!}
-    {!! HTML::style("vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
-    {!! HTML::style("vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") !!}
-    {!! HTML::style("vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") !!}
+    {!! HTML::style("public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
 
     <!-- PNotify -->
-    {!! HTML::style("vendors/pnotify/dist/pnotify.css") !!}
-    {!! HTML::style("vendors/pnotify/dist/pnotify.buttons.css") !!}
-    {!! HTML::style("vendors/pnotify/dist/pnotify.nonblock.css") !!}
+    {!! HTML::style("public/vendors/pnotify/dist/pnotify.css") !!}
+    {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
+    {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
 
     <!-- bootstrap datetimepicker -->
-    {!! HTML::style('vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') !!}
+    {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
 
     @yield('styles')  
     <!-- Scripts -->
@@ -70,45 +70,45 @@
     </div>
 
     <!--JQuery--> 
-    {!! HTML::script('vendors/jquery/dist/jquery.min.js') !!}
+    {!! HTML::script('public/vendors/jquery/dist/jquery.min.js') !!}
 
     <!--Bootstrap--> 
-    {!! HTML::script('vendors/bootstrap/dist/js/bootstrap.min.js') !!}
+    {!! HTML::script('public/vendors/bootstrap/dist/js/bootstrap.min.js') !!}
 
     <!-- moment -->
-    {!! HTML::script('assets/js/moment/moment.min.js') !!}
+    {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 
     <!--sweet alert--> 
-    {!! HTML::script('assets/js/sweetalert/sweetalert.min.js') !!}
+    {!! HTML::script('public/assets/js/sweetalert/sweetalert.min.js') !!}
 
     @include('sweet::alert')
 
     <!-- FastClick -->
-    {!! HTML::script('vendors/fastclick/lib/fastclick.js') !!}
+    {!! HTML::script('public/vendors/fastclick/lib/fastclick.js') !!}
 
     <!-- Datatables -->
-    {!! HTML::script('vendors/datatables.net/js/jquery.dataTables.min.js') !!}
-    {!! HTML::script('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') !!}
-    {!! HTML::script('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') !!}
-    {!! HTML::script('vendors/datatables.net-responsive/js/dataTables.responsive.min.js') !!}
-    {!! HTML::script('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') !!}
-    {!! HTML::script('vendors/datatables.net-scroller/js/datatables.scroller.min.js') !!}
-    {!! HTML::script('vendors/fastclick/lib/fastclick.js') !!}
+    {!! HTML::script('public/vendors/datatables.net/js/jquery.dataTables.min.js') !!}
+    {!! HTML::script('public/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') !!}
+    {!! HTML::script('public/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') !!}
+    {!! HTML::script('public/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') !!}
+    {!! HTML::script('public/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') !!}
+    {!! HTML::script('public/vendors/datatables.net-scroller/js/datatables.scroller.min.js') !!}
+    {!! HTML::script('public/vendors/fastclick/lib/fastclick.js') !!}
 
     <!-- PNotify -->
-    {!! HTML::script('vendors/pnotify/dist/pnotify.js') !!}
-    {!! HTML::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
-    {!! HTML::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+    {!! HTML::script('public/vendors/pnotify/dist/pnotify.js') !!}
+    {!! HTML::script('public/vendors/pnotify/dist/pnotify.buttons.js') !!}
+    {!! HTML::script('public/vendors/pnotify/dist/pnotify.nonblock.js') !!}
 
     <!-- bootstrap-daterangepicker -->
-    {!! HTML::script('assets/js/moment/moment.min.js') !!}
+    {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 
     <script>
        var lang = {"cancel" : "@lang('app.cancel')"};
     </script>
 
     <!-- Custom Theme Scripts -->
-    {!! HTML::script('assets/js/custom.js') !!}
+    {!! HTML::script('public/assets/js/custom.js') !!}
 
     @include('partials.messages')
     

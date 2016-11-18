@@ -66,4 +66,4 @@
   var count = 1;
 </script>
 
-{!! HTML::script('assets/js/maps.js') !!}
+{!! HTML::script('public/assets/js/maps.js') !!}
