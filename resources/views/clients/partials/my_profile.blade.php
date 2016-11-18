@@ -14,13 +14,13 @@
 
                       <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                          <li role="presentation" class="active"><a href="#tab_content1" id="contact-tab" role="tab" data-toggle="tab" aria-expanded="true">@lang('client.contact_information')</a> 
+                          <li role="presentation" class="active"><a href="#tab_content1" id="contact-tab" role="tab" data-toggle="tab" aria-expanded="true">@lang('app.contact_information')</a> 
                           </li>
-                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="financial-tab" data-toggle="tab" aria-expanded="false">@lang('client.financial_state')</a>
+                          <li role="presentation" class=""><a href="#tab_content2" role="tab" id="financial-tab" data-toggle="tab" aria-expanded="false">@lang('app.financial_state')</a>
                           </li>
-                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="plan-tab" data-toggle="tab" aria-expanded="false">@lang('client.plan_details')</a>
+                          <li role="presentation" class=""><a href="#tab_content3" role="tab" id="plan-tab" data-toggle="tab" aria-expanded="false">@lang('app.plan_details')</a>
                           </li>
-                          <li role="presentation" class=""><a href="#tab_content4" role="tab" id="rate-tab" data-toggle="tab" aria-expanded="false">@lang('client.rate_app')</a>
+                          <li role="presentation" class=""><a href="#tab_content4" role="tab" id="rate-tab" data-toggle="tab" aria-expanded="false">@lang('app.rate_app')</a>
                           </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
@@ -30,7 +30,7 @@
                             <form class="form-horizontal form-label-left" novalidate>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('client.first_name')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">@lang('app.first_name')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="first_name" placeholder="" required="required" type="text">
@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name">@lang('client.last_name')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last_name">@lang('app.last_name')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="last_name" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="last_name" placeholder="" required="required" type="text">
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">@lang('client.email')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">@lang('app.email')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="email" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="email" placeholder="" required="required" type="text">
@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">@lang('client.email')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">@lang('app.email')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="email" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="email" placeholder="" required="required" type="text">
@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">@lang('client.mobile')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobile">@lang('app.mobile')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="mobile" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="mobile" placeholder="" required="required" type="text">
@@ -70,7 +70,7 @@
                             </div>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">@lang('client.telephone')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="telephone">@lang('app.telephone')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="telephone" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="telephone" placeholder="" required="required" type="text">
@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date_of_birth">@lang('client.date_of_birth')
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date_of_birth">@lang('app.date_of_birth')
                               </label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="date_of_birth" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="date_of_birth" placeholder="" required="required" type="text">
@@ -88,7 +88,7 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                               <div class="col-md-6 col-md-offset-3">
-                                <button type="submit" class="btn btn-primary">@lang('client.edit')</button>
+                                <button type="submit" class="btn btn-primary">@lang('app.edit')</button>
                               </div>
                             </div>
                           </form>
@@ -100,10 +100,10 @@
                             <!-- start financial state -->
 
                             <form class="form-horizontal form-label-left" novalidate>
-                            <legend>@lang('client.credit_card_details')</legend>
+                            <legend>@lang('app.credit_card_details')</legend>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name_on_card">@lang('client.name_on_card')
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name_on_card">@lang('app.name_on_card')
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="name_on_card" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="name_on_card" placeholder="" required="required" type="text">
@@ -111,7 +111,7 @@
                       </div>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('client.number')
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">@lang('app.number')
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="number" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="number" placeholder="" required="required" type="text">
@@ -119,7 +119,7 @@
                       </div>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cvv">@lang('client.cvv')
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cvv">@lang('app.cvv')
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="cvv" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="cvv" placeholder="" required="required" type="text">
@@ -127,7 +127,7 @@
                       </div>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="month_of_expiration">@lang('client.month_of_expiration')
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="month_of_expiration">@lang('app.month_of_expiration')
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="month_of_expiration" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="month_of_expiration" placeholder="" required="required" type="text">
@@ -135,7 +135,7 @@
                       </div>
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="year_of_expiration">@lang('client.year_of_expiration')
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="year_of_expiration">@lang('app.year_of_expiration')
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input id="year_of_expiration" class="form-control col-md-7 col-xs-12" data-validate-length-range="6" data-validate-words="2" name="year_of_expiration" placeholder="" required="required" type="text">
@@ -145,7 +145,7 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">@lang('client.edit')</button>
+                          <button type="submit" class="btn btn-primary">@lang('app.edit')</button>
                         </div>
                       </div>
                     </form>

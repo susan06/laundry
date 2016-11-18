@@ -2,7 +2,7 @@
         <!-- New widget -->
         <div class="powerwidget" data-widget-editbutton="false">
           <header>
-            <h2>@lang('client.terms_and_conditions')</h2>
+            <h2>@lang('app.terms_and_conditions')</h2>
           </header>
           <div class="inner-spacer">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec vulputate ex. Fusce sit amet neque tellus. Nullam in odio felis. Nulla quis urna non lacus bibendum commodo a et sapien. Maecenas varius suscipit suscipit. Phasellus ut justo luctus, congue ex a, bibendum dui. Pellentesque molestie malesuada lorem quis iaculis. Vivamus quis sem et urna tempor placerat eu ac ante. Etiam semper nibh velit, vel convallis lacus vehicula sed. Vestibulum ante est, dictum et efficitur sed, porta a urna. Suspendisse a laoreet diam. Integer in elit sagittis, feugiat tortor tincidunt, mollis ex. Donec aliquam, tellus et gravida molestie, odio diam vehicula nunc, id pellentesque neque mi vel ipsum. Nunc est massa, aliquet eu leo nec, pharetra posuere magna.

@@ -2,7 +2,7 @@
         <!-- New widget -->
         <div class="powerwidget" data-widget-editbutton="false">
           <header>
-            <h2>@lang('client.privacy_policies')</h2>
+            <h2>@lang('app.privacy_policies')</h2>
           </header>
           <div class="inner-spacer">
 

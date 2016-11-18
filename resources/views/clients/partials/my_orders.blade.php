@@ -2,11 +2,11 @@
         <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
     <thead>
       <th>#</th>
-      <th>@lang('client.service_type')</th>
-      <th>@lang('client.address')</th>
-      <th>@lang('client.delivery_date')</th>
-      <th>@lang('client.delivery_hour')</th>
-      <th class="text-center">@lang('client.actions')</th>
+      <th>@lang('app.service_type')</th>
+      <th>@lang('app.address')</th>
+      <th>@lang('app.delivery_date')</th>
+      <th>@lang('app.delivery_hour')</th>
+      <th class="text-center">@lang('app.actions')</th>
     </thead>
 <tbody>
         <tr>
@@ -17,7 +17,7 @@
             <td>08:00 am</td>
             <td class="text-center">
                 <button type="button" data-href="#" class="btn btn-round btn-primary btn-xs create-edit-modal"
-                   title="@lang('client.change_request')" data-toggle="tooltip" data-placement="top">
+                   title="@lang('app.change_request')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                 </button>
             </td>

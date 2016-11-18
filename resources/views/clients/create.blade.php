@@ -10,7 +10,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>@lang('client.clients') <small>@lang('client.registration')</small></h2>
+            <h2>@lang('app.clients') <small>@lang('app.registration')</small></h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
