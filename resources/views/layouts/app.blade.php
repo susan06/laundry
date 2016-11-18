@@ -92,7 +92,7 @@
     {!! HTML::script('public/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') !!}
     {!! HTML::script('public/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') !!}
     {!! HTML::script('public/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') !!}
-    {!! HTML::script('public/vendors/datatables.net-scroller/js/datatables.scroller.min.js') !!}
+    {!! HTML::script('public/vendors/datatables.net-scroller/js/dataTables.scroller.min.js') !!}
     {!! HTML::script('public/vendors/fastclick/lib/fastclick.js') !!}
 
     <!-- PNotify -->
