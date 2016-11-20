@@ -103,6 +103,11 @@
     Route::resource('service', 'ServiceController');
 
     /**
+     * Orders
+    */
+    Route::resource('orders', 'OrderController');
+
+    /**
      * Request Services
     */
     Route::get('services', [
@@ -119,9 +124,9 @@
     ]);
 
     /**
-     * Orders
+     * Client Orders
     */
-    Route::get('orders', [
+    Route::get('ordersClient', [
         'as' => 'clients.orders',
         'uses' => 'ClientsController@myOrders'
     ]);
@@ -169,7 +174,13 @@
     /**
      * See Order - Driver
     */
-    Route::get('order', [
+    Route::get('ordersDriver', [
         'as' => 'driver.order',
         'uses' => 'DriverController@seeOrder'
     ]);
+
+    /**
+     * See Order - Driver
+    */
+    
+    

@@ -517,7 +517,8 @@ return [
     'all_rights_reserved' => 'Todos los derechos están reservados.',
     'write_here' => 'Escribe aquí',
 
-    //coupons
+    //Coupons
+    'coupon' => 'Cupón',
     'coupons' => 'Cupones',
     'coupon_created' => 'Cupón creado',
     'coupon_updated' => 'Cupón actualizado',
@@ -530,9 +531,10 @@ return [
     'validity' => 'Valido hasta',
     'percentage' => 'Porcentaje',
 
-    //sucursales
+    //Sucursales
     'In service' => 'En servicio',
     'Out of service' => 'Fuera de servicio',
+    'branch_office' => 'Sucursal',
     'branch_offices' => 'Sucursales',
     'branch_office_created' => 'Sucursal creada',
     'branch_office_updated' => 'Sucursal actualizada',
@@ -691,5 +693,11 @@ return [
     'end' => 'Fin',
     'add_interval' => 'Agregar intervalo de horario',
     'quantity_reserve' => 'Cantidad de reservas',
+
+    //Ordenes
+    'orders' => 'Órdenes',
+    'list_orders' => 'Listado de Órdenes',
+    'special_order_details' => 'Detalles Especiales de la Orden',    
+    'service_cost' => 'Costo del Servicio',
 
 ];

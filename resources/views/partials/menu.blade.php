@@ -62,6 +62,14 @@
           </ul>
         </li>
         <!--//Driver -->
+
+        <!--Orders -->
+        <li><a><i class="fa fa-file-o"></i> @lang('app.orders') <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{{ route('orders.index') }}">@lang('app.list_orders')</a></li>
+          </ul>
+        </li>
+        <!--//Orders -->
        
         </ul>
       </div>

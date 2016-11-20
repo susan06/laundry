@@ -513,6 +513,7 @@ return [
     'write_here' => 'Write Here',
 
     //Coupons
+    'coupon' => 'Coupon',
     'coupons' => 'Coupons',
     'coupon_created' => 'Coupon Created',
     'coupon_updated' => 'Coupon updated',
@@ -528,6 +529,7 @@ return [
     //Branch Offices
     'In service' => 'In Service',
     'Out of service' => 'Out of Service',
+    'branch_office' => 'Branch Office',
     'branch_offices' => 'Branch Offices',
     'branch_office_created' => 'Branch Office Created',
     'branch_office_updated' => 'Branch Office Updated',
@@ -670,5 +672,11 @@ return [
     'show_services' => 'See Services',
     'Available' => 'Available',
     'Not available' => 'No Available',
+
+    //Ordenes
+    'orders' => 'Orders',
+    'list_orders' => 'List of Orders',
+    'special_order_details' => 'Special Order Details',    
+    'service_cost' => 'Service Cost',
 
 ];
