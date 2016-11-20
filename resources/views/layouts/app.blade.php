@@ -33,6 +33,9 @@
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
 
+    <!-- iChecks -->
+    {!! HTML::style("public/vendors/iCheck/skins/flat/green.css") !!}
+
     <!-- bootstrap datetimepicker -->
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
 
@@ -71,6 +74,9 @@
 
     <!--JQuery--> 
     {!! HTML::script('public/vendors/jquery/dist/jquery.min.js') !!}
+    
+    <!-- bootstrap-daterangepicker -->
+    {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 
     <!--Bootstrap--> 
     {!! HTML::script('public/vendors/bootstrap/dist/js/bootstrap.min.js') !!}
@@ -99,9 +105,6 @@
     {!! HTML::script('public/vendors/pnotify/dist/pnotify.js') !!}
     {!! HTML::script('public/vendors/pnotify/dist/pnotify.buttons.js') !!}
     {!! HTML::script('public/vendors/pnotify/dist/pnotify.nonblock.js') !!}
-
-    <!-- bootstrap-daterangepicker -->
-    {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 
     <script>
        var lang = {"cancel" : "@lang('app.cancel')"};

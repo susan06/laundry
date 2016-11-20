@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+use App\User;
 use App\Support\User\UserStatus;
 
 class UsersTableSeeder extends Seeder
@@ -22,29 +23,42 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
+            'phones' => '{"movil":"12345678","home":"987654321"}',
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
         //clientes
         $role = DB::table('roles')->where('name', 'client')->first();
-        DB::table('users')->insert([
+        $client1 = User::create([
             'role_id' => $role->id,
             'name' => 'Juan',
             'lastname' => 'Perez',
             'email' => 'client@client.com',
             'lang' => 'es',
+            'phones' => '{"movil":"12345678","home":"987654321"}',
             'password' => bcrypt('secret'),
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
-        DB::table('users')->insert([
+        DB::table('clients_settings')->insert([
+            'user_id' => $client1->id,
+            'locations_labels' => '{"1":"home","2":"office"}',
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+        $client2 = User::create([
             'role_id' => $role->id,
             'name' => 'Cristian',
             'lastname' => 'Medina',
             'email' => 'client2@client.com',
             'lang' => 'es',
+            'phones' => '{"movil":"12345678"}',
             'password' => bcrypt('secret'),
             'status' => UserStatus::ACTIVE,
+            'created_at' => \Carbon\Carbon::now()
+        ]);
+        DB::table('clients_settings')->insert([
+            'user_id' => $client2->id,
+            'locations_labels' => '{"1":"home","2":"office"}',
             'created_at' => \Carbon\Carbon::now()
         ]);
         //conductores

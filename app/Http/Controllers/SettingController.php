@@ -61,6 +61,35 @@ class SettingController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     *
+     */
+    public function working_hours(Request $request)
+    {
+        $status = [
+            'available' => trans('app.Available'), 
+            'notavailable' => trans('app.Not available')
+        ];
+        if(Settings::get('working_hours')) {
+            $working_hours = json_decode(Settings::get('working_hours'), true);
+        } else {
+            $working_hours = array();
+        }
+
+        if ( $request->ajax() ) {
+
+            return response()->json([
+                'success' => true,
+                'view' => view('setting.working_hours_field', compact('working_hours', 'status'))->render(),
+            ]);
+        }
+
+        return view('setting.working_hours', compact('working_hours', 'status'));
+    }
+
+    /**
      * Handle application settings update.
      *
      * @param Request $request
@@ -72,6 +101,38 @@ class SettingController extends Controller
 
         return back()->withSuccess(trans('app.settings_updated'));
     }
+
+    /**
+     * Handle application settings update.
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function working_hours_update(Request $request)
+    {
+        $data = array();
+        $start = $request->start;
+        $end = $request->end;
+        $quantity = $request->quantity;
+        $status = $request->status;
+
+        foreach( $start as $key => $value ) {
+            $data[] = [ 
+                'id' => $key,
+                'start' => $value,
+                'end' => $end[$key],           
+                'interval' => $value.' - '.$end[$key],
+                'quantity' => $quantity[$key],
+                'status' => $status[$key]
+            ];
+        }
+
+        Settings::set('working_hours', json_encode($data));
+
+        return back()->withSuccess(trans('app.settings_updated'));
+    }
+
+    
 
     /**
      * Update settings and fire appropriate event.

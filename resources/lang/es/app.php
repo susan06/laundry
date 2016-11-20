@@ -679,4 +679,17 @@ return [
     'Available' => 'Disponible',
     'Not available' => 'No disponible',
 
+    //services
+    'service_request' => 'Solicitar servicio',
+    'delivery_address' => 'Dirección de Entrega',
+    'locations_labels' => 'Etiqueta del lugar',
+    'details_address' => 'Detalles de la dirección',
+    'date_search' => 'Fecha de búsqueda',
+    'time_search' => 'Hora de búsqueda',
+    'working_hours' => 'Horario de atención',
+    'date_start' => 'Inicio',
+    'end' => 'Fin',
+    'add_interval' => 'Agregar intervalo de horario',
+    'quantity_reserve' => 'Cantidad de reservas',
+
 ];

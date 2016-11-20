@@ -40,6 +40,14 @@
      		'SettingController@conditions_and_privacy')
     		->name('setting.conditions_and_privacy');
 
+        Route::get('/working_hours',
+            'SettingController@working_hours')
+            ->name('setting.working.hours');
+
+        Route::post('/working_hours/update',
+            'SettingController@working_hours_update')
+            ->name('setting.update.working.hours');
+
         Route::post('/update',
             'SettingController@update')
             ->name('setting.update');
@@ -88,6 +96,11 @@
      * Faqs
     */
     Route::resource('faq', 'FaqController');
+
+    /**
+     * Services
+    */
+    Route::resource('service', 'ServiceController');
 
     /**
      * Request Services

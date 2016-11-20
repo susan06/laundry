@@ -43,7 +43,7 @@
   </table>
   </div>
 
-  <div id="map-form" style="width:80%;height:400px;margin-left:auto; margin-right:auto;"></div>
+  <div id="map-form"></div>
 
   <div class="ln_solid"></div>
   <div class="form-group">

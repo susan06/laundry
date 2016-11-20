@@ -184,6 +184,9 @@
   position: relative; }
 
 @media (min-width: 480px) {
+  #map-form {
+  height:250px !important;
+  }
   .nav_menu {
     position: static; } }
 .nav-md .container.body .col-md-3.left_col {
@@ -3686,7 +3689,10 @@ fieldset {
   margin: -6px;
   padding: 6px; }
 
-@media (max-width: 400px) {
+@media (max-width: 414px) {
+  #map-form {
+    height:250px !important;
+  }
   .cropper .btn-group-crop {
     margin-right: -15px !important; }
 
@@ -4317,4 +4323,9 @@ ul.notifications {
 .form-control-table:focus {
   border-color: #CCD0D7;
   box-shadow: none !important; 
+}
+#map-form {
+  width:80% !important; 
+  margin-left:auto; 
+  margin-right:auto;
 }

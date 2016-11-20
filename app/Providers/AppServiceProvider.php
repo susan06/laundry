@@ -22,6 +22,9 @@ use App\Repositories\Faq\FaqRepository;
 use App\Repositories\Subscriber\EloquentSubscriber;
 use App\Repositories\Subscriber\SubscriberRepository;
 
+use App\Repositories\Client\EloquentClient;
+use App\Repositories\Client\ClientRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -47,5 +50,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(BranchOfficeRepository::class, EloquentBranchOffice::class);
         $this->app->singleton(FaqRepository::class, EloquentFaq::class);
         $this->app->singleton(SubscriberRepository::class, EloquentSubscriber::class);
+        $this->app->singleton(ClientRepository::class, EloquentClient::class);
     }
 }

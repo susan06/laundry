@@ -2062,13 +2062,14 @@
     <script>
       $(document).ready(function() {
         $('#single_cal1').daterangepicker({
+        	format: 'LT',
           singleDatePicker: true,
           calender_style: "picker_1"
         }, function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
         });
         $('#single_cal2').daterangepicker({
-          singleDatePicker: true,
+          format: 'LT',singleDatePicker: true,
           calender_style: "picker_2"
         }, function(start, end, label) {
           console.log(start.toISOString(), end.toISOString(), label);
