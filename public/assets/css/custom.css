@@ -3175,7 +3175,6 @@ ul.project_files li a i {
 /** login **/
 .login {
   z-index: -10;
-  background-repeat: repeat-x;
   background: rgba(255,255,255,1);
   background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 13%, rgba(237,237,237,1) 49%, rgba(65,97,129,1) 86%, rgba(65,97,129,1) 95%, rgba(89,232,204,1) 100%) no-repeat center center fixed;
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(13%, rgba(255,255,255,1)), color-stop(49%, rgba(237,237,237,1)), color-stop(86%, rgba(65,97,129,1)), color-stop(95%, rgba(65,97,129,1)), color-stop(100%, rgba(89,232,204,1))) no-repeat center center fixed;
