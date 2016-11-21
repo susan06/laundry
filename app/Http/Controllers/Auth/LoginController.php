@@ -45,7 +45,7 @@ class LoginController extends Controller
      */
     public function __construct(UserRepository $users)
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => 'getLogout']);
         $this->users = $users;
     }
 
@@ -121,11 +121,17 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getLogout()
+    public function getLogout(Request $request)
     {
         $role = Auth::user()->role_id;
 
         Auth::logout();
+        
+        Auth::guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
 
         if ($role == 2) {
             return redirect('login');

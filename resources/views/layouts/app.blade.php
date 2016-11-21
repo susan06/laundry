@@ -35,6 +35,8 @@
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
     <!-- Custom Theme Style -->
     {!! HTML::style("public/assets/css/custom.css") !!}
+    <!-- Responsive -->
+    {!! HTML::style("public/assets/css/responsive.css") !!}
 
     @yield('styles')  
     <!-- Scripts -->

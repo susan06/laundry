@@ -16,14 +16,15 @@
     {!! HTML::style("public/vendors/font-awesome/css/font-awesome.min.css") !!}
     <!-- Animate.css -->
     {!! HTML::style("public/assets/css/animate.min.css") !!}
-    <!-- Custom Theme Style -->
-    {!! HTML::style("public/assets/css/custom.css") !!}
-
     <!-- PNotify -->
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
-
+    <!-- Custom Theme Style -->
+    {!! HTML::style("public/assets/css/custom.css") !!}
+    <!-- Responsive -->
+    {!! HTML::style("public/assets/css/responsive.css") !!}
+    
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([

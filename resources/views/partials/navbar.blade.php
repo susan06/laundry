@@ -20,7 +20,7 @@
               </a>
             </li>
             <li><a href="javascript:void(0)">Help</a></li>
-            <li><a href="javascript:void(0)" onClick="$('#logout-form').submit()"><i class="fa fa-sign-out pull-right"></i> @lang('app.sign_out')</a></li>
+            <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out pull-right"></i> @lang('app.sign_out')</a></li>
           </ul>
         </li>
       </ul>

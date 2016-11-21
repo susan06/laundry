@@ -11,30 +11,24 @@
             <form class="form-horizontal"  id="login-form" role="form" method="POST" action="{{ url('/authenticate') }}">
              {{ csrf_field() }}
               <h1>Login</h1>
-               <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-md-3 col-xs-3 control-label">@lang('app.email')</label>
-                    <div class="col-md-9 col-xs-9">
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                    </div>
+               <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
+                  <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                  @if ($errors->has('email'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('email') }}</strong>
+                      </span>
+                  @endif
                 </div>
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="col-md-3 col-xs-3 control-label">@lang('app.password')</label>
-                    <div class="col-md-9 col-xs-9">
-                        <input id="password" type="password" class="form-control" name="password" required>
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                    </div>  
+                <div class="{{ $errors->has('password') ? ' has-error' : '' }}">
+                  <input id="password" type="password" class="form-control" name="password" required>
+                  @if ($errors->has('password'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('password') }}</strong>
+                      </span>
+                  @endif
                 </div>
               <div>
-                <button type="submit" class="btn btn-default">Login</button>
+                <button type="submit" class="btn btn-primary col-xs-12">Login</button>
                 @if(Settings::get('forgot_password'))
                 <a class="reset_pass" href="{{ url('/password/reset') }}">@lang('app.i_forgot_my_password')</a>
                 @endif
@@ -95,7 +89,7 @@
               </div>
               <br>
               <div>
-                <button class="btn btn-default submit" id="btn-register" disabled="disabled" type="submit">@lang('app.register')</button>
+                <button class="btn btn-primary col-xs-12 submit" id="btn-register" disabled="disabled" type="submit">@lang('app.register')</button>
               </div>
 
               <div class="clearfix"></div>
