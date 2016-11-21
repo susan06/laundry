@@ -7,25 +7,33 @@
   </div>                 
 </div>
 
-<div class="form-group">
-  <label class="control-label col-md-2 col-sm-2 col-xs-12" for="@lang('app.week')">@lang('app.week')
-  </label>
-  <div class="col-md-9 col-sm-9 col-xs-12">
-      <div class="checkbox">
-        <input type="checkbox" class="flat" name="week[]" value="1" {{ (in_array(1,$week)) ? '' : 'checked="checked"' }}> Lunes
-      </div>
-      <div class="checkbox">
-        <input type="checkbox" class="flat" name="week[]" value="2" {{ (in_array(2,$week)) ? '' : 'checked="checked"' }}> Martes
-      </div>
-      <div class="checkbox">
-        <input type="checkbox" class="flat" name="week[]" value="3" {{ (in_array(3,$week)) ? '' : 'checked="checked"' }}> Miércoles
-      </div>
-      <div class="checkbox">
-        <input type="checkbox" class="flat" name="week[]" value="4" {{ (in_array(4,$week)) ? '' : 'checked="checked"' }}> Jueves 
-      </div>
-      <div class="checkbox">
-        <input type="checkbox" class="flat" name="week[]" value="5" {{ (in_array(5,$week)) ? '' : 'checked="checked"' }}> Viernes
-      </div>
+<div class="row">
+  <div class="form-group">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="@lang('app.week')">@lang('app.week')
+    </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+    <div class="checkbox">
+        <label>
+          <input type="checkbox" class="flat" name="week[]" value="1" 
+          {!! (in_array(1,$week)) ? '' : 'checked="checked"' !!}> Lunes
+        </label>
+        <label>
+          <input type="checkbox" class="flat" name="week[]" value="2" 
+          {!! (in_array(2,$week)) ? '' : 'checked="checked"' !!}> Martes
+        </label>
+        <label>
+          <input type="checkbox" class="flat" name="week[]" value="3" 
+          {!! (in_array(3,$week)) ? '' : 'checked="checked"' !!}> Miércoles
+        </label>
+        <label>
+          <input type="checkbox" class="flat" name="week[]" value="4" 
+          {!! (in_array(4,$week)) ? '' : 'checked="checked"' !!}> Jueves 
+        </label>
+        <label>
+          <input type="checkbox" class="flat" name="week[]" value="5" 
+          {!! (in_array(5,$week)) ? '' : 'checked="checked"' !!}> Viernes 
+        </label>
+    </div>
   </div>
 </div>
 
@@ -38,7 +46,7 @@
         <tr>
           <th>@lang('app.date_start')</th>
           <th>@lang('app.end')</th>
-          <th>@lang('app.quantity_reserve')</th>
+          <th>@lang('app.reserves')</th>
           <th>@lang('app.status')</th>
           <th width="10%">@lang('app.actions')</th>
         </tr>

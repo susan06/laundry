@@ -696,6 +696,7 @@ return [
     'end' => 'Fin',
     'add_interval' => 'Agregar intervalo de horario',
     'quantity_reserve' => 'Cantidad de reservas',
+    'reserves' => 'Reservas',
     'time_close' => 'Hora de cierre',
     'special_instructions' => 'Instrucciones especiales',
     'today_search' => 'Buscar hoy',
