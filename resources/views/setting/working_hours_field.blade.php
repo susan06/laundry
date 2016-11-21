@@ -58,7 +58,8 @@
             <td><input type="text" name="start[]" id="{{$key}}" class="form-control datetime" value="{{$working_hour['start']}}" required="required" readonly="readonly"></td>
             <td><input type="text" name="end[]" id="end-{{$key}}" class="form-control datetime" value="{{$working_hour['end']}}" required="required" readonly="readonly"></td>
             <td><input type="number" name="quantity[]" class="form-control" value="{{$working_hour['quantity']}}" required="required"></td>
-            <td>{!! Form::select('status', $status, $working_hour['status'], ['class' => 'form-control']) !!}</td>
+            <td>
+            {!! Form::select('status[]', $status, $working_hour['status'], ['class' => 'form-control']) !!}</td>
             <td>
             @if($key != 0)
               <button type="button"  class="btn btn-round btn-danger btn-xs delete-hour"> 
