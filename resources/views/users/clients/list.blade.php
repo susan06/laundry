@@ -16,7 +16,7 @@
                   <span class="label label-{{ $client->labelClass() }}">{{ trans("app.{$client->status}") }}</span>
                 </td>
                 <td class="text-center">
-                    <button type="button" data-href="#" class="btn btn-round btn-primary btn-xs create-edit-modal"
+                    <button type="button" data-href="{{ route('client.edit', $client->id).'?role=true' }}" class="btn btn-round btn-primary btn-xs create-edit-modal"
                        title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
                         <i class="fa fa-edit"></i>
                     </button>

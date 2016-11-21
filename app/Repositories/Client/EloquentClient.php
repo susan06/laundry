@@ -3,6 +3,7 @@
 namespace App\Repositories\Client;
 
 use App\User;
+use App\Client;
 use App\ClientSetting;
 use App\Repositories\Repository;
 
@@ -20,7 +21,7 @@ class EloquentClient extends Repository implements ClientRepository
      *
      * @param Client $Client
      */
-    public function __construct(User $client)
+    public function __construct(Client $client)
     {
         parent::__construct($client, $this->attributes);
     }
@@ -36,6 +37,41 @@ class EloquentClient extends Repository implements ClientRepository
         $setting = ClientSetting::where('user_id', $client)->first();
 
         return json_decode($setting->locations_labels, true);
+    }
+
+    /**
+     * Client Paginate and search
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function paginate_search($take = 10, $search = null)
+    {
+        $query = User::where('role_id', 2);
+
+        if ($search) {
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                   foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
+                }
+            });
+        }
+
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;
     }
 
 }

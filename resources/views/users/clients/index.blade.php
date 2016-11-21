@@ -19,7 +19,7 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="#" class="btn btn-primary btn-sm create-edit" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
+            <button type="button" data-href="{{ route('client.create', 'role=true') }}" class="btn btn-primary btn-sm create-edit-show" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
             </p>
 
             <div id="content-table">

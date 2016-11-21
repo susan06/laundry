@@ -85,7 +85,7 @@
     /**
      * Clients
     */
-    Route::resource('clients', 'ClientsController');
+    Route::resource('client', 'ClientController');
 
     /**
      * Driver
@@ -111,56 +111,56 @@
      * Request Services
     */
     Route::get('services', [
-        'as' => 'clients.services',
-        'uses' => 'ClientsController@requestServices'
+        'as' => 'client.services',
+        'uses' => 'ClientController@requestServices'
     ]);
 
     /**
      * Terms and Conditions
     */
     Route::get('terms', [
-        'as' => 'clients.terms',
-        'uses' => 'ClientsController@termsAndConditions'
+        'as' => 'client.terms',
+        'uses' => 'ClientController@termsAndConditions'
     ]);
 
     /**
      * Client Orders
     */
     Route::get('ordersClient', [
-        'as' => 'clients.orders',
-        'uses' => 'ClientsController@myOrders'
+        'as' => 'client.orders',
+        'uses' => 'ClientController@myOrders'
     ]);
 
     /**
      * My Profile
     */
     Route::get('profile', [
-        'as' => 'clients.profile',
-        'uses' => 'ClientsController@myProfile'
+        'as' => 'client.profile',
+        'uses' => 'ClientController@myProfile'
     ]);
 
     /**
      * Frequent Questions
     */
     Route::get('questions', [
-        'as' => 'clients.questions',
-        'uses' => 'ClientsController@frequentQuestions'
+        'as' => 'client.questions',
+        'uses' => 'ClientController@frequentQuestions'
     ]);
 
     /**
      * Privacy Policies
     */
     Route::get('privacy', [
-        'as' => 'clients.privacy',
-        'uses' => 'ClientsController@privacyPolicies'
+        'as' => 'client.privacy',
+        'uses' => 'ClientController@privacyPolicies'
     ]);
 
     /**
      * Invit a Friend
     */
     Route::get('invite', [
-        'as' => 'clients.invite',
-        'uses' => 'ClientsController@inviteFriend'
+        'as' => 'client.invite',
+        'uses' => 'ClientController@inviteFriend'
     ]);
 
     /**
