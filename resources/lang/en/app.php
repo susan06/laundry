@@ -605,7 +605,7 @@ return [
     'telephone'           => 'Telephone',
     'date_of_birth'       => 'Date of Brith',
     'name_on_card'        => 'Name on Card',
-    'number'              => 'Number',
+    'card_number'         => 'Credit Card Number',
     'cvv'                 => 'CVV',
     'month_of_expiration' => 'Month of Expiration',
     'year_of_expiration'  => 'Year of Expiration',

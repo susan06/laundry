@@ -520,7 +520,6 @@ return [
     //Coupons
     'coupon' => 'Cupón',
     'coupons' => 'Cupones',
-    'coupon' => 'Cupón',
     'coupon_created' => 'Cupón creado',
     'coupon_updated' => 'Cupón actualizado',
     'coupon_deleted' => 'Cupón eliminado',
@@ -612,7 +611,7 @@ return [
     'telephone'           => 'Teléfono',
     'date_of_birth'       => 'Fecha de Nacimiento',
     'name_on_card'        => 'Nombre en Tarjeta de Crédito',
-    'number'              => 'Número',
+    'card_number'         => 'Número de Tarjeta de Crédito',
     'cvv'                 => 'CVV',
     'month_of_expiration' => 'Mes de Expiración',
     'year_of_expiration'  => 'Año de Expiración',
