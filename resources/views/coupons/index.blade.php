@@ -18,9 +18,11 @@
           </div>
         
           <div class="x_content">
-            <p>
-            <button type="button" data-href="{{ route('coupon.create') }}" class="btn btn-primary btn-sm create-edit-show" data-model="modal" title="@lang('app.create_coupon')">@lang('app.create_coupon')</button>
-            </p>
+            <div class="row">
+              <div class="col-md-2 col-sm-2 col-xs-12">
+              <button type="button" data-href="{{ route('coupon.create') }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.create_coupon')">@lang('app.create_coupon')</button>
+              </div>
+            </div>
 
             <div id="content-table">
               <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -45,14 +47,14 @@
                             </td>
                             <td class="text-center">
                             @if($coupon->status == 'Valid')
-                                <button type="button" data-href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="modal"
+                                <button type="button" data-href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_coupon')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>
                             @endif
                             @if($coupon->status == 'Useless')
                                 <button type="button" data-href="{{ route('coupon.destroy', $coupon->id) }}" 
-                                  class="btn btn-round btn-danger btn-xs btn-delete" 
+                                  class="btn btn-round btn-danger btn-delete" 
                                   data-confirm-text="@lang('app.are_you_sure_delete_coupon')"
                                   data-confirm-delete="@lang('app.yes_delete_him')"
                                   title="@lang('app.delete_coupon')" data-toggle="tooltip" data-placement="top">

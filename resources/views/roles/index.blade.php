@@ -34,7 +34,7 @@
                             <td>{{ $role->display_name }}</td>
                             <td>{{ $role->description }}</td>
                             <td class="text-center">
-                                <button type="button" data-href="{{ route('role.edit', $role->id) }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="modal"
+                                <button type="button" data-href="{{ route('role.edit', $role->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_role')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>

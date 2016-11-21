@@ -21,18 +21,18 @@
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.percentage')">@lang('app.percentage') <span class="required">*</span>
     </label>
-    <div class="col-md-2 col-sm-2 col-xs-4">
+    <div class="col-md-2 col-sm-2 col-xs-6">
     {!! Form::text('percentage', old('percentage'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'percentage', 'data-inputmask' => "'mask': '99%'"]) !!}
     </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
   @if($edit)
-    <button type="submit" class="btn btn-primary btn-submit">@lang('app.update')</button>
+    <button type="submit" class="btn btn-primary btn-submit col-sm-2 col-xs-6">@lang('app.update')</button>
   @else
-      <button type="submit" class="btn btn-primary btn-submit">@lang('app.save')</button>
+      <button type="submit" class="btn btn-primary btn-submit col-sm-2 col-xs-6">@lang('app.save')</button>
   @endif
+    <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
 </div>
 {!! Form::close() !!}
 

@@ -18,12 +18,12 @@
               <span class="label label-{{ $user->labelClass() }}">{{ trans("app.{$user->status}") }}</span>
             </td>
             <td class="text-center">
-                <button type="button" data-href="{{ route('user.edit', $user->id).'?role=true' }}" class="btn btn-primary create-edit-show" data-model="modal"
+                <button type="button" data-href="{{ route('user.edit', $user->id).'?role=true' }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                    title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                 </button>
                 <button type="button" data-href="{{ route('user.destroy', $user->id) }}" 
-                  class="btn btn-danger btn-delete" 
+                  class="btn btn-round btn-danger btn-delete" 
                   data-confirm-text="@lang('app.are_you_sure_delete_user')"
                   data-confirm-delete="@lang('app.yes_delete_him')"
                   title="@lang('app.delete_user')" data-toggle="tooltip" data-placement="top">
@@ -35,4 +35,14 @@
 </tbody>
 </table>
 {{ $users->links() }}
+
+<script type="text/javascript">
+
+    $('#datatable-responsive').DataTable({
+      "searching": false,
+      "paging": false,
+      "bInfo": false,
+    });
+
+</script>
  

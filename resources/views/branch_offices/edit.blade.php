@@ -37,7 +37,7 @@
     </div>
   </div>
   <div id="load_locations"> 
-    <table class="table">
+    <table class="table" id="locations_table">
     <thead>
     <tr>
       <th>@lang('app.address')</th>
@@ -71,13 +71,14 @@
   <div class="ln_solid"></div>
   <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-      <button type="button" class="btn btn-default btn-cancel">@lang('app.cancel')</button>
-      <button type="submit" class="btn btn-primary btn-submit">@lang('app.update')</button>
+      <button type="submit" class="btn btn-primary btn-submit col-sm-3 col-xs-6">@lang('app.update')</button>
+      <button type="button" class="btn btn-default btn-cancel col-sm-3 col-xs-5">@lang('app.cancel')</button>
     </div>
   </div>
 {!! Form::close() !!}
 
 <script type="text/javascript">
+
   var country_default = new String("{{Settings::get('country_default')}}");
   country_default = country_default.toLowerCase();
   var map = null;

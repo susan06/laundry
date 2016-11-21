@@ -16,7 +16,7 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
-  <button type="submit" class="btn btn-primary btn-submit">@lang('app.update')</button>
+  <button type="submit" class="btn btn-primary btn-submit col-sm-2 col-xs-6">@lang('app.update')</button>
+  <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
 </div>
 {!! Form::close() !!}
