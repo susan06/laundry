@@ -1,20 +1,4 @@
 @media (min-width: 480px) {
-    .login-client {
-        background-image: url("../images/login-480w.png");
-    }
-}
-@media (min-width: 768px) {
-    .login-client {
-        background-image: url("../images/login-768w.png");
-    }
-}
-@media (min-width: 1200px) {
-    .login-client {
-        background-image: url("../images/login-1200w.png");
-    }
-}
-
-@media (min-width: 480px) {
   #map-form {
   height:250px !important;
   }

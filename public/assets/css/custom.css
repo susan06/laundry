@@ -3174,6 +3174,7 @@ ul.project_files li a i {
 /* *********  /ecommerce  **************************** */
 /** login **/
 .login {
+  z-index: -10;
   background: rgba(255,255,255,1);
   background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 13%, rgba(237,237,237,1) 49%, rgba(65,97,129,1) 86%, rgba(65,97,129,1) 95%, rgba(89,232,204,1) 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(13%, rgba(255,255,255,1)), color-stop(49%, rgba(237,237,237,1)), color-stop(86%, rgba(65,97,129,1)), color-stop(95%, rgba(65,97,129,1)), color-stop(100%, rgba(89,232,204,1)));
@@ -3183,6 +3184,9 @@ ul.project_files li a i {
   background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 13%, rgba(237,237,237,1) 49%, rgba(65,97,129,1) 86%, rgba(65,97,129,1) 95%, rgba(89,232,204,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#59e8cc', GradientType=0 );
   background-attachment: fixed;
+}
+.no-touch .login {
+   background-attachment:fixed;
 }
 .login .fa-paw {
   font-size: 26px; }
