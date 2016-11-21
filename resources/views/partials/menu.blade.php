@@ -38,38 +38,6 @@
         @if (Auth::user()->role->name == 'client')
           @include('partials.menu_client')
         @endif
-
-        <!--Clients -->
-        <li><a><i class="fa fa-user"></i> @lang('app.client') <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{ route('clients.create') }}">@lang('app.registration')</a></li>
-            <li><a href="{{ route('clients.services') }}">@lang('app.request_services')</a></li>
-            <li><a href="{{ route('clients.orders') }}">@lang('app.my_orders')</a></li>
-            <li><a href="{{ route('clients.profile') }}">@lang('app.my_profile')</a></li>
-            <li><a href="{{ route('clients.terms') }}">@lang('app.terms_and_conditions')</a></li>
-            <li><a href="{{ route('clients.questions') }}">@lang('app.frequent_questions')</a></li>
-            <li><a href="{{ route('clients.privacy') }}">@lang('app.privacy_policies')</a></li>
-            <li><a href="{{ route('clients.invite') }}">@lang('app.invite_friend')</a></li>
-          </ul>
-        </li>
-        <!--//Clients -->
-
-        <!--Driver -->
-        <li><a><i class="fa fa-car"></i> @lang('app.driver') <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{ route('driver.itinerary') }}">@lang('app.my_itinerary')</a></li>
-            <li><a href="{{ route('driver.order') }}">@lang('app.see_order')</a></li>
-          </ul>
-        </li>
-        <!--//Driver -->
-
-        <!--Orders -->
-        <li><a><i class="fa fa-file-o"></i> @lang('app.orders') <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu">
-            <li><a href="{{ route('orders.index') }}">@lang('app.list_orders')</a></li>
-          </ul>
-        </li>
-        <!--//Orders -->
        
         </ul>
       </div>

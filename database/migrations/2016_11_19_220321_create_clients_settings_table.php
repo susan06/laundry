@@ -16,7 +16,7 @@ class CreateClientsSettingsTable extends Migration
         Schema::create('clients_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->json('locations_labels')->nullable();
+            $table->string('locations_labels')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             

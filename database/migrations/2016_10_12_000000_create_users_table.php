@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('email')->unique();
             $table->date('birthday')->nullable(); 
-            $table->json('phones')->nullable();
+            $table->string('phones')->nullable();
             $table->string('status', 20);
             $table->string('lang')->nullable();
             $table->timestamp('last_login')->nullable();

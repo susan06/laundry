@@ -18,9 +18,12 @@
           </div>
         
           <div class="x_content">
-            <p>
-            <button type="button" data-href="{{ route('user.create', 'role=true') }}" class="btn btn-primary btn-sm create-edit-show" data-model="modal" title="@lang('app.create_user')">@lang('app.create_user')</button>
-            </p>
+
+          <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-12">
+             <button type="button" data-href="{{ route('user.create', 'role=true') }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.create_user')">@lang('app.create_user')</button>
+            </div>
+          </div>
 
             <div id="content-table">
               <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
@@ -44,12 +47,12 @@
                               <span class="label label-{{ $user->labelClass() }}">{{ trans("app.{$user->status}") }}</span>
                             </td>
                             <td class="text-center">
-                                <button type="button" data-href="{{ route('user.edit', $user->id).'?role=true' }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="modal"
+                                <button type="button" data-href="{{ route('user.edit', $user->id).'?role=true' }}" class="btn btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>
                                 <button type="button" data-href="{{ route('user.destroy', $user->id) }}" 
-                                  class="btn btn-round btn-danger btn-xs btn-delete" 
+                                  class="btn btn-danger btn-delete" 
                                   data-confirm-text="@lang('app.are_you_sure_delete_user')"
                                   data-confirm-delete="@lang('app.yes_delete_him')"
                                   title="@lang('app.delete_user')" data-toggle="tooltip" data-placement="top">
@@ -67,7 +70,7 @@
               </table>
               {{ $users->links() }}
             </div>
-
+                
           </div>
         </div>
       </div>
