@@ -8,7 +8,7 @@ function add_working_hour() {
 
   input.type  = 'text';
   input.name  = 'start[]';
-  input.className = 'form-control time', 
+  input.className = 'form-control datetime', 
   input.setAttribute('required', 'required');
   input.setAttribute('readonly', 'readonly');
   input.id = count;
@@ -18,7 +18,7 @@ function add_working_hour() {
 
   input1.type  = 'text';
   input1.name  = 'end[]';
-  input1.className = 'form-control time',
+  input1.className = 'form-control datetime',
   input1.id = 'end-'+count;
   input1.setAttribute('required', 'required');
   input1.setAttribute('readonly', 'readonly');
@@ -114,7 +114,8 @@ for(i=0; i < count; i++) {
   });
 }
 
-  $("#time").datetimepicker({
+  $("#time_close").datetimepicker({
     format: 'LT',
     ignoreReadonly: true
   });
+

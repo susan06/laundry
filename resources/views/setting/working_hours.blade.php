@@ -39,6 +39,8 @@
 {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 <!-- bootstrap-daterangepicker -->
 {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+<!-- icheck -->
+{!! HTML::script('public/vendors/iCheck/icheck.min.js') !!}
 
 {!! HTML::script('public/assets/js/working_hours.js') !!}
 

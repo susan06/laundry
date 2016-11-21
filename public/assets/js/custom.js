@@ -22,6 +22,13 @@ $(document).ready(function() {
       "bInfo": false,
     });
 });
+$(document).ready(function() {
+    $('.table-responsive').DataTable({
+      "searching": false,
+      "paging": false,
+      "bInfo": false,
+    });
+});
 // Sidebar
 
 // Sidebar

@@ -18,8 +18,6 @@
     {!! HTML::style("public/assets/css/animate.min.css") !!}
     <!-- sweetalert -->
     {!! HTML::style("public/assets/css/sweetalert.css") !!}
-    <!-- Custom Theme Style -->
-    {!! HTML::style("public/assets/css/custom.css") !!}
     <!-- Datatables -->
     {!! HTML::style("public/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") !!}
@@ -27,17 +25,16 @@
     {!! HTML::style("public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
-
     <!-- PNotify -->
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
-
     <!-- iChecks -->
-    {!! HTML::style("public/vendors/iCheck/skins/flat/green.css") !!}
-
+    {!! HTML::style("public/vendors/iCheck/skins/flat/blue.css") !!}
     <!-- bootstrap datetimepicker -->
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
+    <!-- Custom Theme Style -->
+    {!! HTML::style("public/assets/css/custom.css") !!}
 
     @yield('styles')  
     <!-- Scripts -->

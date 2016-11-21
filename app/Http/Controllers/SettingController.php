@@ -77,16 +77,20 @@ class SettingController extends Controller
         } else {
             $working_hours = array();
         }
-
+        if(Settings::get('week')) {
+            $week = explode(',', Settings::get('week'));
+        } else {
+            $week = array();
+        }
         if ( $request->ajax() ) {
 
             return response()->json([
                 'success' => true,
-                'view' => view('setting.working_hours_field', compact('working_hours', 'status'))->render(),
+                'view' => view('setting.working_hours_field', compact('working_hours', 'status', 'week'))->render(),
             ]);
         }
 
-        return view('setting.working_hours', compact('working_hours', 'status'));
+        return view('setting.working_hours', compact('working_hours', 'status', 'week'));
     }
 
     /**
@@ -115,6 +119,14 @@ class SettingController extends Controller
         $end = $request->end;
         $quantity = $request->quantity;
         $status = $request->status;
+        $week = $request->week;
+        $day_week = [1,2,3,4,5];
+        $week_day = '';
+        $week_diff = array_diff($day_week, $week);
+
+        foreach ($week_diff as $day) {
+            $week_day .= $day.',';
+        }
 
         foreach( $start as $key => $value ) {
             $data[] = [ 
@@ -127,6 +139,8 @@ class SettingController extends Controller
             ];
         }
 
+        Settings::set('week', substr($week_day, 0, -1));
+        Settings::set('time_close', $request->time_close);
         Settings::set('working_hours', json_encode($data));
 
         return back()->withSuccess(trans('app.settings_updated'));

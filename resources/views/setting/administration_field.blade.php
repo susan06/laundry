@@ -72,7 +72,7 @@
     </div>
   </div>
   <div class="ln_solid"></div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary">@lang('app.update')</button>
+  <div class="form-group col-md-2 col-sm-2 col-xs-12">
+    <button type="submit" class="btn btn-primary col-xs-12">@lang('app.update')</button>
   </div>
 {!! Form::close() !!}

@@ -4,7 +4,7 @@
       <input type="text" id="search" class="form-control" placeholder="@lang('app.write_here')">
       <span class="input-group-btn">
         <button class="btn btn-default search-cancel" type="button"><i class="fa fa-close"></i></button>
-        <button class="btn btn-default search" type="button">@lang('app.search')</button>
+        <button class="btn btn-primary search" type="button">@lang('app.search')</button>
       </span>
     </div>
   </div>

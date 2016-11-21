@@ -520,6 +520,7 @@ return [
     //Coupons
     'coupon' => 'Cupón',
     'coupons' => 'Cupones',
+    'coupon' => 'Cupón',
     'coupon_created' => 'Cupón creado',
     'coupon_updated' => 'Cupón actualizado',
     'coupon_deleted' => 'Cupón eliminado',
@@ -688,11 +689,27 @@ return [
     'details_address' => 'Detalles de la dirección',
     'date_search' => 'Fecha de búsqueda',
     'time_search' => 'Hora de búsqueda',
+    'date_delivery' => 'Fecha de entrega',
+    'time_delivery' => 'Hora de entrega',
     'working_hours' => 'Horario de atención',
     'date_start' => 'Inicio',
     'end' => 'Fin',
     'add_interval' => 'Agregar intervalo de horario',
     'quantity_reserve' => 'Cantidad de reservas',
+    'time_close' => 'Hora de cierre',
+    'special_instructions' => 'Instrucciones especiales',
+    'today_search' => 'Buscar hoy',
+    'tomorrow_search' => 'Buscar mañana',
+
+    //day of week
+    'week' => 'Semana',
+    'monday' => 'Lunes',
+    'tuesday' => 'Martes',
+    'wednesday' => 'Miércoles',
+    'thursday' => 'Jueves',
+    'friday' => 'Viernes',
+    'only_days_are_enabled' => 'Solo están habilitados los días: ',
+    'hours' => 'Horas',
 
     //Ordenes
     'orders' => 'Órdenes',

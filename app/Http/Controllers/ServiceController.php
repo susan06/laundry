@@ -41,9 +41,19 @@ class ServiceController extends Controller
         } else {
             $working_hours = array();
         }
+        if(Settings::get('week')) {
+            $week = explode(',', Settings::get('week'));
+        } else {
+            $week = array();
+        }
+        $time_delivery = [
+            24 => '24 '.trans('app.hours'), 
+            36 => '36 '.trans('app.hours'), 
+            48 => '48 '.trans('app.hours')
+        ];
         $locations_labels = $clientRepository->lists_locations_labels(Auth::user()->id);
    
-        return view('services.create', compact('locations_labels', 'working_hours'));
+        return view('services.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery'));
     }
 
     /**
