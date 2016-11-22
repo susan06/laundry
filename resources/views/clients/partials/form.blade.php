@@ -69,7 +69,7 @@
   </div> 
 
   <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-    <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('app.number')">
+    <input type="text" class="form-control" id="inputSuccess5" placeholder="@lang('app.card_number')">
     <span class="fa fa-credit-card form-control-feedback right" aria-hidden="true"></span>
   </div>                 
 

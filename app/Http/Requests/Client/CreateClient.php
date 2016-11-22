@@ -24,9 +24,11 @@ class CreateClient extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|min:3',
-            'last_name' => 'required|min:3',
-            'email' => 'required|email|unique:clients,email',
+            'email' => 'required|email|unique:users,email',
+            'name' => 'required|min:3',
+            'lastname' => 'required|min:3',
+            'status' => 'required',
+            'role_id' => 'required|exists:roles,id'
         ];
     }
 }
