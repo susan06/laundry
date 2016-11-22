@@ -19,7 +19,7 @@
         
           <div class="x_content">
             <p>
-            <button type="button" data-href="{{ route('client.create', 'role=true') }}" class="btn btn-primary btn-sm create-edit-show" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
+            <button type="button" data-href="{{ route('admin-client.create', 'role=true') }}" class="btn btn-primary btn-sm create-edit-show" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
             </p>
 
             <div id="content-table">
@@ -42,11 +42,11 @@
                               <span class="label label-{{ $client->labelClass() }}">{{ trans("app.{$client->status}") }}</span>
                             </td>
                             <td class="text-center">
-                                <button type="button" data-href="#" class="btn btn-round btn-primary btn-xs create-edit-modal"
-                                   title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
+                                <button type="button" data-href="{{ route('admin-client.edit', $client->id).'?role=true' }}" class="btn btn-round btn-primary btn-xs create-edit-show" data-model="modal"
+                                   title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button type="button" data-href="#" 
+                                <button type="button" data-href="{{ route('admin-client.destroy', $client->id) }}" 
                                   class="btn btn-round btn-danger btn-xs btn-delete" 
                                   data-confirm-text="@lang('app.are_you_sure_delete_client')"
                                   data-confirm-delete="@lang('app.yes_delete_him')"

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Support\User\UserStatus;
 
-class Client extends Authenticatable
+class PaymentClient extends Authenticatable
 {
     use Notifiable;
 
@@ -21,14 +21,7 @@ class Client extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_id', 
-        'first_name', 
-        'last_name', 
-        'email', 
-        'password',
-        'mobile',
-        'telephone',
-        'date_of_birth',
+        'user_id',
         'type_of_card',
         'name_on_card',
         'card_number',
@@ -106,20 +99,4 @@ class Client extends Authenticatable
     {
         return $this->belongsTo(User::class, 'id');
     }
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
-
-    public function coupon()
-    {
-        return $this->belongsTo(Coupon::class, 'created_by');
-    }
-
-    public function branch_office()
-    {
-        return $this->hasOne(BranchOffice::class, 'representative_id');
-    }
-
 }

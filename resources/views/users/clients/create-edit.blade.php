@@ -1,23 +1,23 @@
 <div class="modal-body">
 @if($edit)
-{!! Form::model($client, ['route' => ['client.update', $client->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+{!! Form::model($user, ['route' => ['admin-client.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @else
- {!! Form::open(['route' => 'client.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+ {!! Form::open(['route' => 'admin-client.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @endif
   
   <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.first_name')">@lang('app.first_name') <span class="required">*</span>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.name')">@lang('app.name') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('first_name', old('first_name'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'first_name']) !!}
+    {!! Form::text('name', old('name'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'name']) !!}
     </div>
   </div>
 
   <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.last_name')">@lang('app.last_name') <span class="required">*</span>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.last_name')">@lang('app.lastname') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('last_name', old('last_name'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'last_name']) !!}
+    {!! Form::text('lastname', old('lastname'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'lastname']) !!}
     </div>
   </div>
 

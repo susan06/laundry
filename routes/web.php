@@ -75,6 +75,11 @@
      * Branch offices administrations
     */
     Route::resource('admin-branch-office', 'Admin\BranchOfficeController');
+
+    /**
+     * Clients administrations
+    */
+    Route::resource('admin-client', 'Admin\clientController');
     
     /**
      * Branch offices administrations
