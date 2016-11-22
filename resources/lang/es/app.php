@@ -19,6 +19,8 @@ return [
     'action' => 'Acción',
     'actions' => 'Acciones',
     'search' => 'Buscar',
+    'searched' => 'Búsqueda',
+    'delivery' => 'Entrega',
     'personal_data' => 'Datos personales',
     'update' => 'Actualizar',
     'error_again' => 'Error, intente de nuevo',

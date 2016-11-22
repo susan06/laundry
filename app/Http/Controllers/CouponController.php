@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Auth;
+use DateTime;
 use App\Coupon;
 use App\Repositories\Coupon\CouponRepository;
 use App\Http\Requests\Coupon\CreateCoupon;
@@ -36,8 +37,16 @@ class CouponController extends Controller
      */
     public function index(Request $request)
     {
+        $date = DateTime::createFromFormat('d-m-Y', $request->search);
+
+        if($date && $date->format('d-m-Y')) {
+            $search = date_format(date_create($request->search), 'Y-m-d');
+        } else {
+            $search = $request->search;
+        }
+
         $code = str_random(15);
-        $coupons = $this->coupons->paginate(10, $request->search);
+        $coupons = $this->coupons->paginate_search(10, $search);
         if ( $request->ajax() ) {
             if (count($coupons)) {
                 return response()->json([

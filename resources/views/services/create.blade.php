@@ -15,49 +15,47 @@
           </div>
           <div class="x_content">
           {!! Form::open(['route' => 'branch-office.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+          <!--
           <div class="alert alert-warning alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button>
             No tiene direcciones confirmadas aún, será tomada su ubicación actual. Puede mover el marcador para más exactitud de su ubicación.
           </div>
+          -->
 
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.delivery_address')">@lang('app.delivery_address') <span class="required">*</span>
-            </label>
-            <div class="col-md-7 col-sm-7 col-xs-12">
-            {!! Form::text('delivery_address', old('delivery_address'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'delivery_address', 'required' => 'required']) !!}
-            {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
-            {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
+            <div class="x_title">
+              <h2> @lang('app.address')</h2>
+              <div class="clearfix"></div>
             </div>
-          </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.locations_labels')">@lang('app.locations_labels') <span class="required">*</span>
-              </label>
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'locations_labels']) !!}
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.details_address')">@lang('app.details_address') 
-              </label>
-              <div class="col-md-7 col-sm-7 col-xs-12">
-                {!! Form::textarea('details_address', old('details_address'), ['class' => 'form-control', 'id' => 'details_address', 'rows' => '3']) !!}
-              </div>
-            </div>
+
             <div id="map-form"></div>
             <br />
-
-            <div class="alert alert-info alert-dismissible fade in" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-              </button>
-              @lang('app.only_days_are_enabled')
-              {{ (in_array(1,$week)) ? '' : trans("app.monday").' ' }}
-              {{ (in_array(2,$week)) ? '' : trans("app.tuesday").' ' }}
-              {{ (in_array(3,$week)) ? '' : trans("app.wednesday").' ' }}
-              {{ (in_array(4,$week)) ? '' : trans("app.thursday").' ' }}
-              {{ (in_array(5,$week)) ? '' : trans("app.friday").' ' }}
-              <div id="alert-schedule">
+            <div class="row">
+              <div class="col-md-8 col-sm-8 col-xs-12 form-group has-feedback">
+                {!! Form::text('delivery_address', old('delivery_address'), ['class' => 'form-control has-feedback-left', 'id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
+                <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
               </div>
+            </div>
+              
+              {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
+              {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
+
+            <div class="row">
+              <div class="form-group col-md-4 col-sm-4 col-xs-12 has-feedback">
+                {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control has-feedback-left', 'id' => 'locations_labels']) !!}
+                <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-7 col-sm-7 col-xs-12 form-group">
+                  {!! Form::textarea('details_address', old('details_address'), ['class' => 'form-control', 'id' => 'details_address', 'rows' => '3', 'placeholder' => trans('app.details_address')]) !!}
+              </div>
+            </div>
+
+            <div class="x_title">
+              <h2> @lang('app.searched')</h2>
+              <div class="clearfix"></div>
             </div>
 
             <div class="checkbox">
@@ -70,32 +68,38 @@
             </div>
 
             <br />
-
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.date_search')">@lang('app.date_search') <span class="required">*</span>
-              </label>
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                {!! Form::text('date_search', old('date_search'), ['class' => 'form-control col-md-7 col-xs-12 datetime', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
-              </div>                                   
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.time_search')">@lang('app.time_search') <span class="required">*</span>
-              </label>
-              <div class="col-md-3 col-sm-3 col-xs-12">
-              <select name="time_search" class="form-control col-md-7 col-xs-12" id="time_search">
-                @foreach($working_hours as $working_hour)
-                  @if($working_hour['status'] == 'available')
-                  <option value="{{$working_hour['id']}}">{{$working_hour['interval']}}
-                  @endif
-                @endforeach
-              </select>
+            
+            <div class="row">            
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                  {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
+                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
               </div>
             </div>
+
+            <div class="row"> 
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+                <select name="time_search" class="form-control" id="time_search">
+                  @foreach($working_hours as $working_hour)
+                    @if($working_hour['status'] == 'available')
+                    <option value="{{$working_hour['id']}}">{{$working_hour['interval']}}
+                    @endif
+                  @endforeach
+                </select>
+              </div>
+            </div>
+              
+            <div class="x_title">
+              <h2> @lang('app.delivery')</h2>
+              <div class="clearfix"></div>
+            </div>
+
+ 
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.date_delivery')">@lang('app.date_delivery') <span class="required">*</span>
               </label>
               <div class="col-md-2 col-sm-3 col-xs-12">
                 {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control col-md-7 col-xs-12 datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
+                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
               </div>                
             </div>
              <div class="form-group">
@@ -105,20 +109,24 @@
                 {!! Form::select('time_delivery', $time_delivery, old('time_delivery'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'time_delivery']) !!}     
               </div>            
             </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.special_instructions')">@lang('app.special_instructions') 
-              </label>
-              <div class="col-md-7 col-sm-7 col-xs-12">
-                {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3']) !!}
+
+            <div class="x_title">
+              <h2> @lang('app.details')</h2>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
+                  {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
               </div>
             </div>
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.coupon')">@lang('app.coupon')
-              </label>
-              <div class="col-md-7 col-sm-7 col-xs-12">
-              {!! Form::text('coupon', old('coupon'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'coupon']) !!}
+              
+            <div class="row">
+              <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
+              {!! Form::text('coupon', old('coupon'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
               </div>
             </div>
+
             <div class="ln_solid"></div>
             <div class="form-group col-md-2 col-sm-2 col-xs-12">
               <button type="submit" class="btn btn-primary col-xs-12">@lang('app.save')</button>
@@ -166,7 +174,6 @@
 
   if(! moment(new Date(beginningTime)).isBefore(new Date(endTime)) ) {
     today = new Date(today.setDate(today.getDate() + 1));
-    document.getElementById("alert-schedule").innerHTML = "Hora de cierre: {{ Settings::get('time_close') }}, solo podrá selecionar la siguiente fecha hábil, debido a que falta media hora o menos para cerrar.";
   }
 
   $('#date_search').datetimepicker({

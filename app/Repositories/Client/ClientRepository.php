@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Client;
 
-use App\Client;
 use App\Repositories\RepositoryInterface;
 
 interface ClientRepository extends RepositoryInterface

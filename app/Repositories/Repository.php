@@ -152,6 +152,7 @@ abstract class Repository implements RepositoryInterface
         if ($search) {
 
             $searchTerms = explode(' ', $search);
+            dd($searchTerms);
             $result = $this->model->where( function ($q) use($searchTerms) {
                 foreach ($searchTerms as $term) {
                    foreach ($this->attributes as $attribute) {

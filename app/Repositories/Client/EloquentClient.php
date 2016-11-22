@@ -3,7 +3,6 @@
 namespace App\Repositories\Client;
 
 use App\User;
-use App\Client;
 use App\ClientSetting;
 use App\Repositories\Repository;
 
@@ -21,7 +20,7 @@ class EloquentClient extends Repository implements ClientRepository
      *
      * @param Client $Client
      */
-    public function __construct(Client $client)
+    public function __construct(User $client)
     {
         parent::__construct($client, $this->attributes);
     }
