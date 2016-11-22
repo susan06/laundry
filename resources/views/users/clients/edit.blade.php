@@ -58,17 +58,13 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('status', $status, 'Active', ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status']) !!}
+      {!! Form::select('status', $status, old('status'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status']) !!}
     </div>
   </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
-  @if($edit)
     <button type="submit" class="btn btn-primary btn-submit">@lang('app.update')</button>
-  @else
-      <button type="submit" class="btn btn-primary btn-submit">@lang('app.save')</button>
-  @endif
 </div>
 
 {!! Form::close() !!}

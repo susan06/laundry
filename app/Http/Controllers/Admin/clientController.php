@@ -121,9 +121,23 @@ class clientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request, RoleRepository $roleRepository)
     {
-        //
+        $edit = true;
+        $role = ($request->role == 'true') ? true : false;
+        $status = UserStatus::lists();
+        $roles = $roleRepository->lists('display_name');
+        if ( $user = $this->users->find($id) ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('users.clients.show', compact('user','edit','status','roles', 'role'))->render()
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.no_record_found')
+            ]);
+        }
     }
 
     /**
