@@ -13,7 +13,7 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
      *
      * @var array
      */
-    protected $attributes = ['name', 'phone'];
+    protected $attributes = ["name", "phone"];
 
     /**
      * EloquentBranchOffice constructor
@@ -39,16 +39,16 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
     public function paginate_search($take = 10, $search = null)
     {
         if ($search) {
-            $searchTerms = explode(' ', $search);
+            $searchTerms = explode(" ", preg_replace("/\s+/", " ", $search));
+    
             $result = BranchOffice::where( function ($q) use($searchTerms) {
                 foreach ($searchTerms as $term) {
-                    foreach ($this->attributes as $attribute) {
-                        $q->orwhere($attribute, "like", "%{$term}%");
-                    }
-                    $q->whereHas('representative', function($qu) use($term) {
-                        $qu->orwhere('name', "like", "%{$term}%");
-                        $qu->orwhere('lastname', "like", "%{$term}%");
+                    $q->whereHas('representative', function($q) use($term) {
+                        $q->where("name", "like", "%{$term}%");
+                        $q->orwhere("lastname", "like", "%{$term}%");
                     });
+                    $q->orwhere("name", "like", "%{$term}%");
+                    $q->orwhere("phone", "like", "%{$term}%");
                 }
             })->paginate($take)->appends(['search' => $search]);
         } else {

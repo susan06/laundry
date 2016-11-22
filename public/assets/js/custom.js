@@ -14,22 +14,13 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
-// datatable-responsive
 $(document).ready(function() {
     $('#datatable-responsive').DataTable({
       "searching": false,
       "paging": false,
       "bInfo": false,
-    });
+    }); 
 });
-$(document).ready(function() {
-    $('.table-responsive').DataTable({
-      "searching": false,
-      "paging": false,
-      "bInfo": false,
-    });
-});
-// Sidebar
 
 // Sidebar
 $(document).ready(function() {
@@ -349,6 +340,7 @@ $(document).on('click', '.search-cancel', function (e) {
     getPages(CURRENT_URL);
     $('#search').val('');
     $(this).hide();
+    loadResposiveTable();
 });
 
 // search register all
@@ -365,6 +357,7 @@ $(document).on('click', '.search', function () {
             success: function(response) {
                 if(response.success){
                     $('#content-table').html(response.view);
+                    loadResposiveTable();
                 } else {
                     notify('error', response.message);
                 }
@@ -393,6 +386,7 @@ function getPages(page) {
         success: function(response) {
             if(response.success){
                 $('#content-table').html(response.view);
+                loadResposiveTable();
                 CURRENT_URL = page;
             }
         },
@@ -411,12 +405,17 @@ function notify(type, message){
     });
 }
 
-function loadScript(src){
+// datatable-responsive
 
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    document.getElementsByTagName("head")[0].appendChild(script);
-    script.src = src;
+function loadResposiveTable() {
+   
+    $('#datatable-responsive').DataTable({
+      "destroy": true,  
+      "searching": false,
+      "paging": false,
+      "bInfo": false,
+    });
+
 }
 
 // /script general

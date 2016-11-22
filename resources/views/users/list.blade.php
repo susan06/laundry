@@ -35,14 +35,4 @@
 </tbody>
 </table>
 {{ $users->links() }}
-
-<script type="text/javascript">
-
-    $('#datatable-responsive').DataTable({
-      "searching": false,
-      "paging": false,
-      "bInfo": false,
-    });
-
-</script>
  

@@ -21,13 +21,13 @@
           </td>
           <td class="text-center">
 
-              <button type="button" data-href="{{ route('branch-office.edit', $branch_office->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="content"
+              <button type="button" data-href="{{ route('admin-branch-office.edit', $branch_office->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="content"
                  title="@lang('app.edit_branch_office')" data-toggle="tooltip" data-placement="top">
                   <i class="fa fa-edit"></i>
               </button>
 
           @if($branch_office->status == 'Out of service')
-              <button type="button" data-href="{{ route('branch-office.destroy', $branch_office->id) }}" 
+              <button type="button" data-href="{{ route('admin-branch-office.destroy', $branch_office->id) }}" 
                 class="btn btn-round btn-danger btn-delete" 
                 data-confirm-text="@lang('app.are_you_sure_delete_branch_office')"
                 data-confirm-delete="@lang('app.yes_delete_him')"
@@ -41,13 +41,3 @@
 </tbody>
 </table>
 {{ $branch_offices->links() }}
-
-<script type="text/javascript">
-
-    $('#datatable-responsive').DataTable({
-      "searching": false,
-      "paging": false,
-      "bInfo": false,
-    });
-
-</script>
