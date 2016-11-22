@@ -1,139 +1,77 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form class="form-horizontal"  id="login-form" role="form" method="POST" action="{{ url('/authenticate') }}">
-             {{ csrf_field() }}
-              <h1>Login</h1>
-               <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
-                  <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-                  @if ($errors->has('email'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('email') }}</strong>
-                      </span>
-                  @endif
-                </div>
-                <div class="{{ $errors->has('password') ? ' has-error' : '' }}">
-                  <input id="password" type="password" class="form-control" name="password" required>
-                  @if ($errors->has('password'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('password') }}</strong>
-                      </span>
-                  @endif
-                </div>
-              <div>
-                <button type="submit" class="btn btn-primary col-xs-12">Login</button>
-                @if(Settings::get('forgot_password'))
-                <a class="reset_pass" href="{{ url('/password/reset') }}">@lang('app.i_forgot_my_password')</a>
-                @endif
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-              @if(Settings::get('reg_enabled'))
-                <p class="change_link">@lang('app.dont_have_an_account')
-                  <a href="#signup" class="to_register">@lang('app.create_account')</a>
-                </p>
-              @endif
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1>{{ Settings::get('app_name') }}</h1>
-                  <p>©2016 @lang('app.all_rights_reserved')</p>
-                </div>
-              </div>
-            </form>
-          </section>
+<div class="container">
+   <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-login">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="login-form" action="{{ url('/authenticate') }}" method="post" role="form" style="display: block;">
+               {{ csrf_field() }}
+                <h2>{{ Settings::get('app_name') }} - LOGIN</h2>
+                  <div class="form-group">
+                    <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="@lang('app.email')" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="@lang('app.password')">
+                  </div>
+                  <div class="col-xs-6 form-group pull-left checkbox">
+                    <input id="checkbox1" type="checkbox" name="remember">
+                    <label for="checkbox1">@lang('app.remember_me')</label>   
+                  </div>
+                  <div class="col-xs-6 form-group pull-right">     
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="@lang('app.log_in')">
+                  </div>
+              </form>
+              <form id="register-form" action="#" method="post" role="form" style="display: none;">
+                <h2>REGISTER</h2>
+                  <div class="form-group">
+                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-sm-6 col-sm-offset-3">
+                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                      </div>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
         </div>
-
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form class="form-horizontal" role="form" method="POST" id="form_register" action="{{ url('/registration') }}">
-              {{ csrf_field() }}
-              <h1>@lang('app.create_account')</h1>
-              <div class="form-group">
-                <input type="text" name="name" id="name_reg" class="form-control" placeholder="@lang('app.name')" required="required" />
-                <span class="help-block"></span>        
-              </div>
-              <div class="form-group">
-                <input type="text" name="lastname" id="lastname_reg" class="form-control" placeholder="@lang('app.lastname')" required="required" />
-              </div>
-              <div class="form-group">
-                <input type="email" name="email" id="email_reg" class="form-control" placeholder="@lang('app.email')" required="required" />
-              </div>
-              <div class="form-group">
-                <input type="password" name="password" id="password_reg" class="form-control" placeholder="@lang('app.password')" required="required" />
-              </div>
-              <div class="form-group"> 
-                <input type="password" name="password_confirmation" id="password_confirmation_reg" class="form-control" placeholder="@lang('app.confirm_password')" required="required" />
-              </div>
-              @if (Settings::get('terms_and_conditions_show'))
-              <div>
-                  <input type="checkbox" name="accept_terms" id="accept_terms" value="1"/>
-                  @lang('app.i_accept') <a href="#terms_and_conditions_modal" data-toggle="modal">@lang('app.terms_of_service')</a>
-              </div>
-              @else
-                <input type="checkbox" name="accept_terms" id="accept_terms" value="1" checked="checked" style="display: none" />
-              @endif
-              <div>
-                  <input type="checkbox" name="accept_promotions" value="1"/>
-                  @lang('app.i_accept') @lang('app.send_promotions_descuent')
-              </div>
-              <br>
-              <div>
-                <button class="btn btn-primary col-xs-12 submit" id="btn-register" disabled="disabled" type="submit">@lang('app.register')</button>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">@lang('app.already a member?')
-                  <a href="#signin" class="to_register"> Login </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1>{{ config('app.name') }}</h1>
-                  <p>©2016 @lang('app.all_rights_reserved')</p>
-                </div>
-              </div>
-            </form>
-          </section>
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-6 tabs">
+              <a href="#" class="active" id="login-form-link"><div class="login">@lang('app.login')</div></a>
+            </div>
+            <div class="col-xs-6 tabs">
+              <a href="#" id="register-form-link"><div class="register">@lang('app.register')</div></a>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
-
-    @if (Settings::get('terms_and_conditions_show'))
-    <div class="modal fade" id="terms_and_conditions_modal" tabindex="-1" role="dialog" aria-labelledby="tos-label">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="@lang('app.terms_of_service')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h3 class="modal-title" id="tos-label">@lang('app.terms_and_conditions')</h3>
-                </div>
-                <div class="modal-body">
-                    {{ Settings::get('terms_and_conditions') }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
-                </div>
-            </div>
-        </div>
+  </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h6 style="font-size:14px;font-weight:100;color: #fff;">©2016 @lang('app.all_rights_reserved')</a></h6>
+        </div>   
     </div>
-    @endif
+</footer>
 
 @endsection
 
@@ -142,6 +80,20 @@
 
     <script>
 
+    $('#login-form-link').click(function(e) {
+        $("#login-form").delay(100).fadeIn(100);
+      $("#register-form").fadeOut(100);
+      $('#register-form-link').removeClass('active');
+      $(this).addClass('active');
+      e.preventDefault();
+    });
+    $('#register-form-link').click(function(e) {
+      $("#register-form").delay(100).fadeIn(100);
+      $("#login-form").fadeOut(100);
+      $('#login-form-link').removeClass('active');
+      $(this).addClass('active');
+      e.preventDefault();
+    });
         $(document).on('click', '.btn-register', function (e) {
             e.preventDefault();
             var form = $('#form_register'); 

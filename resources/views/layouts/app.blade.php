@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -30,7 +30,7 @@
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
     <!-- iChecks -->
-    {!! HTML::style("public/vendors/iCheck/skins/flat/blue.css") !!}
+    {!! HTML::style("public/vendors/iCheck/skins/flat/green.css") !!}
     <!-- bootstrap datetimepicker -->
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
     <!-- Custom Theme Style -->

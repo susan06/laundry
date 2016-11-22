@@ -23,7 +23,7 @@
           </div>
           -->
 
-            <div class="x_title">
+            <div class="t_title">
               <h2> @lang('app.address')</h2>
               <div class="clearfix"></div>
             </div>
@@ -31,7 +31,7 @@
             <div id="map-form"></div>
             <br />
             <div class="row">
-              <div class="col-md-8 col-sm-8 col-xs-12 form-group has-feedback">
+              <div class="col-md-8 col-sm-8 col-xs-12 form-group">
                 {!! Form::text('delivery_address', old('delivery_address'), ['class' => 'form-control has-feedback-left', 'id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
                 <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
               </div>
@@ -41,9 +41,8 @@
               {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
 
             <div class="row">
-              <div class="form-group col-md-4 col-sm-4 col-xs-12 has-feedback">
-                {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control has-feedback-left', 'id' => 'locations_labels']) !!}
-                <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
+              <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control', 'id' => 'locations_labels']) !!}
               </div>
             </div>
 
@@ -53,7 +52,7 @@
               </div>
             </div>
 
-            <div class="x_title">
+            <div class="t_title">
               <h2> @lang('app.searched')</h2>
               <div class="clearfix"></div>
             </div>
@@ -70,14 +69,14 @@
             <br />
             
             <div class="row">            
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
                   {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
                 <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
               </div>
             </div>
 
             <div class="row"> 
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group has-feedback">
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
                 <select name="time_search" class="form-control" id="time_search">
                   @foreach($working_hours as $working_hour)
                     @if($working_hour['status'] == 'available')
@@ -88,42 +87,39 @@
               </div>
             </div>
               
-            <div class="x_title">
+            <div class="t_title">
               <h2> @lang('app.delivery')</h2>
               <div class="clearfix"></div>
             </div>
 
  
-            <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.date_delivery')">@lang('app.date_delivery') <span class="required">*</span>
-              </label>
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control col-md-7 col-xs-12 datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
+            <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
+                {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control has-feedback-left datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
                 <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
               </div>                
             </div>
-             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.time_delivery')">@lang('app.time_delivery') <span class="required">*</span>
-              </label>
-              <div class="col-md-2 col-sm-3 col-xs-12">
-                {!! Form::select('time_delivery', $time_delivery, old('time_delivery'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'time_delivery']) !!}     
+             <div class="row">
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group form-group">
+                {!! Form::select('time_delivery', $time_delivery, old('time_delivery'), ['class' => 'form-control', 'id' => 'time_delivery']) !!}     
               </div>            
             </div>
-
-            <div class="x_title">
+            
+            <div class="t_title">
               <h2> @lang('app.details')</h2>
               <div class="clearfix"></div>
             </div>
 
             <div class="row">
-              <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
+              <div class="col-md-7 col-sm-7 col-xs-12 form-group">
                   {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
               </div>
             </div>
               
             <div class="row">
-              <div class="col-md-7 col-sm-7 col-xs-12 form-group has-feedback">
-              {!! Form::text('coupon', old('coupon'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
+              <div class="col-md-7 col-sm-7 col-xs-12 form-group">
+              {!! Form::text('coupon', old('coupon'), ['class' => 'form-control has-feedback-left', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
+              <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
               </div>
             </div>
 
