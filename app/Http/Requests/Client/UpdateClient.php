@@ -25,7 +25,6 @@ class UpdateClient extends FormRequest
     {
         $id = $this->route('client');
         return [
-            'email' => 'required|email|unique:clients,email,' .$id,
             'name' => 'required|min:3',
             'lastname' => 'required|min:3',
             'status' => 'required',

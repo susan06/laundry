@@ -78,7 +78,7 @@ class clientController extends Controller
 
         return response()->json([
             'success' => true,
-            'view' => view('users.clients.create-edit', compact('edit','status','roles', 'role'))->render()
+            'view' => view('users.clients.create', compact('edit','status','roles', 'role'))->render()
         ]);
     }
 
@@ -141,7 +141,7 @@ class clientController extends Controller
         if ( $user = $this->users->find($id) ) {
             return response()->json([
                 'success' => true,
-                'view' => view('users.clients.create-edit', compact('user','edit','status','roles', 'role'))->render()
+                'view' => view('users.clients.edit', compact('user','edit','status','roles', 'role'))->render()
             ]);
         } else {
             return response()->json([
@@ -159,11 +159,11 @@ class clientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUser $request, $id)
+    public function update(UpdateClient $request, $id)
     {
         $user = $this->users->update(
             $id, 
-            $request->only('first_name', 'last_name', 'role_id', 'status')
+            $request->only('name', 'lastname', 'role_id', 'status')
         );
         if ( $user ) {
 
