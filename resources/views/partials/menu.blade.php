@@ -27,7 +27,7 @@
         <h3>{{ Auth::user()->role->display_name }}</h3>
         <ul class="nav side-menu">
         <li>
-          <a href="{{ secure_url('home') }}" title="@lang('app.home')"><i class="fa fa-home"></i> @lang('app.home')
+          <a href="{{ url('home') }}" title="@lang('app.home')"><i class="fa fa-home"></i> @lang('app.home')
           </a>
         </li>
         

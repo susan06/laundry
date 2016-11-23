@@ -18,12 +18,12 @@
                   <div class="form-group">
                     <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="@lang('app.password')">
                   </div>
-                  <div class="col-xs-6 form-group pull-left checkbox">
+                  <div class="col-xs-12 form-group pull-right">     
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="@lang('app.log_in')">
+                  </div>
+                  <div class="col-xs-12 form-group pull-left checkbox">
                     <input id="checkbox1" type="checkbox" name="remember">
                     <label for="checkbox1">@lang('app.remember_me')</label>   
-                  </div>
-                  <div class="col-xs-6 form-group pull-right">     
-                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="@lang('app.log_in')">
                   </div>
               </form>
               <form id="register-form" action="#" method="post" role="form" style="display: none;">

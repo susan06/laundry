@@ -123,17 +123,19 @@ class LoginController extends Controller
      */
     public function getLogout(Request $request)
     {
-        $role = Auth::user()->role_id;
-
-        Auth::logout();
-        
-        Auth::guard()->logout();
-
+        $role = null;
+        if ( Auth::guard()->check() ) {
+            $role = Auth::user()->role_id;
+            Auth::guard()->logout();
+        }
         $request->session()->flush();
-
         $request->session()->regenerate();
+        if ( !$role ) {
 
+            return redirect('login');
+        }
         if ($role == 2) {
+
             return redirect('login');
         }
 
