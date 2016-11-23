@@ -51,6 +51,19 @@ class User extends Authenticatable
         return $this->name.' '.$this->lastname;
     }
 
+    public function label_phones()
+    {
+        $text_phones = '';
+        if ($this->phones) {
+            $phones = json_decode($this->phones, true);
+            foreach ($phones as $label => $phone) {
+                $text_phones .= $label.': '.$phone.', ';
+            }
+            $text_phones = substr($text_phones, 0, -2);
+        } 
+        return $text_phones;
+    }
+
     public function getCreatedAtAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
