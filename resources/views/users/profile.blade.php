@@ -47,7 +47,7 @@
                             </tr>
                             <tr>
                               <td><strong>@lang('app.phone'):</strong></td>
-                              <td>{{ $user->phones }}</td>
+                              <td>{{ $user->label_phones()}}</td>
                             </tr>
                           </table>
                           <button type="button" data-href="{{ route('profileUser.edit', $user->id).'?role=true' }}" class="btn btn-success btn-primary create-edit-show" data-model="modal" title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i>@lang('app.edit')
