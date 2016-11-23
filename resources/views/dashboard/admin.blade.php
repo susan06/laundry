@@ -12,7 +12,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-              <!-- aqui contenido -->
+              @include('dashboard.content-admin')
           </div>
         </div>
       </div>

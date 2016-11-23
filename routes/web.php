@@ -64,7 +64,12 @@
     /**
      *  Adminitrations of Roles
     */
-    Route::resource('role', 'RoleController');
+    Route::resource('role', 'RoleController');/**
+    
+    /**
+    *  Profile
+    */
+    Route::resource('profileUser', 'ProfileController');
 
     /**
      * Coupons

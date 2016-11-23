@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests;
 use App\Repositories\User\UserRepository;
+use App\Repositories\Role\RoleRepository;
+use App\Http\Requests\User\CreateUser;
+use App\Http\Requests\User\UpdateUser;
+use App\Http\Requests\Profile\UpdateProfile;
+use App\Support\User\UserStatus;
 
 class ProfileController extends Controller
 {
@@ -28,7 +33,6 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
         $this->users = $users;
-        $this->theUser = Auth::user();
     }
 
     /**
@@ -37,9 +41,30 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function index()
     {
-        return view('user.profile');
+        $user = Auth::user();
+
+        return view('users.profile', compact('user'));
+    }
+
+    public function edit($id, Request $request, RoleRepository $roleRepository)
+    {
+        $edit = true;
+        $role = ($request->role == 'true') ? true : false;
+        $status = UserStatus::lists();
+        $roles = $roleRepository->lists('display_name');
+        if ( $user = $this->users->find($id) ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('users.edit-profile', compact('user','edit','status','roles', 'role'))->render()
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.no_record_found')
+            ]);
+        }
     }
 
     /**
@@ -49,9 +74,25 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateProfile $request, $id)
     {
-        //
+        $user = $this->users->update(
+            $id, 
+            $request->only('name', 'lastname')
+        );
+        if ( $user ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.user_updated')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 
 }
