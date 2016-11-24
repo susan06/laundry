@@ -38,7 +38,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = $this->users->paginate_search(10, $request->search, $request->status);
-        $status = ['' => trans('app.search_status')] + UserStatus::lists();
+        $status = ['' => trans('app.all_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
             if (count($users)) {
                 return response()->json([
@@ -63,8 +63,8 @@ class UserController extends Controller
      */
     public function client_index(Request $request)
     {
-        $clients = $this->users->client_paginate_search(10, $request->search);        
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
+        $clients = $this->users->client_paginate_search(10, $request->search, $request->status);
+        $status = ['' => trans('app.all_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
             if (count($clients)) {
                 return response()->json([
@@ -89,8 +89,8 @@ class UserController extends Controller
      */
     public function driver_index(Request $request)
     {
-        $drivers = $this->users->driver_paginate_search(10, $request->search);
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
+        $drivers = $this->users->driver_paginate_search(10, $request->search, $request->status);
+        $status = ['' => trans('app.all_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
             if (count($drivers)) {
                 return response()->json([

@@ -31,7 +31,7 @@ interface UserRepository extends RepositoryInterface
      * @return mixed
      *
      */
-    public function client_paginate_search($take = 10, $search = null);
+    public function client_paginate_search($take = 10, $search = null, $status = null);
 
     /**
      * Driver Paginate and search
@@ -44,7 +44,7 @@ interface UserRepository extends RepositoryInterface
      * @return mixed
      *
      */
-    public function driver_paginate_search($take = 10, $search = null);
+    public function driver_paginate_search($take = 10, $search = null, $status = null);
 
      /**
      * lists representative

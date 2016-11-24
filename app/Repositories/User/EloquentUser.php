@@ -89,7 +89,7 @@ class EloquentUser extends Repository implements UserRepository
      * @return mixed
      *
      */
-    public function client_paginate_search($take = 10, $search = null)
+    public function client_paginate_search($take = 10, $search = null, $status = null)
     {
         $query = User::where('role_id', 2);
 
@@ -104,11 +104,22 @@ class EloquentUser extends Repository implements UserRepository
             });
         }
 
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+
         $result = $query->paginate($take);
 
         if ($search) {
             $result->appends(['search' => $search]);
         }
+
+        if ($status) {
+            $result->appends(['status' => $status]);
+        }
+
+
 
         return $result;
     }
@@ -124,7 +135,7 @@ class EloquentUser extends Repository implements UserRepository
      * @return mixed
      *
      */
-    public function driver_paginate_search($take = 10, $search = null)
+    public function driver_paginate_search($take = 10, $search = null, $status = null)
     {
         $query = User::where('role_id', 3);
 
@@ -139,11 +150,22 @@ class EloquentUser extends Repository implements UserRepository
             });
         }
 
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+
         $result = $query->paginate($take);
 
         if ($search) {
             $result->appends(['search' => $search]);
         }
+
+        if ($status) {
+            $result->appends(['status' => $status]);
+        }
+
+
 
         return $result;
     }

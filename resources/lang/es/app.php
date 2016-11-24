@@ -40,6 +40,7 @@ return [
     'panel_administration' => 'Administración',
     'selected_status' => 'Seleccionar Estatus',
     'search_status' => 'Buscar por estatus',
+    'all_status' => 'Todos los estatus',
 
 
     // Activity Log Section
