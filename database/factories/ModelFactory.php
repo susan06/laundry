@@ -40,3 +40,10 @@ $factory->define(App\ServiceBranchOffice::class, function ($faker) {
         'created_at'            => \Carbon\Carbon::now(),    
     ];
 });
+
+$factory->define(App\Package::class, function ($faker) {
+    return [
+        'image'        => $faker->imageUrl(640, 480, 'fashion', true, 'Faker'),
+        'created_at'  => \Carbon\Carbon::now()
+    ];
+});

@@ -1,7 +1,5 @@
 function add_working_hour() {
 
-  $('#working_hours_table').show();
-
   var input = document.createElement("input");
   var tr    = document.createElement("TR");
   var td    = document.createElement("TD");  
@@ -88,7 +86,59 @@ function add_working_hour() {
 
 }
 
+function add_delivery_time() {
+
+  var input = document.createElement("input");
+  var tr    = document.createElement("TR");
+  var td    = document.createElement("TD");  
+
+  input.type  = 'text';
+  input.name  = 'interval[]';
+  input.className = 'form-control', 
+  input.setAttribute('required', 'required');
+
+  var select1 = document.createElement("select");
+  var td1    = document.createElement("TD");
+
+  select1.name  = 'published[]';
+  select1.className = 'form-control',
+  $.each(select_delivery, function(index, value) { 
+    var option = document.createElement("option");
+    option.value = index;
+    option.text = value;
+    select1.appendChild(option);
+  });
+
+  var td2    = document.createElement("TD");
+
+  button               = document.createElement('button');
+  button.className     = 'btn btn-round btn-danger btn-xs delete-delivery';
+
+  var icon               = document.createElement('i');
+  icon.style.cursor  = 'pointer';
+  icon.className     = 'fa fa-trash';
+  
+  button.appendChild(icon);
+
+  td.appendChild(input);
+  td1.appendChild(select1);
+  td2.appendChild(button);
+
+  tr.appendChild(td); 
+  tr.appendChild(td1); 
+  tr.appendChild(td2); 
+
+  container = document.getElementById('delivery_hours_list');
+  container.appendChild(tr); 
+
+}
+
 $(document).on('click', '.delete-hour', function () {
+    var row = $(this).closest('tr');
+    row.remove();
+});
+
+$(document).on('click', '.delete-delivery', function () {
     var row = $(this).closest('tr');
     row.remove();
 });

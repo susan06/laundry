@@ -40,6 +40,48 @@
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div id="content-table">
+      <div id="load_delivery_hours"> 
+        <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+          <th>@lang('app.interval_delivery')</th>
+          <th>@lang('app.status')</th>
+          <th width="10%">@lang('app.actions')</th>
+        </tr>
+        </thead>
+        <tbody id="delivery_hours_list">
+
+          @foreach ($delivery_hours as $key => $delivery_hour)
+          <tr>
+            <td><input type="text" name="interval[]"  class="form-control" value="{{$delivery_hour['interval']}}" required="required"></td>
+            <td>
+            {!! Form::select('published[]', $status_delivery, $delivery_hour['published'], ['class' => 'form-control']) !!}</td>
+            <td>
+            @if($key != 0)
+              <button type="button"  class="btn btn-round btn-danger btn-xs delete-delivery"> 
+                <i class="fa fa-trash"></i>
+              </button>
+            @endif
+            </td>
+          </tr>
+          @endforeach
+          <!-- load content locations -->
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col-md-3 col-sm-4 col-xs-12">
+    <button type="button" onClick="add_delivery_time()" class="btn btn-default col-xs-12">@lang('app.add_delivery_hour')</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div id="content-table">
       <div id="load_working_hours"> 
         <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" cellspacing="0" width="100%">
         <thead>
@@ -78,7 +120,7 @@
 </div>
 
 <div class="row">
-  <div class="form-group col-md-3 col-sm-3 col-xs-12">
+  <div class="form-group col-md-3 col-sm-4 col-xs-12">
     <button type="button" onClick="add_working_hour()" class="btn btn-default col-xs-12">@lang('app.add_interval')</button>
   </div>
 </div>

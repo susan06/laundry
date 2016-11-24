@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
          $this->call(LocationsBranchOfficeSeeder::class);
          $this->call(BranchServicesSeeder::class);
          $this->call(FaqsTableSeeder::class);
+         $this->call(PackageCategoryTableSeeder::class);
+         $this->call(PackageTableSeeder::class);
+         $this->call(PackagePricesTableSeeder::class);
     }
 }

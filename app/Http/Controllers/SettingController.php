@@ -72,6 +72,15 @@ class SettingController extends Controller
             'available' => trans('app.Available'), 
             'notavailable' => trans('app.Not available')
         ];
+        $status_delivery = [
+            'public' => trans('app.public'), 
+            'private' => trans('app.private')
+        ];
+        if(Settings::get('delivery_hours')) {
+            $delivery_hours = json_decode(Settings::get('delivery_hours'), true);
+        } else {
+            $delivery_hours = array();
+        }
         if(Settings::get('working_hours')) {
             $working_hours = json_decode(Settings::get('working_hours'), true);
         } else {
@@ -86,11 +95,11 @@ class SettingController extends Controller
 
             return response()->json([
                 'success' => true,
-                'view' => view('setting.working_hours_field', compact('working_hours', 'status', 'week'))->render(),
+                'view' => view('setting.working_hours_field', compact('working_hours', 'delivery_hours', 'status', 'status_delivery', 'week'))->render(),
             ]);
         }
 
-        return view('setting.working_hours', compact('working_hours', 'status', 'week'));
+        return view('setting.working_hours', compact('working_hours', 'delivery_hours', 'status', 'status_delivery', 'week'));
     }
 
     /**
@@ -123,6 +132,8 @@ class SettingController extends Controller
         $day_week = [1,2,3,4,5];
         $week_day = '';
         $week_diff = array_diff($day_week, $week);
+        $interval = $request->interval;
+        $published = $request->published;
 
         foreach ($week_diff as $day) {
             $week_day .= $day.',';
@@ -139,9 +150,18 @@ class SettingController extends Controller
             ];
         }
 
+        foreach( $interval as $key => $value ) {
+            $data_time[] = [ 
+                'id' => $key,
+                'interval' => $value,
+                'published' => $published[$key]
+            ];
+        }
+
         Settings::set('week', substr($week_day, 0, -1));
         Settings::set('time_close', $request->time_close);
         Settings::set('working_hours', json_encode($data));
+        Settings::set('delivery_hours', json_encode($data_time));
 
         return back()->withSuccess(trans('app.settings_updated'));
     }

@@ -682,6 +682,9 @@ return [
     'show_services' => 'Ver servicios',
     'Available' => 'Disponible',
     'Not available' => 'No disponible',
+    'public' => 'público',
+    'private' => 'Privado',
+    'interval_delivery' => 'Intervalo de entrega',
 
     //services
     'service_request' => 'Solicitar servicio',
@@ -702,6 +705,7 @@ return [
     'special_instructions' => 'Instrucciones especiales',
     'today_search' => 'Buscar hoy',
     'tomorrow_search' => 'Buscar mañana',
+    'add_delivery_hour' => 'Agregar intervalos de entrega',
 
     //day of week
     'week' => 'Semana',

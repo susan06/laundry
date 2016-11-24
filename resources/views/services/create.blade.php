@@ -100,8 +100,14 @@
               </div>                
             </div>
              <div class="row">
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group form-group">
-                {!! Form::select('time_delivery', $time_delivery, old('time_delivery'), ['class' => 'form-control', 'id' => 'time_delivery']) !!}     
+              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
+                <select name="time_search" class="form-control" id="time_delivery">
+                  @foreach($time_delivery as $delivery)
+                    @if($delivery['published'] == 'public')
+                    <option value="{{$delivery['id']}}">{{$delivery['interval']}}
+                    @endif
+                  @endforeach
+                </select>  
               </div>            
             </div>
             

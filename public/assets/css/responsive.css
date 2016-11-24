@@ -1,6 +1,6 @@
 @media (min-width: 480px) {
   #map-form {
-  height:250px !important;
+  height:450px !important;
   }
   .nav_menu {
     position: static; } 
@@ -133,7 +133,7 @@
 
 @media (max-width: 414px) {
   #map-form {
-    height:250px !important;
+    height:350px !important;
   }
   .cropper .btn-group-crop {
     margin-right: -15px !important; }

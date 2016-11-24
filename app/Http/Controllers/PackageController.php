@@ -2,23 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use Settings;
 use Illuminate\Http\Request;
-use App\Repositories\Client\ClientRepository;
 
-class ServiceController extends Controller
+class PackageController extends Controller
 {
-
-    /**
-     * ServiceController constructor.
-     * @param 
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -34,26 +21,9 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ClientRepository $clientRepository)
+    public function create()
     {
-        if(Settings::get('working_hours')) {
-            $working_hours = json_decode(Settings::get('working_hours'), true);
-        } else {
-            $working_hours = array();
-        }
-        if(Settings::get('week')) {
-            $week = explode(',', Settings::get('week'));
-        } else {
-            $week = array();
-        }
-        if(Settings::get('delivery_hours')) {
-            $time_delivery = json_decode(Settings::get('delivery_hours'), true);
-        } else {
-            $time_delivery = array();
-        }
-        $locations_labels = $clientRepository->lists_locations_labels(Auth::user()->id);
-   
-        return view('services.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery'));
+        //
     }
 
     /**

@@ -20,6 +20,12 @@ $(document).ready(function() {
       "paging": false,
       "bInfo": false,
     }); 
+
+    $('.table-responsive').DataTable({
+      "searching": false,
+      "paging": false,
+      "bInfo": false,
+    });
 });
 
 // Sidebar
