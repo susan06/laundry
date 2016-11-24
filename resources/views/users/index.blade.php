@@ -13,6 +13,7 @@
             <div class="title_left">
               <h3>@lang('app.users')</h3>
             </div>
+            @include('partials.status')
             @include('partials.search')
             <div class="clearfix"></div>
           </div>

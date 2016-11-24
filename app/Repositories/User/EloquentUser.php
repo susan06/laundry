@@ -36,7 +36,7 @@ class EloquentUser extends Repository implements UserRepository
      * @return mixed
      *
      */
-    public function paginate_search($take = 10, $search = null)
+    public function paginate_search($take = 10, $search = null, $status = null)
     {
 
         $query = User::whereHas(
@@ -61,10 +61,18 @@ class EloquentUser extends Repository implements UserRepository
             });
         }
 
+        if ($status) {
+            $query->where('status', $status);
+        }
+
         $result = $query->paginate($take);
 
         if ($search) {
             $result->appends(['search' => $search]);
+        }
+
+        if ($status) {
+            $result->appends(['status' => $status]);
         }
 
         return $result;

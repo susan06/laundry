@@ -38,6 +38,8 @@ return [
     'see_order' => 'Ver Orden',
     'price' => 'Precio',
     'panel_administration' => 'Administración',
+    'selected_status' => 'Seleccionar Estatus',
+    'search_status' => 'Buscar por estatus',
 
 
     // Activity Log Section

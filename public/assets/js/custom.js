@@ -377,6 +377,29 @@ $(document).on('click', '.search', function () {
     }
 });
 
+// search status all
+$(document).on('change', '#status', function () {
+    console.log('hola');
+    var $this = $(this);
+    $.ajax({
+        url: CURRENT_URL,
+        type:"GET",
+        data:{ status: $this.val() },
+        dataType: 'json',
+        success: function(response) {
+            if(response.success){
+                $('#content-table').html(response.view);
+                loadResposiveTable();
+            } else {
+                notify('error', response.message);
+            }
+        },
+        error: function (status) {
+            console.log(status);
+        }
+    });
+});
+
 $(document).ready(function() {
     $(document).on('click', '.pagination a', function (e) {
         getPages($(this).attr('href'));

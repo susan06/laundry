@@ -37,8 +37,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->users->paginate_search(10, $request->search);
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
+        $users = $this->users->paginate_search(10, $request->search, $request->status);
+        $status = ['' => trans('app.search_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
             if (count($users)) {
                 return response()->json([
@@ -248,73 +248,6 @@ class UserController extends Controller
                 'message' => trans('app.error_again')
             ]);
         }
-    }
-
-
-    public function statusUsers(Request $request, UserRepository $users)
-    {
-
-        $statusUsers = $request["status"];
-        $users = $users->where('status', $statusUsers)->get();
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
-        if ( $request->ajax() ) {
-            if (count($users)) {
-                return response()->json([
-                    'success' => true,
-                    'view' => view('users.list', compact('users','status'))->render(),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => trans('app.no_records_found')
-                ]);
-            }
-        }
-
-        return view('users.index', compact('users', 'status'));
-
-    }
-
-    public function statusClients(Request $request, UserRepository $users)
-    {
-        $statusClients = $request["status"];
-        $clients = $users->where('status', $statusClients)->where('role_id', 2)->get();
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
-        if ( $request->ajax() ) {
-            if (count($clients)) {
-                return response()->json([
-                    'success' => true,
-                    'view' => view('users.clients.list', compact('clients','status'))->render(),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => trans('app.no_records_found')
-                ]);
-            }
-        }
-        return view('users.clients.index', compact('clients', 'status'));
-    }
-
-    public function statusDrivers(Request $request, UserRepository $users)
-    {
-        $statusDrivers = $request["status"];
-        $drivers = $users->where('status', $statusDrivers)->where('role_id', 3)->get();
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
-        if ( $request->ajax() ) {
-            if (count($clients)) {
-                return response()->json([
-                    'success' => true,
-                    'view' => view('users.drivers.list', compact('drivers','status'))->render(),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => trans('app.no_records_found')
-                ]);
-            }
-        }
-        return view('users.drivers.index', compact('drivers', 'status'));
     }
 
 }
