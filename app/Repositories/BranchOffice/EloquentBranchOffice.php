@@ -36,8 +36,10 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
      * @return mixed
      *
      */
-    public function paginate_search($take = 10, $search = null)
+    public function paginate_search($take = 10, $search = null, $status = null)
     {
+        $result = $this->model;
+        
         if ($search) {
             $searchTerms = explode(" ", preg_replace("/\s+/", " ", $search));
     
@@ -51,12 +53,23 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
                     $q->orwhere("phone", "like", "%{$term}%");
                 }
             })->paginate($take)->appends(['search' => $search]);
-        } else {
-            $result = $this->model->paginate($take);
-
         }
 
-        return $result;
+        if ($status) {
+            $result = $this->model->where('status', $status);
+        }
+
+        $result = $result->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        if ($status) {
+            $result->appends(['status' => $status]);
+        }
+
+        return $result; 
     }
 
     /**

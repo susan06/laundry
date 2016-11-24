@@ -18,8 +18,7 @@ interface BranchOfficeRepository extends RepositoryInterface
      * @return mixed
      *
      */
-    public function paginate_search($take = 10, $search = null);
-
+    public function paginate_search($take = 10, $search = null, $status = null);
     /**
      *
      * Creates a new location.

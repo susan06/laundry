@@ -34,7 +34,7 @@ class BranchOfficeController extends Controller
      */
     public function index(Request $request, UserRepository $userRepository)
     {
-        $branch_offices = $this->branch_offices->paginate_search(10, $request->search);
+        $branch_offices = $this->branch_offices->paginate_search(10, $request->search, $request->status);
 
         $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
         $representatives = ['' => trans('app.selected_item')] + $userRepository->lists_representative();
@@ -43,7 +43,7 @@ class BranchOfficeController extends Controller
             if (count($branch_offices)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('branch_offices.list', compact('branch_offices'))->render(),
+                    'view' => view('branch_offices.list', compact('branch_offices', 'status'))->render(),
                 ]);
             } else {
                 return response()->json([

@@ -46,12 +46,13 @@ class CouponController extends Controller
         }
 
         $code = str_random(15);
-        $coupons = $this->coupons->paginate_search(10, $search);
+        $coupons = $this->coupons->paginate_search(10, $request->search, $request->status);
+        $status = ['' => trans('app.all_status')] + CouponStatus::lists();
         if ( $request->ajax() ) {
             if (count($coupons)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('coupons.list', compact('coupons'))->render(),
+                    'view' => view('coupons.list', compact('coupons','status'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -61,7 +62,7 @@ class CouponController extends Controller
             }
         }
 
-        return view('coupons.index', compact('coupons','code'));
+        return view('coupons.index', compact('coupons','code','status'));
     }
 
     /**

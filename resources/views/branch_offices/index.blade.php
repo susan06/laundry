@@ -13,6 +13,7 @@
             <div class="title_left">
               <h3 id="content-title">@lang('app.branch_offices')</h3>
             </div>
+            @include('partials.status')
             @include('partials.search')
           </div>
         
