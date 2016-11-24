@@ -1,3 +1,14 @@
+<div class="row">
+  <form action="{{ URL::route('statusClientss') }}" method="post" class="form-horizontal">
+  <input type="hidden" name="_token" value="{{csrf_token()}}">    
+  <div class="col-md-2 col-sm-2 col-xs-12">
+      {!! Form::select('status', $status, 'Select', ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status']) !!}
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-12">
+      <input type="submit" value="Consultar" class="btn btn-success">
+  </div>  
+  </form>
+</div>
 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
     <thead>
       <th>@lang('app.full_name')</th>

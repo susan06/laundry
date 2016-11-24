@@ -54,6 +54,9 @@
 
      });
 
+    Route::post("status-users",array("as" => "statusUsers","uses" => "UserController@statusUsers"));
+    Route::post("status-clients",array("as" => "statusClients","uses" => "UserController@statusClients"));
+    Route::post("status-drivers",array("as" => "statusDrivers","uses" => "UserController@statusDrivers"));
     /**
      * Adminitrations of Users
     */
