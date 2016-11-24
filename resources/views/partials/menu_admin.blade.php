@@ -1,8 +1,8 @@
         <!--Users and Roles -->
         <li><a><i class="fa fa-users"></i> @lang('app.users') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{{ secure_url(route('user.index')) }}">@lang('app.users')</a></li>
-            <li><a href="{{ secure_url(route('role.index')) }}">@lang('app.roles')</a></li>
+            <li><a href="{{ route('user.index') }}">@lang('app.users')</a></li>
+            <li><a href="{{ route('role.index') }}">@lang('app.roles')</a></li>
           </ul>
         </li>
         <!--//Users and Roles -->
@@ -30,6 +30,14 @@
           </a>
         </li>
         <!--//branch offices -->
+        <!--packages -->
+        <li><a><i class="fa fa-archive"></i> @lang('app.packages') <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{{ route('admin-package.categories.index') }}">@lang('app.categories')</a></li>
+            <li><a href="{{ route('admin-package.index') }}">@lang('app.packages')</a></li>
+          </ul>
+        </li>
+        <!--//packages -->
         <!--terms of service -->
         <li>
           <a href="{{ route('setting.conditions_and_privacy') }}" title="@lang('app.terms_service')"><i class="fa fa-info"></i> @lang('app.terms_service')

@@ -28,6 +28,12 @@ use App\Repositories\Client\ClientRepository;
 use App\Repositories\Package\EloquentPackage;
 use App\Repositories\Package\PackageRepository;
 
+use App\Repositories\Package\EloquentPackagePrice;
+use App\Repositories\Package\PackagePriceRepository;
+
+use App\Repositories\Package\EloquentPackageCategory;
+use App\Repositories\Package\PackageCategoryRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -55,5 +61,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SubscriberRepository::class, EloquentSubscriber::class);
         $this->app->singleton(ClientRepository::class, EloquentClient::class);
         $this->app->singleton(PackageRepository::class, EloquentPackage::class);
+        $this->app->singleton(PackagePriceRepository::class, EloquentPackagePrice::class);
+        $this->app->singleton(PackageCategoryRepository::class, EloquentPackageCategory::class);
     }
 }

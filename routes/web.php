@@ -72,7 +72,7 @@
     Route::resource('profileUser', 'ProfileController');
 
     /**
-     * Coupons
+     * Coupons administrations
     */
     Route::resource('coupon', 'CouponController');
 
@@ -103,7 +103,7 @@
     Route::resource('driver', 'DriverController');
 
     /**
-     * Faqs
+     * Faqs 
     */
     Route::resource('faq', 'FaqController');
 
@@ -116,6 +116,19 @@
      * Orders
     */
     Route::resource('orders', 'OrderController');
+
+    /**
+     * packages administrations
+    */
+    Route::get('admin-package/categories', 'Admin\PackageController@categories_index')->name('admin-package.categories.index');
+    Route::resource('admin-package', 'Admin\PackageController');
+
+    /**
+     * packages
+    */
+    Route::resource('package', 'PackageController');
+
+    /************************************rutas que mas adelante se deben eliminar ************/
 
     /**
      * Request Services

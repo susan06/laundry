@@ -41,6 +41,7 @@ return [
     'selected_status' => 'Seleccionar Estatus',
     'search_status' => 'Buscar por estatus',
     'all_status' => 'Todos los estatus',
+    'categories' => 'Categorias',
 
 
     // Activity Log Section
@@ -725,5 +726,16 @@ return [
     'list_orders' => 'Listado de Órdenes',
     'special_order_details' => 'Detalles Especiales de la Orden',    
     'service_cost' => 'Costo del Servicio',
+
+    //Paquetes
+    'packages' => 'Paquetes',
+    'package_created' => 'Paquete creado',
+    'package_updated' => 'Paquete actualizado',
+    'package_deleted' => 'Paquete eliminado',
+    'create_package' => 'Crear Paquete',
+    'edit_package' => 'Editar Paquete',
+    'delete_package' => 'Eliminar Paquete',
+    'are_you_sure_delete_package' => 'Seguro que desea eliminar esta Paquete?',
+    'category' => 'Categorias',
 
 ];

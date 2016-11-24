@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Package extends Model
@@ -35,6 +36,34 @@ class Package extends Model
     *Functions
     *
     */
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
+    public function labelClass()
+    {
+        switch($this->status) {
+            case 1:
+                $class = 'success';
+                break;
+
+            case 0:
+                $class = 'danger';
+                break;
+
+            default:
+                $class = 'warning';
+        }
+
+        return $class;
+    }
 
      /**
      * Relationships

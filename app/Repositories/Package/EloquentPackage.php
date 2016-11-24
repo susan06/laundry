@@ -3,8 +3,6 @@
 namespace App\Repositories\Package;
 
 use App\Package;
-use App\Repositories\Package\PackageCategoryRepository;
-use App\Repositories\Package\PackagePriceRepository;
 use App\Repositories\Repository;
 
 class EloquentPackage extends Repository implements PackageRepository
@@ -55,7 +53,96 @@ class EloquentPackage extends Repository implements PackageRepository
      */
     public function paginate_search($take = 10, $search = null, $status = null)
     {
-        //
+        $query = Package::query();
+
+        if ($search) {
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
+                    $q->whereHas('package_category', function($qu) use($term) {
+                        $qu->orwhere("name", "like", "%{$term}%");
+                    });
+                }
+            });
+        }
+
+        if ($status) {
+            $query->where('status', '=', $status);
+        }
+
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        if ($status) {
+            $result->appends(['status' => $status]);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Create price
+     *
+     *
+     * @param array $attributes
+     * @return Model
+     *
+     */
+    public function create_price(array $attributes)
+    {
+        return $this->prices->create($attributes);
+    }
+
+    /**
+     * Create category
+     *
+     *
+     * @param array $attributes
+     * @return Model
+     *
+     */
+    public function create_category(array $attributes)
+    {
+        return $this->categories->create($attributes);
+    }
+
+    /**
+     * Update category
+     *
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_category($id, array $newData)
+    {
+        return $this->categories->update($id, $newData);
+    }
+
+    /**
+     * Destroy category
+     *
+     * @param $id
+     */
+    public function delete_category($id)
+    {
+        return $this->categories->delete($id);
+    }
+
+    /**
+     * lists
+     *
+     * @param string $column
+     * @param string $key
+     */
+    public function lists_categories($column = 'name', $key = 'id')
+    {
+        return $this->categories->lists($column, $key);
     }
 
 }
