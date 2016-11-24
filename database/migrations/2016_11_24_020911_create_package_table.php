@@ -18,6 +18,7 @@ class CreatePackageTable extends Migration
             $table->string('name')->unique();
             $table->integer('package_category_id')->unsigned();
             $table->string('image');
+            $table->text('description');
             $table->boolean('status')->default(true);
             $table->timestamps();
             $table->engine = 'InnoDB';

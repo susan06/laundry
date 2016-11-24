@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 use App\Support\User\UserStatus;
 
@@ -49,6 +50,15 @@ class User extends Authenticatable
     public function full_name()
     {
         return $this->name.' '.$this->lastname;
+    }
+
+    public function avatar()
+    {
+        if (! $this->avatar ) {
+            return url('assets/images/user.png');
+        }
+
+        return Storage::url('user/{$this->avatar}');
     }
 
     public function label_phones()

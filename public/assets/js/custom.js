@@ -379,7 +379,6 @@ $(document).on('click', '.search', function () {
 
 // search status all
 $(document).on('change', '#status', function () {
-    console.log('hola');
     var $this = $(this);
     $.ajax({
         url: CURRENT_URL,
