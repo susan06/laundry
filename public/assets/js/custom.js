@@ -434,7 +434,6 @@ function notify(type, message){
 }
 
 // datatable-responsive
-
 function loadResposiveTable() {
    
     $('#datatable-responsive').DataTable({
@@ -445,5 +444,21 @@ function loadResposiveTable() {
     });
 
 }
+
+$(document).on('change', '#file_image', function () { 
+    $('.loading').show();
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#image_upload').attr('src', e.target.result);
+            $('#image_upload').addClass('img-responsive avatar-view');
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    }
+    $('.loading').hide();
+});
+
 
 // /script general

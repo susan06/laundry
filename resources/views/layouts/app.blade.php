@@ -31,6 +31,10 @@
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
     <!-- iChecks -->
     {!! HTML::style("public/vendors/iCheck/skins/flat/green.css") !!}
+    <!-- bootstrap-wysiwyg -->
+    {!! HTML::style("public/vendors/google-code-prettify/bin/prettify.min.css") !!}
+    <!-- Select2 -->
+    {!! HTML::style("public/vendors/select2/dist/css/select2.min.css") !!}
     <!-- bootstrap datetimepicker -->
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
     <!-- Custom Theme Style -->

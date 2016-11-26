@@ -220,7 +220,8 @@ abstract class Repository implements RepositoryInterface
      */
     public function lists($column = 'name', $key = 'id')
     {
-        return $this->model->all([$column,$key])->sortBy($column)->pluck($column, $key)->all();
+        return $this->model->all([$column,$key])->sortBy($column)->pluck($column, $key)->filter()->all();
     }
+
 
 }

@@ -65,7 +65,11 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        $categories = ['' => ''] + $this->packages->lists_categories();
+        return response()->json([
+            'success' => true,
+            'view' => view('packages.create', compact('categories'))->render()
+        ]);
     }
 
     /**

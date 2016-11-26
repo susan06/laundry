@@ -1,4 +1,4 @@
- {!! Form::open(['route' => 'branch-office.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+ {!! Form::open(['route' => 'admin-branch-office.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.name')">@lang('app.name') <span class="required">*</span>
     </label>
@@ -17,7 +17,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.representative')">@lang('app.representative') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('representative_id', $representatives, old('representative_id'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'representative_id']) !!}
+      {!! Form::select('representative_id', $representatives, old('representative_id'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'representative_id']) !!}
     </div>
   </div>
   <div class="form-group">
@@ -54,6 +54,9 @@
   </div>
 {!! Form::close() !!}
 
+<!-- Select2 -->
+{!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
+
 <script type="text/javascript">
   var country_default = new String("{{Settings::get('country_default')}}");
   country_default = country_default.toLowerCase();
@@ -64,6 +67,12 @@
   var location_label = "{{ trans('app.my_location') }}";
   var edit = false;
   var count = 1;
+
+  $(".select2_single").select2({
+    placeholder: "@lang('app.selected_item')",
+    allowClear: true
+  });
+
 </script>
 
 {!! HTML::script('public/assets/js/maps.js') !!}

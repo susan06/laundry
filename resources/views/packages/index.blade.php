@@ -22,10 +22,9 @@
 
           <div class="row">
             <div class="col-md-2 col-sm-2 col-xs-12">
-             <button type="button" data-href="{{ route('admin-package.create') }}" class="btn btn-primary create-edit-show col-xs-12" data-model="content" title="@lang('app.create_package')">@lang('app.create_package')</button>
+             <button type="button" data-href="{{ route('admin-package.create') }}" class="btn btn-primary create-edit-show btn-create col-xs-12" data-model="content" title="@lang('app.create_package')">@lang('app.create_package')</button>
             </div>
           </div>
-
             <div id="content-table">
               @include('packages.list')
             </div>

@@ -42,7 +42,8 @@ return [
     'search_status' => 'Buscar por estatus',
     'all_status' => 'Todos los estatus',
     'categories' => 'Categorias',
-
+    'change_photo' => 'Cambiar imagen',
+    'image' => 'Imagen',
 
     // Activity Log Section
     'activity_log' => 'Registros',

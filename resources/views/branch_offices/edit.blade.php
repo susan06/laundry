@@ -1,4 +1,4 @@
-{!! Form::model($branch_office, ['route' => ['branch-office.update', $branch_office->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+{!! Form::model($branch_office, ['route' => ['admin-branch-office.update', $branch_office->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.name')">@lang('app.name') <span class="required">*</span>
     </label>
@@ -17,7 +17,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.representative')">@lang('app.representative') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('representative_id', $representatives, old('representative_id'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'representative_id']) !!}
+      {!! Form::select('representative_id', $representatives, old('representative_id'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'representative_id']) !!}
     </div>
   </div>
 
@@ -77,6 +77,9 @@
   </div>
 {!! Form::close() !!}
 
+<!-- Select2 -->
+{!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
+
 <script type="text/javascript">
 
   var country_default = new String("{{Settings::get('country_default')}}");
@@ -89,5 +92,11 @@
   var edit = true;
   var count = {{ $count }};
   var locations = '{!! json_encode($branch_office->locations) !!}';
+
+  $(".select2_single").select2({
+    placeholder: "@lang('app.selected_item')",
+    allowClear: true
+  });
+
 </script>
 {!! HTML::script('public/assets/js/maps.js') !!}

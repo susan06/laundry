@@ -3,6 +3,7 @@
 namespace App\Repositories\Package;
 
 use App\Package;
+use App\PackageCategory;
 use App\Repositories\Repository;
 
 class EloquentPackage extends Repository implements PackageRepository
@@ -142,7 +143,7 @@ class EloquentPackage extends Repository implements PackageRepository
      */
     public function lists_categories($column = 'name', $key = 'id')
     {
-        return $this->categories->lists($column, $key);
+        return PackageCategory::all()->sortBy($column)->where('status', 1)->pluck($column, $key)->all();
     }
 
 }
