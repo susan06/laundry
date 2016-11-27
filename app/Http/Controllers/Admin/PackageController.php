@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use DateTime;
 use Settings;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Package\PackageRepository;
@@ -90,7 +91,7 @@ class PackageController extends Controller
         if($file){
             if ($file->isValid()) {
                 $date = new DateTime();
-                $file_name = 'packages/'.$date->getTimestamp().'.'.$file->extension();
+                $file_name = $date->getTimestamp().'.'.$file->extension();
                 $path = $file->storeAs('packages', $file_name);
             }else{
 
@@ -150,7 +151,21 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $package = $this->packages->find($id);
+        $categories = ['' => ''] + $this->packages->lists_categories();
+        $status = [
+            true  => trans('app.Published'), 
+            false  => trans('app.No Published')
+        ];
+        if(Settings::get('delivery_hours')) {
+            $delivery_hours = json_decode(Settings::get('delivery_hours'), true);
+        } else {
+            $delivery_hours = array();
+        }
+        return response()->json([
+            'success' => true,
+            'view' => view('packages.edit', compact('package','categories','delivery_hours','status'))->render()
+        ]);
     }
 
     /**
@@ -162,7 +177,51 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $package = $this->packages->find($id);
+        $file = $request->image;
+        $file_name = $package->image;
+        if($file){
+            if ($file->isValid()) {
+                \File::delete(storage_path('app/packages').'/'.$file_name);
+                Storage::delete($file_name);
+                $date = new DateTime();
+                $file_name = $date->getTimestamp().'.'.$file->extension();
+                $path = $file->storeAs('packages', $file_name);
+            }else{
+
+                return redirect()
+                ->route('admin-package.index')
+                ->withSuccess(trans('app.error_upload_file'));
+            }
+        }
+        $data = [
+            'name' => $request->name,
+            'package_category_id' => $request->package_category_id,
+            'description' => $request->description,
+            'image' => $file_name,
+            'status' => $request->status
+        ];
+        $package = $this->packages->update($id, $data);
+        $prices_id  = $request->prices_id;
+        $prices = $request->prices;
+        if ( $package ) {
+            foreach( $prices as $key => $value ) {
+                $this->packages->update_price($prices_id[$key], [         
+                    'price' => $value
+                    ]
+                );
+            }
+
+            return redirect()
+                ->route('admin-package.index')
+                ->withSuccess(trans('app.package_updated'));
+
+        } else {
+            
+            return redirect()
+                ->route('admin-package.index')
+                ->withSuccess(trans('app.error_again'));
+        }
     }
 
     /**
@@ -173,6 +232,16 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ( $this->packages->delete($id) ) {
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.package_deleted')
+            ]);
+        } else {
+            return response()->json([
+                'success'=> false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 }

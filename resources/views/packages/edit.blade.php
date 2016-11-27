@@ -1,10 +1,18 @@
- {!! Form::open(['route' => 'admin-package.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left', 'files'=>'true']) !!}
+ {!! Form::model($package,['route' => ['admin-package.update',$package->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left', 'files'=>'true']) !!}
 
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.category')">@lang('app.category') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
       {!! Form::select('package_category_id', $categories, old('package_category_id'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'package_category_id']) !!}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      {!! Form::select('status', $status, ($package->status) ? 1 : 0, ['class' => 'form-control col-md-7 col-xs-12 select2_single']) !!}
     </div>
   </div>
 
@@ -20,7 +28,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.image')">@lang('app.image') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <img class="img-responsive avatar-view" id="image_upload" src="public/images/picture.jpg" alt="Package" title="@lang('app.change_photo')">
+      <img class="img-responsive avatar-view" id="image_upload" src="{{$package->path_image()}}" alt="Package" title="@lang('app.change_photo')">
       <input type="file" id="file_image" name="image" value=""/>
       <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
     </div>
@@ -31,33 +39,35 @@
     <div class="clearfix"></div>
   </div>
 
-  @if(count($delivery_hours) > 0)
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" cellspacing="0" width="100%">
-        <thead>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+        <th>@lang('app.interval_delivery')</th>
+        <th>@lang('app.price')</th>
+      </tr>
+      </thead>
+      <tbody>
+        @foreach ($package->package_price as $key => $price)
         <tr>
-          <th>@lang('app.interval_delivery')</th>
-          <th>@lang('app.price')</th>
-        </tr>
-        </thead>
-        <tbody>
-          @foreach ($delivery_hours as $key => $delivery_hour)
-          <tr>
-            <td>
-              {{ $delivery_hour['interval'] }}
-              {!! Form::hidden('delivery_schedule[]',$delivery_hour['id']) !!}
-            </td>
-            <td>
-            {!! Form::text('prices[]','', ['class' => 'form-control col-md-7 col-xs-12', 'required' => 'required']) !!}
-            </td>
-          </tr>
+          <td>
+          @foreach($delivery_hours as $delivery)
+            @if($delivery['id'] == $price->delivery_schedule)
+              {{ $delivery['interval'] }}
+            @endif
           @endforeach
-        </tbody>
-        </table>
-      </div>
+            {!! Form::hidden('prices_id[]', $price->id) !!}
+          </td>
+          <td>
+          {!! Form::text('prices[]',$price->price, ['class' => 'form-control col-md-7 col-xs-12', 'required' => 'required']) !!}
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+      </table>
     </div>
-  @endif
+  </div>
 
   <div class="x_title">
     <h2>@lang('app.description')</h2>
@@ -68,14 +78,14 @@
 
   @include('partials.toolbar_editor')
 
-  <div id="editor" class="editor-wrapper">{{old('description')}}</div>
+  <div id="editor" class="editor-wrapper">{!! $package->description !!}</div>
 
-  <textarea name="description" id="description" style="display: none;">{{old('description')}}</textarea>
+  <textarea name="description" id="description" style="display: none;">{{ $package->description }}</textarea>
 
   <div class="ln_solid"></div>
   <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-      <button type="submit" class="btn btn-primary col-sm-2 col-xs-6">@lang('app.save')</button>
+      <button type="submit" class="btn btn-primary col-sm-2 col-xs-6">@lang('app.update')</button>
       <button type="button" class="btn btn-default btn-cancel col-sm-2 col-xs-5">@lang('app.cancel')</button>
     </div>
   </div>
@@ -92,7 +102,6 @@
 
 <script type="text/javascript">
   $(".select2_single").select2({
-    placeholder: "@lang('app.selected_item')",
-    allowClear: true
+    placeholder: "@lang('app.selected_item')"
   });
 </script>

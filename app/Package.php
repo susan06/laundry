@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +37,14 @@ class Package extends Model
     *Functions
     *
     */
+
+    public function path_image()
+    {      
+        if ( Storage::disk('local')->exists('packages/'.$this->image) ) {
+            return 'storage/app/packages/'.$this->image;
+        }
+        return $this->image;       
+    }
 
     public function getCreatedAtAttribute($date)
     {

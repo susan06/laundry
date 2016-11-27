@@ -101,6 +101,18 @@ class EloquentPackage extends Repository implements PackageRepository
     }
 
     /**
+     * Update price
+     *
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_price($id, array $newData)
+    {
+        return $this->prices->update($id, $newData);
+    }
+
+    /**
      * Create category
      *
      *

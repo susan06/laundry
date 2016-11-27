@@ -227,40 +227,40 @@ $.ajaxSetup({
 
 //delete register
 $(document).on('click', '.btn-delete', function () {
-
-        var $this = $(this);
-        //var row = $this.closest('tr');
-        swal({   
-            title: $this.attr('title'),   
-            text: $this.data('confirm-text'),   
-            type: "warning",   
-            showCancelButton: true,   
-            cancelButtonText: lang.cancel,
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: $this.data('confirm-delete'),   
-            closeOnConfirm: true },
-            function(isConfirm){   
-                if (isConfirm) {  
-                    $.ajax({
-                        type: 'DELETE',
-                        url: $this.data('href'),
-                        dataType: 'json',
-                        data: { 'id': $this.data('id') },
-                        success: function (response) {                           
-                            if(response.success) {  
-                                notify('success', response.message);
-                                getPages(CURRENT_URL);
-                                //row.remove();
-                            } else {
-                                notify('error', response.message);
-                            }
-                        },
-                        error: function () {
-                            //
+    $('[data-toggle="tooltip"]').tooltip('hide');
+    var $this = $(this);
+    //var row = $this.closest('tr');
+    swal({   
+        title: $this.attr('title'),   
+        text: $this.data('confirm-text'),   
+        type: "warning",   
+        showCancelButton: true,   
+        cancelButtonText: lang.cancel,
+        confirmButtonColor: "#DD6B55",   
+        confirmButtonText: $this.data('confirm-delete'),   
+        closeOnConfirm: true },
+        function(isConfirm){   
+            if (isConfirm) {  
+                $.ajax({
+                    type: 'DELETE',
+                    url: $this.data('href'),
+                    dataType: 'json',
+                    data: { 'id': $this.data('id') },
+                    success: function (response) {                           
+                        if(response.success) {  
+                            notify('success', response.message);
+                            getPages(CURRENT_URL);
+                            //row.remove();
+                        } else {
+                            notify('error', response.message);
                         }
-                    });     
-            } 
-        });
+                    },
+                    error: function () {
+                        //
+                    }
+                });     
+        } 
+    });
 });
 
 var current_model = null;

@@ -54,4 +54,23 @@ interface PackageRepository extends RepositoryInterface
      * @param string $key
      */
     public function lists_categories($column = 'name', $key = 'id');
+
+    /**
+     * Update price
+     *
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_price($id, array $newData);
+
+    /**
+     * Create price
+     *
+     *
+     * @param array $attributes
+     * @return Model
+     *
+     */
+    public function create_price(array $attributes);
 }

@@ -11,35 +11,45 @@ class PackagePricesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('package_prices')->insert([
-            'price' => 10,
-            'package_id' => 1,
-            'delivery_schedule' => 1
-        ]);
+        for ($i=1; $i <= 4; $i++) {
+            DB::table('package_prices')->insert([
+                'price' => rand(2,20),
+                'package_id' => 1,
+                'delivery_schedule' => $i
+            ]);
+        }
 
-        DB::table('package_prices')->insert([
-            'price' => 10,
-            'package_id' => 2,
-            'delivery_schedule' => 2
-        ]);
+        for ($i=1; $i <= 4; $i++) {
+            DB::table('package_prices')->insert([
+                'price' => rand(2,20),
+                'package_id' => 2,
+                'delivery_schedule' => $i
+            ]);
+        }
 
-        DB::table('package_prices')->insert([
-            'price' => 15,
-            'package_id' => 3,
-            'delivery_schedule' => 3
-        ]);
+        for ($i=1; $i <= 4; $i++) {
+            DB::table('package_prices')->insert([
+                'price' => rand(2,20),
+                'package_id' => 3,
+                'delivery_schedule' => $i
+            ]);
+        }
 
-        DB::table('package_prices')->insert([
-            'price' => 12,
-            'package_id' => 4,
-            'delivery_schedule' => 4
-        ]);
+        for ($i=1; $i <= 4; $i++) {
+            DB::table('package_prices')->insert([
+                'price' => rand(2,20),
+                'package_id' => 4,
+                'delivery_schedule' => $i
+            ]);
+        }
 
-        DB::table('package_prices')->insert([
-            'price' => 14,
-            'package_id' => 5,
-            'delivery_schedule' => 5
-        ]);
+        for ($i=1; $i <= 4; $i++) {
+            DB::table('package_prices')->insert([
+                'price' => rand(2,20),
+                'package_id' => 5,
+                'delivery_schedule' => $i
+            ]);
+        }
 
     }
 }
