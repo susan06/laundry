@@ -298,7 +298,6 @@ $(document).on('click', '.create-edit-show', function () {
 $(document).on('click', '.btn-submit', function (e) {
     e.preventDefault();
     var form = $('#form-modal'); 
-    //console.log(form.valid());
     var type = $('#form-modal input[name="_method"]').val();
     if(typeof type == "undefined") {
         type = form.attr('method');
@@ -452,7 +451,6 @@ $(document).on('change', '#file_image', function () {
 
         reader.onload = function (e) {
             $('#image_upload').attr('src', e.target.result);
-            $('#image_upload').addClass('img-responsive avatar-view');
         }
 
         reader.readAsDataURL(this.files[0]);

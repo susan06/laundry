@@ -141,7 +141,7 @@ class SettingController extends Controller
 
         foreach( $start as $key => $value ) {
             $data[] = [ 
-                'id' => $key,
+                'id' => $key+1,
                 'start' => $value,
                 'end' => $end[$key],           
                 'interval' => $value.' - '.$end[$key],
@@ -152,7 +152,7 @@ class SettingController extends Controller
 
         foreach( $interval as $key => $value ) {
             $data_time[] = [ 
-                'id' => $key,
+                'id' => $key+1,
                 'interval' => $value,
                 'published' => $published[$key]
             ];

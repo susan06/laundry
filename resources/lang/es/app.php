@@ -37,6 +37,7 @@ return [
     'my_itinerary' => 'Mi Itinerario',
     'see_order' => 'Ver Orden',
     'price' => 'Precio',
+    'prices' => 'Precios',
     'panel_administration' => 'Administración',
     'selected_status' => 'Seleccionar Estatus',
     'search_status' => 'Buscar por estatus',
@@ -738,5 +739,6 @@ return [
     'delete_package' => 'Eliminar Paquete',
     'are_you_sure_delete_package' => 'Seguro que desea eliminar esta Paquete?',
     'category' => 'Categorias',
+    'error_upload_file' => 'Error al subir el archivo',
 
 ];

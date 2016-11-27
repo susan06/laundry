@@ -3038,7 +3038,9 @@ ul.project_files li a i {
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  overflow: hidden; }
+  overflow: hidden;
+  max-width: 200px; 
+  max-height: 200px;}
 
 .avatar-body {
   padding-right: 15px;

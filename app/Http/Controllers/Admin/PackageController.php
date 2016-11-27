@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DateTime;
+use Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Package\PackageRepository;
@@ -40,7 +42,6 @@ class PackageController extends Controller
             true  => trans('app.Published'), 
             false  => trans('app.No Published')
         ];
-
         if ( $request->ajax() ) {
             if (count($packages)) {
                 return response()->json([
@@ -66,9 +67,14 @@ class PackageController extends Controller
     public function create()
     {
         $categories = ['' => ''] + $this->packages->lists_categories();
+        if(Settings::get('delivery_hours')) {
+            $delivery_hours = json_decode(Settings::get('delivery_hours'), true);
+        } else {
+            $delivery_hours = array();
+        }
         return response()->json([
             'success' => true,
-            'view' => view('packages.create', compact('categories'))->render()
+            'view' => view('packages.create', compact('categories','delivery_hours'))->render()
         ]);
     }
 
@@ -80,7 +86,49 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = $request->image;
+        if($file){
+            if ($file->isValid()) {
+                $date = new DateTime();
+                $file_name = 'packages/'.$date->getTimestamp().'.'.$file->extension();
+                $path = $file->storeAs('packages', $file_name);
+            }else{
+
+                return redirect()
+                ->route('admin-package.index')
+                ->withSuccess(trans('app.error_upload_file'));
+            }
+        }
+        $data = [
+            'name' => $request->name,
+            'package_category_id' => $request->package_category_id,
+            'description' => $request->description,
+            'image' => $file_name,
+            'status' => true
+        ];
+        $package = $this->packages->create($data);
+        $delivery_schedules = $request->delivery_schedule;
+        $prices = $request->prices;
+        if ( $package ) {
+            foreach( $delivery_schedules as $key => $value ) {
+                $this->packages->create_price([ 
+                    'package_id' => $package->id,
+                    'delivery_schedule' => $value,           
+                    'price' => $prices[$key]
+                    ]
+                );
+            }
+
+            return redirect()
+                ->route('admin-package.index')
+                ->withSuccess(trans('app.package_created'));
+
+        } else {
+            
+            return redirect()
+                ->route('admin-package.index')
+                ->withSuccess(trans('app.error_again'));
+        }
     }
 
     /**
