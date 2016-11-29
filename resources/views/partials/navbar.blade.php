@@ -13,13 +13,12 @@
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">
-            <li><a href="{{ route('profileUser.index')}}"> Profile</a></li>
+            <li><a href="{{ route('profile.index')}}"> @lang('app.profile')</a></li>
             <li>
               <a href="javascript:void(0)">
-                <span>Settings</span>
+                <span>@lang('app.settings')</span>
               </a>
             </li>
-            <li><a href="javascript:void(0)">Help</a></li>
             <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out pull-right"></i> @lang('app.sign_out')</a></li>
           </ul>
         </li>
