@@ -19,9 +19,11 @@
           </div>
         
           <div class="x_content">
-            <p>
-            <button type="button" data-href="{{ route('admin-client.create', 'role=true') }}" class="btn btn-primary btn-sm create-edit-show" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
-            </p>
+          <div class="row">
+              <div class="col-md-2 col-sm-2 col-xs-12">
+            <button type="button" data-href="{{ route('admin-client.create', 'role=true') }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
+            </div>
+            </div>
 
             <div id="content-table">
               @include('users.clients.list')
