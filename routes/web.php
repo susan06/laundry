@@ -69,7 +69,7 @@
     /**
     *  Profile
     */
-    Route::resource('profileUser', 'ProfileController');
+    Route::resource('profile', 'ProfileController');
 
     /**
      * Coupons administrations
@@ -157,7 +157,7 @@
     /**
      * My Profile
     */
-    Route::get('profile', [
+    Route::get('profileClient', [
         'as' => 'client.profile',
         'uses' => 'ClientController@myProfile'
     ]);
