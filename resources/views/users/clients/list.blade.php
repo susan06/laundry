@@ -20,13 +20,13 @@
                                    title="@lang('app.view_user')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
-                    <button type="button" data-href="{{ route('admin-client.edit', $client->id).'?role=true' }}" class="btn btn-round btn-primarys create-edit-show" data-model="modal"
+                    <button type="button" data-href="{{ route('admin-client.edit', $client->id).'?role=true' }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                     </button>
                     @if ($client->status == 'Banned')
                     <button type="button" data-href="{{ route('client.destroy', $client->id) }}" 
-                      class="btn btn-round btn-primarys btn-delete" 
+                      class="btn btn-round btn-primary btn-delete" 
                       data-confirm-text="@lang('app.are_you_sure_delete_client')"
                       data-confirm-delete="@lang('app.yes_delete_him')"
                       title="@lang('app.delete_client')" data-toggle="tooltip" data-placement="top">
