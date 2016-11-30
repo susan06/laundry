@@ -35,4 +35,13 @@
 @section('scripts')
     <!-- Switchery -->
     {!! HTML::script('public/vendors/switchery/dist/switchery.min.js') !!}
+    <!-- Select2 -->
+  {!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
+
+  <script type="text/javascript">
+    $(".select2_single").select2({
+      placeholder: "@lang('app.selected_item')"
+    });
+  </script>
+
 @endsection

@@ -28,6 +28,7 @@ return [
     'close' => 'Cerrar',
     'registration' => 'Registro', 
     'request_services' => 'Solicitar Servicios',
+    'services' => 'Servicios',
     'my_orders' => 'Mis Órdenes',
     'terms_and_conditions' => 'Términos y Condiciones',
     'frequent_questions' => 'Preguntas Frecuentes',
@@ -43,8 +44,10 @@ return [
     'search_status' => 'Buscar por estatus',
     'all_status' => 'Todos los estatus',
     'categories' => 'Categorias',
+    'select_category' => 'Seleccionar categoría',
     'change_photo' => 'Cambiar imagen',
     'image' => 'Imagen',
+    'add' => 'Agregar',
 
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -714,6 +717,8 @@ return [
     'today_search' => 'Buscar hoy',
     'tomorrow_search' => 'Buscar mañana',
     'add_delivery_hour' => 'Agregar intervalos de entrega',
+    'lat' => 'Latitud',
+    'lng' => 'Longitud',
 
     //day of week
     'week' => 'Semana',
@@ -740,7 +745,8 @@ return [
     'edit_package' => 'Editar Paquete',
     'delete_package' => 'Eliminar Paquete',
     'are_you_sure_delete_package' => 'Seguro que desea eliminar esta Paquete?',
-    'category' => 'Categorias',
+    'category' => 'Categoria',
+    'categories' => 'Categorias',
     'error_upload_file' => 'Error al subir el archivo',
 
 ];

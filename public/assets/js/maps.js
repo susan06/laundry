@@ -1,14 +1,11 @@
-var icon_image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
-
 function addMark(location){
-  icon_image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
   marker = new google.maps.Marker({
     position: location,
     map: map,
     draggable: true,
     customInfo: count,
     title: location_trans + ' ' + count,
-    icon: icon_image
+    icon: icon_map
   });
   add_location(JSON.parse(JSON.stringify(location)));
   openInfoWindow(marker);
@@ -116,7 +113,7 @@ function add_location(loc) {
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map-form'), {
-    center: {lat: -34.397, lng: 150.644},
+    center: map_center,
     zoom: 14,
     styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}]
   });
@@ -156,7 +153,7 @@ function initMap() {
     draggable: true,
     customInfo: count,
     title: location_trans + ' ' + count,
-    icon: icon_image
+    icon: icon_map
   });
 
   autocomplete.addListener('place_changed', function() {
@@ -190,9 +187,9 @@ function initMap() {
 
     $.each(locations_old, function(index, item) {
 
-      icon_image = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+      icon_map_change = icon_map;
       if(count_old == 1) { 
-        icon_image = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+        icon_map_change = icon_map_green;
         map.setCenter(new google.maps.LatLng(item['lat'], item['lng']));
         map.setZoom(15);  
       } 
@@ -202,7 +199,7 @@ function initMap() {
         draggable: true,
         customInfo: count_old,
         title: location_trans + ' ' + count_old,
-        icon: icon_image
+        icon: icon_map_change
       });
 
       openInfoWindow(marker);

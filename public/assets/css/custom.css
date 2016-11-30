@@ -572,6 +572,20 @@ a:hover, a:focus {
 .nav > li > a:hover, .nav > li > a:focus {
   background-color: transparent; }
 
+.content_map {
+  position: relative;
+}
+.input_delivery_address {
+  position: absolute; 
+  top: 10px; 
+  left: 10px; 
+  z-index: 99;
+}
+#delivery_address {
+  border-radius: 0;
+  width: 100%;
+  padding-left: 5px;
+}
 .top_search {
   padding: 0; }
 
@@ -1943,6 +1957,10 @@ legend {
   border-right: 1px solid #1ABB9C;
   left: 25px; }
 
+.input_delivery_address .form-control-feedback.left {
+  border-right: 1px solid #1ABB9C;
+  left: 5px; }
+
 .form-control-feedback.right {
   border-left: 1px solid #ccc;
   right: 13px; }
@@ -2937,7 +2955,8 @@ ul.project_files li a i {
   transform: scale(1.1); }
 
 .view-first:hover .mask {
-  opacity: 1; }
+  opacity: 1; 
+  cursor: pointer;}
 
 .view-first:hover .tools, .view-first:hover p {
   opacity: 1;
@@ -4047,6 +4066,9 @@ ul.notifications {
 #locations_table {
   display: none;
 }
+#packages_table {
+  display: none;
+}
 .form-control-table {
   border-radius: 0;
   width: 100%;
@@ -4065,4 +4087,7 @@ ul.notifications {
 }
 .modal {
    border-radius: 0px !important;
+}
+.hide {
+  display: none;
 }

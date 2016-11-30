@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{ Settings::get('app_name') }} | @yield('page-title')</title>
 
     <!-- Styles -->
     {!! HTML::style("public/vendors/bootstrap/dist/css/bootstrap.min.css") !!}
@@ -31,13 +31,17 @@
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
     <!-- iChecks -->
     {!! HTML::style("public/vendors/iCheck/skins/flat/green.css") !!}
+    <!-- bootstrap-wysiwyg -->
+    {!! HTML::style("public/vendors/google-code-prettify/bin/prettify.min.css") !!}
+    <!-- Select2 -->
+    {!! HTML::style("public/vendors/select2/dist/css/select2.min.css") !!}
     <!-- bootstrap datetimepicker -->
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
     <!-- Custom Theme Style -->
     {!! HTML::style("public/assets/css/custom.css") !!}
     <!-- Responsive -->
     {!! HTML::style("public/assets/css/responsive.css") !!}
-
+    
     @yield('styles')  
     <!-- Scripts -->
     <script>
@@ -131,6 +135,8 @@
 
     <script>
        var lang = {"cancel" : "@lang('app.cancel')"};
+       var icon_map = "{{ url('public/images/pointer-celeste.png') }}";
+       var map_center = {lat: {{Settings::get('lat')}}, lng: {{Settings::get('lng')}} };   
     </script>
 
     <!-- Custom Theme Scripts -->

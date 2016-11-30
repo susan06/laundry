@@ -155,6 +155,17 @@ class EloquentPackage extends Repository implements PackageRepository
      */
     public function lists_categories($column = 'name', $key = 'id')
     {
+        return PackageCategory::all()->sortBy($column)->pluck($column, $key)->all();
+    }
+
+    /**
+     * lists actives categories
+     *
+     * @param string $column
+     * @param string $key
+     */
+    public function lists_categories_actives($column = 'name', $key = 'id')
+    {
         return PackageCategory::all()->sortBy($column)->where('status', 1)->pluck($column, $key)->all();
     }
 

@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('page-title', trans('app_service_request'))
+@section('page-title', trans('app.services'))
 
 @section('content')
 
@@ -28,15 +28,16 @@
               <div class="clearfix"></div>
             </div>
 
-            <div id="map-form"></div>
-            <br />
-            <div class="row">
-              <div class="col-md-8 col-sm-8 col-xs-12 form-group">
-                {!! Form::text('delivery_address', old('delivery_address'), ['class' => 'form-control has-feedback-left', 'id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
-                <span class="fa fa-map-marker form-control-feedback left" aria-hidden="true"></span>
+            <div class="content_map">
+              <div class="col-md-11 col-sm-11 col-xs-11 input_delivery_address">
+                {!! Form::text('delivery_address', old('delivery_address'), ['id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
               </div>
+
+              <div id="map-form"></div>
             </div>
-              
+
+            <br />
+           
               {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
               {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
 
@@ -57,6 +58,7 @@
               <div class="clearfix"></div>
             </div>
 
+            <!--
             <div class="checkbox">
               <label>
                 <input type="checkbox" class="flat" id="check_today" checked="checked"> @lang('app.today_search')
@@ -67,6 +69,8 @@
             </div>
 
             <br />
+
+            -->
             
             <div class="row">            
               <div class="col-md-4 col-sm-4 col-xs-12 form-group">
@@ -112,6 +116,33 @@
             </div>
             
             <div class="t_title">
+              <h2> @lang('app.packages')</h2>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-5 col-sm-5 col-xs-12 form-group">
+                {!! Form::select('category', $categories, old('category'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'category']) !!}
+              </div>            
+            </div>
+
+            <div class="row">
+                <table class="table" id="packages_table">
+                  <thead>
+                  <tr>
+                    <th>@lang('app.name')</th>
+                    <th>@lang('app.category')</th>
+                    <th>@lang('app.price')</th>
+                    <th width="10%"></th>
+                  </tr>
+                  </thead>
+                  <tbody id="packages_list" class="form-horizontal">
+                    <!-- load content locations -->
+                  </tbody>
+                </table>
+            </div>
+
+            <div class="t_title">
               <h2> @lang('app.details')</h2>
               <div class="clearfix"></div>
             </div>
@@ -145,12 +176,14 @@
 
 @section('scripts_head')
 @parent
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}&region={{Settings::get('country_default')}}"></script>
 @endsection
 
 @section('scripts')
 @parent
 
+  <!-- Select2 -->
+  {!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
   <!-- moment -->
   {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
   <!-- bootstrap-daterangepicker -->
@@ -159,6 +192,9 @@
   {!! HTML::script('public/vendors/iCheck/icheck.min.js') !!}
 
 <script type="text/javascript">
+
+  $(".select2_single").select2();
+
   var country_default = new String("{{Settings::get('country_default')}}");
   country_default = country_default.toLowerCase();
   var map = null;
@@ -188,7 +224,7 @@
 
   $('#date_delivery').datetimepicker({
     format: 'DD-MM-YYYY',
-    minDate: today.setDate(today.getDate() + 1),
+    minDate: new Date(today.setDate(today.getDate() + 1)),
     ignoreReadonly: true,
     daysOfWeekDisabled: day_disabled
   }); 
@@ -211,6 +247,104 @@
     var tomorrow = today;
     tomorrow.setDate(tomorrow.getDate() + 1);
     $("#date_search").data('DateTimePicker').date(tomorrow);
+  });
+
+  $(document).on('change', '#category', function () {
+    var $this = $(this);
+    $.ajax({
+        url: "{{ route('package.show.category') }}",
+        type:'GET',
+        data: {'category': $this.val() },
+        success: function(response) {
+            if(response.success){
+                $('#modal-title').text($('#category option:selected').text());
+                $('#content-modal').html(response.view);
+                $('#general-modal').modal('show');
+                
+            } else {
+                notify('error', response.message);
+            }
+           
+        }
+    });
+  });
+
+  $(document).on('click', '.add-cart', function () {
+    var $this = $(this);
+    $.ajax({
+        url: "{{ route('package.get.details') }}",
+        type:'GET',
+        data: {'id': $this.attr('id') },
+        success: function(response) {
+            if(response.success){
+                add_package(JSON.parse(response.details), JSON.parse(response.prices));
+            } else {
+                notify('error', response.message);
+            }
+           
+        }
+    });
+  });
+
+  function add_package(package, prices) {
+
+     $('#packages_table').show();
+
+      var input = document.createElement("input");
+      var tr    = document.createElement("TR");
+      var td    = document.createElement("TD");  
+
+      var text_name = document.createTextNode(package.name); 
+
+      input.type  = 'hidden';
+      input.name  = 'packages[]';
+      input.value = package.id;
+
+      td.appendChild(input);
+      td.appendChild(text_name);
+
+      var td1    = document.createElement("TD"); 
+      var text_category = document.createTextNode($('#category option:selected').text()); 
+      td1.appendChild(text_category);
+
+      var td2    = document.createElement("TD"); 
+      var time_selected = $('#time_delivery option:selected').val();
+
+      $.each(prices, function(index, item) { 
+        if(time_selected == item.delivery_schedule) {
+            var price = document.createTextNode(item.price);     
+            td2.appendChild(price);
+        }                 
+      });
+
+      var td3    = document.createElement("TD");
+
+      button               = document.createElement('button');
+      button.className     = 'btn btn-round btn-danger btn-md delete-package';
+
+      var icon               = document.createElement('i');
+      icon.style.cursor  = 'pointer';
+      icon.className     = 'fa fa-trash';
+      
+      button.appendChild(icon);
+      td3.appendChild(button);
+
+      tr.appendChild(td); 
+      tr.appendChild(td1); 
+      tr.appendChild(td2);
+      tr.appendChild(td3);  
+
+      container = document.getElementById('packages_list');
+      container.appendChild(tr); 
+
+      $("#category").val('');
+
+  };
+
+
+  $(document).on('click', '.delete-package', function () {
+      var row = $(this).closest('tr');
+      row.remove();
   });
 
 </script>

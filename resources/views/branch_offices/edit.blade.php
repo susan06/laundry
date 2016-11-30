@@ -82,6 +82,7 @@
 
 <script type="text/javascript">
 
+  $('#locations_table').show();
   var country_default = new String("{{Settings::get('country_default')}}");
   country_default = country_default.toLowerCase();
   var map = null;

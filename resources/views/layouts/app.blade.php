@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{ Settings::get('app_name') }} | @yield('page-title')</title>
 
     <!-- Styles -->
     {!! HTML::style("public/vendors/bootstrap/dist/css/bootstrap.min.css") !!}
@@ -123,6 +122,9 @@
 
     <script>
        var lang = {"cancel" : "@lang('app.cancel')"};
+       var icon_map = "{{ url('public/images/pointer-celeste.png') }}";
+       var icon_map_green = "{{ url('public/images/pointer-green.png') }}";
+       var map_center = {lat: {{Settings::get('lat')}}, lng: {{Settings::get('lng')}} };   
     </script>
 
     <!-- Custom Theme Scripts -->

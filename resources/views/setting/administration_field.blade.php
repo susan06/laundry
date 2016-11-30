@@ -10,21 +10,35 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.country_default')">@lang('app.country_default') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('country_default', $countries, Settings::get('country_default'), ['class' => 'form-control col-md-7 col-xs-12']) !!}
+      {!! Form::select('country_default', $countries, Settings::get('country_default'), ['class' => 'form-control col-md-7 col-xs-12 select2_single']) !!}
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.language_default')">@lang('app.language_default')
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('language_default', $languages, Settings::get('language_default'), ['class' => 'form-control col-md-7 col-xs-12']) !!}
+      {!! Form::select('language_default', $languages, Settings::get('language_default'), ['class' => 'form-control col-md-7 col-xs-12 select2_single']) !!}
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.timezone')">@lang('app.timezone')
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('timezone', $timezones, Settings::get('timezone'), ['class' => 'form-control col-md-7 col-xs-12']) !!}
+      {!! Form::select('timezone', $timezones, Settings::get('timezone'), ['class' => 'form-control col-md-7 col-xs-12 select2_single']) !!}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.lat')">@lang('app.lat') <span class="required">*</span>
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+    {!! Form::text('lat', Settings::get('lat'), ['class' => 'form-control col-md-7 col-xs-12']) !!}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.lng')">@lang('app.lng') <span class="required">*</span>
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+    {!! Form::text('lng', Settings::get('lng'), ['class' => 'form-control col-md-7 col-xs-12']) !!}
     </div>
   </div>
  <div class="form-group">

@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name') }}</title>
+    <title>{{ Settings('app_name') }} | @yield('page-title')</title>
 
     <!-- Styles -->
     {!! HTML::style("public/vendors/bootstrap/dist/css/bootstrap.min.css") !!}

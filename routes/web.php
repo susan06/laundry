@@ -127,6 +127,8 @@
     /**
      * packages
     */
+    Route::get('package/show/category', 'PackageController@show_by_category')->name('package.show.category');
+    Route::get('package/details', 'PackageController@details')->name('package.get.details');
     Route::resource('package', 'PackageController');
 
     /************************************rutas que mas adelante se deben eliminar ************/

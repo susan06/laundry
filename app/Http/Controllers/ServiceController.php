@@ -6,6 +6,7 @@ use Auth;
 use Settings;
 use Illuminate\Http\Request;
 use App\Repositories\Client\ClientRepository;
+use App\Repositories\Package\PackageRepository;
 
 class ServiceController extends Controller
 {
@@ -34,7 +35,7 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ClientRepository $clientRepository)
+    public function create(ClientRepository $clientRepository, PackageRepository $packageRepository)
     {
         if(Settings::get('working_hours')) {
             $working_hours = json_decode(Settings::get('working_hours'), true);
@@ -51,9 +52,10 @@ class ServiceController extends Controller
         } else {
             $time_delivery = array();
         }
+        $categories = ['' => trans('app.select_category')] + $packageRepository->lists_categories_actives();
         $locations_labels = $clientRepository->lists_locations_labels(Auth::user()->id);
    
-        return view('services.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery'));
+        return view('services.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories'));
     }
 
     /**

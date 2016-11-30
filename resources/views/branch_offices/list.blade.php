@@ -26,6 +26,13 @@
                   <i class="fa fa-edit"></i>
               </button>
 
+          @if($branch_office->services)
+             <button type="button" data-href="{{ route('branch-office.services', $branch_office->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
+              title="@lang('app.show_services')" data-toggle="tooltip" data-placement="top">
+                <i class="fa fa-eye"></i>
+            </button>
+          @endif
+
           @if($branch_office->status == 'Out of service')
               <button type="button" data-href="{{ route('admin-branch-office.destroy', $branch_office->id) }}" 
                 class="btn btn-round btn-danger btn-delete" 
