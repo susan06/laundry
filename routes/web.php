@@ -17,7 +17,8 @@
 
     Route::get('panel', 'Auth\LoginController@getPanel')->name('panel');
     Route::get('logout', 'Auth\LoginController@getLogout')->name('auth.logout');
-    Route::post('authenticate', 'Auth\LoginController@authenticate');
+    Route::post('authenticate/client', 'Auth\LoginController@authenticate_client');
+    Route::post('authenticate/administration', 'Auth\LoginController@authenticate_administration');
     Route::post('registration', 'Auth\RegisterController@registration');
     Route::get('register/confirmation/{token}', 'Auth\LoginController@confirmEmail')->name('confirm.email');
 

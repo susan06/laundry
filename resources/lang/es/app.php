@@ -440,6 +440,8 @@ return [
     'cell_phone' => 'Teléfono Móvil',
     'phone_without_country_code' => 'Teléfono sin código de país',
 
+    'authorized_personal_only' => 'Solo personal autorizado',
+
     'please_confirm_your_email_first' => 'Por favor confirme su dirección de correo electrónico primero.',
     'your_account_is_banned' => 'Su cuenta está desactivada por el administrador.',
     '2fa_token_invalid' => '2FA Token es invalida!',

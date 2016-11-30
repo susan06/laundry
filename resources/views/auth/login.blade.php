@@ -9,7 +9,7 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
-              <form id="login-form" action="{{ url('/authenticate') }}" method="post" role="form" style="display: block;">
+              <form id="login-form" action="{{ url('/authenticate/client') }}" method="post" role="form" style="display: block;">
                {{ csrf_field() }}
                 <h2>{{ Settings::get('app_name') }} - LOGIN</h2>
                   <div class="form-group">

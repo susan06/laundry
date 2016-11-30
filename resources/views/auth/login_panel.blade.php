@@ -1,55 +1,44 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div>
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <form class="form-horizontal"  id="login-form" role="form" method="POST" action="{{ url('/authenticate') }}">
-             {{ csrf_field() }}
-              <h1>@lang('app.panel_administration')</h1>
-               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-md-3 col-xs-3 control-label">@lang('app.email')</label>
-                    <div class="col-md-9 col-xs-9">
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-                        @if ($errors->has('email'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="col-md-3 col-xs-3 control-label">@lang('app.password')</label>
-                    <div class="col-md-9 col-xs-9">
-                        <input id="password" type="password" class="form-control" name="password" required>
-                        @if ($errors->has('password'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                        @endif
-                    </div>  
-                </div>
-              <div>
-                <button type="submit" class="btn btn-default">Login</button>
-                @if(Settings::get('forgot_password'))
-                <a class="reset_pass" href="{{ url('/password/reset') }}">@lang('app.i_forgot_my_password')</a>
-                @endif
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <div>
-                  <h1>{{ Settings::get('app_name') }}</h1>
-                  <p>©2016 @lang('app.all_rights_reserved')</p>
-                </div>
-              </div>
-            </form>
-          </section>
+<div class="container">
+   <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-login">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-12">
+              <form id="login-form" action="{{ url('/authenticate/administration') }}" method="post" role="form" style="display: block;">
+               {{ csrf_field() }}
+                <h2>{{ Settings::get('app_name') }} - @lang('app.panel_administration')</h2>
+                  <div class="form-group">
+                    <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="@lang('app.email')" value="{{ old('email') }}" required autofocus>
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="@lang('app.password')" required>
+                  </div>
+                  <div class="col-xs-12 form-group pull-right">     
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="@lang('app.log_in')">
+                  </div>
+                  <div class="col-xs-12 form-group pull-left checkbox">
+                    <input id="checkbox1" type="checkbox" name="remember">
+                    <label for="checkbox1">@lang('app.remember_me')</label>   
+                  </div>
+              </form>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
+  </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="col-md-10 col-md-offset-1 text-center">
+            <h6 style="font-size:14px;font-weight:100;color: #fff;">©2016 @lang('app.all_rights_reserved')</a></h6>
+        </div>   
+    </div>
+</footer>
+
 @endsection

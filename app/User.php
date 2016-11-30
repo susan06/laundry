@@ -90,6 +90,11 @@ class User extends Authenticatable
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
     }
 
+    public function isAdmin()
+    {
+        return in_array($this->role_id, [1,3,4,5]);
+    }
+
     public function isUnconfirmed()
     {
         return $this->status == UserStatus::UNCONFIRMED;

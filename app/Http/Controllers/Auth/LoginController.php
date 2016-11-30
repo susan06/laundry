@@ -64,7 +64,7 @@ class LoginController extends Controller
      *
      * @return Response
      */
-    public function authenticate(LoginRequest $request)
+    public function authenticate_client(LoginRequest $request)
     {
         $credentials = ['email' => $request->get('email'), 'password' => $request->get('password')];
 
@@ -80,6 +80,46 @@ class LoginController extends Controller
             if ($user->isBanned()) {
                 Auth::logout();
                 return redirect()->to('login')->withErrors(trans('app.your_account_is_banned'));
+            }
+
+            Auth::login($user, true);
+
+            $this->users->update($user->id, ['last_login' => Carbon::now()]);
+
+            return redirect()->intended('home');
+
+        } else {
+
+            return redirect()->back()->withErrors(trans('auth.failed'));
+        }
+    }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticate_administration(LoginRequest $request)
+    {
+        $credentials = ['email' => $request->get('email'), 'password' => $request->get('password')];
+
+        if (Auth::attempt($credentials)) {
+
+            $user = Auth::getProvider()->retrieveByCredentials($credentials);
+            
+            if (!$user->isAdmin()) {
+                Auth::logout();
+                return redirect()->to('panel')->withErrors(trans('app.authorized_personal_only'));
+            }
+
+            if ($user->isUnconfirmed()) {
+                Auth::logout();
+                return redirect()->to('panel')->withErrors(trans('app.please_confirm_your_email_first'));
+            }
+            
+            if ($user->isBanned()) {
+                Auth::logout();
+                return redirect()->to('panel')->withErrors(trans('app.your_account_is_banned'));
             }
 
             Auth::login($user, true);
