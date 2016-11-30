@@ -29,5 +29,19 @@
 @endsection
 
 @section('scripts')
+<!-- Select2 -->
+{!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
+<!-- bootstrap-wysiwyg -->
+{!! HTML::script('public/vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') !!}
+{!! HTML::script('public/vendors/jquery.hotkeys/jquery.hotkeys.js') !!}
+{!! HTML::script('public/vendors/google-code-prettify/src/prettify.js') !!}
+<!-- Editor-->
+{!! HTML::script('public/assets/js/editor.js') !!}
 
+<script type="text/javascript">
+  $(".select2_single").select2({
+    placeholder: "@lang('app.selected_item')",
+    allowClear: true
+  });
+</script>
 @endsection

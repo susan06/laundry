@@ -26,7 +26,7 @@
                     </button>
                     @if ($client->status == 'Banned')
                     <button type="button" data-href="{{ route('client.destroy', $client->id) }}" 
-                      class="btn btn-round btn-primary btn-delete" 
+                      class="btn btn-round btn-danger btn-delete" 
                       data-confirm-text="@lang('app.are_you_sure_delete_client')"
                       data-confirm-delete="@lang('app.yes_delete_him')"
                       title="@lang('app.delete_client')" data-toggle="tooltip" data-placement="top">

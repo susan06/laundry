@@ -8,11 +8,10 @@
     <div id="myTabContent" class="tab-content">
       <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="conditions-tab">
       {!! Form::open(['route' => 'setting.update', 'class' => 'form-horizontal form-label-left']) !!}
-      <div class="form-group">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-         {!! Form::textarea('terms_and_conditions', Settings::get('terms_and_conditions'), ['class' => 'form-control', 'id' => 'terms_and_conditions', 'rows' => '15', 'required' => 'required']) !!}
-         </div>
-      </div>
+      <div id="alerts"></div>
+      @include('partials.toolbar_editor')
+      <div id="editor2" class="editor-wrapper">{{Settings::get('terms_and_conditions')}}</div>
+      <textarea name="terms_and_conditions" id="terms_and_conditions" style="display: none;" required="required">{{Settings::get('terms_and_conditions')}}</textarea>
       <div class="ln_solid"></div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">@lang('app.update')</button>
@@ -20,12 +19,13 @@
       {!! Form::close() !!}
       </div>
       <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="privacy-tab">
-        {!! Form::open(['route' => 'setting.update', 'class' => 'form-horizontal form-label-left']) !!}
-        <div class="form-group">
-         <div class="col-md-12 col-sm-12 col-xs-12">
-          {!! Form::textarea('privacy_policy', Settings::get('privacy_policy'), ['class' => 'form-control', 'id' => 'privacy_policy', 'rows' => '15', 'required' => 'required']) !!}
-           </div>
-        </div>
+      {!! Form::open(['route' => 'setting.update', 'class' => 'form-horizontal form-label-left']) !!}
+      <div id="alerts"></div>
+      @include('partials.toolbar_editor')
+      <div id="editor3" class="editor-wrapper">{{Settings::get('privacy_policy')}}</div>
+
+      <textarea name="privacy_policy" id="privacy_policy" style="display: none;" required="required">{{Settings::get('privacy_policy')}}</textarea>
+
         <div class="ln_solid"></div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">@lang('app.update')</button>
@@ -34,3 +34,4 @@
       </div>
     </div>
 </div>
+

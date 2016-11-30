@@ -38,6 +38,17 @@ $(document).ready(function() {
     } else {
       $('.voiceBtn').hide();
     }
+
+    if ("onwebkitspeechchange" in document.createElement("input")) {
+      var editorOffset = $('#editor').offset();
+
+      $('.voiceBtn').css('position', 'absolute').offset({
+        top: editorOffset.top,
+        left: editorOffset.left + $('#editor').innerWidth() - 35
+      });
+    } else {
+      $('.voiceBtn').hide();
+    }
   }
 
   function showErrorAlert(reason, detail) {
@@ -57,10 +68,26 @@ $(document).ready(function() {
     fileUploadError: showErrorAlert
   });
 
+  $('#editor2').wysiwyg({
+    fileUploadError: showErrorAlert
+  });
+
+  $('#editor3').wysiwyg({
+    fileUploadError: showErrorAlert
+  });
+
   window.prettyPrint;
   prettyPrint();
 });
 
 $('#editor').change(function() {
     document.getElementById("description").value = document.getElementById("editor").innerHTML;
+}).trigger("change");
+
+$('#editor2').change(function() {
+    document.getElementById("terms_and_conditions").value = document.getElementById("editor2").innerHTML;
+}).trigger("change");
+
+$('#editor3').change(function() {
+    document.getElementById("privacy_policy").value = document.getElementById("editor3").innerHTML;
 }).trigger("change");
