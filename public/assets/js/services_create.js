@@ -143,6 +143,143 @@ function initMap() {
 
 }
 
+var add_cart = 0;
+
+function add_package(package, prices) {
+
+   $('#packages_table').show();
+
+    var input = document.createElement("input");
+    var tr    = document.createElement("TR");
+    var td    = document.createElement("TD");  
+
+    var text_name = document.createTextNode(package.name); 
+
+    input.type  = 'hidden';
+    input.name  = 'packages[]';
+    input.value = package.id;
+
+    td.appendChild(input);
+    td.appendChild(text_name);
+
+    var td1    = document.createElement("TD"); 
+    var text_category = document.createTextNode($('#category option:selected').text()); 
+    td1.appendChild(text_category);
+
+    var td2    = document.createElement("TD"); 
+
+    $.each(prices, function(index, item) { 
+      var span    = document.createElement("span"); 
+      span.className = 'prices list_price_'+item.delivery_schedule;
+      var price = document.createTextNode(item.price); 
+      span.appendChild(price);    
+      td2.appendChild(span);               
+    });
+
+    var td3    = document.createElement("TD");
+
+    button               = document.createElement('button');
+    button.className     = 'btn btn-round btn-danger btn-md delete-package';
+
+    var icon               = document.createElement('i');
+    icon.style.cursor  = 'pointer';
+    icon.className     = 'fa fa-trash';
+    
+    button.appendChild(icon);
+    td3.appendChild(button);
+
+    tr.appendChild(td); 
+    tr.appendChild(td1); 
+    tr.appendChild(td2);
+    tr.appendChild(td3);  
+
+    container = document.getElementById('packages_list');
+    container.appendChild(tr); 
+
+    $("#category").val('');
+    add_cart++;
+    show_price_by_time();
+};
+
+function show_price_by_time(){
+    var time_selected = $('#time_delivery option:selected').val();
+    if(time_selected) {
+      $('.prices').hide();
+      $('.list_price_'+time_selected).show();
+    }  
+    if(add_cart > 0) {
+      total();
+    }
+}
+
+function total() {
+  if(add_cart > 0) {
+  var time_selected = $('#time_delivery option:selected').val();  
+  var sum = 0;       
+    $("#packages_list tr").each( function() {       
+      var price = $(this).find('td:eq(2) span.list_price_'+time_selected);
+      if (price.text() != null) {
+        sum += parseFloat(price.text());
+      }             
+    })   
+    $("#total").text(sum.toFixed(2).toString());   
+  }
+}   
+
+$(document).on('click', '.add-cart', function () {
+  var $this = $(this);
+  $.ajax({
+      url: url_package_get_details,
+      type:'GET',
+      data: {'id': $this.attr('id') },
+      success: function(response) {
+          if(response.success){
+              $this.addClass('not_clic');
+              $('.add-cart > div.mask').hide();
+              add_package(JSON.parse(response.details), JSON.parse(response.prices));
+          } else {
+              notify('error', response.message);
+          }
+         
+      }
+  });
+});
+
+$(document).on('change', '#category', function () {
+  var $this = $(this);
+  if($this.val()) {
+    $.ajax({
+        url: url_package_show_category,
+        type:'GET',
+        data: {'category': $this.val() },
+        success: function(response) {
+            if(response.success){
+                $('#modal-title').text($('#category option:selected').text());
+                $('#content-modal').html(response.view);
+                $('#general-modal').modal('show');
+                
+            } else {
+                notify('error', response.message);
+            }
+           
+        }
+    });
+  }
+});
+
+$(document).on('change', '#time_delivery', function () {
+  if(add_cart > 0) {
+    show_price_by_time();
+  }
+});
+
+$(document).on('click', '.delete-package', function () {
+    var row = $(this).closest('tr');
+    row.remove();
+    add_cart--;
+    total();
+});
+
 $(document).ready(function() {
     initMap();
 });

@@ -48,6 +48,7 @@ return [
     'change_photo' => 'Cambiar imagen',
     'image' => 'Imagen',
     'add' => 'Agregar',
+    'added' => 'Agregado',
 
     // Activity Log Section
     'activity_log' => 'Registros',

@@ -97,7 +97,10 @@ class PackageController extends Controller
      */
     public function show_by_category(Request $request)
     {
-        $packages = $this->packages->where('package_category_id', $request->category)->get();
+        $packages = $this->packages
+            ->where('package_category_id', $request->category)
+            ->where('status', true)
+            ->get();
 
         if ( $request->ajax() ) {
             if (count($packages) >= 1) {

@@ -160,6 +160,17 @@
               </div>
             </div>
 
+            <div class="t_title">
+              <h2> @lang('app.total')</h2>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="row">
+              <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                <h1 class="price" id="total">0.00</h1>
+              </div>
+            </div>
+
             <div class="ln_solid"></div>
             <div class="form-group col-md-2 col-sm-2 col-xs-12">
               <button type="submit" class="btn btn-primary col-xs-12">@lang('app.save')</button>
@@ -206,9 +217,11 @@
   var count = 1;
   var day_disabled = [0,{!! Settings::get('week') !!},6];
   var today = new Date();
+  var url_package_get_details = "{{ route('package.get.details') }}";
+  var url_package_show_category = "{{ route('package.show.category') }}";
+  var endTime = '{!! Settings::get("time_close") !!}';
 
   var beginningTime = moment().add({ hours: 0, minutes: 30}).format('h:mm A');
-  var endTime = '{!! Settings::get("time_close") !!}';
 
   if(! moment(new Date(beginningTime)).isBefore(new Date(endTime)) ) {
     today = new Date(today.setDate(today.getDate() + 1));
@@ -249,106 +262,8 @@
     $("#date_search").data('DateTimePicker').date(tomorrow);
   });
 
-  $(document).on('change', '#category', function () {
-    var $this = $(this);
-    $.ajax({
-        url: "{{ route('package.show.category') }}",
-        type:'GET',
-        data: {'category': $this.val() },
-        success: function(response) {
-            if(response.success){
-                $('#modal-title').text($('#category option:selected').text());
-                $('#content-modal').html(response.view);
-                $('#general-modal').modal('show');
-                
-            } else {
-                notify('error', response.message);
-            }
-           
-        }
-    });
-  });
-
-  $(document).on('click', '.add-cart', function () {
-    var $this = $(this);
-    $.ajax({
-        url: "{{ route('package.get.details') }}",
-        type:'GET',
-        data: {'id': $this.attr('id') },
-        success: function(response) {
-            if(response.success){
-                add_package(JSON.parse(response.details), JSON.parse(response.prices));
-            } else {
-                notify('error', response.message);
-            }
-           
-        }
-    });
-  });
-
-  function add_package(package, prices) {
-
-     $('#packages_table').show();
-
-      var input = document.createElement("input");
-      var tr    = document.createElement("TR");
-      var td    = document.createElement("TD");  
-
-      var text_name = document.createTextNode(package.name); 
-
-      input.type  = 'hidden';
-      input.name  = 'packages[]';
-      input.value = package.id;
-
-      td.appendChild(input);
-      td.appendChild(text_name);
-
-      var td1    = document.createElement("TD"); 
-      var text_category = document.createTextNode($('#category option:selected').text()); 
-      td1.appendChild(text_category);
-
-      var td2    = document.createElement("TD"); 
-      var time_selected = $('#time_delivery option:selected').val();
-
-      $.each(prices, function(index, item) { 
-        if(time_selected == item.delivery_schedule) {
-            var price = document.createTextNode(item.price);     
-            td2.appendChild(price);
-        }                 
-      });
-
-      var td3    = document.createElement("TD");
-
-      button               = document.createElement('button');
-      button.className     = 'btn btn-round btn-danger btn-md delete-package';
-
-      var icon               = document.createElement('i');
-      icon.style.cursor  = 'pointer';
-      icon.className     = 'fa fa-trash';
-      
-      button.appendChild(icon);
-      td3.appendChild(button);
-
-      tr.appendChild(td); 
-      tr.appendChild(td1); 
-      tr.appendChild(td2);
-      tr.appendChild(td3);  
-
-      container = document.getElementById('packages_list');
-      container.appendChild(tr); 
-
-      $("#category").val('');
-
-  };
-
-
-  $(document).on('click', '.delete-package', function () {
-      var row = $(this).closest('tr');
-      row.remove();
-  });
-
 </script>
 
-{!! HTML::script('public/assets/js/maps_client.js') !!}
+{!! HTML::script('public/assets/js/services_create.js') !!}
 
 @endsection

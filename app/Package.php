@@ -41,7 +41,7 @@ class Package extends Model
     public function path_image()
     {      
         if ( Storage::disk('local')->exists('packages/'.$this->image) ) {
-            return 'storage/app/packages/'.$this->image;
+            return url('/storage/app/packages/'.$this->image);
         }
         return $this->image;       
     }

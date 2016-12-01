@@ -4091,3 +4091,14 @@ ul.notifications {
 .hide {
   display: none;
 }
+.show {
+  display: block;
+}
+.not_clic {
+  pointer-events: none;
+  cursor: default;
+}
+.add-cart img {
+  width: 100%; 
+  display: block;
+}
