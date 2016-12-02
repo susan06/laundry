@@ -25,6 +25,27 @@
     {!! Form::text('email', old('email'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'email']) !!}
     </div>
   </div>
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.mobile')">@lang('app.mobile') <span class="required">*</span>
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+    {!! Form::text('mobile', old('mobile'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'mobile']) !!}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.telephone')">@lang('app.telephone') 
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+    {!! Form::text('telephone', old('telephone'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'telephone']) !!}
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.birthday')">@lang('app.birthday')
+    </label>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+    {!! Form::text('birthday', isset($user->birthday) ? date_format(date_create($user->birthday), 'd-m-Y') : old('birthday'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'birthday', 'readonly' => 'readonly']) !!}
+    </div>
+  </div>
   @if($role)
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.role') <span class="required">*</span>
@@ -55,3 +76,28 @@
 </div>
 {!! Form::close() !!}
 
+ <!-- jquery.inputmask -->
+ {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+ <!-- moment -->
+ {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
+ <!-- bootstrap-daterangepicker -->
+ {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+ 
+<script>
+  $(document).ready(function() {
+
+      $(":input").inputmask();
+
+      @if($edit)
+        $('#birthday').datetimepicker({
+          format: 'DD-MM-YYYY',
+          ignoreReadonly: true
+        });
+      @else
+        $('#birthday').datetimepicker({
+          format: 'DD-MM-YYYY',
+          ignoreReadonly: true
+        });
+      @endif
+  });
+</script>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\User;
+use DateTime;
 use App\Http\Requests;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Role\RoleRepository;
@@ -37,6 +38,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $date = DateTime::createFromFormat('d-m-Y', $request->search);
+
+        if($date && $date->format('d-m-Y')) {
+            $search = date_format(date_create($request->search), 'Y-m-d');
+        } else {
+            $search = $request->search;
+        }
         $users = $this->users->paginate_search(10, $request->search, $request->status);
         $status = ['' => trans('app.all_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
@@ -140,6 +148,8 @@ class UserController extends Controller
             'email' => $request->email,
             'role_id' => $request->role_id,
             'status' => $request->status,
+            'phones' => '{"movil":"'.$request->mobile.'","home":"'.$request->telephone.'"}',
+            'birthday' => date_format(date_create($request->birthday), 'Y-m-d'),
             'password' => bcrypt(str_random(6))
         ];
         $user = $this->users->create($data);
@@ -203,10 +213,16 @@ class UserController extends Controller
      */
     public function update(UpdateUser $request, $id)
     {
-        $user = $this->users->update(
-            $id, 
-            $request->only('name', 'lastname', 'role_id', 'status')
-        );
+        $data = [
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+            'status' => $request->status,
+            'phones' => '{"movil":"'.$request->mobile.'","home":"'.$request->telephone.'"}',
+            'birthday' => date_format(date_create($request->birthday), 'Y-m-d')
+        ];
+        $user = $this->users->update($id, $data);
         if ( $user ) {
 
             return response()->json([

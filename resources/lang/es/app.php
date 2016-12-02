@@ -606,6 +606,7 @@ return [
     //clientes
     'client'              => 'Cliente',
     'clients' => 'Clientes',
+    'view_client' => 'Ver Cliente',
     'client_created' => 'Cliente creada',
     'client_updated' => 'Cliente actualizada',
     'client_deleted' => 'Cliente eliminada',
@@ -623,7 +624,7 @@ return [
     'confirm_password'    => 'Confirmar Contraseña',
     'mobile'              => 'Móvil',
     'telephone'           => 'Teléfono',
-    'date_of_birth'       => 'Fecha de Nacimiento',
+    'birthday'       => 'Fecha de Nacimiento',
     'name_on_card'        => 'Nombre en Tarjeta de Crédito',
     'card_number'         => 'Número de Tarjeta de Crédito',
     'cvv'                 => 'CVV',

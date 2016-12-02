@@ -30,7 +30,8 @@ class User extends Authenticatable
         'lang', 
         'role_id', 
         'last_login', 
-        'birthday', 
+        'birthday',
+        'phones', 
         'confirmation_token'
     ];
 
@@ -78,6 +79,11 @@ class User extends Authenticatable
             $text_phones = substr($text_phones, 0, -2);
         } 
         return $text_phones;
+    }
+
+    public function getBirthdayAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
     }
 
     public function getCreatedAtAttribute($date)
