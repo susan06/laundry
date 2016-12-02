@@ -19,9 +19,11 @@
         </li>
         <!--//Drivers -->
         <!--Coupons -->
-        <li>
-          <a href="{{ route('coupon.index') }}" title="@lang('app.coupons')"><i class="fa fa-tags"></i> @lang('app.coupons')
-          </a>
+        <li><a><i class="fa fa-tags"></i> @lang('app.coupons') <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu">
+            <li><a href="{{ route('coupon.index') }}">@lang('app.coupons')</a></li>
+            <li><a href="{{ route('coupon.clients') }}">@lang('app.coupons_sended')</a></li>
+          </ul>
         </li>
         <!--//Coupons -->
         <!--branch offices -->

@@ -75,6 +75,7 @@
     /**
      * Coupons administrations
     */
+    Route::get('coupon/clients', 'CouponController@clients')->name('coupon.clients');
     Route::resource('coupon', 'CouponController');
 
     /**

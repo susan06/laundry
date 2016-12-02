@@ -544,6 +544,12 @@ return [
     'code' => 'Código',
     'validity' => 'Valido hasta',
     'percentage' => 'Porcentaje',
+    'coupons_sended' => 'Cupones enviados',
+    'used' => 'Usado',
+    'noused' => 'No usado',
+    'send_coupons' => 'Enviar cupones',
+    'num_coupons' => '# Cupones',
+    'show_coupons' => 'Ver cupones',
 
     //Sucursales
     'In service' => 'En servicio',

@@ -58,4 +58,16 @@ interface UserRepository extends RepositoryInterface
      * @return mixed
      */
     public function findByConfirmationToken($token);
+
+     /**
+     * Client Paginate and search with coupons
+     *
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function client_coupon_paginate_search($take = 10, $search = null);
 }

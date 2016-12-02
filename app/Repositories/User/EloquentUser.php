@@ -119,8 +119,6 @@ class EloquentUser extends Repository implements UserRepository
             $result->appends(['status' => $status]);
         }
 
-
-
         return $result;
     }
 
@@ -193,6 +191,39 @@ class EloquentUser extends Repository implements UserRepository
     public function findByConfirmationToken($token)
     {
         return User::where('confirmation_token', $token)->first();
+    }
+
+    /**
+     * Client Paginate and search with coupons
+     *
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function client_coupon_paginate_search($take = 10, $search = null)
+    {
+        $query = User::where('role_id', 2);
+
+        if ($search) {
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $q->orwhere('name', "like", "%{$term}%");
+                    $q->orwhere('lastname', "like", "%{$term}%");
+                }
+            });
+        }
+
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;
     }
 
 }

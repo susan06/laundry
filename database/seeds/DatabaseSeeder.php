@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
          $this->call(PackageCategoryTableSeeder::class);
          $this->call(PackageTableSeeder::class);
          $this->call(PackagePricesTableSeeder::class);
+         $this->call(ClientCouponSeeder::class);
     }
 }

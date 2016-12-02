@@ -52,7 +52,7 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
                     $q->orwhere("name", "like", "%{$term}%");
                     $q->orwhere("phone", "like", "%{$term}%");
                 }
-            })->paginate($take)->appends(['search' => $search]);
+            });
         }
 
         if ($status) {

@@ -223,5 +223,18 @@ abstract class Repository implements RepositoryInterface
         return $this->model->all([$column,$key])->sortBy($column)->pluck($column, $key)->filter()->all();
     }
 
+    /**
+     * orderBy
+     *
+     * Order by column 
+     *
+     * @param string $column
+     * @param string $order
+     */
+    public function orderBy($column = 'created_at', $order = 'asc')
+    {       
+        return $this->model->orderBy($column, $order);
+    }
+
 
 }

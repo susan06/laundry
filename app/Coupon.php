@@ -21,7 +21,7 @@ class Coupon extends Model
      * @var array
      */
     protected $fillable = [
-        'code', 'validity', 'percentage', 'created_by'
+        'code', 'validity', 'percentage', 'status', 'created_by'
     ];
 
     /**
@@ -72,7 +72,12 @@ class Coupon extends Model
      */
     public function user()
     {
-        return $this->hasOne(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function client_coupon()
+    {
+        return $this->hasMany(ClientCoupon::class, 'coupon_id');
     }
 
 }

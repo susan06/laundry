@@ -9,6 +9,7 @@ use Auth;
 use DateTime;
 use App\Coupon;
 use App\Repositories\Coupon\CouponRepository;
+use App\Repositories\User\UserRepository;
 use App\Http\Requests\Coupon\CreateCoupon;
 use App\Http\Requests\Coupon\UpdateCoupon;
 use App\Support\Coupon\CouponStatus;
@@ -196,5 +197,31 @@ class CouponController extends Controller
                 'message' => trans('app.error_again')
             ]);
         }
+    }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function clients(Request $request, UserRepository $users)
+    {
+        $clients = $users->client_coupon_paginate_search(10, $request->search);
+
+        if ( $request->ajax() ) {
+            if (count($clients)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('coupons.clients.list', compact('clients'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('coupons.clients.index', compact('clients'));
     }
 }

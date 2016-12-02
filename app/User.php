@@ -81,6 +81,11 @@ class User extends Authenticatable
         return $text_phones;
     }
 
+    public function count_coupon()
+    {
+        return count($this->client_coupon);
+    }
+
     public function getBirthdayAttribute($date)
     {
         return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
@@ -145,7 +150,12 @@ class User extends Authenticatable
 
     public function coupon()
     {
-        return $this->belongsTo(Coupon::class, 'created_by');
+        return $this->hasMany(Coupon::class, 'created_by');
+    }
+
+    public function client_coupon()
+    {
+        return $this->hasMany(ClientCoupon::class, 'client_id');
     }
 
     public function branchOffice()

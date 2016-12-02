@@ -139,4 +139,14 @@ interface RepositoryInterface
      */
     public function lists($column = 'name', $key = 'id');
 
+     /**
+     * orderBy
+     *
+     * Order by column 
+     *
+     * @param string $column
+     * @param string $order
+     */
+    public function orderBy($column = 'created_at', $order = 'asc');
+
 }

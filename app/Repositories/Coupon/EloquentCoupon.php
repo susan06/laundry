@@ -3,6 +3,7 @@
 namespace App\Repositories\Coupon;
 
 use App\Coupon;
+use App\User;
 use App\Repositories\Repository;
 
 class EloquentCoupon extends Repository implements CouponRepository
@@ -15,13 +16,22 @@ class EloquentCoupon extends Repository implements CouponRepository
     protected $attributes = ['validity', 'percentage'];
 
     /**
+     * @var ClientCouponRepositoryRepository
+     */
+    protected $clientCoupons;
+
+    /**
      * EloquentCoupon constructor
      *
      * @param Coupon $Coupon
      */
-    public function __construct(Coupon $Coupon)
+    public function __construct(
+        Coupon $Coupon,
+        ClientCouponRepository $clientCoupons
+    )
     {
         parent::__construct($Coupon, $this->attributes);
+        $this->clientCoupons = $clientCoupons;
     }
 
     /**
@@ -46,7 +56,7 @@ class EloquentCoupon extends Repository implements CouponRepository
                     $q->orwhere("percentage", "like", "%{$term}%");
                     $q->orwhere("validity", "like", "{$term}");
                 }
-            })->paginate($take)->appends(['search' => $search]);
+            });
         } 
 
         if ($status) {
