@@ -76,6 +76,7 @@
      * Coupons administrations
     */
     Route::get('coupon/clients', 'CouponController@clients')->name('coupon.clients');
+    Route::get('coupon/validate', 'CouponController@check_coupon')->name('coupon.check');
     Route::resource('coupon', 'CouponController');
 
     /**

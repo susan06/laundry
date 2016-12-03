@@ -152,14 +152,36 @@
                   {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
               </div>
             </div>
-              
+
+            <div class="t_title">
+              <h2> @lang('app.coupon')</h2>
+              <div class="clearfix"></div>
+            </div>
+
             <div class="row">
               <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-              {!! Form::text('coupon', old('coupon'), ['class' => 'form-control has-feedback-left', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
-              <span class="fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                <div class="input-group">
+                  {!! Form::text('coupon', old('coupon'), ['class' => 'form-control', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
+                  <span class="input-group-btn">
+                      <button class="btn btn-primary validate" type="button">@lang('app.validate')</button>
+                    </span>
+                </div>
               </div>
             </div>
 
+          <div class="discount" style="display: none;">
+            <div class="t_title">
+              <h2> @lang('app.discount')</h2>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="row">
+              <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                <h1 class="price" id="discount">0.00</h1>
+              </div>
+            </div>
+          </div>
+            
             <div class="t_title">
               <h2> @lang('app.total')</h2>
               <div class="clearfix"></div>
@@ -213,31 +235,40 @@
   var marker = null;
   var location_trans = "{{ trans('app.location') }}";
   var location_label = "{{ trans('app.my_location') }}";
+  var first_select_package = "{{ trans('app.first_select_package') }}";
+  var first_introduce_coupon = "{{ trans('app.first_introduce_coupon') }}";
   var edit = false;
   var count = 1;
   var day_disabled = [0,{!! Settings::get('week') !!},6];
-  var today = new Date();
+  var today = moment(new Date());
   var url_package_get_details = "{{ route('package.get.details') }}";
   var url_package_show_category = "{{ route('package.show.category') }}";
+  var url_validate_coupon = "{{ route('coupon.check') }}";
   var endTime = '{!! Settings::get("time_close") !!}';
 
   var beginningTime = moment().add({ hours: 0, minutes: 30}).format('h:mm A');
 
   if(! moment(new Date(beginningTime)).isBefore(new Date(endTime)) ) {
-    today = new Date(today.setDate(today.getDate() + 1));
+    today =  moment(new Date()).add(1, 'day');
   }
 
   $('#date_search').datetimepicker({
     format: 'DD-MM-YYYY',
     minDate: today,
+    maxDate: moment(today).add(7, 'day'),
     ignoreReadonly: true,
     daysOfWeekDisabled: day_disabled
-  }); 
+  });
 
+  var today_search = $('#date_search').val();
+  var today_new = today_search.split("-").reverse().join("-");
+  var tomorrow = moment(today_new).add(1, 'day');
 
   $('#date_delivery').datetimepicker({
     format: 'DD-MM-YYYY',
-    minDate: new Date(today.setDate(today.getDate() + 1)),
+    defaultDate: tomorrow,
+    minDate: tomorrow,
+    maxDate: moment(today).add(7, 'day'),
     ignoreReadonly: true,
     daysOfWeekDisabled: day_disabled
   }); 
@@ -257,9 +288,9 @@
 
   $("#check_tomorrow").on("ifClicked", function() {
     $('#check_today').iCheck('uncheck');
-    var tomorrow = today;
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    $("#date_search").data('DateTimePicker').date(tomorrow);
+    var tomorrow2 = today;
+    tomorrow2.setDate(tomorrow.getDate() + 1);
+    $("#date_search").data('DateTimePicker').date(tomorrow2);
   });
 
 </script>

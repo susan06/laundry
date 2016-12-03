@@ -36,7 +36,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'client@client.com',
             'lang' => 'es',
             'phones' => '{"movil":"12345678","home":"987654321"}',
-            'password' => bcrypt('secret'),
+            'password' => 'secret',
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
@@ -52,7 +52,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'client2@client.com',
             'lang' => 'es',
             'phones' => '{"movil":"12345678"}',
-            'password' => bcrypt('secret'),
+            'password' => 'secret',
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);

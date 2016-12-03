@@ -40,7 +40,7 @@ class Coupon extends Model
                 $class = 'success';
                 break;
 
-            case CouponStatus::USELESS:
+            case CouponStatus::NOVALID:
                 $class = 'danger';
                 break;
 
@@ -63,9 +63,31 @@ class Coupon extends Model
 
     public function getUpdatedAtAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+        if($date) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+        }
     }
 
+    public function isValid()
+    {
+        return $this->status == CouponStatus::VALID;
+    }
+
+    public function isNoValid()
+    {
+        return $this->status == CouponStatus::NOVALID;
+    }
+
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = encrypt($value);
+    }
+
+    public function setValidityAttribute($value)
+    {
+        $this->attributes['validity'] = date_format(date_create($value), 'Y-m-d');
+    }
+    
     /**
      * Relationships
      *

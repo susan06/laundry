@@ -36,7 +36,7 @@
     <!-- Select2 -->
     {!! HTML::style("public/vendors/select2/dist/css/select2.min.css") !!}
     <!-- bootstrap datetimepicker -->
-    {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
+    {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.css") !!}
     <!-- Custom Theme Style -->
     {!! HTML::style("public/assets/css/custom.css") !!}
     <!-- Responsive -->

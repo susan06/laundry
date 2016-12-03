@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Auth;
 use DateTime;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use App\Http\Requests;
 use App\Coupon;
 use App\Repositories\Coupon\CouponRepository;
+use App\Repositories\Coupon\ClientCouponRepository;
 use App\Repositories\User\UserRepository;
 use App\Http\Requests\Coupon\CreateCoupon;
 use App\Http\Requests\Coupon\UpdateCoupon;
@@ -91,9 +93,9 @@ class CouponController extends Controller
     public function store(CreateCoupon $request)
     {
         $data = [
-            'code' => encrypt($request->code),
+            'code' => $request->code,
             'percentage' => $request->percentage,
-            'validity' => date_format(date_create($request->validity), 'Y-m-d'),
+            'validity' => $request->validity,
             'status' => CouponStatus::VALID,
             'created_by' => Auth::id(),
         ];
@@ -134,9 +136,10 @@ class CouponController extends Controller
     {
         $edit = true;
         if ( $coupon = $this->coupons->find($id) ) {
+            $list_status = CouponStatus::lists();
             return response()->json([
                 'success' => true,
-                'view' => view('coupons.create-edit', compact('coupon','edit'))->render()
+                'view' => view('coupons.create-edit', compact('coupon','list_status','edit'))->render()
             ]);
         } else {
             return response()->json([
@@ -157,7 +160,8 @@ class CouponController extends Controller
     {
         $data = [
             'percentage' => $request->percentage,
-            'validity' => date_format(date_create($request->validity), 'Y-m-d'),
+            'validity' => $request->validity,
+            'status' => $request->status,
         ];
         $coupon = $this->coupons->update(
             $id, 
@@ -223,5 +227,52 @@ class CouponController extends Controller
         }
 
         return view('coupons.clients.index', compact('clients'));
+    }
+
+    /**
+     * check coupon
+     *
+     * @return \Illuminate\Http\Response JSON
+     */
+    public function check_coupon(Request $request, ClientCouponRepository $couponClient)
+    {
+        $code = $request->code;
+
+        $coupon = $this->coupons->all()->filter(function($record) use($code) {
+            if(decrypt($record->code) == $code) {
+                return $record;
+            }
+        })->values()->first()->toArray();
+
+        if ( $coupon && $coupon['status'] == 'Valid' ) {
+
+            $user = Auth::user();
+            $coupon_client = $couponClient->where('coupon_id', $coupon['id'])->where('client_id', $user->id)->first();
+
+            if ($coupon_client) {
+                if ( $coupon_client->isValid() ) {
+                    return response()->json([
+                        'success' => true,
+                        'percentage' => (int)$coupon['percentage'],
+                        'message' => trans('app.coupon_valid')
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => true,
+                        'message' => trans('app.coupon_useless')
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_register_coupon_client')
+                ]);
+            }
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.the_coupon_was_no_valid_by_adminitration')
+            ]);
+        }
     }
 }

@@ -25,6 +25,15 @@
     {!! Form::text('percentage', old('percentage'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'percentage', 'data-inputmask' => "'mask': '99%'"]) !!}
     </div>
   </div>
+  @if($edit)
+  <div class="form-group">
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
+    </label>
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      {!! Form::select('status', $list_status, old('status'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'list_status']) !!}
+    </div>
+  </div>
+  @endif
 </div>
 <div class="modal-footer">
   @if($edit)
@@ -36,12 +45,14 @@
 </div>
 {!! Form::close() !!}
 
- <!-- jquery.inputmask -->
- {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
- <!-- moment -->
- {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
- <!-- bootstrap-daterangepicker -->
- {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+  <!-- jquery.inputmask -->
+  {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+  <!-- moment -->
+  {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
+  <!-- bootstrap-daterangepicker -->
+  {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+  <!-- Select2 -->
+  {!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
 
 <script>
   $(document).ready(function() {
@@ -52,6 +63,10 @@
         $('#validity').datetimepicker({
           format: 'DD-MM-YYYY',
           ignoreReadonly: true
+        });
+
+        $(".select2_single").select2({
+          placeholder: "@lang('app.selected_item')"
         });
       @else
         $('#validity').datetimepicker({

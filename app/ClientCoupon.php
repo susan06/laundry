@@ -45,6 +45,16 @@ class ClientCoupon extends Model
         return $class;
     }
 
+    public function isValid()
+    {
+        return $this->status == true;
+    }
+
+    public function isNoValid()
+    {
+        return $this->status == false;
+    }
+
     /**
      * Relationships
      *

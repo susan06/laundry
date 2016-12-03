@@ -222,7 +222,8 @@ function total() {
         sum += parseFloat(price.text());
       }             
     })   
-    $("#total").text(sum.toFixed(2).toString());   
+    $("#total").text(sum.toFixed(2).toString());  
+    discount(); 
   }
 }   
 
@@ -235,7 +236,6 @@ $(document).on('click', '.add-cart', function () {
       success: function(response) {
           if(response.success){
               $this.addClass('not_clic');
-              $('.add-cart > div.mask').hide();
               add_package(JSON.parse(response.details), JSON.parse(response.prices));
           } else {
               notify('error', response.message);
@@ -279,6 +279,52 @@ $(document).on('click', '.delete-package', function () {
     add_cart--;
     total();
 });
+
+var percentage = 0;
+var coupon_validate = false;
+
+$(document).on('click', '.validate', function () {
+  var $this = $(this);
+  if (add_cart > 0 && $('#coupon').val()) {
+      $.ajax({
+        url: url_validate_coupon,
+        type:'GET',
+        data: {'code': $('#coupon').val() },
+        success: function(response) {
+            if(response.success){
+                percentage = response.percentage;
+                coupon_validate = true;
+                discount();
+                notify('success', response.message);
+            } else {
+              coupon_validate = false;
+              notify('error', response.message);
+            }
+           
+        }
+    });
+  } else {
+    if (! $('#coupon').val() ) {
+      notify('warning', first_introduce_coupon);
+    } else {
+      notify('warning', first_select_package);
+    }
+  }
+
+});
+
+function discount() {
+  if(percentage > 0 && coupon_validate) {
+
+    var total = $("#total").text(); 
+    discount = total * percentage/100;
+    var sub_total = total - discount;
+
+    $("#discount").text('-'+discount.toFixed(2).toString());  
+    $("#total").text(sub_total.toFixed(2).toString()); 
+    $('.discount').show();      
+  }
+}  
 
 $(document).ready(function() {
     initMap();

@@ -1,5 +1,7 @@
 @extends('layouts.front')
 
+@section('page-title', trans('app.home'))
+
 @section('content')
 
 <div class="right_col" role="main">

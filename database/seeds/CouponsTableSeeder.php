@@ -26,7 +26,7 @@ class CouponsTableSeeder extends Seeder
             'code' => encrypt(str_random(15)),
             'validity' => '2016-12-20',
             'percentage' => '10%',
-            'status' => CouponStatus::USELESS,
+            'status' => CouponStatus::NOVALID,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
         ]);
@@ -44,7 +44,7 @@ class CouponsTableSeeder extends Seeder
             'code' => encrypt(str_random(15)),
             'validity' => '2016-12-30',
             'percentage' => '20%',
-            'status' => CouponStatus::USELESS,
+            'status' => CouponStatus::NOVALID,
             'created_by' => 1,
             'created_at' => \Carbon\Carbon::now()
         ]);

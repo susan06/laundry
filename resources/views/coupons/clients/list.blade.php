@@ -11,7 +11,7 @@
             <td>{{ $client->full_name() }}</td>
             <td>{{ $client->count_coupon() }}</td>
             <td class="text-center">
-                <button type="button" data-href="" class="btn btn-round btn-primary create-edit-show" data-model="content"
+                <button type="button" data-href="" class="btn btn-round btn-primary" data-model="content"
                    title="@lang('app.show_coupons')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-eye"></i>
                 </button>

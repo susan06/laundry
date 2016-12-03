@@ -24,7 +24,7 @@
                       <i class="fa fa-edit"></i>
                   </button>
               @endif
-              @if($coupon->status == 'Useless')
+              @if($coupon->status == 'noValid')
                   <button type="button" data-href="{{ route('coupon.destroy', $coupon->id) }}" 
                     class="btn btn-round btn-danger btn-delete" 
                     data-confirm-text="@lang('app.are_you_sure_delete_coupon')"

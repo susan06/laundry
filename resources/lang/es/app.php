@@ -485,6 +485,7 @@ return [
     'Banned' => 'Desactivado',
     'Unconfirmed' => 'No Confirmado',
     'Valid' => 'Valido',
+    'noValid' => 'No valido',
     'Useless' => 'Usado',
 
     'user_created' => 'Usuario creado con éxito.',
@@ -550,6 +551,14 @@ return [
     'send_coupons' => 'Enviar cupones',
     'num_coupons' => '# Cupones',
     'show_coupons' => 'Ver cupones',
+    'the_coupon_was_no_valid_by_adminitration' => 'El cupón no existe o fue deshabilitado por administración',
+    'the_coupon_was_useless' => 'El cupón ya fue usado',
+    'no_register_coupon_client' => 'No se tiene registros de haberle enviado el cupón que introdujo',
+    'coupon_useless' => 'El cupón ya ha sido usado',
+    'coupon_valid' => 'Cupón valido',
+    'first_select_package' => 'Debe seleccionar un paquete primero',
+    'first_introduce_coupon' => 'Introducir el código del cupón',
+    'discount' => 'Descuento',
 
     //Sucursales
     'In service' => 'En servicio',
