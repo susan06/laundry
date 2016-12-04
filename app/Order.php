@@ -29,6 +29,7 @@ class Order extends Model
         'time_delivery', 
         'special_instructions', 
         'discount', 
+        'sub_total',
         'total'
     ];
 

@@ -79,4 +79,35 @@ class EloquentClient extends Repository implements ClientRepository
         return $result;
     }
 
+    /**
+     * create or update location
+     *
+     * @param int $client_id
+     * @param Array $data
+     * return id of model 
+     */
+    public function create_update_location($client_id, Array $data)
+    {
+       $client = $this->model->find($client_id);  
+
+       if ($client->client_location->count() > 0) {
+            $location_id = $client->client_location->reject(function ($item) use($data) {
+                if($item->lat == $data['lat'] && $item->lng == $data['lng']) {
+                    return $item->id;
+                }
+            });
+            if ($location_id) {
+                $this->locations->update($location_id, $data);
+            } else {
+                $location = $this->locations->create($data);
+                $location_id = $location->id;
+            }
+       } else {
+            $location = $this->locations->create($data);
+            $location_id = $location->id;
+       }
+
+       return $location_id;
+    }
+
 }

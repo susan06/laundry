@@ -14,7 +14,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-          {!! Form::open(['route' => 'service.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+          {!! Form::open(['route' => 'service.store', 'id' => 'form-create', 'class' => 'form-horizontal form-label-left']) !!}
           <!--
           <div class="alert alert-warning alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -168,7 +168,7 @@
                 </div>
               </div>
             </div>
-            {!! Form::text('client_coupon_id', '', ['id' => 'coupon_id']) !!}
+            {!! Form::text('client_coupon_id', 'null', ['id' => 'coupon_id']) !!}
 
           <div class="discount" style="display: none;">
             <div class="t_title">
@@ -194,11 +194,12 @@
                 <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
               </div>
             </div>
+            {!! Form::text('sub_total', '0', ['id' => 'sub_total_price']) !!}
             {!! Form::text('total', '0', ['id' => 'total_price']) !!}
 
             <div class="ln_solid"></div>
             <div class="form-group col-md-3 col-sm-3 col-xs-12">
-              <button type="submit" class="btn btn-primary btn-submit col-xs-12">@lang('app.save')</button>
+              <button type="submit" class="btn btn-primary btn-register-order col-xs-12">@lang('app.save')</button>
             </div>
           {!! Form::close() !!}
           </div>
@@ -275,26 +276,6 @@
     ignoreReadonly: true,
     daysOfWeekDisabled: day_disabled
   }); 
-
-  $("#date_search").on("dp.change", function(e) {
-      var delivery = new Date(e.date);
-      delivery.setDate(delivery.getDate() + 1);
-      $("#date_delivery").data('DateTimePicker').date(delivery);
-  });
-
-  $("#check_today").on("ifClicked", function() {
-    $('#check_tomorrow').iCheck('uncheck');
-    var today1 = today;
-    today1.setDate(today1.getDate());
-    $("#date_search").data('DateTimePicker').date(today1);
-  });
-
-  $("#check_tomorrow").on("ifClicked", function() {
-    $('#check_today').iCheck('uncheck');
-    var tomorrow2 = today;
-    tomorrow2.setDate(tomorrow.getDate() + 1);
-    $("#date_search").data('DateTimePicker').date(tomorrow2);
-  });
 
 </script>
 

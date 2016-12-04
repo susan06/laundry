@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->date('date_delivery');
             $table->integer('time_delivery');
             $table->integer('client_coupon_id')->nullable();
+            $table->double('sub_total');
             $table->double('discount')->nullable();
             $table->double('total');
             $table->timestamps();

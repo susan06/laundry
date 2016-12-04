@@ -23,6 +23,7 @@ class OrderPayment extends Model
     	'payment_method_id',
     	'reference',
     	'amount',
+        'status',
     	'confirmed'
     ];
 

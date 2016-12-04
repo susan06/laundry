@@ -26,4 +26,12 @@ interface ClientRepository extends RepositoryInterface
      */
     public function lists_locations_labels($client);
 
+    /**
+     * create or update location
+     *
+     * @param int $client_id
+     * @param Array $data
+     */
+    public function create_update_location($client_id, Array $data);
+
 }

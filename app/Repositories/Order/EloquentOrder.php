@@ -84,7 +84,14 @@ class EloquentOrder extends Repository implements OrderRepository
      */
     public function create_package(array $attributes)
     {
-        return $this->packages->create($attributes);
+        $package = $this->packages->find($attributes['package']);
+        $data = [ 
+            'order_id' => $attributes['order_id'],
+            'name' => $package->name,
+            'price' => $package->price
+        ];
+
+        return $this->packages->create($data);
     }
 
     /**

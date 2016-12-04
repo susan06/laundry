@@ -7,16 +7,32 @@ use Settings;
 use Illuminate\Http\Request;
 use App\Repositories\Client\ClientRepository;
 use App\Repositories\Package\PackageRepository;
+use App\Repositories\Order\OrderRepository;
 
 class ServiceController extends Controller
 {
     /**
+     * @var OrderRepository
+     */
+    private $orders;
+
+    /**
+     * @var ClientRepository
+     */
+    private $clients;
+
+    /**
      * ServiceController constructor.
      * @param 
      */
-    public function __construct()
+    public function __construct(
+        OrderRepository $orders,
+        ClientRepository $clients
+    )
     {
         $this->middleware('auth');
+        $this->orders = $orders;
+        $this->clients = $clients;
     }
 
     /**
@@ -39,6 +55,7 @@ class ServiceController extends Controller
             'time_delivery' => 'required',
             'packages' => 'required',
             'special_instructions' => 'max:500',
+            'total' => 'required',
         ];
 
         return Validator::make($data, $rules);
@@ -59,7 +76,7 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ClientRepository $clientRepository, PackageRepository $packageRepository)
+    public function create(PackageRepository $packageRepository)
     {
         if(Settings::get('working_hours')) {
             $working_hours = json_decode(Settings::get('working_hours'), true);
@@ -92,6 +109,52 @@ class ServiceController extends Controller
     {
         $validator = $this->validator($data);
         if ( $validator->passes() ) {
+            $client_id = Auth::user()->id;
+            if ( $this->check_reserve($request->time_search) ) {
+                $data_location = [
+                    'client_id' => $client_id,
+                    'lat' => $request->lat,
+                    'lng' => $request->lng,
+                    'address' => $request->delivery_address,
+                    'label' => $request->locations_labels,
+                    'description' => $request->details_address
+                ];
+                $location_id = $$this->clients->create_update_location($client_id, $data_location);
+                $data_order = [
+                    'client_id' => $client_id,
+                    'client_location_id' => $location_id,
+                    'client_coupon_id' => $request->client_coupon_id,
+                    'date_search' => $request->date_search,
+                    'time_search' => $request->time_search,
+                    'date_delivery' => $request->date_delivery,
+                    'time_delivery' => $request->time_delivery,
+                    'special_instructions' => $request->special_instructions,
+                    'sub_total' => $request->sub_total,
+                    'discount' => $request->discount,
+                    'total' => $request->total
+                ];
+                $order = $this->orders->create($data_order);
+                if ($order) {
+                    $packages = $request->packages;
+                     foreach( $packages as $key => $value ) {
+                        $this->orders->create_package([ 
+                            'order_id' => $order->id,
+                            'package' => $value
+                            ]
+                        );
+                    }
+                    return response()->json([
+                        'success' => true,
+                        'message' => trans('app.order_created')
+                    ]);
+                } else {
+                    return response()->json([
+                        'success' => false,
+                        'message' => trans('app.error_again')
+                    ]);
+                }
+            }
+
         } else {
             $messages = $validator->errors()->getMessages();
 
@@ -147,4 +210,37 @@ class ServiceController extends Controller
     {
         //
     }
+
+    /**
+     * 
+     *
+     * @param  int  $time_search
+     */
+    public function check_reserve($time_search)
+    {
+        $working_hours = json_decode(Settings::get('working_hours'), true);
+
+        $quantity = array_filter($working_hours, function ($working){
+            if ($working['id'] == $time_search) {
+                return $working['quantity'];
+            }
+        });
+
+        $total_reserve = $this->orders->where('time_search', $time_search)->get()->count();
+        //foreach ($working_hours as $key => $working) {
+           // if ($working['id'] == $time_search) {
+                //$working_hour = $working;
+           // }
+       // }
+        if($total_reserve > $quantity) {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.quantity_reserve_overcome')
+            ]);
+        } else {
+            return true;
+        }
+
+    }
+
 }

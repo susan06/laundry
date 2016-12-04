@@ -19,6 +19,7 @@ class CreateOrdersPaymentsTable extends Migration
             $table->integer('payment_method_id')->unsigned();
             $table->integer('reference')->unique();
             $table->double('amount');
+            $table->boolean('status')->default(false);
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
             $table->engine = 'InnoDB';

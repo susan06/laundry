@@ -1,3 +1,23 @@
+$("#date_search").on("dp.change", function(e) {
+    var delivery = new Date(e.date);
+    delivery.setDate(delivery.getDate() + 1);
+    $("#date_delivery").data('DateTimePicker').date(delivery);
+});
+
+$("#check_today").on("ifClicked", function() {
+  $('#check_tomorrow').iCheck('uncheck');
+  var today1 = today;
+  today1.setDate(today1.getDate());
+  $("#date_search").data('DateTimePicker').date(today1);
+});
+
+$("#check_tomorrow").on("ifClicked", function() {
+  $('#check_today').iCheck('uncheck');
+  var tomorrow2 = today;
+  tomorrow2.setDate(tomorrow.getDate() + 1);
+  $("#date_search").data('DateTimePicker').date(tomorrow2);
+});
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(browserHasGeolocation ?
@@ -223,6 +243,7 @@ function total() {
     })   
     $("#total").text(sum.toFixed(2).toString());  
     $("#total_price").val(sum.toFixed(2).toString());
+    $("#sub_total_price").val(sum.toFixed(2).toString());
     discount(); 
   }
 }   
@@ -329,6 +350,32 @@ function discount() {
     $("#discount_price").val(discount.toFixed(2).toString());  
   }
 }  
+
+$(document).on('click', '.btn-register-order', function (e) {
+  e.preventDefault();
+  var form = $('#form-create'); 
+  $.ajax({
+      url: form.attr('action'),
+      type: 'post',
+      data: form.serialize(),
+      dataType: 'json',
+      success: function(response) {
+          if(response.success){
+              //
+          } else {
+            if(response.validator) {
+              var message = '';
+              $.each(response.message, function(key, value) {
+                message += value;
+              });
+              notify('error', message);
+            } else {
+              notify('error', response.message);
+            }
+          }
+      }
+  });
+});
 
 $(document).ready(function() {
     initMap();

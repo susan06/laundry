@@ -730,6 +730,7 @@ return [
     'end' => 'Fin',
     'add_interval' => 'Agregar intervalo de horario',
     'quantity_reserve' => 'Cantidad de reservas',
+    'quantity_reserve_overcome' => 'Seleccione otra hora de búsqueda, la actual ya ha superado el máximo de ordenes',
     'reserves' => 'Reservas',
     'time_close' => 'Hora de cierre',
     'special_instructions' => 'Instrucciones especiales',
@@ -768,5 +769,8 @@ return [
     'categories' => 'Categorias',
     'error_upload_file' => 'Error al subir el archivo',
     'package_added' => 'Paquete agregado a la orden',
+
+    //ordenes o solicitud de servicios
+    'order_created' => 'Orden creada',
 
 ];
