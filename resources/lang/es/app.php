@@ -49,7 +49,8 @@ return [
     'image' => 'Imagen',
     'add' => 'Agregar',
     'added' => 'Agregado',
-
+    'coin' => 'Moneda',
+    
     // Activity Log Section
     'activity_log' => 'Registros',
     'activity_log_sm' => 'Registros de actividades',

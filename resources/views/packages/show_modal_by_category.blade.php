@@ -13,6 +13,13 @@
         </div>
         <div class="caption">
           <p>{{ $package->name }}</p>
+          @if(isset($time_select))
+            @foreach($package->package_price as $price)
+              @if($price->delivery_schedule == $time_select)
+              <p>{{ trans('app.price').': '.$price->price.' '.Settings::get('coin') }}</p>
+              @endif
+            @endforeach
+          @endif
         </div>
       </div>
     </div>

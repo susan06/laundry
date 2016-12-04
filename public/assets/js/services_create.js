@@ -236,6 +236,7 @@ $(document).on('click', '.add-cart', function () {
       success: function(response) {
           if(response.success){
               $this.addClass('not_clic');
+              $this.closest('.thumbnail').addClass('thumbnail-green');
               add_package(JSON.parse(response.details), JSON.parse(response.prices));
           } else {
               notify('error', response.message);
@@ -247,11 +248,12 @@ $(document).on('click', '.add-cart', function () {
 
 $(document).on('change', '#category', function () {
   var $this = $(this);
+  var time_select = $('#time_delivery option:selected').val();
   if($this.val()) {
     $.ajax({
         url: url_package_show_category,
         type:'GET',
-        data: {'category': $this.val() },
+        data: {'category': $this.val(), 'time_select': time_select },
         success: function(response) {
             if(response.success){
                 $('#modal-title').text($('#category option:selected').text());

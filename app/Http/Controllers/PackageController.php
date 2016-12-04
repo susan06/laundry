@@ -102,11 +102,13 @@ class PackageController extends Controller
             ->where('status', true)
             ->get();
 
+        $time_select = $request->time_select;
+
         if ( $request->ajax() ) {
             if (count($packages) >= 1) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('packages.show_modal_by_category', compact('packages'))->render(),
+                    'view' => view('packages.show_modal_by_category', compact('packages', 'time_select'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -116,7 +118,7 @@ class PackageController extends Controller
             }
         }
 
-        return view('packages.show_modal_by_category', compact('packages'));
+        return view('packages.show_modal_by_category', compact('packages', 'time_select'));
     }
 
     /**

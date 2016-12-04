@@ -132,7 +132,7 @@
                   <tr>
                     <th>@lang('app.name')</th>
                     <th>@lang('app.category')</th>
-                    <th>@lang('app.price')</th>
+                    <th>@lang('app.price') {{ '('.Settings::get('coin').')' }}</th>
                     <th width="10%"></th>
                   </tr>
                   </thead>
@@ -189,7 +189,7 @@
 
             <div class="row">
               <div class="product_price col-md-4 col-sm-4 col-xs-12">
-                <h1 class="price" id="total">0.00</h1>
+                <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
               </div>
             </div>
 
@@ -226,8 +226,6 @@
 
 <script type="text/javascript">
 
-  $(".select2_single").select2();
-
   var country_default = new String("{{Settings::get('country_default')}}");
   country_default = country_default.toLowerCase();
   var map = null;
@@ -245,6 +243,7 @@
   var url_package_show_category = "{{ route('package.show.category') }}";
   var url_validate_coupon = "{{ route('coupon.check') }}";
   var endTime = '{!! Settings::get("time_close") !!}';
+  var coin = "{{ Settings::get('coin') }}";
 
   var beginningTime = moment().add({ hours: 0, minutes: 30}).format('h:mm A');
 

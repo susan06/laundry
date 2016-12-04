@@ -2864,18 +2864,22 @@ ul.project_files li a i {
 /* *********  media gallery  **************************** */
 .thumbnail .image {
   height: 120px;
-  overflow: hidden; }
+  overflow: hidden;  }
 
 .caption {
   padding: 9px 5px;
   background: #F7F7F7; }
 
 .caption p {
-  margin-bottom: 5px; }
+  margin-bottom: 5px; 
+  font-weight: bold; }
 
 .thumbnail {
   height: 190px;
   overflow: hidden; }
+
+.thumbnail-green {
+  background-color: #CBFFF5; }
 
 .view {
   overflow: hidden;
