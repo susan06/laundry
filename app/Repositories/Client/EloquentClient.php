@@ -8,6 +8,11 @@ use App\Repositories\Repository;
 
 class EloquentClient extends Repository implements ClientRepository
 {
+    /**
+     * @var ClientLocationRepository
+     */
+    protected $locations;
+
 	 /**
      * Fields attributes
      *
@@ -20,9 +25,10 @@ class EloquentClient extends Repository implements ClientRepository
      *
      * @param Client $Client
      */
-    public function __construct(User $client)
+    public function __construct(User $client, ClientLocationRepository $locations)
     {
         parent::__construct($client, $this->attributes);
+        $this->locations = $locations;
     }
 
   

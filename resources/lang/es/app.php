@@ -559,6 +559,7 @@ return [
     'coupon_valid' => 'Cupón valido',
     'first_select_package' => 'Debe seleccionar un paquete primero',
     'first_introduce_coupon' => 'Introducir el código del cupón',
+    'code_promo' => 'Código Promocional',
     'discount' => 'Descuento',
 
     //Sucursales
@@ -766,5 +767,6 @@ return [
     'category' => 'Categoria',
     'categories' => 'Categorias',
     'error_upload_file' => 'Error al subir el archivo',
+    'package_added' => 'Paquete agregado a la orden',
 
 ];

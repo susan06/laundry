@@ -14,7 +14,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-          {!! Form::open(['route' => 'branch-office.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+          {!! Form::open(['route' => 'service.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
           <!--
           <div class="alert alert-warning alert-dismissible fade in" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -105,7 +105,7 @@
             </div>
              <div class="row">
               <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                <select name="time_search" class="form-control" id="time_delivery">
+                <select name="time_delivery" class="form-control" id="time_delivery">
                   @foreach($time_delivery as $delivery)
                     @if($delivery['published'] == 'public')
                     <option value="{{$delivery['id']}}">{{$delivery['interval']}}
@@ -154,7 +154,7 @@
             </div>
 
             <div class="t_title">
-              <h2> @lang('app.coupon')</h2>
+              <h2> @lang('app.code_promo')</h2>
               <div class="clearfix"></div>
             </div>
 
@@ -168,6 +168,7 @@
                 </div>
               </div>
             </div>
+            {!! Form::text('client_coupon_id', '', ['id' => 'coupon_id']) !!}
 
           <div class="discount" style="display: none;">
             <div class="t_title">
@@ -180,6 +181,7 @@
                 <h1 class="price" id="discount">0.00</h1>
               </div>
             </div>
+            {!! Form::text('discount', 'null', ['id' => 'discount_price']) !!}
           </div>
             
             <div class="t_title">
@@ -192,10 +194,11 @@
                 <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
               </div>
             </div>
+            {!! Form::text('total', '0', ['id' => 'total_price']) !!}
 
             <div class="ln_solid"></div>
-            <div class="form-group col-md-2 col-sm-2 col-xs-12">
-              <button type="submit" class="btn btn-primary col-xs-12">@lang('app.save')</button>
+            <div class="form-group col-md-3 col-sm-3 col-xs-12">
+              <button type="submit" class="btn btn-primary btn-submit col-xs-12">@lang('app.save')</button>
             </div>
           {!! Form::close() !!}
           </div>
@@ -235,6 +238,7 @@
   var location_label = "{{ trans('app.my_location') }}";
   var first_select_package = "{{ trans('app.first_select_package') }}";
   var first_introduce_coupon = "{{ trans('app.first_introduce_coupon') }}";
+  var package_added = "{{ trans('app.package_added') }}";
   var edit = false;
   var count = 1;
   var day_disabled = [0,{!! Settings::get('week') !!},6];

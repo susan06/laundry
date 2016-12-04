@@ -158,6 +158,11 @@ class User extends Authenticatable
         return $this->hasMany(ClientCoupon::class, 'client_id');
     }
 
+    public function client_location()
+    {
+        return $this->hasMany(ClientLocation::class, 'client_id');
+    }
+
     public function branchOffice()
     {
         return $this->hasOne(BranchOffice::class, 'representative_id');

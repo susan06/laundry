@@ -196,7 +196,6 @@ function add_package(package, prices) {
     container = document.getElementById('packages_list');
     container.appendChild(tr); 
 
-    $("#category").val('');
     add_cart++;
     show_price_by_time();
 };
@@ -223,6 +222,7 @@ function total() {
       }             
     })   
     $("#total").text(sum.toFixed(2).toString());  
+    $("#total_price").val(sum.toFixed(2).toString());
     discount(); 
   }
 }   
@@ -237,6 +237,7 @@ $(document).on('click', '.add-cart', function () {
           if(response.success){
               $this.addClass('not_clic');
               $this.closest('.thumbnail').addClass('thumbnail-green');
+              notify('success', package_added);
               add_package(JSON.parse(response.details), JSON.parse(response.prices));
           } else {
               notify('error', response.message);
@@ -324,7 +325,8 @@ function discount() {
 
     $("#discount").text('-'+discount.toFixed(2).toString());  
     $("#total").text(sub_total.toFixed(2).toString()); 
-    $('.discount').show();      
+    $('.discount').show();    
+    $("#discount_price").val(discount.toFixed(2).toString());  
   }
 }  
 

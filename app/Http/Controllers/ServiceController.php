@@ -10,7 +10,6 @@ use App\Repositories\Package\PackageRepository;
 
 class ServiceController extends Controller
 {
-
     /**
      * ServiceController constructor.
      * @param 
@@ -18,6 +17,31 @@ class ServiceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $rules = [
+            'delivery_address' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'locations_labels' => 'required',
+            'details_address' => 'max:500',
+            'date_search' => 'required',
+            'time_search' => 'required',
+            'date_delivery' => 'required',
+            'time_delivery' => 'required',
+            'packages' => 'required',
+            'special_instructions' => 'max:500',
+        ];
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -66,7 +90,17 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validator($data);
+        if ( $validator->passes() ) {
+        } else {
+            $messages = $validator->errors()->getMessages();
+
+            return response()->json([
+                'success' => false,
+                'validator' => true,
+                'message' => $messages
+            ]);
+        }  
     }
 
     /**

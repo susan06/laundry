@@ -5,11 +5,13 @@
       <div class="thumbnail">
         <div class="image view view-first add-cart" id="{{ $package->id }}">
           <img src="{{$package->path_image()}}" alt="image" />
+          <!--
           <div class="mask">
             <div class="tools tools-bottom">
               <a href="javascript:void(0)" id="cart_add"><i class="fa fa-shopping-cart"></i> @lang('app.add')</a>
             </div>
           </div>
+          -->
         </div>
         <div class="caption">
           <p>{{ $package->name }}</p>

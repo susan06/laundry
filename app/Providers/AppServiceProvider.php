@@ -28,6 +28,9 @@ use App\Repositories\Subscriber\SubscriberRepository;
 use App\Repositories\Client\EloquentClient;
 use App\Repositories\Client\ClientRepository;
 
+use App\Repositories\Client\EloquentClientLocation;
+use App\Repositories\Client\ClientLocationRepository;
+
 use App\Repositories\Package\EloquentPackage;
 use App\Repositories\Package\PackageRepository;
 
@@ -36,6 +39,15 @@ use App\Repositories\Package\PackagePriceRepository;
 
 use App\Repositories\Package\EloquentPackageCategory;
 use App\Repositories\Package\PackageCategoryRepository;
+
+use App\Repositories\Order\EloquentOrder;
+use App\Repositories\Order\OrderRepository;
+
+use App\Repositories\Order\EloquentOrderPayment;
+use App\Repositories\Order\OrderPaymentRepository;
+
+use App\Repositories\Order\EloquentOrderPackage;
+use App\Repositories\Order\OrderPackageRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -64,8 +76,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FaqRepository::class, EloquentFaq::class);
         $this->app->singleton(SubscriberRepository::class, EloquentSubscriber::class);
         $this->app->singleton(ClientRepository::class, EloquentClient::class);
+        $this->app->singleton(ClientLocationRepository::class, EloquentClientLocation::class);
         $this->app->singleton(PackageRepository::class, EloquentPackage::class);
         $this->app->singleton(PackagePriceRepository::class, EloquentPackagePrice::class);
         $this->app->singleton(PackageCategoryRepository::class, EloquentPackageCategory::class);
+        $this->app->singleton(OrderRepository::class, EloquentOrder::class);
+        $this->app->singleton(OrderPaymentRepository::class, EloquentOrderPayment::class);
+        $this->app->singleton(OrderPackageRepository::class, EloquentOrderPackage::class);
     }
 }
