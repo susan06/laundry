@@ -267,6 +267,7 @@ var current_model = null;
 var current_title = null;
 //open create show or edit in modal or content
 $(document).on('click', '.create-edit-show', function () {
+    showLoading();
     $('[data-toggle="tooltip"]').tooltip('hide');
     var $this = $(this);
     var title = $this.attr("title");
@@ -275,6 +276,7 @@ $(document).on('click', '.create-edit-show', function () {
         url: $this.data('href'),
         type:'GET',
         success: function(response) {
+            hideLoading();
             if(response.success){
                 if(current_model == 'modal') {
                     $('#modal-title').text(title);
@@ -297,6 +299,7 @@ $(document).on('click', '.create-edit-show', function () {
 //save or update form modal
 $(document).on('click', '.btn-submit', function (e) {
     e.preventDefault();
+    showLoading();
     var form = $('#form-modal'); 
     var type = $('#form-modal input[name="_method"]').val();
     if(typeof type == "undefined") {
@@ -308,6 +311,7 @@ $(document).on('click', '.btn-submit', function (e) {
         data: form.serialize(),
         dataType: 'json',
         success: function(response) {
+            hideLoading();
             if(response.success){
                 if(current_model == 'modal') {
                     $('#general-modal').modal('hide');
@@ -350,6 +354,7 @@ $(document).on('click', '.search-cancel', function (e) {
 
 // search register all
 $(document).on('click', '.search', function () {
+    showLoading();
     var term = $('#search').val();
     var $this = $(this);
     $('.search-cancel').show();
@@ -360,6 +365,7 @@ $(document).on('click', '.search', function () {
             data:{ search: term },
             dataType: 'json',
             success: function(response) {
+                hideLoading();
                 if(response.success){
                     $('#content-table').html(response.view);
                     loadResposiveTable();
@@ -378,6 +384,7 @@ $(document).on('click', '.search', function () {
 
 // search status all
 $(document).on('change', '#status', function () {
+    showLoading();
     var $this = $(this);
     $.ajax({
         url: CURRENT_URL,
@@ -385,6 +392,7 @@ $(document).on('change', '#status', function () {
         data:{ status: $this.val() },
         dataType: 'json',
         success: function(response) {
+            hideLoading();
             if(response.success){
                 $('#content-table').html(response.view);
                 loadResposiveTable();
@@ -406,11 +414,13 @@ $(document).ready(function() {
 });
 
 function getPages(page) {
+    showLoading();
     $.ajax({
         url: page,
         type:"GET",
         dataType: 'json',
         success: function(response) {
+            hideLoading();
             if(response.success){
                 $('#content-table').html(response.view);
                 loadResposiveTable();
@@ -458,5 +468,11 @@ $(document).on('change', '#file_image', function () {
     $('.loading').hide();
 });
 
+function showLoading() {
+    $('#loading').addClass('is-active');
+}
 
+function hideLoading() {
+    $('#loading').removeClass('is-active'); 
+}
 // /script general

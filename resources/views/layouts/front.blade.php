@@ -79,6 +79,9 @@
 </head>
 <body class="nav-md">
     <div class="container body">
+
+        <div class="loader loader-default" id="loading"></div>
+
         <div class="main_container">
             @include('partials.menu')
 
