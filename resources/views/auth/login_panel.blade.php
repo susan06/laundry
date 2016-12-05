@@ -11,9 +11,10 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12">
+              <a href="{{ url('panel') }}"><img class="site_logo_login" src="{{ url('public/assets/images/logos/logo.png') }}"></a>
               <form id="login-form" action="{{ url('/authenticate/administration') }}" method="post" role="form" style="display: block;">
                {{ csrf_field() }}
-                <h2>{{ Settings::get('app_name') }} - @lang('app.panel_administration')</h2>
+                <h2>@lang('app.panel_administration')</h2>
                   <div class="form-group">
                     <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="@lang('app.email')" value="{{ old('email') }}" required autofocus>
                   </div>

@@ -20,6 +20,17 @@
 
   .right_col {
     padding: 10px !important; } 
+
+  .site_logo {
+    background: url(../images/logos/logo-7.png);
+    background-size: 40px 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50px; 
+    width: 50px; 
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 10px; }
 }
 
 @media (max-width: 1200px) {
@@ -88,6 +99,12 @@
 @media (min-width: 992px) {
   .tile_count .tile_stats_count:first-child:before {
     border-left: 0; } 
+
+  .site_logo {
+    background: url(../images/logos/logo-3.png);
+    background-size: 200px 50px;
+    background-repeat: no-repeat;
+    height: 50px; width: 200px; }
 }
 
 @media (min-width: 768px) {

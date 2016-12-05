@@ -117,10 +117,13 @@ label {
 .panel-login>.panel-heading .tabs{
   padding: 0;
 }
+.panel-login {
+  text-align: center;
+}
 .panel-login h2{
   font-size: 20px;
   font-weight: 300;
-  margin: 30px;
+  margin: 10px 30px 30px 30px;
 }
 .panel-login>.panel-heading {
   color: #848c9d;
@@ -413,5 +416,12 @@ a.hiddenanchor {
 
 header {
   width: 100%; }
+
+.site_logo_login {
+  text-align: center; }
+
+img.site_logo_login {
+  width: 150px;
+  height: 150px; }
 
 /** signup **/
