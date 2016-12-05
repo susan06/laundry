@@ -31,7 +31,7 @@ class EloquentOrder extends Repository implements OrderRepository
      /**
      * @var OrderPackageRepository
      */
-    protected $packages;
+    protected $order_packages;
 
     /**
      * EloquentOrder constructor
@@ -41,12 +41,12 @@ class EloquentOrder extends Repository implements OrderRepository
     public function __construct(
         Order $order, 
         OrderPaymentRepository $payments, 
-        OrderPackageRepository $packages
+        OrderPackageRepository $order_packages
     )
     {
         parent::__construct($order, $this->attributes);
         $this->payments = $payments;
-        $this->packages = $packages;
+        $this->order_packages = $order_packages;
     }
 
     /**
@@ -84,14 +84,7 @@ class EloquentOrder extends Repository implements OrderRepository
      */
     public function create_package(array $attributes)
     {
-        $package = $this->packages->find($attributes['package']);
-        $data = [ 
-            'order_id' => $attributes['order_id'],
-            'name' => $package->name,
-            'price' => $package->price
-        ];
-
-        return $this->packages->create($data);
+        return $this->order_packages->create($attributes);
     }
 
     /**
@@ -103,7 +96,7 @@ class EloquentOrder extends Repository implements OrderRepository
      */
     public function update_package($id, array $newData)
     {
-        return $this->packages->update($id, $newData);
+        return $this->order_packages->update($id, $newData);
     }
 
 

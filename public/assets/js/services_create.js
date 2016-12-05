@@ -177,7 +177,7 @@ function add_package(package, prices) {
 
     input.type  = 'hidden';
     input.name  = 'packages[]';
-    input.value = package.id;
+    input.value = package.name;
 
     td.appendChild(input);
     td.appendChild(text_name);
@@ -193,7 +193,13 @@ function add_package(package, prices) {
       span.className = 'prices list_price_'+item.delivery_schedule;
       var price = document.createTextNode(item.price); 
       span.appendChild(price);    
-      td2.appendChild(span);               
+      td2.appendChild(span);  
+
+      var input_price = document.createElement("input");
+      input_price.type  = 'hidden';
+      input_price.name  = 'prices_'+item.delivery_schedule+'[]';
+      input_price.value = item.price;
+      td2.appendChild(input_price);             
     });
 
     var td3    = document.createElement("TD");
@@ -234,7 +240,8 @@ function show_price_by_time(){
 function total() {
   if(add_cart > 0) {
   var time_selected = $('#time_delivery option:selected').val();  
-  var sum = 0;       
+  var sum = 0;    
+  var container = document.getElementById('list_prices');  
     $("#packages_list tr").each( function() {       
       var price = $(this).find('td:eq(2) span.list_price_'+time_selected);
       if (price.text() != null) {
@@ -318,6 +325,7 @@ $(document).on('click', '.validate', function () {
             if(response.success){
                 percentage = response.percentage;
                 coupon_validate = true;
+                $('#client_coupon_id').val(response.client_coupon_id);
                 discount();
                 notify('success', response.message);
             } else {
@@ -361,7 +369,11 @@ $(document).on('click', '.btn-register-order', function (e) {
       dataType: 'json',
       success: function(response) {
           if(response.success){
-              //
+            notify('success', response.message);
+            $('#packages_list').html('');
+            $("#total").text('0.00'); 
+            $("#discount").text('0.00'); 
+            $('.discount').hide();   
           } else {
             if(response.validator) {
               var message = '';

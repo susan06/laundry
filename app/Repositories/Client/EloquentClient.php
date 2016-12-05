@@ -91,13 +91,19 @@ class EloquentClient extends Repository implements ClientRepository
        $client = $this->model->find($client_id);  
 
        if ($client->client_location->count() > 0) {
-            $location_id = $client->client_location->reject(function ($item) use($data) {
+            $location = $client->client_location->reject(function ($item) use($data) {
                 if($item->lat == $data['lat'] && $item->lng == $data['lng']) {
-                    return $item->id;
+                    $item;
                 }
-            });
-            if ($location_id) {
-                $this->locations->update($location_id, $data);
+            })->values()->first();
+            if ($location->id) {
+                $data_update = [
+                    'address' => isset($data['address']) ? $data['address'] : $location->address,
+                    'label' => isset($data['label']) ? $data['label'] : $location->label,
+                    'description' => isset($data['description']) ? $data['description'] : $location->description
+                ];
+                $this->locations->update($location->id, $data_update);
+                $location_id = $location->id;
             } else {
                 $location = $this->locations->create($data);
                 $location_id = $location->id;

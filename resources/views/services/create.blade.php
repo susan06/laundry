@@ -14,194 +14,200 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-          {!! Form::open(['route' => 'service.store', 'id' => 'form-create', 'class' => 'form-horizontal form-label-left']) !!}
-          <!--
-          <div class="alert alert-warning alert-dismissible fade in" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-            </button>
-            No tiene direcciones confirmadas aún, será tomada su ubicación actual. Puede mover el marcador para más exactitud de su ubicación.
-          </div>
-          -->
-
-            <div class="t_title">
-              <h2> @lang('app.address')</h2>
-              <div class="clearfix"></div>
-            </div>
-
-            <div class="content_map">
-              <div class="col-md-11 col-sm-11 col-xs-11 input_delivery_address">
-                {!! Form::text('delivery_address', old('delivery_address'), ['id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
-              </div>
-
-              <div id="map-form"></div>
-            </div>
-
-            <br />
-           
-              {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
-              {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
-
-            <div class="row">
-              <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control', 'id' => 'locations_labels']) !!}
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-                  {!! Form::textarea('details_address', old('details_address'), ['class' => 'form-control', 'id' => 'details_address', 'rows' => '3', 'placeholder' => trans('app.details_address')]) !!}
-              </div>
-            </div>
-
-            <div class="t_title">
-              <h2> @lang('app.searched')</h2>
-              <div class="clearfix"></div>
-            </div>
-
-            <!--
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" class="flat" id="check_today" checked="checked"> @lang('app.today_search')
-              </label>
-              <label>
-                <input type="checkbox" class="flat" id="check_tomorrow"> @lang('app.tomorrow_search') 
-              </label> 
-            </div>
-
-            <br />
-
-            -->
-            
-            <div class="row">            
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                  {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
-                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-              </div>
-            </div>
-
-            <div class="row"> 
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                <select name="time_search" class="form-control" id="time_search">
-                  @foreach($working_hours as $working_hour)
-                    @if($working_hour['status'] == 'available')
-                    <option value="{{$working_hour['id']}}">{{$working_hour['interval']}}
-                    @endif
-                  @endforeach
-                </select>
-              </div>
-            </div>
-              
-            <div class="t_title">
-              <h2> @lang('app.delivery')</h2>
-              <div class="clearfix"></div>
-            </div>
-
- 
-            <div class="row">
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control has-feedback-left datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
-                <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-              </div>                
-            </div>
-             <div class="row">
-              <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                <select name="time_delivery" class="form-control" id="time_delivery">
-                  @foreach($time_delivery as $delivery)
-                    @if($delivery['published'] == 'public')
-                    <option value="{{$delivery['id']}}">{{$delivery['interval']}}
-                    @endif
-                  @endforeach
-                </select>  
-              </div>            
-            </div>
-            
-            <div class="t_title">
-              <h2> @lang('app.packages')</h2>
-              <div class="clearfix"></div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-5 col-sm-5 col-xs-12 form-group">
-                {!! Form::select('category', $categories, old('category'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'category']) !!}
-              </div>            
-            </div>
-
-            <div class="row">
-                <table class="table" id="packages_table">
-                  <thead>
-                  <tr>
-                    <th>@lang('app.name')</th>
-                    <th>@lang('app.category')</th>
-                    <th>@lang('app.price') {{ '('.Settings::get('coin').')' }}</th>
-                    <th width="10%"></th>
-                  </tr>
-                  </thead>
-                  <tbody id="packages_list" class="form-horizontal">
-                    <!-- load content locations -->
-                  </tbody>
-                </table>
-            </div>
-
-            <div class="t_title">
-              <h2> @lang('app.details')</h2>
-              <div class="clearfix"></div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-                  {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
-              </div>
-            </div>
-
-            <div class="t_title">
-              <h2> @lang('app.code_promo')</h2>
-              <div class="clearfix"></div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-                <div class="input-group">
-                  {!! Form::text('coupon', old('coupon'), ['class' => 'form-control', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
-                  <span class="input-group-btn">
-                      <button class="btn btn-primary validate" type="button">@lang('app.validate')</button>
-                    </span>
+            <div class="" id="order_create">
+              {!! Form::open(['route' => 'service.store', 'id' => 'form-create', 'class' => 'form-horizontal form-label-left']) !!}
+                <!--
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  No tiene direcciones confirmadas aún, será tomada su ubicación actual. Puede mover el marcador para más exactitud de su ubicación.
                 </div>
-              </div>
-            </div>
-            {!! Form::text('client_coupon_id', 'null', ['id' => 'coupon_id']) !!}
+                -->
 
-          <div class="discount" style="display: none;">
-            <div class="t_title">
-              <h2> @lang('app.discount')</h2>
-              <div class="clearfix"></div>
-            </div>
+                <div class="t_title">
+                  <h2> @lang('app.address')</h2>
+                  <div class="clearfix"></div>
+                </div>
 
-            <div class="row">
-              <div class="product_price col-md-4 col-sm-4 col-xs-12">
-                <h1 class="price" id="discount">0.00</h1>
-              </div>
-            </div>
-            {!! Form::text('discount', 'null', ['id' => 'discount_price']) !!}
-          </div>
-            
-            <div class="t_title">
-              <h2> @lang('app.total')</h2>
-              <div class="clearfix"></div>
-            </div>
+                <div class="content_map">
+                  <div class="col-md-11 col-sm-11 col-xs-11 input_delivery_address">
+                    {!! Form::text('delivery_address', old('delivery_address'), ['id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
+                  </div>
 
-            <div class="row">
-              <div class="product_price col-md-4 col-sm-4 col-xs-12">
-                <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
-              </div>
-            </div>
-            {!! Form::text('sub_total', '0', ['id' => 'sub_total_price']) !!}
-            {!! Form::text('total', '0', ['id' => 'total_price']) !!}
+                  <div id="map-form"></div>
+                </div>
 
-            <div class="ln_solid"></div>
-            <div class="form-group col-md-3 col-sm-3 col-xs-12">
-              <button type="submit" class="btn btn-primary btn-register-order col-xs-12">@lang('app.save')</button>
+                <br />
+               
+                  {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
+                  {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
+
+                <div class="row">
+                  <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                    {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control', 'id' => 'locations_labels']) !!}
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-7 col-sm-7 col-xs-12 form-group">
+                      {!! Form::textarea('details_address', old('details_address'), ['class' => 'form-control', 'id' => 'details_address', 'rows' => '3', 'placeholder' => trans('app.details_address')]) !!}
+                  </div>
+                </div>
+
+                <div class="t_title">
+                  <h2> @lang('app.searched')</h2>
+                  <div class="clearfix"></div>
+                </div>
+
+                <!--
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" class="flat" id="check_today" checked="checked"> @lang('app.today_search')
+                  </label>
+                  <label>
+                    <input type="checkbox" class="flat" id="check_tomorrow"> @lang('app.tomorrow_search') 
+                  </label> 
+                </div>
+
+                <br />
+
+                -->
+                
+                <div class="row">            
+                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
+                      {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
+                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                  </div>
+                </div>
+
+                <div class="row"> 
+                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
+                    <select name="time_search" class="form-control" id="time_search">
+                      @foreach($working_hours as $working_hour)
+                        @if($working_hour['status'] == 'available')
+                        <option value="{{$working_hour['id']}}">{{$working_hour['interval']}}
+                        @endif
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+                  
+                <div class="t_title">
+                  <h2> @lang('app.delivery')</h2>
+                  <div class="clearfix"></div>
+                </div>
+
+     
+                <div class="row">
+                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
+                    {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control has-feedback-left datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
+                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                  </div>                
+                </div>
+                 <div class="row">
+                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
+                    <select name="time_delivery" class="form-control" id="time_delivery">
+                      @foreach($time_delivery as $delivery)
+                        @if($delivery['published'] == 'public')
+                        <option value="{{$delivery['id']}}">{{$delivery['interval']}}
+                        @endif
+                      @endforeach
+                    </select>  
+                  </div>            
+                </div>
+                
+                <div class="t_title">
+                  <h2> @lang('app.packages')</h2>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-5 col-sm-5 col-xs-12 form-group">
+                    {!! Form::select('category', $categories, old('category'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'category']) !!}
+                  </div>            
+                </div>
+
+                <div class="row">
+                    <table class="table" id="packages_table">
+                      <thead>
+                      <tr>
+                        <th>@lang('app.name')</th>
+                        <th>@lang('app.category')</th>
+                        <th>@lang('app.price') {{ '('.Settings::get('coin').')' }}</th>
+                        <th width="10%"></th>
+                      </tr>
+                      </thead>
+                      <tbody id="packages_list" class="form-horizontal">
+                        <!-- load content locations -->
+                      </tbody>
+                    </table>
+                </div>
+
+                <div class="t_title">
+                  <h2> @lang('app.details')</h2>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-7 col-sm-7 col-xs-12 form-group">
+                      {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
+                  </div>
+                </div>
+
+                <div class="t_title">
+                  <h2> @lang('app.code_promo')</h2>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-7 col-sm-7 col-xs-12 form-group">
+                    <div class="input-group">
+                      {!! Form::text('coupon', old('coupon'), ['class' => 'form-control', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
+                      <span class="input-group-btn">
+                          <button class="btn btn-primary validate" type="button">@lang('app.validate')</button>
+                        </span>
+                    </div>
+                  </div>
+                </div>
+                {!! Form::hidden('client_coupon_id', '0', ['id' => 'coupon_id']) !!}
+
+                <div class="discount" style="display: none;">
+                  <div class="t_title">
+                    <h2> @lang('app.discount')</h2>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                      <h1 class="price" id="discount">0.00</h1>
+                    </div>
+                  </div>
+                  {!! Form::hidden('discount', '0', ['id' => 'discount_price']) !!}
+                </div>
+                  
+                  <div class="t_title">
+                    <h2> @lang('app.total')</h2>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                      <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
+                    </div>
+                  </div>
+
+                  {!! Form::hidden('sub_total', '0', ['id' => 'sub_total_price']) !!}
+                  {!! Form::hidden('total', '0', ['id' => 'total_price']) !!}
+
+                  <div class="ln_solid"></div>
+                  <div class="form-group col-md-3 col-sm-3 col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-register-order col-xs-12">@lang('app.save')</button>
+                  </div>
+              {!! Form::close() !!}
             </div>
-          {!! Form::close() !!}
+            <div class="" id="order_payment" style="display: none;">
+              <p>Estimado cliente, en estos momentos su pedido ha sido programado y está en espera de su depósito para que nuestro equipo acuda a buscarlo</p>
+            </div>
           </div>
         </div>
       </div>

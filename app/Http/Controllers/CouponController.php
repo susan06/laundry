@@ -254,6 +254,7 @@ class CouponController extends Controller
                     return response()->json([
                         'success' => true,
                         'percentage' => (int)$coupon['percentage'],
+                        'client_coupon_id' => $coupon_client->id,
                         'message' => trans('app.coupon_valid')
                     ]);
                 } else {

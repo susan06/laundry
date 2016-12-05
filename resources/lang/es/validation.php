@@ -63,6 +63,7 @@ return [
     'numeric'              => ':attribute debe ser numérico.',
     'present'              => 'El campo :attribute debe estar presente.',
     'regex'                => 'El formato de :attribute es inválido.',
+    'packages.required'    => 'Debe seleccionar al menos un paquete', 
     'required'             => 'El campo :attribute es obligatorio.',
     'required_if'          => 'El campo :attribute es obligatorio cuando :other es :value.',
     'required_unless'      => 'El campo :attribute es obligatorio a menos que :other esté en :values.',
@@ -141,6 +142,7 @@ return [
         'subject'               => 'asunto',
         'message'               => 'mensaje',
         'accept_terms'          => 'Términos y condiciones',
+        'packages'              => 'Paquetes',
     ],
 
 ];

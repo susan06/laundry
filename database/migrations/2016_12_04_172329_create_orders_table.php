@@ -15,14 +15,15 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('bag_code')->unique();
+            $table->string('bag_code')->unique();
             $table->integer('client_id')->unsigned();
-            $table->integer('client_location_id');
+            $table->integer('client_location_id')->unsigned();
             $table->date('date_search');
             $table->integer('time_search');
             $table->date('date_delivery');
             $table->integer('time_delivery');
             $table->integer('client_coupon_id')->nullable();
+            $table->text('special_instructions')->nullable();
             $table->double('sub_total');
             $table->double('discount')->nullable();
             $table->double('total');
@@ -33,8 +34,8 @@ class CreateOrdersTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('client_location_id')->references('id')->on('clients_locations')
                 ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('coupon_id')->references('id')->on('clients_coupons')
-                ->onUpdate('cascade')->onDelete('cascade');
+           // $table->foreign('client_coupon_id')->references('id')->on('clients_coupons')
+                //->onUpdate('cascade')->onDelete('cascade');
 
         });
     }

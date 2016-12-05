@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Settings;
+use Validator;
 use Illuminate\Http\Request;
 use App\Repositories\Client\ClientRepository;
 use App\Repositories\Package\PackageRepository;
@@ -94,7 +95,7 @@ class ServiceController extends Controller
             $time_delivery = array();
         }
         $categories = ['' => trans('app.select_category')] + $packageRepository->lists_categories_actives();
-        $locations_labels = $clientRepository->lists_locations_labels(Auth::user()->id);
+        $locations_labels = $this->clients->lists_locations_labels(Auth::user()->id);
    
         return view('services.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories'));
     }
@@ -107,7 +108,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $this->validator($data);
+        $validator = $this->validator($request->all());
         if ( $validator->passes() ) {
             $client_id = Auth::user()->id;
             if ( $this->check_reserve($request->time_search) ) {
@@ -119,8 +120,12 @@ class ServiceController extends Controller
                     'label' => $request->locations_labels,
                     'description' => $request->details_address
                 ];
-                $location_id = $$this->clients->create_update_location($client_id, $data_location);
+                $location_id = $this->clients->create_update_location(
+                    $client_id, 
+                    $data_location 
+                );
                 $data_order = [
+                    'bag_code' => rand(5,9000).'-'.date('H').date('i'),
                     'client_id' => $client_id,
                     'client_location_id' => $location_id,
                     'client_coupon_id' => $request->client_coupon_id,
@@ -136,10 +141,12 @@ class ServiceController extends Controller
                 $order = $this->orders->create($data_order);
                 if ($order) {
                     $packages = $request->packages;
-                     foreach( $packages as $key => $value ) {
+                    $prices = $request['prices_'.$request->time_delivery];
+                    foreach( $packages as $key => $value ) {
                         $this->orders->create_package([ 
                             'order_id' => $order->id,
-                            'package' => $value
+                            'name' => $value,
+                            'price' => $prices[$key]
                             ]
                         );
                     }
@@ -220,7 +227,7 @@ class ServiceController extends Controller
     {
         $working_hours = json_decode(Settings::get('working_hours'), true);
 
-        $quantity = array_filter($working_hours, function ($working){
+        $quantity = array_filter($working_hours, function ($working) use ($time_search) {
             if ($working['id'] == $time_search) {
                 return $working['quantity'];
             }

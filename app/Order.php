@@ -20,6 +20,7 @@ class Order extends Model
      * @var array
      */
     protected $fillable = [
+        'bag_code',
     	'client_id', 
     	'client_location_id',
     	'client_coupon_id', 
