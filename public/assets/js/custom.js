@@ -240,13 +240,15 @@ $(document).on('click', '.btn-delete', function () {
         confirmButtonText: $this.data('confirm-delete'),   
         closeOnConfirm: true },
         function(isConfirm){   
-            if (isConfirm) {  
+            if (isConfirm) {
+                showLoading(); 
                 $.ajax({
                     type: 'DELETE',
                     url: $this.data('href'),
                     dataType: 'json',
                     data: { 'id': $this.data('id') },
-                    success: function (response) {                           
+                    success: function (response) { 
+                        hideLoading();                          
                         if(response.success) {  
                             notify('success', response.message);
                             getPages(CURRENT_URL);
@@ -255,8 +257,9 @@ $(document).on('click', '.btn-delete', function () {
                             notify('error', response.message);
                         }
                     },
-                    error: function () {
-                        //
+                    error: function (status) {
+                        hideLoading();
+                        notify('error', status.statusText);
                     }
                 });     
         } 
@@ -292,7 +295,10 @@ $(document).on('click', '.create-edit-show', function () {
             } else {
                 notify('error', response.message);
             }
-           
+        },
+        error: function (status) {
+            hideLoading();
+            notify('error', status.statusText);
         }
     });
 });
@@ -401,7 +407,8 @@ $(document).on('change', '#status', function () {
             }
         },
         error: function (status) {
-            console.log(status);
+            hideLoading();
+            notify('error', status.statusText);
         }
     });
 });
@@ -428,7 +435,8 @@ function getPages(page) {
             }
         },
         error: function (status) {
-            console.log(status);
+            hideLoading();
+            notify('error', status.statusText);
         }
     });
 }

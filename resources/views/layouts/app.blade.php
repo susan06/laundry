@@ -41,8 +41,8 @@
     <!-- Responsive -->
     {!! HTML::style("public/assets/css/responsive.css") !!}
 
-    @yield('styles')  
-    <!-- Scripts -->
+    @yield('styles') 
+
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -88,10 +88,10 @@
             <!-- /footer content -->
         </div>
     </div>
-
+    
     <!--JQuery--> 
     {!! HTML::script('public/vendors/jquery/dist/jquery.min.js') !!}
-    
+
     <!-- bootstrap-daterangepicker -->
     {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 
@@ -134,9 +134,8 @@
     {!! HTML::script('public/assets/js/custom.js') !!}
 
     @include('partials.messages')
-    
-    @yield('scripts')
 
+    @yield('scripts')
 
 </body>
 </html>

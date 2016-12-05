@@ -41,4 +41,11 @@
 
 @section('scripts')
 
+ <!-- jquery.inputmask -->
+ {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+ <!-- moment -->
+ {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
+ <!-- bootstrap-daterangepicker -->
+ {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+ 
 @endsection

@@ -75,13 +75,6 @@
   <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
 </div>
 {!! Form::close() !!}
-
- <!-- jquery.inputmask -->
- {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
- <!-- moment -->
- {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
- <!-- bootstrap-daterangepicker -->
- {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
  
 <script>
   $(document).ready(function() {

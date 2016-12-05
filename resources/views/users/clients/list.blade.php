@@ -16,11 +16,11 @@
                   <span class="label label-{{ $client->labelClass() }}">{{ trans("app.{$client->status}") }}</span>
                 </td>
                 <td class="text-center">
-                    <button type="button" data-href="{{ route('admin-client.show', $client->id).'?role=true' }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
+                    <button type="button" data-href="{{ route('admin-client.show', $client->id).'?role=false' }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.view_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
-                    <button type="button" data-href="{{ route('admin-client.edit', $client->id).'?role=true' }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
+                    <button type="button" data-href="{{ route('admin-client.edit', $client->id).'?role=false' }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                     </button>

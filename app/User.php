@@ -88,7 +88,9 @@ class User extends Authenticatable
 
     public function getBirthdayAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
+        if ($date) {
+            return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
+        }
     }
 
     public function getCreatedAtAttribute($date)
