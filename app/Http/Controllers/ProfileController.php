@@ -81,6 +81,20 @@ class ProfileController extends Controller
             $id, 
             $request->only('name', 'lastname')
         );
+        if ( $user ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.user_updated')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
+    }
 
     public function show()
     {
