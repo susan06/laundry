@@ -29,14 +29,14 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.mobile')">@lang('app.mobile') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('mobile', old('mobile'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'mobile']) !!}
+    {!! Form::text('mobile', old('phones["mobile"]'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'mobile']) !!}
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.telephone')">@lang('app.telephone') 
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('telephone', old('telephone'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'telephone']) !!}
+    {!! Form::text('telephone', old('phones["home"]'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'telephone']) !!}
     </div>
   </div>
   <div class="form-group">

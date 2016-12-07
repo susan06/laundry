@@ -1,6 +1,6 @@
 <div class="modal-body">
 @if($edit)
-{!! Form::model($user, ['route' => ['profileUser.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+{!! Form::model($user, ['route' => ['profile.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @else
  {!! Form::open(['route' => 'user.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @endif

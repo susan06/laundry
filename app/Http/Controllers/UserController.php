@@ -187,6 +187,12 @@ class UserController extends Controller
      */
     public function edit($id, Request $request, RoleRepository $roleRepository)
     {
+        $user = $this->users->find($id);
+        $phones['mobile'] = null;  
+        $phones['home'] = null;
+        $phones_array = json_decode($user->phones, true);
+        $phones['mobile'] = isset($phones_array['mobile']) ?  $phones_array['mobile'] : null;
+        $phones['home'] = isset($phones_array['home']) ?  $phones_array['home'] : null;
         $edit = true;
         $role = ($request->role == 'true') ? true : false;
         $status = UserStatus::lists();
@@ -194,7 +200,7 @@ class UserController extends Controller
         if ( $user = $this->users->find($id) ) {
             return response()->json([
                 'success' => true,
-                'view' => view('users.create-edit', compact('user','edit','status','roles', 'role'))->render()
+                'view' => view('users.create-edit', compact('user','edit','status','roles', 'role', 'phones[]' ))->render()
             ]);
         } else {
             return response()->json([
