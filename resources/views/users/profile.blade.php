@@ -19,15 +19,18 @@
 
                     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                         <div class="profile_img">
-
                         <!-- end of image cropping -->
                         <div id="crop-avatar">
                           <!-- Current avatar -->
-                          <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
-
+                          <a class="img-responsive avatar-view">
+                                <img  src="{!! asset('storage/users/'.$user->avatar) !!}" alt="Avatar">
+                          </a>
                       </div>
                       </div>
+                          <button type="button" data-href="{{ route('edit.avatar', $user->id).'?role=true' }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.change')" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i>@lang('app.change')
+                        </button>  
                     </div>
+
                     <div class="col-md-9 col-sm-9 col-xs-12">
                       
                       <div class="tab-pane in active" id="home">

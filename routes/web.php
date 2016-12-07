@@ -71,6 +71,9 @@
     *  Profile
     */
     Route::resource('profile', 'ProfileController');
+    Route::post('profile/editAvatar', 'ProfileController@editAvatar')->name('edit.avatar');
+    Route::post('profile/updateAvatar', 'ProfileController@updateAvatar')->name('update.avatar');
+
 
     /**
      * Coupons administrations
