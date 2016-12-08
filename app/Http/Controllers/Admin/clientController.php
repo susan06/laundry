@@ -164,14 +164,12 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateClient $request, $id)
+    public function update(Request $request, $id)
     {
          $data = [
             'name' => $request->name,
             'lastname' => $request->lastname,
             'email' => $request->email,
-            'role_id' => $request->role_id,
-            'status' => $request->status,
             'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
             'birthday' => $request->birthday,
             'status' => $request->status
