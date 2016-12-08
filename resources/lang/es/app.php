@@ -50,6 +50,8 @@ return [
     'add' => 'Agregar',
     'added' => 'Agregado',
     'coin' => 'Moneda',
+    'phone_mobile' => 'Télefono Móvil',
+    'phone_home' => 'Télefono Local',
     
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -429,6 +431,7 @@ return [
     'cancel' => 'Cancelar',
     'save' => 'Guardar',
     'no_photo' => 'Sin Fotografía',
+    'update_photo' => 'Fotografía Actualizada',
     'user_details' => 'Detalles de Usuario',
     'role' => 'Rol',
     'status' => 'Estado',
@@ -772,5 +775,6 @@ return [
 
     //ordenes o solicitud de servicios
     'order_created' => 'Orden creada',
+
 
 ];

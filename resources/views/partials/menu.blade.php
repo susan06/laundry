@@ -10,7 +10,7 @@
     <!-- menu profile quick info -->
     <div class="profile">
       <div class="profile_pic">
-        <img src="http://placehold.it/150x150" alt="user" class="img-circle profile_img">
+        <img src="{{ Auth::user()->avatar() }}" alt="avatar" class="img-circle profile_img">
       </div>
       <div class="profile_info">
         <span>@lang('app.welcome'),</span>

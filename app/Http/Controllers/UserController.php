@@ -148,9 +148,10 @@ class UserController extends Controller
             'email' => $request->email,
             'role_id' => $request->role_id,
             'status' => $request->status,
-            'phones' => '{"movil":"'.$request->mobile.'","home":"'.$request->telephone.'"}',
-            'birthday' => date_format(date_create($request->birthday), 'Y-m-d'),
-            'password' => bcrypt(str_random(6))
+            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+            'birthday' => $request->birthday,
+            'password' => str_random(6),
+            'status' => UserStatus::UNCONFIRMED
         ];
         $user = $this->users->create($data);
         if ( $user ) {
@@ -185,22 +186,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request, RoleRepository $roleRepository)
+    public function edit($id, Request $request)
     {
         $user = $this->users->find($id);
-        $phones['mobile'] = null;  
-        $phones['home'] = null;
         $phones_array = json_decode($user->phones, true);
-        $phones['mobile'] = isset($phones_array['mobile']) ?  $phones_array['mobile'] : null;
-        $phones['home'] = isset($phones_array['home']) ?  $phones_array['home'] : null;
-        $edit = true;
-        $role = ($request->role == 'true') ? true : false;
-        $status = UserStatus::lists();
-        $roles = $roleRepository->lists('display_name');
-        if ( $user = $this->users->find($id) ) {
+        $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
+        $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
+
+        if ( $user ) {
             return response()->json([
                 'success' => true,
-                'view' => view('users.create-edit', compact('user','edit','status','roles', 'role', 'phones[]' ))->render()
+                'view' => view('users.create-edit', compact('user', 'phones' ))->render()
             ]);
         } else {
             return response()->json([
@@ -225,8 +221,8 @@ class UserController extends Controller
             'email' => $request->email,
             'role_id' => $request->role_id,
             'status' => $request->status,
-            'phones' => '{"movil":"'.$request->mobile.'","home":"'.$request->telephone.'"}',
-            'birthday' => date_format(date_create($request->birthday), 'Y-m-d')
+            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+            'birthday' => $request->birthday
         ];
         $user = $this->users->update($id, $data);
         if ( $user ) {

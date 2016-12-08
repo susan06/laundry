@@ -9,7 +9,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="">
           <a href="javascript:void(0)" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-            <img src="http://placehold.it/150x150" alt="">{{ Auth::user()->name }}
+            <img src="{{ Auth::user()->avatar() }}" alt="avatar">{{ Auth::user()->name }}
             <span class=" fa fa-angle-down"></span>
           </a>
           <ul class="dropdown-menu dropdown-usermenu pull-right">

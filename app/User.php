@@ -54,6 +54,11 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function setBirthdayAttribute($value)
+    {
+        $this->attributes['birthday'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+    }
+
     public function full_name()
     {
         return $this->name.' '.$this->lastname;
@@ -62,10 +67,10 @@ class User extends Authenticatable
     public function avatar()
     {
         if (! $this->avatar ) {
-            return url('assets/images/user.png');
+            return asset('public/images/noimage.png');
         }
 
-        return Storage::url('user/{$this->avatar}');
+        return asset('storage/users/'.$user->avatar);
     }
 
     public function label_phones()
@@ -74,7 +79,7 @@ class User extends Authenticatable
         if ($this->phones) {
             $phones = json_decode($this->phones, true);
             foreach ($phones as $label => $phone) {
-                $text_phones .= $label.': '.$phone.', ';
+                $text_phones .= trans('app.'.$label).': '.$phone.', ';
             }
             $text_phones = substr($text_phones, 0, -2);
         } 

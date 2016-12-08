@@ -3055,6 +3055,11 @@ ul.project_files li a i {
   transform: rotate(-90deg); }
 
 /* *********  /verticle tabs  **************************** */
+.profile_avatar {
+  text-align: center;
+  display: block;
+  margin: auto;
+}
 .avatar-view {
   display: block;
   border: 3px solid #fff;
@@ -3063,7 +3068,8 @@ ul.project_files li a i {
   cursor: pointer;
   overflow: hidden;
   max-width: 200px; 
-  max-height: 200px;}
+  max-height: 200px;
+  text-align: center; }
 
 .avatar-body {
   padding-right: 15px;

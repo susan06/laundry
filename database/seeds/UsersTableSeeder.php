@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@admin.com',
             'lang' => 'es',
             'password' => bcrypt('secret'),
-            'phones' => '{"movil":"12345678","home":"987654321"}',
+            'phones' => '{"phone_mobile":"12345678","phone_home":"987654321"}',
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
@@ -35,14 +35,14 @@ class UsersTableSeeder extends Seeder
             'lastname' => 'Perez',
             'email' => 'client@client.com',
             'lang' => 'es',
-            'phones' => '{"movil":"12345678","home":"987654321"}',
+            'phones' => '{"phone_mobile":"12345678","phone_home":"987654321"}',
             'password' => 'secret',
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
         DB::table('clients_settings')->insert([
             'user_id' => $client1->id,
-            'locations_labels' => '{"1":"home","2":"office"}',
+            'locations_labels' => '{"1":"phone_home","2":"office"}',
             'created_at' => \Carbon\Carbon::now()
         ]);
         $client2 = User::create([
@@ -51,14 +51,14 @@ class UsersTableSeeder extends Seeder
             'lastname' => 'Medina',
             'email' => 'client2@client.com',
             'lang' => 'es',
-            'phones' => '{"movil":"12345678"}',
+            'phones' => '{"phone_mobile":"12345678"}',
             'password' => 'secret',
             'status' => UserStatus::ACTIVE,
             'created_at' => \Carbon\Carbon::now()
         ]);
         DB::table('clients_settings')->insert([
             'user_id' => $client2->id,
-            'locations_labels' => '{"1":"home","2":"office"}',
+            'locations_labels' => '{"1":"phone_home","2":"office"}',
             'created_at' => \Carbon\Carbon::now()
         ]);
         //conductores

@@ -333,7 +333,15 @@ $(document).on('click', '.btn-submit', function (e) {
                 notify('success', response.message);
                 getPages(CURRENT_URL);
             } else {
-                notify('error', response.message);
+                if(response.validator) {
+                  var message = '';
+                  $.each(response.message, function(key, value) {
+                    message += value;
+                  });
+                  notify('error', message);
+                } else {
+                  notify('error', response.message);
+                }
             }
            
         }

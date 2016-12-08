@@ -26,17 +26,17 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.mobile')">@lang('app.mobile') <span class="required">*</span>
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_mobile')">@lang('app.phone_mobile') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('mobile', old('phones["mobile"]'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'mobile']) !!}
+    {!! Form::text('phone_mobile', $phones['mobile'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'mobile', 'data-inputmask' => "'mask' : '999999999'"]) !!}
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.telephone')">@lang('app.telephone') 
+    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_home')">@lang('app.phone_home') 
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('telephone', old('phones["home"]'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'telephone']) !!}
+    {!! Form::text('phone_home', $phones['home'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'phone_home', 'data-inputmask' => "'mask' : '999999999'"]) !!}
     </div>
   </div>
   <div class="form-group">
@@ -55,8 +55,7 @@
     </div>
   </div>
   @else
-  <!-- role_id driver -->
-  {!! Form::hidden('role_id', '2' ) !!}
+    {!! Form::hidden('role_id', old('role_id') ) !!}
   @endif 
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
@@ -79,17 +78,19 @@
 <script>
   $(document).ready(function() {
 
-      $(":input").inputmask();
+      $(".phones").inputmask();
 
       @if($edit)
         $('#birthday').datetimepicker({
           format: 'DD-MM-YYYY',
-          ignoreReadonly: true
+          ignoreReadonly: true,
+          viewMode: 'years'
         });
       @else
         $('#birthday').datetimepicker({
           format: 'DD-MM-YYYY',
-          ignoreReadonly: true
+          ignoreReadonly: true,
+          viewMode: 'years'
         });
       @endif
   });

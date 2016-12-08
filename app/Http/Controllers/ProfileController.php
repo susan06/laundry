@@ -42,23 +42,36 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+
+        if ( $request->ajax() ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('users.list_profile_data', compact('user'))->render(),
+            ]);     
+        }
 
         return view('users.profile', compact('user'));
     }
 
-    public function edit($id, Request $request, RoleRepository $roleRepository)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id, Request $request)
     {
-        $edit = true;
-        $role = ($request->role == 'true') ? true : false;
-        $status = UserStatus::lists();
-        $roles = $roleRepository->lists('display_name');
         if ( $user = $this->users->find($id) ) {
+            $phones_array = json_decode($user->phones, true);
+            $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
+            $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
+
             return response()->json([
                 'success' => true,
-                'view' => view('users.edit-profile', compact('user','edit','status','roles', 'role'))->render()
+                'view' => view('users.edit-profile', compact('user', 'phones'))->render()
             ]);
         } else {
             return response()->json([
@@ -77,10 +90,15 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfile $request, $id)
     {
-        $user = $this->users->update(
-            $id, 
-            $request->only('name', 'lastname')
-        );
+        $data = [
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+            'birthday' => $request->birthday
+        ];
+
+        $user = $this->users->update($id, $data);
         if ( $user ) {
 
             return response()->json([
@@ -101,24 +119,6 @@ class ProfileController extends Controller
         //
     }
 
-    public function editAvatar($id, Request $request, RoleRepository $roleRepository)
-    {
-        $edit = true;
-        $role = ($request->role == 'true') ? true : false;
-        $status = UserStatus::lists();
-        $roles = $roleRepository->lists('display_name');
-        if ( $user = $this->users->find($id) ) {
-            return response()->json([
-                'success' => true,
-                'view' => view('users.edit-avatar', compact('user','edit','status','roles', 'role'))->render()
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.no_record_found')
-            ]);
-        }
-    }
 
     public function updateAvatar(UpdateAvatar $request, $id)
     {
@@ -131,12 +131,10 @@ class ProfileController extends Controller
                 Storage::delete($file_name);
                 $date = new DateTime();
                 $file_name = $date->getTimestamp().'.'.$file->extension();
-                $path = $file->storeAs('user', $file_name);
+                $path = $file->storeAs('users', $file_name);
             }else{
 
-                return redirect()
-                ->route('profile.index')
-                ->withSuccess(trans('app.error_upload_file'));
+                return back()->withError(trans('app.error_upload_file'));
             }
         }
         $data = [
@@ -145,16 +143,12 @@ class ProfileController extends Controller
         $users = $this->users->update($id, $data);
         if ( $user ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.user_updated')
-            ]);
+            return back()->withSuccess(trans('app.update_photo')); 
+
         } else {
             
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
+            return back()->withError(trans('app.error_again'));
+
         }
     }
 

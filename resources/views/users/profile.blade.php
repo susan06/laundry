@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.users'))
+@section('page-title', trans('app.profile'))
 
 @section('content')
 
@@ -8,72 +8,53 @@
   <div class="">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
-    
+        <div class="x_panel">
           <div class="x_content">
-          <div class="x_panel">
-                  <div class="x_title">
-                    <h2>@lang('app.user') <small>@lang('app.profile')</small></h2>
-                    <div class="clearfix"></div>
+
+            <div class="x_title">
+              <h2>@lang('app.my_profile')</h2>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="col-md-3 col-sm-3 col-xs-12 profile_avatar">
+            {!! Form::model($user, ['route' => ['update.avatar', $user->id], 'method' => 'PUT', 'class' => 'form-horizontal',  'files' => 'true']) !!}
+                  <div class="img-responsive avatar-view">
+                        <img  src="{!! $user->avatar() !!}" width="200" height="190" alt="Avatar">
                   </div>
-                  <div class="x_content">
+                  <br/>
+                  <input style="display: none;" type="file" id="profile_image" name="avatar" value=""/>
+                  <br/>
+                  <button style="display: none;" type="submit" data-href="{{ route('edit.avatar', $user->id) }}" class="btn btn-primary col-md-6 col-sm-6 col-xs-12"> @lang('app.change_photo')
+                  </button>  
+            {!! Form::close() !!}
+            </div>
 
-                    <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
-                        <div class="profile_img">
-                        <!-- end of image cropping -->
-                        <div id="crop-avatar">
-                          <!-- Current avatar -->
-                          <a class="img-responsive avatar-view">
-                                <img  src="{!! asset('storage/users/'.$user->avatar) !!}" alt="Avatar">
-                          </a>
-                      </div>
-                      </div>
-                          <button type="button" data-href="{{ route('edit.avatar', $user->id).'?role=true' }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.change')" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i>@lang('app.change')
-                        </button>  
-                    </div>
-
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                      
-                      <div class="tab-pane in active" id="home">
-                          
-                          <table id="datatable-responsive" class="table table-striped  dt-responsive nowrap" cellspacing="0" width="100%">
-                            <tr>
-                              <td><strong>@lang('app.name'):</strong></td>
-                              <td>{{ $user->name }}</td> 
-                            </tr>
-                            <tr>
-                              <td><strong>@lang('app.lastname'):</strong></td>
-                              <td>{{ $user->lastname }}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>@lang('app.email'):</strong></td>
-                              <td>{{ $user->email }}</td>
-                            </tr>
-                            <tr>
-                              <td><strong>@lang('app.phone'):</strong></td>
-                              <td>{{ $user->label_phones()}}</td>
-                            </tr>
-                          </table>
-                          <div class="row">
-                          <div class="col-md-2 col-sm-2 col-xs-12">
-                          <button type="button" data-href="{{ route('profile.edit', $user->id).'?role=true' }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.edit_user')" data-toggle="tooltip" data-placement="top"><i class="fa fa-edit"></i>@lang('app.edit')
-                        </button>
-                        </div>
-                      </div>
-                      <br />
-                        </div>
-                      </div>
+            <div class="col-md-7 col-sm-7 col-xs-12">
+                  <div id="content-table">
+                    @include('users.list_profile_data')
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                      <button type="button" data-href="{{ route('profile.edit', $user->id) }}" class="btn btn-primary create-edit-show col-md-12 col-sm-12 col-xs-12" data-model="modal">@lang('app.update_profile')
+                      </button>
                     </div>
                   </div>
-                </div>
-                </div>
+            </div>
+
+          </div>
         </div>
       </div>
-   
+    </div>
   </div>
 </div>
-
 @endsection
 
 @section('scripts')
+ <!-- jquery.inputmask -->
+ {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+ <!-- moment -->
+ {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
+ <!-- bootstrap-daterangepicker -->
+ {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
 
 @endsection
