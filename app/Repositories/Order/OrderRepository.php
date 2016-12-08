@@ -6,7 +6,13 @@ use App\Repositories\RepositoryInterface;
 
 interface OrderRepository extends RepositoryInterface
 {
-         /**
+    /*
+     * lists payment
+     *
+     */
+    public function  lists_payments();
+
+    /**
      * Create payment
      *
      *
@@ -43,4 +49,12 @@ interface OrderRepository extends RepositoryInterface
      * @param array $newData
      */
     public function update_package($id, array $newData);
+
+    /**
+     * create or update payment
+     *
+     * @param int $order
+     * @param array $data
+     */
+    public create_update_payment($id, Array $data);
 }

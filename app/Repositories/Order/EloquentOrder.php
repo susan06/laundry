@@ -75,6 +75,34 @@ class EloquentOrder extends Repository implements OrderRepository
     }
 
     /**
+     * create or update payment
+     *
+     * @param int $order
+     * @param array $data
+     */
+    public create_update_payment($id, Array $data)
+    {
+        $order = $this->model->find($id);  
+
+       if ($order->order_payment->count() > 0) {
+            
+            $payment = $order->order_payment->updateExistingPivot($id, [ 
+                'payment_method_id' => $data['payment_method_id'],
+                'amount' => isset($data['total']) ? $data['total'] : $order->total,
+            ]);
+
+       } else {
+            $payment = $order->order_payment->create([
+                'payment_method_id' => $data['payment_method_id'],
+                'amount' => $order->total,
+                'status' => true
+            ]);
+       }
+
+       return $payment;
+    }
+
+    /**
      * Create package
      *
      *

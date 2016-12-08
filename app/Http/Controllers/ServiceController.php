@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Client\ClientRepository;
 use App\Repositories\Package\PackageRepository;
 use App\Repositories\Order\OrderRepository;
+use App\Repositories\Payment\PaymentRepository;
 
 class ServiceController extends Controller
 {
@@ -248,6 +249,20 @@ class ServiceController extends Controller
             return true;
         }
 
+    }
+
+    /**
+     * Add method payment to order.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function method_payment($id, PaymentRepository $methods)
+    {
+        $order = $this->orders->find($id);
+
+        $payments = ['' => trans('app.select_method_payment')] + $methods->lists_payments();
+   
+        return view('services.method_payments', compact('payments', 'order'));
     }
 
 }

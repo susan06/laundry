@@ -116,6 +116,8 @@
     /**
      * Services
     */
+    Route::get('service/{service}/payment', 'ServiceController@method_payment')->name('service.payment');
+    Route::get('service/payment/store', 'ServiceController@method_payment_store')->name('service.payment.store');
     Route::resource('service', 'ServiceController');
 
     /**

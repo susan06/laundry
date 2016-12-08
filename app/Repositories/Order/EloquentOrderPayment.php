@@ -24,6 +24,4 @@ class EloquentOrderPayment extends Repository implements OrderPaymentRepository
         parent::__construct($payment, $this->attributes);
     }
 
-    //
-
 }

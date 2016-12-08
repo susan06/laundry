@@ -255,6 +255,7 @@
   var url_validate_coupon = "{{ route('coupon.check') }}";
   var endTime = '{!! Settings::get("time_close") !!}';
   var coin = "{{ Settings::get('coin') }}";
+  var dont_found_your_location = "{{ trans('app.dont_found_your_location')}}";
 
   var beginningTime = moment().add({ hours: 0, minutes: 30}).format('h:mm A');
 

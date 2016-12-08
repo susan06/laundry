@@ -715,7 +715,7 @@ return [
     'public' => 'público',
     'private' => 'Privado',
     'interval_delivery' => 'Intervalo de entrega',
-
+    'dont_found_your_location' => 'Disculpe, no podemos encontrar su direccción. Por favor verifique su información y vuelva a intentarlo',
     //services
     'service_request' => 'Solicitar servicio',
     'delivery_address' => 'Dirección de Entrega',
