@@ -1,6 +1,5 @@
 <div class="modal-body">
 {!! Form::model($user, ['route' => ['admin-client.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
-  
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.name')">@lang('app.name') 
     </label>
@@ -49,30 +48,15 @@
     </div>
   </div>
   
-
-  @if($role)
-  <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.role') 
-    </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'role_id', 'disabled' => 'true']) !!}
-    </div>
-  </div>
-  @else
-  <!-- role_id driver -->
-  {!! Form::hidden('role_id', '2' ) !!}
-  @endif 
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') 
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('status', $status, old('status'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status', 'disabled' => 'true']) !!}
+      {!! Form::select('status', $status, old('status'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status_client', 'disabled' => 'true']) !!}
     </div>
   </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
 </div>
-
 {!! Form::close() !!}
-

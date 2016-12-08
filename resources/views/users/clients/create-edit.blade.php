@@ -1,8 +1,8 @@
 <div class="modal-body">
 @if($edit)
-{!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+{!! Form::model($user, ['route' => ['admin-client.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @else
- {!! Form::open(['route' => 'user.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+ {!! Form::open(['route' => 'admin-client.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @endif
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.name')">@lang('app.name') <span class="required">*</span>
@@ -25,6 +25,7 @@
     {!! Form::text('email', old('email'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'email']) !!}
     </div>
   </div>
+  @if($edit)
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_mobile')">@lang('app.phone_mobile') <span class="required">*</span>
     </label>
@@ -39,29 +40,19 @@
     {!! Form::text('phone_home', $phones['phone_home'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'phone_home', 'data-inputmask' => "'mask' : '999999999'"]) !!}
     </div>
   </div>
+  @endif
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.birthday')">@lang('app.birthday')
     </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-sm-4 col-xs-12">
     {!! Form::text('birthday', isset($user->birthday) ? $user->birthday : old('birthday'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'birthday', 'readonly' => 'readonly']) !!}
     </div>
   </div>
-  @if($role)
-  <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.role')">@lang('app.role') <span class="required">*</span>
-    </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'role_id']) !!}
-    </div>
-  </div>
-  @else
-    {!! Form::hidden('role_id', old('role_id') ) !!}
-  @endif 
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
     </label>
-    <div class="col-md-4 col-sm-4 col-xs-12">
-      {!! Form::select('status', $status, 'Active', ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status']) !!}
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      {!! Form::select('status', $status, 'Active', ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status_client']) !!}
     </div>
   </div>
 </div>

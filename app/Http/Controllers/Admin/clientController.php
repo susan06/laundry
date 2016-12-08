@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\User;
+use App\Client;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
@@ -13,10 +14,6 @@ use App\Repositories\Role\RoleRepository;
 use App\Http\Requests\User\CreateUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Support\User\UserStatus;
-
-use App\Client;
-
-
 use App\Repositories\Client\ClientRepository;
 use App\Http\Requests\Client\CreateClient;
 use App\Http\Requests\Client\UpdateClient;
@@ -69,16 +66,14 @@ class clientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, RoleRepository $roleRepository)
+    public function create(Request $request)
     {
         $edit = false;
-        $role = ($request->role == 'true') ? true : false;
         $status = ['' => trans('app.selected_item')] + UserStatus::lists();
-        $roles = ['' => trans('app.selected_item')] + $roleRepository->lists('display_name');
 
         return response()->json([
             'success' => true,
-            'view' => view('users.clients.create', compact('edit','status','roles', 'role'))->render()
+            'view' => view('users.clients.create-edit', compact('edit','status'))->render()
         ]);
     }
 
@@ -90,21 +85,23 @@ class clientController extends Controller
      */
     public function store(CreateClient $request)
     {
-        $dataUser = [
+        $data = [
             'name' => $request->name,
             'lastname' => $request->lastname,
             'email' => $request->email,
-            'role_id' => $request->role_id,
             'status' => $request->status,
-            'password' => bcrypt(str_random(6))
+            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+            'birthday' => $request->birthday,
+            'password' => str_random(6),
+            'status' => UserStatus::UNCONFIRMED
         ];
-        $user = $this->users->create($dataUser);
+        $user = $this->users->create($data);
 
         if ( $user ) {
 
             return response()->json([
                 'success' => true,
-                'message' => trans('app.user_created')
+                'message' => trans('app.client_created')
             ]);
         } else {
             
@@ -121,16 +118,13 @@ class clientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request, RoleRepository $roleRepository)
+    public function show($id, Request $request)
     {
-        $edit = true;
-        $role = ($request->role == 'true') ? true : false;
-        $status = UserStatus::lists();
-        $roles = $roleRepository->lists('display_name');
         if ( $user = $this->users->find($id) ) {
+            $status = UserStatus::lists();
             return response()->json([
                 'success' => true,
-                'view' => view('users.clients.show', compact('user','edit','status','roles', 'role'))->render()
+                'view' => view('users.clients.show', compact('user','status'))->render()
             ]);
         } else {
             return response()->json([
@@ -146,16 +140,17 @@ class clientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request, RoleRepository $roleRepository)
+    public function edit($id, Request $request)
     {
         $edit = true;
-        $role = ($request->role == 'true') ? true : false;
         $status = UserStatus::lists();
-        $roles = $roleRepository->lists('display_name');
         if ( $user = $this->users->find($id) ) {
+            $phones_array = json_decode($user->phones, true);
+            $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
+            $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
             return response()->json([
                 'success' => true,
-                'view' => view('users.clients.edit', compact('user','edit','status','roles', 'role'))->render()
+                'view' => view('users.clients.create-edit', compact('user','edit','status','phones'))->render()
             ]);
         } else {
             return response()->json([
@@ -175,15 +170,23 @@ class clientController extends Controller
      */
     public function update(UpdateClient $request, $id)
     {
-        $user = $this->users->update(
-            $id, 
-            $request->only('name', 'lastname', 'role_id', 'status')
-        );
+         $data = [
+            'name' => $request->name,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+            'status' => $request->status,
+            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+            'birthday' => $request->birthday,
+            'status' => $request->status
+        ];
+
+        $user = $this->users->update($id, $data);
         if ( $user ) {
 
             return response()->json([
                 'success' => true,
-                'message' => trans('app.user_updated')
+                'message' => trans('app.client_updated')
             ]);
         } else {
             
@@ -202,17 +205,11 @@ class clientController extends Controller
      */
     public function destroy($id)
     {      
-        if ( $id == Auth::id() ) {
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.you_cannot_delete_yourself')
-            ]);
-        }
 
         if ( $this->users->delete($id) ) {
             return response()->json([
                 'success' => true,
-                'message' => trans('app.deleted_user')
+                'message' => trans('app.deleted_client')
             ]);
         } else {
             return response()->json([
