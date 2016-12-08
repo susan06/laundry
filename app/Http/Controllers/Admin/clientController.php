@@ -6,23 +6,20 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\User;
-use App\Client;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
-use App\Repositories\Role\RoleRepository;
 use App\Http\Requests\User\CreateUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Support\User\UserStatus;
-use App\Repositories\Client\ClientRepository;
 use App\Http\Requests\Client\CreateClient;
 use App\Http\Requests\Client\UpdateClient;
 use App\Support\Client\ClientStatus;
 
-class clientController extends Controller
+class ClientController extends Controller
 {
     /**
-     * @var ClientRepository
+     * @var UserRepository
      */
     private $users;
 

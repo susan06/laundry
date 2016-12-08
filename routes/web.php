@@ -90,7 +90,7 @@
     /**
      * Clients administrations
     */
-    Route::resource('admin-client', 'Admin\clientController');
+    Route::resource('admin-client', 'Admin\ClientController');
     
     /**
      * Branch offices administrations
