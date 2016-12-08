@@ -66,11 +66,10 @@ class ClientController extends Controller
     public function create(Request $request)
     {
         $edit = false;
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
 
         return response()->json([
             'success' => true,
-            'view' => view('users.clients.create-edit', compact('edit','status'))->render()
+            'view' => view('users.clients.create-edit', compact('edit'))->render()
         ]);
     }
 
@@ -86,7 +85,7 @@ class ClientController extends Controller
             'name' => $request->name,
             'lastname' => $request->lastname,
             'email' => $request->email,
-            'status' => $request->status,
+            'role_id' => 2,
             'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
             'birthday' => $request->birthday,
             'password' => str_random(6),

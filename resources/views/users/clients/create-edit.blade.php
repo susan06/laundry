@@ -48,6 +48,7 @@
     {!! Form::text('birthday', isset($user->birthday) ? $user->birthday : old('birthday'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'birthday', 'readonly' => 'readonly']) !!}
     </div>
   </div>
+  @if($edit)
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
     </label>
@@ -55,6 +56,7 @@
       {!! Form::select('status', $status, 'Active', ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'status_client']) !!}
     </div>
   </div>
+  @endif
 </div>
 <div class="modal-footer">
   @if($edit)
