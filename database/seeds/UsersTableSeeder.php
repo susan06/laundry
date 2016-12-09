@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('clients_settings')->insert([
             'user_id' => $client1->id,
-            'locations_labels' => '{"1":"phone_home","2":"office"}',
+            'locations_labels' => '{"1":"home","2":"office"}',
             'created_at' => \Carbon\Carbon::now()
         ]);
         $client2 = User::create([
@@ -58,7 +58,7 @@ class UsersTableSeeder extends Seeder
         ]);
         DB::table('clients_settings')->insert([
             'user_id' => $client2->id,
-            'locations_labels' => '{"1":"phone_home","2":"office"}',
+            'locations_labels' => '{"1":"home","2":"office"}',
             'created_at' => \Carbon\Carbon::now()
         ]);
         //conductores

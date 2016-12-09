@@ -15,10 +15,9 @@ class EloquentOrder extends Repository implements OrderRepository
      * @var array
      */
     protected $attributes = [
+        'bag_code',
         'date_search', 
-        'time_search', 
         'date_delivery', 
-        'time_delivery', 
         'special_instructions', 
         'total'
     ];
@@ -80,7 +79,7 @@ class EloquentOrder extends Repository implements OrderRepository
      * @param int $order
      * @param array $data
      */
-    public create_update_payment($id, Array $data)
+    public function create_update_payment($id, Array $data)
     {
         $order = $this->model->find($id);  
 
@@ -125,6 +124,55 @@ class EloquentOrder extends Repository implements OrderRepository
     public function update_package($id, array $newData)
     {
         return $this->order_packages->update($id, $newData);
+    }
+
+    /**
+     * Paginate and search
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function paginate_search($take = 10, $search = null, $status = null, $client = null)
+    {
+        $query = Order::query();
+
+        if ($client) {
+            $query->where('client_id', $client);
+        }
+
+        if ($search) {
+            $searchTerms = explode(' ', $search);
+            $query->where( function ($q) use($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
+                }
+            });
+        }
+
+        if ($status) {
+            $query->whereHas('order_payment', function($q) use($status) {
+                $q->where('confirmed', $status);
+            });
+        }
+
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        if ($status) {
+            $result->appends(['status' => $status]);
+        }
+
+        return $result;
     }
 
 

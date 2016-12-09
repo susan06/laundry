@@ -4,4 +4,10 @@
           </a>
         </li>
         <!--//Services -->
+        <!--My Orders -->
+        <li>
+          <a href="{{ secure_url(route('my.orders')) }}" title="@lang('app.my_orders')"><i class="fa fa-file-o"></i> @lang('app.my_orders')
+          </a>
+        </li>
+        <!--//My Orders -->        
  

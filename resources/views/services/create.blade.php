@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('page-title', trans('app.services'))
+@section('page-title', trans('app.service_request'))
 
 @section('content')
 

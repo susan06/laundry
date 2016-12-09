@@ -27,6 +27,78 @@ class OrderPayment extends Model
     	'confirmed'
     ];
 
+    public function statuslabelClass()
+    {
+        switch($this->status) {
+            case 1:
+                $class = 'success';
+                break;
+
+            case 0:
+                $class = 'danger';
+                break;
+
+            default:
+                $class = 'warning';
+        }
+
+        return $class;
+    }
+
+    public function statusText()
+    {
+        switch($this->status) {
+            case 1:
+                $text = trans('app.canceled');
+                break;
+
+            case 0:
+                $text = trans('app.canceled');
+                break;
+
+            default:
+                $text = trans('app.pending_payment');
+        }
+
+        return $text;
+    }
+
+    public function confirmedlabelClass()
+    {
+        switch($this->confirmed) {
+            case 1:
+                $class = 'success';
+                break;
+
+            case 0:
+                $class = 'danger';
+                break;
+
+            default:
+                $class = 'warning';
+        }
+
+        return $class;
+    }
+
+    public function confirmedText()
+    {
+        switch($this->confirmed) {
+            case 1:
+                $text = trans('app.confirmed');
+                break;
+
+            case 0:
+                $text = trans('app.Unconfirmed');
+                break;
+
+            default:
+                $text = trans('app.pending_payment');
+        }
+
+        return $text;
+    }
+
     /**
      * Relationships
      *

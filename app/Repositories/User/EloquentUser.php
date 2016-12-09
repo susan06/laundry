@@ -38,7 +38,6 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function paginate_search($take = 10, $search = null, $status = null)
     {
-
         $query = User::whereHas(
                 'role', function($q){
                     $q->where('name','!=', 'client');

@@ -11,17 +11,15 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>@lang('('app.payments_order')</h3>
+              <h3>@lang('app.payments_order') {{ $order->bag_code }}</h3>
             </div>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-              {!! Form::open(['route' => 'service.payment.store', 'id' => 'form-create', 'class' => 'form-horizontal form-label-left']) !!}
-
-              {!! Form::hidden('order_id', $order->id) !!}
+              {!! Form::open(['route' => ['service.payment.store', $order->id], 'id' => 'form-create', 'class' => 'form-horizontal form-label-left']) !!}
 
               <div class="t_title">
-                <h2> @lang('app.payments_order')</h2>
+                <h2> @lang('app.method_payments')</h2>
                 <div class="clearfix"></div>
               </div>
 

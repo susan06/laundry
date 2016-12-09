@@ -153,6 +153,7 @@ class ServiceController extends Controller
                     }
                     return response()->json([
                         'success' => true,
+                        'reload' => route('service.payment', $order->id),
                         'message' => trans('app.order_created')
                     ]);
                 } else {

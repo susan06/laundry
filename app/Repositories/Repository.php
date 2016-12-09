@@ -231,7 +231,7 @@ abstract class Repository implements RepositoryInterface
      * @param string $column
      * @param string $order
      */
-    public function orderBy($column = 'created_at', $order = 'asc')
+    public function orderBy($column = 'created_at', $order = 'desc')
     {       
         return $this->model->orderBy($column, $order);
     }

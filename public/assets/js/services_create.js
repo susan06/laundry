@@ -279,18 +279,21 @@ $(document).on('change', '#category', function () {
   var $this = $(this);
   var time_select = $('#time_delivery option:selected').val();
   if($this.val()) {
+    showLoading();
     $.ajax({
         url: url_package_show_category,
         type:'GET',
         data: {'category': $this.val(), 'time_select': time_select },
         success: function(response) {
+            hideLoading();
             if(response.success){
                 $('#modal-title').text($('#category option:selected').text());
                 $('#content-modal').html(response.view);
                 $('#general-modal').modal('show');
                 
             } else {
-                notify('error', response.message);
+              hideLoading();
+              notify('error', response.message);
             }
            
         }
@@ -317,11 +320,13 @@ var coupon_validate = false;
 $(document).on('click', '.validate', function () {
   var $this = $(this);
   if (add_cart > 0 && $('#coupon').val()) {
+      showLoading();
       $.ajax({
         url: url_validate_coupon,
         type:'GET',
         data: {'code': $('#coupon').val() },
         success: function(response) {
+            hideLoading();
             if(response.success){
                 percentage = response.percentage;
                 coupon_validate = true;
@@ -329,6 +334,7 @@ $(document).on('click', '.validate', function () {
                 discount();
                 notify('success', response.message);
             } else {
+              hideLoading();
               coupon_validate = false;
               notify('error', response.message);
             }
@@ -361,6 +367,7 @@ function discount() {
 
 $(document).on('click', '.btn-register-order', function (e) {
   e.preventDefault();
+  showLoading();
   var form = $('#form-create'); 
   $.ajax({
       url: form.attr('action'),
@@ -368,12 +375,11 @@ $(document).on('click', '.btn-register-order', function (e) {
       data: form.serialize(),
       dataType: 'json',
       success: function(response) {
+          hideLoading();
           if(response.success){
             notify('success', response.message);
-            $('#packages_list').html('');
-            $("#total").text('0.00'); 
-            $("#discount").text('0.00'); 
-            $('.discount').hide();   
+            showLoading();
+            window.location.href = response.reload;   
           } else {
             if(response.validator) {
               var message = '';

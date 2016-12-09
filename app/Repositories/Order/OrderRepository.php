@@ -6,12 +6,6 @@ use App\Repositories\RepositoryInterface;
 
 interface OrderRepository extends RepositoryInterface
 {
-    /*
-     * lists payment
-     *
-     */
-    public function  lists_payments();
-
     /**
      * Create payment
      *
@@ -56,5 +50,18 @@ interface OrderRepository extends RepositoryInterface
      * @param int $order
      * @param array $data
      */
-    public create_update_payment($id, Array $data);
+    public function create_update_payment($id, Array $data);
+
+    /**
+     * Paginate and search
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function paginate_search($take = 10, $search = null, $status = null, $client = null);
 }
