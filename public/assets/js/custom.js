@@ -74,9 +74,11 @@ $(document).ready(function() {
         if ($BODY.hasClass('nav-md')) {
             $SIDEBAR_MENU.find('li.active ul').hide();
             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+            $('#site_logo').addClass('site_logo_small').removeClass('site_logo_big').removeClass('site_logo');
         } else {
             $SIDEBAR_MENU.find('li.active-sm ul').show();
             $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+            $('#site_logo').addClass('site_logo_big').removeClass('site_logo_small').removeClass('site_logo');
         }
 
         $BODY.toggleClass('nav-md nav-sm');

@@ -4214,3 +4214,20 @@ ul.notifications {
 .loader-default[data-inverse]:after {
     animation-direction: reverse
 }
+
+.site_logo_small {
+    background: url(../images/logos/logo-7.png);
+    background-size: 40px 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50px; 
+    width: 50px; 
+    text-align: center;
+    margin-top: 5px;
+    margin-left: 10px; }
+
+.site_logo_big {
+  background: url(../images/logos/logo-3.png);
+  background-size: 200px 50px;
+  background-repeat: no-repeat;
+  height: 50px; width: 200px; }

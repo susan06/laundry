@@ -2,7 +2,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar">
-      <div class="site_logo"></div>
+      <div class="site_logo" id="site_logo"></div>
     </div>
 
     <div class="clearfix"></div>
