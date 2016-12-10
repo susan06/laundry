@@ -116,14 +116,15 @@
     /**
      * Services
     */
-    Route::get('service/payment/{order}', 'ServiceController@method_payment')->name('service.payment');
-    Route::post('service/payment/{order}', 'ServiceController@method_payment_store')->name('service.payment.store');
     Route::resource('service', 'ServiceController');
 
     /**
      * Orders
     */
     Route::get('my_orders', 'OrderController@my_orders')->name('my.orders');
+    Route::get('service/payment/{order}', 'OrderController@method_payment')->name('order.payment');
+    Route::post('service/payment/{order}', 'OrderController@method_payment_store')->name('order.payment.store');
+    Route::put('service/payment/{payment}', 'OrderController@method_payment_update')->name('order.payment.update');
     Route::resource('order', 'OrderController');
 
     /**

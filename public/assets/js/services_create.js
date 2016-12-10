@@ -365,36 +365,6 @@ function discount() {
   }
 }  
 
-$(document).on('click', '.btn-register-order', function (e) {
-  e.preventDefault();
-  showLoading();
-  var form = $('#form-create'); 
-  $.ajax({
-      url: form.attr('action'),
-      type: 'post',
-      data: form.serialize(),
-      dataType: 'json',
-      success: function(response) {
-          hideLoading();
-          if(response.success){
-            notify('success', response.message);
-            showLoading();
-            window.location.href = response.reload;   
-          } else {
-            if(response.validator) {
-              var message = '';
-              $.each(response.message, function(key, value) {
-                message += value;
-              });
-              notify('error', message);
-            } else {
-              notify('error', response.message);
-            }
-          }
-      }
-  });
-});
-
 $(document).ready(function() {
     initMap();
 });

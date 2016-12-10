@@ -143,6 +143,9 @@ return [
         'message'               => 'mensaje',
         'accept_terms'          => 'Términos y condiciones',
         'packages'              => 'Paquetes',
+        'payment_method_id'     => 'Método de Pago',
+        'reference'             => 'Referencia',
+        'amount'                => 'Cantidad',
     ],
 
 ];

@@ -325,7 +325,8 @@ $(document).on('click', '.btn-submit', function (e) {
                     $('#general-modal').modal('hide');
                 } else {
                     if(response.url_return) {
-                        getPages(response.url_return);
+                        showLoading();
+                        window.location.href = response.url_return;
                     } else {
                         $('#content-title').text(current_title);
                         $('.btn-create').show();
@@ -338,7 +339,7 @@ $(document).on('click', '.btn-submit', function (e) {
                 if(response.validator) {
                   var message = '';
                   $.each(response.message, function(key, value) {
-                    message += value;
+                    message += value+' ';
                   });
                   notify('error', message);
                 } else {

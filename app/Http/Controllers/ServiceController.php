@@ -153,7 +153,7 @@ class ServiceController extends Controller
                     }
                     return response()->json([
                         'success' => true,
-                        'reload' => route('service.payment', $order->id),
+                        'url_return' => route('order.payment', $order->id),
                         'message' => trans('app.order_created')
                     ]);
                 } else {
@@ -250,20 +250,6 @@ class ServiceController extends Controller
             return true;
         }
 
-    }
-
-    /**
-     * Add method payment to order.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function method_payment($id, PaymentRepository $methods)
-    {
-        $order = $this->orders->find($id);
-
-        $payments = ['' => trans('app.select_method_payment')] + $methods->lists_payments();
-   
-        return view('services.method_payments', compact('payments', 'order'));
     }
 
 }

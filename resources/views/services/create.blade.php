@@ -15,7 +15,7 @@
           </div>
           <div class="x_content">
             <div class="" id="order_create">
-              {!! Form::open(['route' => 'service.store', 'id' => 'form-create', 'class' => 'form-horizontal form-label-left']) !!}
+              {!! Form::open(['route' => 'service.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
                 <!--
                 <div class="alert alert-warning alert-dismissible fade in" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
@@ -201,12 +201,9 @@
 
                   <div class="ln_solid"></div>
                   <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                    <button type="submit" class="btn btn-primary btn-register-order col-xs-12">@lang('app.save')</button>
+                    <button type="submit" class="btn btn-primary btn-submit col-xs-12">@lang('app.save')</button>
                   </div>
               {!! Form::close() !!}
-            </div>
-            <div class="" id="order_payment" style="display: none;">
-              <p>Estimado cliente, en estos momentos su pedido ha sido programado y está en espera de su depósito para que nuestro equipo acuda a buscarlo</p>
             </div>
           </div>
         </div>
