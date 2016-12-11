@@ -23,7 +23,7 @@ class OrderController extends Controller
      * @var ClientRepository
      */
     private $clients;
-    
+
     /**
      * OrderController constructor.
      * @param OrderRepository $orders
@@ -124,7 +124,7 @@ class OrderController extends Controller
         $categories = ['' => trans('app.select_category')] + $packageRepository->lists_categories_actives();
         $locations_labels = $this->clients->lists_locations_labels(Auth::user()->id);
    
-        return view('services.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories'));
+        return view('orders.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories'));
     }
 
     /**
