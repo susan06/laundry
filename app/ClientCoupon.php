@@ -68,4 +68,9 @@ class ClientCoupon extends Model
     {
         return $this->belongsTo(Coupon::class, 'coupon_id');
     }
+
+    public function order()
+    {
+        return $this->hasOne(ClientCoupon::class, 'client_coupon_id');
+    }
 }

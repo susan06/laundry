@@ -79,4 +79,9 @@ class Order extends Model
     {
         return $this->hasOne(OrderPayment::class, 'order_id');
     }
+
+    public function client_coupon()
+    {
+        return $this->belongsTo(ClientCoupon::class, 'client_coupon_id');
+    }
 }

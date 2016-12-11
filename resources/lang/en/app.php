@@ -568,6 +568,7 @@ return [
     'branch_office_and_service' => 'Branch Office and Service',
     'branch_office'             => 'Branch Office',
     'service'                   => 'Service',
+    'order_payment_updated' => 'Método de pago de la órden actualizado',
 
     //Faqs
     'faqs' => 'Faqs',

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.orders'))
+@section('page-title', trans('app.payments_order'))
 
 @section('content')
 
@@ -9,21 +9,14 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-          <div class="page-title no-print">
+          <div class="page-title">
             <div class="title_left">
-              <h3>@lang('app.orders')</h3>
+              <h3>@lang('app.method_payment_order') {{ $order->bag_code }}</h3>
             </div>
-            @include('partials.status')
-            @include('partials.search')
             <div class="clearfix"></div>
           </div>
-        
           <div class="x_content">
-
-            <div id="content-table">
-              @include('orders.list')
-            </div>
-                
+            @include('orders.method_payments_content')
           </div>
         </div>
       </div>

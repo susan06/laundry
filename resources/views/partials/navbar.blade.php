@@ -1,5 +1,5 @@
 <!-- top navigation -->
-<div class="top_nav">
+<div class="top_nav no-print">
   <div class="nav_menu">
     <nav class="" role="navigation">
       <div class="nav toggle">

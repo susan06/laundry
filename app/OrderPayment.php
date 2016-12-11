@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderPayment extends Model
@@ -27,6 +28,16 @@ class OrderPayment extends Model
     	'confirmed'
     ];
 
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
     public function statuslabelClass()
     {
         switch($this->status) {
@@ -35,7 +46,7 @@ class OrderPayment extends Model
                 break;
 
             case 0:
-                $class = 'danger';
+                $class = 'warning';
                 break;
 
             default:
@@ -49,11 +60,11 @@ class OrderPayment extends Model
     {
         switch($this->status) {
             case 1:
-                $text = trans('app.canceled');
+                $text = trans('canceled');
                 break;
 
             case 0:
-                $text = trans('app.canceled');
+                $text = trans('canceled');
                 break;
 
             default:
@@ -75,7 +86,7 @@ class OrderPayment extends Model
                 break;
 
             default:
-                $class = 'warning';
+                $class = 'danger';
         }
 
         return $class;
@@ -85,15 +96,15 @@ class OrderPayment extends Model
     {
         switch($this->confirmed) {
             case 1:
-                $text = trans('app.confirmed');
+                $text = trans('confirmed');
                 break;
 
             case 0:
-                $text = trans('app.Unconfirmed');
+                $text = trans('Unconfirmed');
                 break;
 
             default:
-                $text = trans('app.pending_payment');
+                $text = trans('Unconfirmed');
         }
 
         return $text;

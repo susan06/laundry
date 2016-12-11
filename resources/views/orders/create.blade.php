@@ -15,7 +15,7 @@
           </div>
           <div class="x_content">
             <div class="" id="order_create">
-              {!! Form::open(['route' => 'service.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+              {!! Form::open(['route' => 'order.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
                 <!--
                 <div class="alert alert-warning alert-dismissible fade in" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
