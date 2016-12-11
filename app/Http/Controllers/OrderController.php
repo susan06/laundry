@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use DateTime;
 use Validator;
+use Settings;
 use Illuminate\Http\Request;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Payment\PaymentRepository;
