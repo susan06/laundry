@@ -10,7 +10,7 @@ use App\Support\Faq\FaqStatus;
 
 class FaqController extends Controller
 {   
-/**
+    /**
      * @var FaqRepository
      */
     private $faqs;
@@ -31,22 +31,7 @@ class FaqController extends Controller
      */
     public function index(Request $request)
     {
-        $faqs = $this->faqs->paginate_search(10, $request->search);
-        if ( $request->ajax() ) {
-            if (count($faqs)) {
-                return response()->json([
-                    'success' => true,
-                    'view' => view('faqs.list', compact('faqs'))->render(),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => trans('app.no_records_found')
-                ]);
-            }
-        }
-
-        return view('faqs.index', compact('faqs'));
+        //
     }
 
     /**
@@ -56,13 +41,7 @@ class FaqController extends Controller
      */
     public function create()
     {
-        $edit = false;
-        $status = ['' => trans('app.selected_item')] + FaqStatus::lists();
-
-        return response()->json([
-            'success' => true,
-            'view' => view('faqs.create-edit', compact('status','edit'))->render()
-        ]);
+        //
     }
 
     /**
@@ -73,26 +52,7 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'question' => $request->question,
-            'answer' => $request->answer,
-            'status' => $request->status,
-            'created_by' => Auth::id(),
-        ];
-        $faq = $this->faqs->create($data);
-        if ( $faq ) {
-
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.faq_created')
-            ]);
-        } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
-        }
+       //
     }
 
     /**
@@ -103,17 +63,7 @@ class FaqController extends Controller
      */
     public function show($id)
     {
-        if ( $faq = $this->faqs->find($id) ) {
-            return response()->json([
-                'success' => true,
-                'view' => view('faqs.show', compact('faq'))->render()
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.no_record_found')
-            ]);
-        }
+        //
     }
 
     /**
@@ -124,19 +74,7 @@ class FaqController extends Controller
      */
     public function edit($id)
     {
-        $edit = true;
-        $status = FaqStatus::lists();
-        if ( $faq = $this->faqs->find($id) ) {
-            return response()->json([
-                'success' => true,
-                'view' => view('faqs.create-edit', compact('faq','edit','status'))->render()
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.no_record_found')
-            ]);
-        }
+        //
     }
 
     /**
@@ -148,23 +86,7 @@ class FaqController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $faq = $this->faqs->update(
-            $id, 
-            $request->only('question', 'answer', 'status')
-        );
-        if ( $faq ) {
-
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.faq_updated')
-            ]);
-        } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
-        }
+        //
     }
 
     /**
@@ -175,16 +97,6 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-        if ( $this->faqs->delete($id) ) {
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.faq_deleted')
-            ]);
-        } else {
-            return response()->json([
-                'success'=> false,
-                'message' => trans('app.error_again')
-            ]);
-        }
+        //
     }
 }

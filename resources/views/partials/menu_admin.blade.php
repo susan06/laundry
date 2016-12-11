@@ -52,6 +52,12 @@
           </a>
         </li>
         <!--//Working hours -->
+        <!--faqs -->
+        <li>
+          <a href="{{ route('admin-faq.index') }}" title="@lang('app.faqs')"><i class="fa fa-info"></i> @lang('app.faqs')
+          </a>
+        </li>
+        <!--//faqs -->
         <!--setting -->
         <li>
           <a href="{{ route('setting.administration') }}" title="@lang('app.setting')"><i class="fa fa-cog"></i> @lang('app.setting')

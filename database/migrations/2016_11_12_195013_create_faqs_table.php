@@ -22,6 +22,9 @@ class CreateFaqsTable extends Migration
             $table->timestamps();
             $table->engine = 'MyISAM';
         });
+
+        DB::statement('ALTER TABLE faqs ADD FULLTEXT search(question, answer)');
+
     }
 
     /**
@@ -31,6 +34,9 @@ class CreateFaqsTable extends Migration
      */
     public function down()
     {
+        Schema::table('faqs', function($table) {
+            $table->dropIndex('search');
+        });
         Schema::drop('faqs');
     }
 }

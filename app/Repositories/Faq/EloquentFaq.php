@@ -40,14 +40,10 @@ class EloquentFaq extends Repository implements FaqRepository
     {
         if ($search) {
 
-            $searchTerms = explode(' ', $search);
-            $result = Faq::where( function ($q) use($searchTerms) {
-                foreach ($searchTerms as $term) {
-                   foreach ($this->attributes as $attribute) {
-                        $q->orwhere($attribute, "like", "%{$term}%");
-                    }
-                }
-            })->paginate($take)->appends(['search' => $search]);
+            $result = Faq::whereRaw(
+                "MATCH(question, answer) AGAINST(? IN BOOLEAN MODE)", 
+                array($search)
+            )->paginate($take)->appends(['search' => $search]);
 
         } else {
             $result = Faq::paginate($take);

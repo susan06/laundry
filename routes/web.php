@@ -99,6 +99,11 @@
     Route::resource('branch-office', 'BranchOfficeController');
 
     /**
+     * Faqs Administrations 
+    */
+    Route::resource('admin-faq', 'Admin\FaqController');
+
+    /**
      * Clients
     */
     Route::resource('client', 'ClientController');
