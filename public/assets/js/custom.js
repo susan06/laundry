@@ -341,6 +341,10 @@ $(document).on('click', '.btn-submit', function (e) {
                 }
             }
            
+        },
+        error: function (status) {
+            hideLoading();
+            notify('error', status.statusText);
         }
     });
 });
@@ -385,7 +389,8 @@ $(document).on('click', '.search', function () {
                 }
             },
             error: function (status) {
-                console.log(status);
+                hideLoading();
+                notify('error', status.statusText);
             }
         });
     } else {
@@ -441,7 +446,7 @@ function getPages(page) {
         },
         error: function (status) {
             hideLoading();
-            notify('error', status.statusText);
+            console.log(status.statusText);
         }
     });
 }
