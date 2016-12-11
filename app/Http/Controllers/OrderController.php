@@ -8,6 +8,7 @@ use Validator;
 use Settings;
 use Illuminate\Http\Request;
 use App\Repositories\Order\OrderRepository;
+use App\Repositories\Client\ClientRepository;
 use App\Repositories\Payment\PaymentRepository;
 use App\Repositories\Package\PackageRepository;
 
@@ -18,14 +19,20 @@ class OrderController extends Controller
      */
     private $orders;
 
+     /**
+     * @var ClientRepository
+     */
+    private $clients;
+    
     /**
      * OrderController constructor.
      * @param OrderRepository $orders
      */
-    public function __construct(OrderRepository $orders)
+    public function __construct(OrderRepository $orders, ClientRepository $clients)
     {
         $this->middleware('auth');
         $this->orders = $orders;
+        $this->clients = $clients;
     }
 
     /**
