@@ -368,7 +368,7 @@ class OrderController extends Controller
             }
         }
 
-        return view('services.method_payments', compact('payments', 'order','modal'));
+        return view('orders.method_payments', compact('payments', 'order','modal'));
     }
 
     /**
