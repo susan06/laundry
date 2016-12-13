@@ -20,6 +20,8 @@
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.buttons.css") !!}
     {!! HTML::style("public/vendors/pnotify/dist/pnotify.nonblock.css") !!}
+    <!-- bootstrap datetimepicker -->
+    {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css") !!}
     <!-- Custom Theme Style -->
     {!! HTML::style("public/assets/css/login.css") !!}
     <!-- Responsive -->

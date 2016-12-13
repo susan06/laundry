@@ -669,6 +669,7 @@ return [
     'cvv'                 => 'CVV',
     'month_of_expiration' => 'Mes de Expiración',
     'year_of_expiration'  => 'Año de Expiración',
+    'validaty_card'       => 'Fecha de Expiración',
     'accept_terms_and_conditions'     => 'Aceptar términos y condiciones.',
     'receive_promotion_and_discounts' => 'Recibir promociones y descuentos.',
     'terms_and_conditions'            => 'Términos y Condiciones',

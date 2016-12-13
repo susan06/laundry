@@ -139,7 +139,12 @@ label {
 }
 .panel-login .form-group {
   padding: 0 30px;
+  position: relative;
 }
+
+.panel-login .form-group {
+  margin-bottom: 10px; }
+
 .panel-login>.panel-heading .login {
   padding: 20px 30px;
   border-bottom-leftt-radius: 5px;
@@ -179,7 +184,7 @@ label {
   box-shadow: none;
   border-bottom: 1px solid #e7e7e7;
   border-radius: 0px;
-  padding: 6px 0px;
+  /*padding: 6px 0px;*/
 }
 .panel-login input:hover,
 .panel-login input:focus {
@@ -424,4 +429,19 @@ img.site_logo_login {
   width: 150px;
   height: 150px; }
 
+.left {
+  left: 25px; }
+
+.has-feedback-left {
+  padding-left: 35px; }
+
+.form-control-feedback {
+  margin-top: 8px;
+  height: 30px;
+  color: #1ABB9C;
+  line-height: 24px;
+  font-size: 24px;
+  position: absolute; }
+
+  
 /** signup **/

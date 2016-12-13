@@ -159,6 +159,7 @@ class RegisterController extends Controller
 
                 return response()->json([
                     'success' => false,
+                    'validation' => true,
                     'message' => $messages
                 ]);
             } else {
