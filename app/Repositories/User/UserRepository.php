@@ -70,4 +70,11 @@ interface UserRepository extends RepositoryInterface
      *
      */
     public function client_coupon_paginate_search($take = 10, $search = null);
+
+     /**
+     * Find user by email
+     *
+     * @param $email
+     */
+    public function findByEmail($email);
 }

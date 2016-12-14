@@ -12,14 +12,19 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-lg-12 col-xs-12">
-              <a href="{{ url('login') }}"><img class="site_logo_login" src="{{ url('public/assets/images/logos/logo.png') }}"></a>
+              <div class="center">
+                <a href="{{ url('login') }}"><img class="site_logo_login" src="{{ url('public/assets/images/logos/logo.png') }}"></a>
+              </div>
+
               <form id="login-form" action="{{ url('/authenticate/client') }}" method="post" role="form" style="display: block;">
-               {{ csrf_field() }}
+                {{ csrf_field() }}
                   <div class="form-group">
-                    <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="@lang('app.email')" value="">
+                    <input type="text" name="email" id="username" class="form-control has-feedback-left" placeholder="@lang('app.email')" value="{{ old('email') }}">
+                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                   </div>
                   <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="@lang('app.password')">
+                    <input type="password" name="password" id="password" class="form-control has-feedback-left" placeholder="@lang('app.password')">
+                    <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
                   </div>
                   <div class="col-xs-12 form-group pull-right">     
                         <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="@lang('app.log_in')">
@@ -28,73 +33,18 @@
                     <input id="checkbox1" type="checkbox" name="remember">
                     <label for="checkbox1">@lang('app.remember_me')</label>   
                   </div>
+
+                @if(Settings::get('forgot_password'))
+                <div class="col-xs-12 form-group pull-left">
+                  <a class="reset_pass" id="reset_pass" href="javascript:void(0)">@lang('app.i_forgot_my_password')</a>
+                </div>
+                @endif
               </form>
-              <form id="register-form" action="{{ url('/registration') }}" method="post" role="form" style="display: none;">
-              {{ csrf_field() }}
-                  <div class="form-group">
-                    <input type="text" name="name" id="firstname" class="form-control has-feedback-left" placeholder="@lang('app.name')" value="">
-                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="lastname" id="lastname" class="form-control has-feedback-left" placeholder="@lang('app.lastname')" value="">
-                    <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="email" id="email" class="form-control has-feedback-left" placeholder="@lang('app.email')" value="">
-                    <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="phone_mobile" id="phone_mobile" class="form-control inputmask has-feedback-left" placeholder="@lang('app.phone_mobile')" value="" data-inputmask="'mask' : '999999999'">
-                    <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="birthday" id="birthday" class="form-control has-feedback-left" placeholder="@lang('app.birthday')" value="" readonly="readonly">
-                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <!--
-                  <div class="form-group">
-                    <input type="text" name="card_number" id="card_number" class="form-control inputmask has-feedback-left" placeholder="@lang('app.card_number')" value="" data-inputmask="'mask' : '9999-9999-9999-9999'">
-                    <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="validaty_card" id="validaty_card" class="form-control has-feedback-left" placeholder="@lang('app.validaty_card')" value="">
-                    <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="text" name="cvv" id="cvv" tabindex="1" class="form-control inputmask has-feedback-left" placeholder="@lang('app.cvv')" value="" data-inputmask= "'mask' : '999'">
-                    <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  -->
-                  <div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control has-feedback-left" placeholder="@lang('app.password')">
-                    <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <div class="form-group">
-                    <input type="password" name="password_confirmation" id="confirm-password" class="form-control has-feedback-left" placeholder="@lang('app.confirm_password')">
-                    <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                  <br/>
-                  @if (Settings::get('terms_and_conditions_show'))
-                  <div class="">
-                      <input type="checkbox" name="accept_terms" id="accept_terms" value="1"/>
-                      @lang('app.i_accept') <a href="#terms_and_conditions_modal" data-toggle="modal">@lang('app.terms_of_service')</a>
-                  </div>
-                  @else
-                    <input type="checkbox" name="accept_terms" id="accept_terms" value="1" checked="checked" style="display: none" />
-                  @endif
-                  <div class="">
-                      <input type="checkbox" name="accept_promotions" value="1"/>
-                      @lang('app.i_accept') @lang('app.send_promotions_descuent')
-                  </div>
-                  <br/>
-                  <div class="form-group">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <input type="submit" name="register-submit" tabindex="4" class="form-control btn btn-register btn-submit" id="btn-register" value="@lang('app.register')">
-                      </div>
-                    </div>
-                  </div>
-              </form>
+
+              @include('auth.passwords.email')
+
+              @include('auth.register_client')
+
             </div>
           </div>
         </div>

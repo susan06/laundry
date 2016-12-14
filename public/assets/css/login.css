@@ -223,8 +223,8 @@ label {
 .panel-login>.panel-heading .tabs{
   padding: 0;
 }
-.panel-login {
-  text-align: center;
+.center{
+  text-align: center !important;
 }
 .panel-login h2{
   font-size: 20px;
@@ -549,6 +549,8 @@ img.site_logo_login {
   font-size: 24px;
   position: absolute; }
 
-  
 /** signup **/
 
+.reset_pass {
+
+}

@@ -21,6 +21,7 @@
     Route::post('authenticate/administration', 'Auth\LoginController@authenticate_administration');
     Route::post('registration', 'Auth\RegisterController@registration');
     Route::get('register/confirmation/{token}', 'Auth\LoginController@confirmEmail')->name('confirm.email');
+    Route::post('password/remind', 'Auth\ForgotPasswordController@sendPasswordReminder');
 
     Auth::routes();
 

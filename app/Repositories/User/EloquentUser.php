@@ -189,7 +189,7 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function findByConfirmationToken($token)
     {
-        return User::where('confirmation_token', $token)->first();
+        return $this->model->where('confirmation_token', $token)->first();
     }
 
     /**
@@ -223,6 +223,16 @@ class EloquentUser extends Repository implements UserRepository
         }
 
         return $result;
+    }
+
+    /**
+     * Find user by email.
+     *
+     * @param $token
+     */
+    public function findByEmail($email)
+    {
+        return $this->model->where('email', $email)->first();
     }
 
 }

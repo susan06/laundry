@@ -475,7 +475,7 @@ return [
     'account_created_login' => 'Su cuenta se creo con éxito! Puede acceder ahora.',
     'email_confirmed_can_login' => 'Correo electrónico confirmado. Puede acceder ahora.',
     'wrong_confirmation_token' => 'token de confirmación incorrecto.',
-    'password_reset_email_sent' => 'Restablecimiento de contraseña de correo electrónico enviada. Compruebe su bandeja de entrada(y spam).',
+    'password_reset_email_sent' => 'Restablecimiento de contraseña de correo electrónico enviada. Compruebe su bandeja de entrada (y spam).',
     'only_users_with_account_can_login' => 'Sólo los usuarios que ya se ha creado una cuenta puede conectarse.',
     'you_have_to_provide_email' => 'Usted tiene que proporcionar su dirección de correo electrónico.',
 
