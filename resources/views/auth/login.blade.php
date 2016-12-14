@@ -47,9 +47,10 @@
                     <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
                   </div>
                   <div class="form-group">
-                    <input type="email" name="birthday" id="birthday" class="form-control has-feedback-left" placeholder="@lang('app.birthday')" value="" readonly="readonly">
+                    <input type="text" name="birthday" id="birthday" class="form-control has-feedback-left" placeholder="@lang('app.birthday')" value="" readonly="readonly">
                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                   </div>
+                  <!--
                   <div class="form-group">
                     <input type="text" name="card_number" id="card_number" class="form-control inputmask has-feedback-left" placeholder="@lang('app.card_number')" value="" data-inputmask="'mask' : '9999-9999-9999-9999'">
                     <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
@@ -62,6 +63,7 @@
                     <input type="text" name="cvv" id="cvv" tabindex="1" class="form-control inputmask has-feedback-left" placeholder="@lang('app.cvv')" value="" data-inputmask= "'mask' : '999'">
                     <span class="fa fa-credit-card form-control-feedback left" aria-hidden="true"></span>
                   </div>
+                  -->
                   <div class="form-group">
                     <input type="password" name="password" id="password" class="form-control has-feedback-left" placeholder="@lang('app.password')">
                     <span class="fa fa-key form-control-feedback left" aria-hidden="true"></span>
@@ -72,14 +74,14 @@
                   </div>
                   <br/>
                   @if (Settings::get('terms_and_conditions_show'))
-                  <div>
+                  <div class="">
                       <input type="checkbox" name="accept_terms" id="accept_terms" value="1"/>
                       @lang('app.i_accept') <a href="#terms_and_conditions_modal" data-toggle="modal">@lang('app.terms_of_service')</a>
                   </div>
                   @else
                     <input type="checkbox" name="accept_terms" id="accept_terms" value="1" checked="checked" style="display: none" />
                   @endif
-                  <div>
+                  <div class="">
                       <input type="checkbox" name="accept_promotions" value="1"/>
                       @lang('app.i_accept') @lang('app.send_promotions_descuent')
                   </div>
@@ -181,16 +183,21 @@
         e.preventDefault();
         var form = $('#form_register'); 
         if( $('#accept_terms').is(':checked') ) {
+          showLoading();
           $.ajax({
               url: form.attr('action'),
               type: 'post',
               data: form.serialize(),
               dataType: 'json',
               success: function(response) {
+                  hideLoading();
                   var message = '';
                   if(response.success){
                       notify('success', response.message);
-                      form.reset[0];
+                      if(response.url_return) {
+                          showLoading();
+                          window.location.href = response.url_return;
+                      }
                   } else {
                     if(response.validator) {
                       var message = '';
@@ -216,6 +223,30 @@
           document.getElementById('btn-register').disabled = true;
         }
     });
+
+    $(document).ready(function() {
+
+      $('form').keypress(function(e){   
+        if(e == 13){
+          return false;
+        }
+      });
+
+      $('input').keypress(function(e){
+        if(e.which == 13){
+          return false;
+        }
+      });
+
+    });
+
+    function showLoading() {
+        $('#loading').addClass('is-active');
+    }
+
+    function hideLoading() {
+        $('#loading').removeClass('is-active'); 
+    }
 
     </script>
 

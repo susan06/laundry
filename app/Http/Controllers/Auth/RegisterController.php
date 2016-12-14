@@ -70,6 +70,7 @@ class RegisterController extends Controller
             'name' => 'required|max:30',
             'lastname' => 'required|max:30',
             'email' => 'required|email|max:255|unique:users',
+            'birthday' => 'date',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6'
         ];
@@ -91,6 +92,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
+            'birthday' => $data['birthday'],
             'password' => $data['password'],
         ]);
     }
@@ -109,6 +111,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'lastname' => $request->lastname,
             'email' => $request->email,
+            'birthday' => $request->birthday,
             'password' => $request->password,
             'password_confirmation' => $request->password_confirmation
         ];
@@ -122,10 +125,11 @@ class RegisterController extends Controller
                 : UserStatus::ACTIVE;
 
             $user = $this->users->create(array_merge(
-                $request->only('name', 'lastname', 'email'),
+                $request->only('name', 'lastname', 'email', 'birthday'),
                 ['status' => $status, 
                 'role_id' => 2, 
-                'password' => bcrypt($request->password), 
+                'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":""}',
+                'password' => $request->password, 
                 'lang' => Settings::get('language_default') 
                 ]
             ));
@@ -145,11 +149,10 @@ class RegisterController extends Controller
 
                 return response()->json([
                     'success' => true,
+                    'url_return' => url('login'),
                     'message' => $message
                 ]);
-            } else {
-                return redirect('login')->with('success', $message);
-            }
+            } 
 
         } else {
 

@@ -718,6 +718,8 @@ return [
     'privacy_policy_show' => 'Mostrar políticas de privacidad',
     'auto_registration' => 'Auto registro de clientes',
     'acept_term_obligatory' => 'Debe aceptar los términos y condiciones',
+    'registration_confirmation' => 'Confirmación de registro',
+    'password_reset_required' => 'Restablecimiento de contraseña',
 
     'spanish' => 'Español',
     'english' => 'Inglés',

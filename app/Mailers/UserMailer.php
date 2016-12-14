@@ -10,7 +10,7 @@ class UserMailer extends AbstractMailer
     {
         $view = 'emails.registration.confirmation';
         $data = ['token' => $token];
-        $subject = 'Registration Confirmation';
+        $subject = trans('app.registration_confirmation');
 
         $this->sendTo($user->email, $subject, $view, $data);
     }
@@ -19,7 +19,7 @@ class UserMailer extends AbstractMailer
     {
         $view = 'emails.password.remind';
         $data = ['user' => $user, 'token' => $token];
-        $subject = 'Password Reset Required';
+        $subject = trans('app.password_reset_required');
 
         $this->sendTo($user->email, $subject, $view, $data);
     }

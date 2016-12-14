@@ -16,6 +16,9 @@ body {
   color:#666666;
   font-family: 'Avenir', sans-serif;
   font-weight:100;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 body{
