@@ -25,20 +25,38 @@
     {!! Form::text('email', old('email'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'email']) !!}
     </div>
   </div>
+  @if($edit)
   <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_mobile')">@lang('app.phone_mobile') <span class="required">*</span>
-    </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('phone_mobile', $phones['phone_mobile'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'mobile', 'data-inputmask' => "'mask' : '999999999'"]) !!}
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_mobile')">@lang('app.phone_mobile') <span class="required">*</span>
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+      {!! Form::text('phone_mobile', $phones['phone_mobile'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'mobile', 'data-inputmask' => "'mask' : '999999999'"]) !!}
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_home')">@lang('app.phone_home') 
-    </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('phone_home', $phones['phone_home'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'phone_home', 'data-inputmask' => "'mask' : '999999999'"]) !!}
+    <div class="form-group">
+      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_home')">@lang('app.phone_home') 
+      </label>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+      {!! Form::text('phone_home', $phones['phone_home'], ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'phone_home', 'data-inputmask' => "'mask' : '999999999'"]) !!}
+      </div>
     </div>
-  </div>
+    @else
+     <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_mobile')">@lang('app.phone_mobile') <span class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        {!! Form::text('phone_mobile', '', ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'mobile', 'data-inputmask' => "'mask' : '999999999'"]) !!}
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.phone_home')">@lang('app.phone_home') 
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+        {!! Form::text('phone_home', '', ['class' => 'form-control col-md-7 col-xs-12 phones', 'id' => 'phone_home', 'data-inputmask' => "'mask' : '999999999'"]) !!}
+        </div>
+      </div>
+    @endif
+  
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.birthday')">@lang('app.birthday')
     </label>
