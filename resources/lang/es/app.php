@@ -733,6 +733,7 @@ return [
     'my_location' => 'Mi ubicación',
     'location' => 'Localización',
     'locations' => 'Localizaciones',
+    'error_geolocation' => 'Ocurrió un error en la geo-localización, su navegador tal vez no soporta el servicio o su GPS no esta encendido',
     'address_add_autocomplete' => 'Agregar dirección por autocompletado',
     'show_services' => 'Ver servicios',
     'Available' => 'Disponible',

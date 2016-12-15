@@ -19,11 +19,7 @@ $("#check_tomorrow").on("ifClicked", function() {
 });
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser does not support geolocation.');
-  infowindow.open(map, marker);
+  notify('error', error_geolocation);
 }
 
 

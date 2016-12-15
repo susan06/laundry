@@ -1,12 +1,12 @@
 <!-- top navigation -->
 <div class="top_nav no-print">
   <div class="nav_menu">
-    <nav class="" role="navigation">
-      <div class="nav toggle">
+    <nav class="no-print" role="navigation">
+      <div class="nav toggle no-print">
         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
       </div>
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right no-print">
         <li class="">
           <a href="javascript:void(0)" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <img src="{{ Auth::user()->avatar() }}" alt="avatar">{{ Auth::user()->name }}

@@ -4236,7 +4236,9 @@ ul.notifications {
   height: 50px; width: 200px; }
 
 @media print {
-.no-print {
+  .no-print {
     display:none;
   }
+  @page { margin: 0; }
+  body { margin: 1.6cm; }
 }

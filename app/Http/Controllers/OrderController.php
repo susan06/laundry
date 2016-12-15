@@ -335,9 +335,9 @@ class OrderController extends Controller
         $rules['amount'] = 'required';
 
         if ($id) {
-            $rules['reference'] = 'required|min:3|unique:orders_payments,reference,'.$id;
+            $rules['reference'] = 'required|min:3|numeric|unique:orders_payments,reference,'.$id;
         } else {
-           $rules['reference'] = 'required|min:3|unique:orders_payments,reference'; 
+           $rules['reference'] = 'required|min:3|numeric|unique:orders_payments,reference'; 
         }
 
         return Validator::make($data, $rules);
