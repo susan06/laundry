@@ -240,7 +240,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 <div class="content">
                 <table bgcolor="#999999">
                     <tr>
-                        <td><img src="{{ url('public/assets/images/logos/logo.png') }}" /></td>
+                        <td><img width="150" height="150" src="{{ url('public/assets/images/logos/logo.png') }}" /></td>
                         <td align="right"><h6 class="collapse">{{ Settings::get('app_name') }}</h6></td>
                     </tr>
                 </table>

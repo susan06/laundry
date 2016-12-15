@@ -263,11 +263,14 @@ label {
 .panel-login>.panel-heading a{
   text-decoration: none;
   color: #666;
-  font-weight: 300;
+  font-weight: 500;
   font-size: 16px;
   -webkit-transition: all 0.1s linear;
   -moz-transition: all 0.1s linear;
   transition: all 0.1s linear;
+}
+.panel-login>.panel-heading a .active {
+  color: #fff;
 }
 .panel-login>.panel-heading a#register-form-link {
   color: #fff;
