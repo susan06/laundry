@@ -49,6 +49,16 @@ class User extends Authenticatable
      *
      */
 
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucwords(strtolower($value));
+    }
+
+    public function setLastnameAttribute($value)
+    {
+        $this->attributes['lastname'] = ucwords(strtolower($value));
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
@@ -56,7 +66,10 @@ class User extends Authenticatable
 
     public function setBirthdayAttribute($value)
     {
-        $this->attributes['birthday'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        if ($value) {
+            $this->attributes['birthday'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        }
+       
     }
 
     public function full_name()

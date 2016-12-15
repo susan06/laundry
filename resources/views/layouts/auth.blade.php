@@ -49,6 +49,8 @@
 </head>
 <body class="login">
     
+    <div class="loader loader-default" id="loading"></div>
+
     @yield('content')
 
     <!-- Scripts -->
@@ -73,6 +75,31 @@
               styling: 'bootstrap3'
             });
         }
+
+        function showLoading() {
+            $('#loading').addClass('is-active');
+        }
+
+        function hideLoading() {
+            $('#loading').removeClass('is-active'); 
+        }
+
+        
+        $(document).ready(function() {
+
+          $('form').keypress(function(e){   
+            if(e == 13){
+              return false;
+            }
+          });
+
+          $('input').keypress(function(e){
+            if(e.which == 13){
+              return false;
+            }
+          });
+
+        });
     </script>
 
     @include('partials.messages')

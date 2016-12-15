@@ -2,9 +2,10 @@
 
 @section('page-title', trans('app.login'))
 
-@section('content')
+@section('content') 
 
 <div class="container">
+
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-login">
@@ -89,7 +90,7 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-xs-12">
-                        <input type="submit" name="register-submit" tabindex="4" class="form-control btn btn-register" id="btn-register" value="@lang('app.register')">
+                        <input type="submit" name="register-submit" tabindex="4" class="form-control btn btn-register btn-submit" id="btn-register" value="@lang('app.register')">
                       </div>
                     </div>
                   </div>
@@ -145,109 +146,17 @@
 @section('scripts')
 @parent
 
- <!-- jquery.inputmask -->
- {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
- <!-- moment -->
- {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
- <!-- bootstrap-daterangepicker -->
- {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
+  <!-- jquery.inputmask -->
+  {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+  <!-- moment -->
+  {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
+  <!-- bootstrap-daterangepicker -->
+  {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
 
-    <script>
+  <script>
+  var acept_term_obligatory = "{{ trans('app.acept_term_obligatory') }}";
+  </script>
 
-    $(".inputmask").inputmask();
-
-    $('#validaty_card').inputmask("99-99", { "placeholder": "MM-YY" });
-
-    $('#birthday').datetimepicker({
-      format: 'DD-MM-YYYY',
-      ignoreReadonly: true,
-      viewMode: 'years'
-    });
-
-    $('#login-form-link').click(function(e) {
-        $("#login-form").delay(100).fadeIn(100);
-      $("#register-form").fadeOut(100);
-      $('#register-form-link').removeClass('active');
-      $(this).addClass('active');
-      e.preventDefault();
-    });
-    $('#register-form-link').click(function(e) {
-      $("#register-form").delay(100).fadeIn(100);
-      $("#login-form").fadeOut(100);
-      $('#login-form-link').removeClass('active');
-      $(this).addClass('active');
-      e.preventDefault();
-    });
-
-    $(document).on('click', '#btn-register', function (e) {
-        e.preventDefault();
-        var form = $('#form_register'); 
-        if( $('#accept_terms').is(':checked') ) {
-          showLoading();
-          $.ajax({
-              url: form.attr('action'),
-              type: 'post',
-              data: form.serialize(),
-              dataType: 'json',
-              success: function(response) {
-                  hideLoading();
-                  var message = '';
-                  if(response.success){
-                      notify('success', response.message);
-                      if(response.url_return) {
-                          showLoading();
-                          window.location.href = response.url_return;
-                      }
-                  } else {
-                    if(response.validator) {
-                      var message = '';
-                      $.each(response.message, function(key, value) {
-                        message += value+' ';
-                      });
-                      notify('error', message);
-                    } else {
-                      notify('error', response.message);
-                    }
-                  }
-              }
-          });
-        } else {
-          notify('error', "@lang('app.acept_term_obligatory')");
-        }
-    });
-
-    $(document).on('click', '#accept_terms', function (e) {
-        if( $('#accept_terms').is(':checked') ) {
-          document.getElementById('btn-register').disabled = false;
-        } else {
-          document.getElementById('btn-register').disabled = true;
-        }
-    });
-
-    $(document).ready(function() {
-
-      $('form').keypress(function(e){   
-        if(e == 13){
-          return false;
-        }
-      });
-
-      $('input').keypress(function(e){
-        if(e.which == 13){
-          return false;
-        }
-      });
-
-    });
-
-    function showLoading() {
-        $('#loading').addClass('is-active');
-    }
-
-    function hideLoading() {
-        $('#loading').removeClass('is-active'); 
-    }
-
-    </script>
+  {!! HTML::script('public/assets/js/client_login.js') !!}
 
 @endsection

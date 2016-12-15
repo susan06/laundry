@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'lastname' => 'required|max:30',
             'email' => 'required|email|max:255|unique:users',
             'birthday' => 'date',
+            'phone' => 'required|numeric|min:9',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6'
         ];
@@ -112,6 +113,7 @@ class RegisterController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'birthday' => $request->birthday,
+            'phone' => $request->phone_mobile,
             'password' => $request->password,
             'password_confirmation' => $request->password_confirmation
         ];
@@ -149,10 +151,11 @@ class RegisterController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'url_return' => url('login'),
                     'message' => $message
                 ]);
             } 
+
+            return redirect('login')->withSuccess($message);
 
         } else {
 
@@ -162,12 +165,13 @@ class RegisterController extends Controller
 
                 return response()->json([
                     'success' => false,
-                    'validation' => true,
+                    'validator' => true,
                     'message' => $messages
                 ]);
-            } else {
-                return redirect('login')->withErrors($messages);
-            }
+            } 
+
+            return redirect('login')->withErrors($messages);
+            
 
         }   
     }
