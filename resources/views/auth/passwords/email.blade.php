@@ -1,6 +1,7 @@
 <!-- form reset password -->
 <form id="reset-form" action="{{ url('/password/remind') }}" method="post" role="form" style="display: none;">
   {{ csrf_field() }}
+  <input type="hidden" name="admin" value="{{ $admin }}">
     <div class="form-group">
       <input type="email" name="email" id="email_reset" class="form-control has-feedback-left" placeholder="@lang('app.email')">
       <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>

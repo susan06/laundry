@@ -15,6 +15,7 @@
         return redirect()->route('login');
     });
 
+    Route::get('login', 'Auth\LoginController@getLogin')->name('login');
     Route::get('panel', 'Auth\LoginController@getPanel')->name('panel');
     Route::get('logout', 'Auth\LoginController@getLogout')->name('auth.logout');
     Route::post('authenticate/client', 'Auth\LoginController@authenticate_client');
@@ -22,10 +23,11 @@
     Route::post('registration', 'Auth\RegisterController@registration');
     Route::get('register/confirmation/{token}', 'Auth\LoginController@confirmEmail')->name('confirm.email');
     Route::post('password/remind', 'Auth\ForgotPasswordController@sendPasswordReminder');
-
-    Auth::routes();
+    Route::get('password/reset/{admin}/{token}', 'Auth\ResetPasswordController@getReset');
+    Route::post('password/reset', 'Auth\ResetPasswordController@postReset');
 
     Route::get('/home', 'HomeController@index');
+
 
     /**
      * Setting of system

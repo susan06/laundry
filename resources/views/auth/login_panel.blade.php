@@ -62,7 +62,6 @@
 
 @endsection
 
-
 @section('scripts')
 @parent
 

@@ -15,10 +15,10 @@
 							<p class="lead">@lang('app.click_on_link_below')</p>
 							<!-- Callout Panel -->
 							<p class="callout">
-								<a href="{{ url('password/reset/' . $token) }}">@lang('app.reset_password')</a>
+								<a href="{{ url('password/reset/'.$admin.'/' . $token.'?email='.$user->email) }}">@lang('app.reset_password')</a>
 							</p><!-- /Callout Panel -->	
 							<p class="lead">@lang('app.if_you_cant_click')</p>
-							<p class="callout">{{ url('password/reset/' . $token) }}</p>							
+							<p class="callout">{{ url('password/reset/'.$admin.'/' . $token.'?email='.$user->email) }}</p>							
 						</td>
 					</tr>
 				</table>

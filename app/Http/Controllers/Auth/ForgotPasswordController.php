@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Password;
 use Validator;
+use Password;
+use PasswordToken;
 use App\Mailers\UserMailer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use App\Repositories\User\UserRepository;
 
 class ForgotPasswordController extends Controller
@@ -17,19 +17,6 @@ class ForgotPasswordController extends Controller
      * @var UserRepository
      */
     private $users;
-
-    /*
-    |--------------------------------------------------------------------------
-    | Password Reset Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller is responsible for handling password reset emails and
-    | includes a trait which assists in sending these notifications from
-    | your application to your users. Feel free to explore this trait.
-    |
-    */
-
-    use SendsPasswordResetEmails;
 
     /**
      * Create a new controller instance.
@@ -45,7 +32,7 @@ class ForgotPasswordController extends Controller
     /**
      * Send a reset link to the given user.
      *
-     * @param PasswordRemindRequest $request
+     * @param Request $request
      * @param UserMailer $mailer
      * @return \Illuminate\Http\Response
      */
@@ -56,8 +43,8 @@ class ForgotPasswordController extends Controller
         if ( $validator->passes() ) {
 
             $user = $this->users->findByEmail($request->get('email'));
-            $token = Password::getRepository()->create($user);
-            $mailer->sendPasswordReminder($user, $token);
+            $token = app('auth.password.broker')->createToken($user);
+            $mailer->sendPasswordReminder($user, $token, $request->get('admin'));
 
             if ( $request->ajax() ) {
 
@@ -100,4 +87,5 @@ class ForgotPasswordController extends Controller
 
         return Validator::make($data, $rules);
     }
+
 }

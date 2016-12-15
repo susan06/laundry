@@ -49,6 +49,18 @@ class LoginController extends Controller
         $this->users = $users;
     }
 
+    /**
+     * Show login form client.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLogin()
+    {
+        $admin = 'false';
+
+        return view('auth.login', compact('admin'));
+    }
+
      /**
      * Show login form panel.
      *
@@ -56,7 +68,9 @@ class LoginController extends Controller
      */
     public function getPanel()
     {
-        return view('auth.login_panel');
+        $admin = 'true';
+
+        return view('auth.login_panel', compact('admin'));
     }
 
      /**
