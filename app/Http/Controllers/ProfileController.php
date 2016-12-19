@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use Illuminate\Http\Request;
 
 use App\User;
@@ -34,6 +35,29 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
         $this->users = $users;
+    }
+
+     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $id = null)
+    {
+        $rules = [
+            'name' => 'required|min:3',
+            'lastname' => 'required|min:3',
+            'phone_mobile' => 'required|numeric|min:9'
+        ];
+
+        if ($id) {
+            $rules['email'] = 'required|email|max:255|unique:users,email,'.$id;
+        } else {
+            $rules['email'] = 'required|email|max:255|unique:users';
+        }
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -88,29 +112,41 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfile $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = [
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
-            'birthday' => $request->birthday
-        ];
+        $validator = $this->validator($request->all(), $id);
+        if ( $validator->passes() ) {
+            $data = [
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+                'birthday' => $request->birthday
+            ];
 
-        $user = $this->users->update($id, $data);
-        if ( $user ) {
+            $user = $this->users->update($id, $data);
+            if ( $user ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.user_updated')
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.user_updated')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
         } else {
-            
+            $messages = $validator->errors()->getMessages();
+
             return response()->json([
                 'success' => false,
-                'message' => trans('app.error_again')
+                'validator' => true,
+                'message' => $messages
             ]);
+
         }
     }
 

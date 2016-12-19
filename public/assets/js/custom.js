@@ -301,10 +301,10 @@ $(document).on('click', '.create-edit-show', function () {
 //save or update form modal
 $(document).on('click', '.btn-submit', function (e) {
     e.preventDefault();
+    console.log("ruta"); 
     showLoading();
-    var form_id = $(this).closest("form").attr("id"); 
-    var form = $('#'+form_id);
-    var type = $('#'+form_id+' input[name="_method"]').val();
+    var form = $('#form-modal'); 
+    var type = $('#form-modal input[name="_method"]').val();
     if(typeof type == "undefined") {
         type = form.attr('method');
     }
@@ -314,6 +314,7 @@ $(document).on('click', '.btn-submit', function (e) {
         data: form.serialize(),
         dataType: 'json',
         success: function(response) {
+            console.log(response);
             hideLoading();
             if(response.success){
                 if(current_model == 'modal') {
