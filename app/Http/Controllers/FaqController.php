@@ -31,7 +31,22 @@ class FaqController extends Controller
      */
     public function index(Request $request)
     {
-        //
+        $faqs = $this->faqs->all();
+        if ( $request->ajax() ) {
+            if (count($faqs)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('faqs.clients.list', compact('faqs'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('faqs.clients.index', compact('faqs'));
     }
 
     /**

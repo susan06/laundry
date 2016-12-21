@@ -13,9 +13,17 @@
   <div class="row invoice-info">
     <div class="col-sm-4 invoice-col">
       <address>
-          <strong>@lang('app.client'): {{ $order->user->full_name() }}</strong>
+          <strong>@lang('app.client'):</strong> {{ $order->user->full_name() }}
           <br>
-          @lang('app.email'): {{ $order->user->email }}
+          <strong>@lang('app.email'):</strong> {{ $order->user->email }}
+          <br>
+          <strong>@lang('app.search_date'):</strong> {{ $order->date_search }}
+          <br>
+          <strong>@lang('app.search_hour'):</strong> {{ $order->get_time_search() }}
+          <br>
+          <strong>@lang('app.delivery_date'):</strong> {{ $order->date_delivery }}
+          <br>
+          <strong>@lang('app.delivery_hour'):</strong> {{ $order->get_time_delivery() }}
       </address>
     </div>
     <div class="col-sm-4 invoice-col"></div>
@@ -23,7 +31,7 @@
       @if($order->user->client_location)
       @lang('app.address'):
       <br>
-      {{ $order->user->client_location->first()->address }}
+      {{ $order->client_location->address }}
       @endif
       <br>
       {{ $order->user->label_phones() }}

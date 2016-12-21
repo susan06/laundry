@@ -117,7 +117,7 @@
     Route::resource('driver', 'DriverController');
 
     /**
-     * Faqs 
+     * Faqs clients
     */
     Route::resource('faq', 'FaqController');
 

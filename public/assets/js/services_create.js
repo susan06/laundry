@@ -253,17 +253,19 @@ function total() {
 
 $(document).on('click', '.add-cart', function () {
   var $this = $(this);
+  $this.addClass('not_clic');
+  $this.closest('.thumbnail').addClass('thumbnail-green');
   $.ajax({
       url: url_package_get_details,
       type:'GET',
       data: {'id': $this.attr('id') },
       success: function(response) {
           if(response.success){
-              $this.addClass('not_clic');
-              $this.closest('.thumbnail').addClass('thumbnail-green');
               notify('success', package_added);
               add_package(JSON.parse(response.details), JSON.parse(response.prices));
           } else {
+              $this.removeClass('not_clic');
+              $this.closest('.thumbnail').removeClass('thumbnail-green');
               notify('error', response.message);
           }
          

@@ -9,5 +9,12 @@
           <a href="{{ secure_url(route('my.orders')) }}" title="@lang('app.my_orders')"><i class="fa fa-file-o"></i> @lang('app.my_orders')
           </a>
         </li>
-        <!--//My Orders -->        
+        <!--//My Orders --> 
+
+        <!--faqs -->
+        <li>
+          <a href="{{ route('faq.index') }}" title="@lang('app.faqs')"><i class="fa fa-info"></i> @lang('app.faqs')
+          </a>
+        </li>
+        <!--//faqs -->       
  

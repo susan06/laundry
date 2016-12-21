@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Settings;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -60,6 +61,52 @@ class Order extends Model
     {
         $this->attributes['date_delivery'] = date_format(date_create($value), 'Y-m-d');
     }
+
+    public function getDateSearchAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
+    }
+
+    public function getDateDeliveryAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
+    }
+
+    public function get_time_search()
+    {
+        if(Settings::get('working_hours')) {
+            $working_hours = json_decode(Settings::get('working_hours'), true);
+        } else {
+            $working_hours = array();
+        }
+
+        $time_search = null;
+        foreach ($working_hours as $key => $working_hour) {
+            if($working_hour['id'] == $this->time_search) {
+                $time_search = $working_hour['interval'];
+            }
+        }
+
+        return $time_search;
+    }
+
+     public function get_time_delivery()
+    {
+        if(Settings::get('delivery_hours')) {
+            $time_deliveries = json_decode(Settings::get('delivery_hours'), true);
+        } else {
+            $time_deliveries = array();
+        }
+
+        $time_delivery = null;
+        foreach ($time_deliveries as $key => $time) {
+            if($time['id'] == $this->time_delivery) {
+                $time_delivery = $time['interval'];
+            }
+        }
+
+        return $time_delivery;
+    }
     
     /**
      * Relationships
@@ -68,6 +115,11 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function client_location()
+    {
+        return $this->belongsTo(ClientLocation::class, 'client_location_id');
     }
 
     public function order_package()

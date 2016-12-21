@@ -612,6 +612,8 @@ return [
     'are_you_sure_delete_driver' => 'Seguro que desea eliminar esta Conductor?',
     'my_itinerary' => 'Mi Itinerario',
     'order'        => 'Orden',
+    'search_date'=> 'Fecha de Búsqueda',
+    'search_hour'=> 'Hora de Búsqueda',
     'delivery_date'=> 'Fecha de Entrega',
     'delivery_hour'=> 'Hora de Entrega',
     'address'      => 'Dirección',
