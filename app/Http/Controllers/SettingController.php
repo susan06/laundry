@@ -60,6 +60,28 @@ class SettingController extends Controller
         return view('setting.conditions_and_privacy');
     }
 
+     /**
+     * Show information for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     *
+     */
+    public function conditions_client(Request $request)
+    {
+        return view('setting.clients.terms_conditions');
+    }
+
+    /**
+     * Show information for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     *
+     */
+    public function privacy_client(Request $request)
+    {
+        return view('setting.clients.politics_privacy');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

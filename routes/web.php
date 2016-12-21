@@ -44,6 +44,14 @@
      		'SettingController@conditions_and_privacy')
     		->name('setting.conditions_and_privacy');
 
+        Route::get('/client/terms_conditions',
+            'SettingController@conditions_client')
+            ->name('setting.client.conditions');
+
+        Route::get('/client/politics_privacy',
+            'SettingController@privacy_client')
+            ->name('setting.client.privacy');
+
         Route::get('/working_hours',
             'SettingController@working_hours')
             ->name('setting.working.hours');
@@ -148,31 +156,9 @@
     Route::get('package/details', 'PackageController@details')->name('package.get.details');
     Route::resource('package', 'PackageController');
 
+
+
     /************************************rutas que mas adelante se deben eliminar ************/
-
-    /**
-     * Request Services
-    */
-    Route::get('services', [
-        'as' => 'client.services',
-        'uses' => 'ClientController@requestServices'
-    ]);
-
-    /**
-     * Terms and Conditions
-    */
-    Route::get('terms', [
-        'as' => 'client.terms',
-        'uses' => 'ClientController@termsAndConditions'
-    ]);
-
-    /**
-     * Client Orders
-    */
-    Route::get('ordersClient', [
-        'as' => 'client.orders',
-        'uses' => 'ClientController@myOrders'
-    ]);
 
     /**
      * My Profile
@@ -180,22 +166,6 @@
     Route::get('profileClient', [
         'as' => 'client.profile',
         'uses' => 'ClientController@myProfile'
-    ]);
-
-    /**
-     * Frequent Questions
-    */
-    Route::get('questions', [
-        'as' => 'client.questions',
-        'uses' => 'ClientController@frequentQuestions'
-    ]);
-
-    /**
-     * Privacy Policies
-    */
-    Route::get('privacy', [
-        'as' => 'client.privacy',
-        'uses' => 'ClientController@privacyPolicies'
     ]);
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'titulo')
+@section('page-title', trans('app.terms_and_conditions'))
 
 @section('content')
 
@@ -9,12 +9,15 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-          <div class="x_title">
-            <h2>@lang('app.clients') <small>@lang('app.frequent_questions')</small></h2>
+          <div class="page-title">
+            <div class="title_left">
+              <h3>@lang('app.terms_and_conditions')</h3>
+            </div>
             <div class="clearfix"></div>
           </div>
+
           <div class="x_content">
-              @include('clients.partials.frequent_questions')
+              {!! Settings::get('terms_and_conditions') !!}
           </div>
         </div>
       </div>
@@ -24,6 +27,3 @@
 
 @endsection
 
-@section('scripts')
-
-@endsection
