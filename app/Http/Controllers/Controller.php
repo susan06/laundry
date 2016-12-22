@@ -19,7 +19,5 @@ class Controller extends BaseController
 		    $user = User::find(Auth::user()->id);
 		    Session::put('locale',$user->lang);
 		}
-        $this->middleware('locale'); 
-        $this->middleware('timezone'); 
     }
 }

@@ -16,15 +16,15 @@
               <div class="clearfix"></div>
             </div>
 
-            <div class="col-md-3 col-sm-3 col-xs-12 profile_avatar">
+            <div class="col-md-4 col-sm-4 col-xs-12 profile_avatar">
             {!! Form::model($user, ['route' => ['update.avatar', $user->id], 'method' => 'PUT', 'class' => 'form-horizontal',  'files' => 'true']) !!}
                   <div class="img-responsive avatar-view">
-                        <img  src="{!! $user->avatar() !!}" width="200" height="190" alt="Avatar">
+                        <img class="avatar-view-img" id="avatar-view-img" src="{!! $user->avatar() !!}" height="190" alt="Avatar">
                   </div>
                   <br/>
                   <input style="display: none;" type="file" id="profile_image" name="avatar" value=""/>
                   <br/>
-                  <button style="display: none;" type="submit" data-href="{{ route('edit.avatar', $user->id) }}" class="btn btn-primary col-md-6 col-sm-6 col-xs-12"> @lang('app.change_photo')
+                  <button style="display: none;" type="submit" id="submit_image" class="btn btn-primary col-md-12 col-sm-12 col-xs-12"> @lang('app.change_photo')
                   </button>  
             {!! Form::close() !!}
             </div>
@@ -57,4 +57,31 @@
  <!-- bootstrap-daterangepicker -->
  {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
 
+<script type="text/javascript">
+
+  $(document).on('click', '.avatar-view', function () {
+    $("#profile_image").trigger('click');
+  });
+
+  $(document).on('change', '#profile_image', function () {
+    $("#submit_image").show();
+    showLoading();
+    if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#avatar-view-img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]);
+    }
+    hideLoading();
+  });
+
+  $(document).on('click', '#submit_image', function () {
+    showLoading();
+  });
+  
+
+</script>
 @endsection

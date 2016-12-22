@@ -476,7 +476,7 @@ function loadResposiveTable() {
 }
 
 $(document).on('change', '#file_image', function () { 
-    $('.loading').show();
+    showLoading();
     if (this.files && this.files[0]) {
         var reader = new FileReader();
 
@@ -486,7 +486,7 @@ $(document).on('change', '#file_image', function () {
 
         reader.readAsDataURL(this.files[0]);
     }
-    $('.loading').hide();
+    hideLoading();
 });
 
 function showLoading() {

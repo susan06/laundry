@@ -22,6 +22,8 @@ class RoleController extends Controller
     public function __construct(RoleRepository $roles)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->roles = $roles;
     }
 

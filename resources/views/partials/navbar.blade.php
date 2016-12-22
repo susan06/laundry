@@ -15,7 +15,7 @@
           <ul class="dropdown-menu dropdown-usermenu pull-right">
             <li><a href="{{ route('profile.index')}}"> @lang('app.profile')</a></li>
             <li>
-              <a href="javascript:void(0)">
+              <a href="{{ route('user.setting') }}">
                 <span>@lang('app.settings')</span>
               </a>
             </li>

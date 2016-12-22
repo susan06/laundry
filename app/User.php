@@ -26,7 +26,8 @@ class User extends Authenticatable
         'lastname', 
         'email', 
         'password', 
-        'status', 
+        'status',
+        'avatar', 
         'lang', 
         'role_id', 
         'last_login', 
@@ -83,7 +84,7 @@ class User extends Authenticatable
             return asset('public/images/noimage.png');
         }
 
-        return asset('storage/users/'.$user->avatar);
+        return asset('storage/app/users/'.$this->avatar);
     }
 
     public function label_phones()

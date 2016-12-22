@@ -31,6 +31,8 @@ class OrderController extends Controller
     public function __construct(OrderRepository $orders, ClientRepository $clients)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->orders = $orders;
         $this->clients = $clients;
     }

@@ -30,6 +30,8 @@ class CouponController extends Controller
     public function __construct(CouponRepository $coupons)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->coupons = $coupons;
     }
 

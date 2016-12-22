@@ -73,6 +73,8 @@
     Route::get('user/drivers', 'UserController@driver_index')->name('admin.driver.index');
     Route::get('user/password', 'UserController@password')->name('user.password');
     Route::put('user/password', 'UserController@change_password')->name('user.password.update');
+    Route::get('user/setting', 'UserController@setting')->name('user.setting');
+    Route::put('user/setting', 'UserController@update_setting')->name('user.setting.update');
     Route::resource('user', 'UserController');
 
     /**
@@ -83,10 +85,8 @@
     /**
     *  Profile
     */
+    Route::put('profile/avatar', 'ProfileController@updateAvatar')->name('update.avatar');
     Route::resource('profile', 'ProfileController');
-    Route::post('profile/editAvatar', 'ProfileController@editAvatar')->name('edit.avatar');
-    Route::post('profile/updateAvatar', 'ProfileController@updateAvatar')->name('update.avatar');
-
 
     /**
      * Coupons administrations

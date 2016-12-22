@@ -7,6 +7,15 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     /**
+     * ClientController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

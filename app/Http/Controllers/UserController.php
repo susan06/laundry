@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use Config;
+use App;
+use Session;
 use Validator;
 use App\User;
 use DateTime;
@@ -29,6 +32,8 @@ class UserController extends Controller
     public function __construct(UserRepository $users)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->users = $users;
     }
 
@@ -269,6 +274,10 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Change password
+     *
+     */
     public function password() {
 
         return view('users.change_password');
@@ -335,6 +344,42 @@ class UserController extends Controller
     {
         $user->password = $password;
         $user->save();
+    }
+
+    /**
+     * form setting of user
+     *
+     */
+    public function setting() {
+
+        $user = Auth::user();
+        $languages = [
+            'es' => trans('app.spanish'),
+            'en' => trans('app.english')
+        ]; 
+
+        return view('users.setting', compact('user', 'languages'));
+    }
+
+    /**
+     * Update setting of user
+     *
+     */
+    protected function update_setting(Request $request)
+    {
+        $user = $this->users->update(Auth::user()->id, $request->all());
+
+        if($user) {
+            Config::set('app.locale', $request->get('lang'));
+            App::setLocale($request->get('lang'));
+            Session::put('locale', $request->get('lang'));
+
+            return back()->withSuccess(trans('app.settings_updated'));
+        } else {
+
+            return back()->withErrors(trans('app.error_again'));
+        }
+
     }
 
 }

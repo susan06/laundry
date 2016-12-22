@@ -803,5 +803,7 @@ return [
     //ordenes o solicitud de servicios
     'order_created' => 'Orden creada',
 
+    'select_lang' => 'Seleccionar idioma',
+
 
 ];

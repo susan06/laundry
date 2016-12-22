@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use DateTime;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\User;
 use App\Http\Requests;
@@ -13,7 +15,6 @@ use App\Repositories\Role\RoleRepository;
 use App\Http\Requests\User\CreateUser;
 use App\Http\Requests\User\UpdateUser;
 use App\Http\Requests\Profile\UpdateProfile;
-use App\Http\Requests\Profile\UpdateAvatar;
 use App\Support\User\UserStatus;
 
 class ProfileController extends Controller
@@ -34,6 +35,8 @@ class ProfileController extends Controller
     public function __construct(UserRepository $users)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->users = $users;
     }
 
@@ -156,36 +159,62 @@ class ProfileController extends Controller
     }
 
 
-    public function updateAvatar(UpdateAvatar $request, $id)
+    /**
+     * Get a validator for avatar
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator_avatar(array $data)
     {
-        $user = $this->users->find($id);
-        $file = $request->avatar;
-        $file_name = $user->avatar;
-        if($file){
-            if ($file->isValid()) {
-                \File::delete(storage_path('storage/users').'/'.$file_name);
-                Storage::delete($file_name);
-                $date = new DateTime();
-                $file_name = $date->getTimestamp().'.'.$file->extension();
-                $path = $file->storeAs('users', $file_name);
-            }else{
-
-                return back()->withError(trans('app.error_upload_file'));
-            }
-        }
-        $data = [
-            'avatar' => $file_name
+        $rules = [
+            'avatar' => 'required|image|dimensions:min_width=200,min_height=150',
         ];
-        $users = $this->users->update($id, $data);
-        if ( $user ) {
 
-            return back()->withSuccess(trans('app.update_photo')); 
+        return Validator::make($data, $rules);
+    }
 
+    public function updateAvatar(Request $request)
+    {
+        $validator = $this->validator_avatar($request->only('avatar'));
+        if ( $validator->passes() ) {
+            $file = $request->avatar;
+            $date = new DateTime();
+            if(Auth::user()->avatar){
+                $file_name = Auth::user()->avatar;
+            } else {
+                $file_name = $date->getTimestamp().'.'.$file->extension();
+            }
+            if($file){
+                if ($file->isValid()) {
+                    \File::delete(storage_path('app/users').'/'.$file_name);
+                    Storage::delete($file_name);
+                    $date = new DateTime();
+                    $file_name = $date->getTimestamp().'.'.$file->extension();
+                    $path = $file->storeAs('users', $file_name);
+                }else{
+
+                    return back()->withError(trans('app.error_upload_file'));
+                }
+            }
+            $data = [
+                'avatar' => $file_name
+            ];
+            $user = $this->users->update(Auth::user()->id, $data);
+   
+            if ( $user ) {
+
+                return back()->withSuccess(trans('app.update_photo')); 
+            } else {
+                
+                return back()->withError(trans('app.error_again'));
+            }
         } else {
-            
-            return back()->withError(trans('app.error_again'));
+            $messages = $validator->errors()->getMessages();
 
+            return back()->withErrors($messages);
         }
+       
     }
 
 }

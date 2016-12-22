@@ -3074,6 +3074,10 @@ ul.project_files li a i {
   max-height: 200px;
   text-align: center; }
 
+img.avatar-view-img {
+  width: 100%;
+}
+
 .avatar-body {
   padding-right: 15px;
   padding-left: 15px; }

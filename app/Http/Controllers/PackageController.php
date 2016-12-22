@@ -19,6 +19,8 @@ class PackageController extends Controller
     public function __construct(PackageRepository $packages)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->packages = $packages;
     }
 

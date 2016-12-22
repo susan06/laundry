@@ -28,7 +28,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.image')">@lang('app.image') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-      <img class="img-responsive avatar-view" id="image_upload" src="{!! asset('storage/users/'.$user->avatar) !!}" alt="Package" title="@lang('app.change_photo')">
+      <img class="img-responsive avatar-view" id="image_upload" src="{!! asset('storage/app/packages/'.$package->image) !!}" alt="Package" title="@lang('app.change_photo')">
       <input type="file" id="file_image" name="image" value=""/>
       <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
     </div>

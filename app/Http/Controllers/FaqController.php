@@ -22,6 +22,8 @@ class FaqController extends Controller
     public function __construct(FaqRepository $faqs)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->faqs = $faqs;
     }
     /**
