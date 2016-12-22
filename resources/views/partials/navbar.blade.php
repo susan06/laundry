@@ -15,9 +15,15 @@
           <ul class="dropdown-menu dropdown-usermenu pull-right">
             <li><a href="{{ route('profile.index')}}"> @lang('app.profile')</a></li>
             <li>
+            @if (Auth::user()->role->name == 'client')
+              <a href="{{ route('client.setting') }}">
+                <span>@lang('app.settings')</span>
+              </a>
+            @else
               <a href="{{ route('user.setting') }}">
                 <span>@lang('app.settings')</span>
               </a>
+            @endif
             </li>
             <li>
               <a href="{{ route('user.password') }}">

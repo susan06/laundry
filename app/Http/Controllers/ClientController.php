@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Config;
+use App;
+use Session;
 use Illuminate\Http\Request;
+use App\Repositories\Client\ClientRepository;
 
 class ClientController extends Controller
 {
     /**
+     * @var ClientRepository
+     */
+    private $clients;
+
+    /**
      * ClientController constructor.
      */
-    public function __construct()
+    public function __construct(ClientRepository $clients)
     {
+        $this->middleware('auth');
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
+        $this->clients = $clients;
     }
 
     /**
@@ -90,55 +102,50 @@ class ClientController extends Controller
     {
         //
     }
-
+ 
     /**
-     * Show the form for request services.
+     * form setting 
      *
-     * @return \Illuminate\Http\Response
      */
-    public function requestServices()
-    {
-        return view('clients.services');
+    public function setting() {
+
+        $user = Auth::user();
+        $languages = [
+            'es' => trans('app.spanish'),
+            'en' => trans('app.english')
+        ]; 
+
+        $locations_label = $this->clients->lists_locations_labels(Auth::user()->id);
+
+        return view('clients.setting', compact('user', 'languages', 'locations_label'));
     }
 
     /**
-     * Show the list of orders.
+     * Update setting of user
      *
-     * @return \Illuminate\Http\Response
      */
-    public function myOrders()
+    protected function update_setting(Request $request)
     {
-        return view('clients.orders');
-    }
+        $client = $this->clients->update(Auth::user()->id, $request->only('lang'));
+        $locations_label = $request->location_label;
+        foreach( $locations_label as $key => $value ) {
+            $locations[$key+1] = $value;
+        }
+        if($client) {
+            $location = $this->clients->update_locations_label(
+                Auth::user()->id, 
+                ['locations_labels' => json_encode($locations)]
+            );
+            Config::set('app.locale', $request->get('lang'));
+            App::setLocale($request->get('lang'));
+            Session::put('locale', $request->get('lang'));
 
-    /**
-     * Show the client´s profile.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function myProfile()
-    {
-        return view('clients.profile');
-    }
+            return back()->withSuccess(trans('app.settings_updated'));
+        } else {
 
-    /**
-     * Show the terms and conditions.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function termsAndConditions()
-    {
-        return view('clients.terms');
-    }
+            return back()->withErrors(trans('app.error_again'));
+        }
 
-    /**
-     * Show the privacy policies.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function privacyPolicies()
-    {
-        return view('clients.privacy');
     }
 
     /**

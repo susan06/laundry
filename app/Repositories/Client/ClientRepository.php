@@ -18,6 +18,14 @@ interface ClientRepository extends RepositoryInterface
      *
      */
     public function paginate_search($take = 10, $search = null);
+
+    /**
+     * update locations labels
+     *
+     * @param int $client
+     * @param array $data
+     */
+    public function update_locations_label($client, $data);
     
      /**
      * lists locations labels

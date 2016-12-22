@@ -119,6 +119,8 @@
     /**
      * Clients
     */
+    Route::get('client/setting', 'ClientController@setting')->name('client.setting');
+    Route::put('client/setting', 'ClientController@update_setting')->name('client.setting.update');
     Route::resource('client', 'ClientController');
 
     /**

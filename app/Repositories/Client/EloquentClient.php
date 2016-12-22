@@ -30,7 +30,6 @@ class EloquentClient extends Repository implements ClientRepository
         parent::__construct($client, $this->attributes);
         $this->locations = $locations;
     }
-
   
      /**
      * lists locations labels
@@ -42,6 +41,20 @@ class EloquentClient extends Repository implements ClientRepository
         $setting = ClientSetting::where('user_id', $client)->first();
 
         return json_decode($setting->locations_labels, true);
+    }
+
+    /**
+     * update locations labels
+     *
+     * @param int $client
+     * @param array $data
+     */
+    public function update_locations_label($client, $data)
+    {
+        $location = ClientSetting::where('user_id', $client)->first();
+        $setting = $location->update($data);
+        
+        return $setting;  
     }
 
     /**

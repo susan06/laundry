@@ -734,9 +734,11 @@ return [
     //sucursales
     'add_address' => 'Agregar direcciones',
     'add_locations' => 'Agregar localizaciones',
+    'add_location_label' => 'Agregar etiqueta',
     'my_location' => 'Mi ubicación',
     'location' => 'Localización',
     'locations' => 'Localizaciones',
+    'locations_label' => 'Etiquetas de mis localizaciones',
     'error_geolocation' => 'Ocurrió un error en la geo-localización, su navegador tal vez no soporta el servicio o su GPS no esta encendido',
     'address_add_autocomplete' => 'Agregar dirección por autocompletado',
     'show_services' => 'Ver servicios',

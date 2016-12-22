@@ -358,7 +358,7 @@ class UserController extends Controller
             'en' => trans('app.english')
         ]; 
 
-        return view('users.setting', compact('user', 'languages'));
+        return view('users.setting', compact('user', 'languages', 'locations_labels'));
     }
 
     /**
