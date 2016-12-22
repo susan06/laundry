@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use Validator;
 use App\User;
 use DateTime;
 use App\Http\Requests;
@@ -266,6 +267,74 @@ class UserController extends Controller
                 'message' => trans('app.error_again')
             ]);
         }
+    }
+
+    public function password() {
+
+        return view('users.change_password');
+    }
+
+    /**
+     * Get a validator for change password.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator_password(array $data)
+    {
+        $rules = [
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6'
+        ];
+        return Validator::make($data, $rules);
+    }
+
+    public function change_password(Request $request) {
+        $validator = $this->validator_password($request->only(
+            'password', 'password_confirmation'
+        ));
+        if ( $validator->passes() ) {          
+            $this->updatePassword(Auth::user(), $request->get('password'));
+            $message = trans('app.updated_password');
+
+             if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => true,
+                    'message' => $message
+                ]);
+            } 
+
+            return back()->withSuccess($message);
+
+        } else {
+
+            $messages = $validator->errors()->getMessages();
+
+            if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            } 
+
+            return back()->withErrors($messages);         
+        }  
+    }
+
+    /**
+     * Change the given user's password.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $password
+     * @return void
+     */
+    protected function updatePassword($user, $password)
+    {
+        $user->password = $password;
+        $user->save();
     }
 
 }

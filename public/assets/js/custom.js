@@ -330,6 +330,7 @@ $(document).on('click', '.btn-submit', function (e) {
                     }
                 }
                 notify('success', response.message);
+                form.get(0).reset();
                 getPages(CURRENT_URL);
             } else {
                 if(response.validator) {

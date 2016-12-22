@@ -196,6 +196,8 @@ return [
     'your_email' => 'Su email',
     'username' => 'Usuario',
     'confirm_password' => 'Confirmar contraseña',
+    'change_password' => 'Cambiar contraseña',
+    'updated_password' => 'Contraseña combaida exitosamente',
     'i_accept' => 'Yo acepto',
     'terms_of_service' => 'Terminos del servicio',
     'validate' => 'Validar',

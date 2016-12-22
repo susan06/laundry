@@ -19,6 +19,11 @@
                 <span>@lang('app.settings')</span>
               </a>
             </li>
+            <li>
+              <a href="{{ route('user.password') }}">
+                <span>@lang('app.auth_and_registration')</span>
+              </a>
+            </li>
             <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out pull-right"></i> @lang('app.sign_out')</a></li>
           </ul>
         </li>
