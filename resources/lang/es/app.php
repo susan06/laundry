@@ -70,6 +70,7 @@ return [
     'coin' => 'Moneda',
     'phone_mobile' => 'Télefono Móvil',
     'phone_home' => 'Télefono Local',
+    'select' => 'Seleccionar',
     
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -730,6 +731,7 @@ return [
     'language_default' => 'Lenguaje por defecto',
     'country_default' => 'País por defecto',
     'timezone' => 'Zona Horaria',
+    'label' => 'Etiqueta',
 
     //sucursales
     'add_address' => 'Agregar direcciones',

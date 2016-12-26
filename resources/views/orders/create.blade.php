@@ -37,6 +37,35 @@
                   <div id="map-form"></div>
                 </div>
 
+                <table class="table">
+                  <thead>
+                  <tr>
+                    <th>@lang('app.label')</th>
+                    <th>@lang('app.address')</th>
+                    <th width="18%">Lat</th>
+                    <th width="18%">lng</th>
+                    <th width="10%"></th>
+                  </tr>
+                  </thead>
+                    <tbody id="locations_list" class="form-horizontal">
+                    @foreach($client->client_location as $key => $item)
+                      @if($item->confirmed)
+                      <tr>
+                        <td>{{ $item->get_label() }}</td>
+                        <td><input type="text" class="form-control" id="address_{{$key}}" class="form-control" value="{{ $item->address }}" readonly="readonly"></td>
+                        <td><input type="text" id="lat_{{$key}}" class="form-control" value="{{ $item->lat }}" readonly="readonly"></td>
+                        <td><input type="text" id="lng_{{$key}}" class="form-control" value="{{ $item->lng }}" readonly="readonly"></td>
+                        <td>
+                          <button type="button" data-label="{{ $item->get_label() }}" data-id="{{$key}}"  class="btn btn-success select-location"> 
+                            @lang('app.select')
+                          </button>
+                        </td>
+                      </tr>
+                      @endif
+                      @endforeach
+                    </tbody>
+                 </table>
+
                 <br />
                
                   {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
@@ -169,7 +198,7 @@
                     </div>
                   </div>
                 </div>
-                {!! Form::hidden('client_coupon_id', '0', ['id' => 'coupon_id']) !!}
+                {!! Form::hidden('client_coupon_id', '0', ['id' => 'client_coupon_id']) !!}
 
                 <div class="discount" style="display: none;">
                   <div class="t_title">

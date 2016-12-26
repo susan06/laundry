@@ -31,6 +31,21 @@ class ClientLocation extends Model
         'confirmed' => 'boolean'
     ];
 
+     public function get_label()
+    {
+        $setting = ClientSetting::where('user_id', $this->client_id)->first();
+        $locations = json_decode($setting->locations_labels, true);
+        $label = null;
+
+        foreach ($locations as $key => $value) {
+            if($this->label == $key) {
+                $label = $value;
+            }
+        }
+
+        return $label;
+    }
+
      /**
      * Relationships
      *

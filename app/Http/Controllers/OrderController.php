@@ -11,6 +11,7 @@ use App\Repositories\Order\OrderRepository;
 use App\Repositories\Client\ClientRepository;
 use App\Repositories\Payment\PaymentRepository;
 use App\Repositories\Package\PackageRepository;
+use App\Repositories\Coupon\ClientCouponRepository;
 
 class OrderController extends Controller
 {
@@ -24,17 +25,27 @@ class OrderController extends Controller
      */
     private $clients;
 
+     /**
+     * @var CouponRepository
+     */
+    private $coupons;
+
     /**
      * OrderController constructor.
      * @param OrderRepository $orders
      */
-    public function __construct(OrderRepository $orders, ClientRepository $clients)
+    public function __construct(
+        OrderRepository $orders, 
+        ClientRepository $clients,
+        ClientCouponRepository $coupons
+    )
     {
         $this->middleware('auth');
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
         $this->orders = $orders;
         $this->clients = $clients;
+        $this->coupons = $coupons;
     }
 
     /**
@@ -125,8 +136,9 @@ class OrderController extends Controller
         }
         $categories = ['' => trans('app.select_category')] + $packageRepository->lists_categories_actives();
         $locations_labels = $this->clients->lists_locations_labels(Auth::user()->id);
-   
-        return view('orders.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories'));
+        $client = $this->clients->find(Auth::user()->id);
+
+        return view('orders.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories', 'client'));
     }
 
     /**
@@ -177,6 +189,12 @@ class OrderController extends Controller
                             'name' => $value,
                             'price' => $prices[$key]
                             ]
+                        );
+                    }
+                    if($request->client_coupon_id != 0) {
+                        $coupon = $this->coupons->update(
+                            $request->client_coupon_id,
+                            ['status' => false]
                         );
                     }
                     return response()->json([

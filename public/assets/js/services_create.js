@@ -363,6 +363,24 @@ function discount() {
   }
 }  
 
+$(document).on('click', '.select-location', function () {
+  var $this = $(this);
+  console.log('here');
+  var id = $this.data('id');
+  $('#delivery_address').val($('#address_'+id).val());
+  $('#lat').val($('#lat_'+id).val());
+  $('#lng').val($('#lng_'+id).val());
+  var change_location = new google.maps.LatLng($('#lat_'+id).val(),$('#lng_'+id).val());
+  map.setCenter(change_location);
+  map.setZoom(16); 
+  marker.setPosition(change_location);
+  infowindow.close();
+  infowindow = new google.maps.InfoWindow();
+  var markerLatLng = marker.getPosition();
+  infowindow.setContent('<div class="lat-lng">'+$this.data('label')+'</div>');
+  infowindow.open(map, marker); 
+});
+
 $(document).ready(function() {
     initMap();
 });
