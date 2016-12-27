@@ -160,6 +160,11 @@
     Route::get('package/details', 'PackageController@details')->name('package.get.details');
     Route::resource('package', 'PackageController');
 
+    /**
+     * suggestios
+    */
+    Route::resource('suggestion', 'SuggestionController');
+
 
 
     /************************************rutas que mas adelante se deben eliminar ************/

@@ -52,6 +52,9 @@ use App\Repositories\Order\OrderPackageRepository;
 use App\Repositories\Payment\EloquentPayment;
 use App\Repositories\Payment\PaymentRepository;
 
+use App\Repositories\Suggestion\EloquentSuggestion;
+use App\Repositories\Suggestion\SuggestionRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -87,5 +90,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(OrderPaymentRepository::class, EloquentOrderPayment::class);
         $this->app->singleton(OrderPackageRepository::class, EloquentOrderPackage::class);
         $this->app->singleton(PaymentRepository::class, EloquentPayment::class);
+        $this->app->singleton(SuggestionRepository::class, EloquentSuggestion::class);
     }
 }

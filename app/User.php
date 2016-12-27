@@ -189,4 +189,9 @@ class User extends Authenticatable
         return $this->hasOne(BranchOffice::class, 'representative_id');
     }
 
+    public function suggestion()
+    {
+        return $this->hasOne(Suggestion::class, 'user_id');
+    }
+
 }

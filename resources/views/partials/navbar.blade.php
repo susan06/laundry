@@ -33,6 +33,13 @@
             <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out pull-right"></i> @lang('app.sign_out')</a></li>
           </ul>
         </li>
+        @if (Auth::user()->role->name == 'client')
+        <li role="presentation" class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle info-number send-suggestions" data-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-envelope-o"></i>
+          </a>
+        </li>
+        @endif
       </ul>
     </nav>
   </div>

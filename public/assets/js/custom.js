@@ -301,7 +301,6 @@ $(document).on('click', '.create-edit-show', function () {
 //save or update form modal
 $(document).on('click', '.btn-submit', function (e) {
     e.preventDefault();
-    console.log("ruta"); 
     showLoading();
     var form = $('#form-modal'); 
     var type = $('#form-modal input[name="_method"]').val();
@@ -314,7 +313,6 @@ $(document).on('click', '.btn-submit', function (e) {
         data: form.serialize(),
         dataType: 'json',
         success: function(response) {
-            console.log(response);
             hideLoading();
             if(response.success){
                 if(current_model == 'modal') {
@@ -324,9 +322,11 @@ $(document).on('click', '.btn-submit', function (e) {
                         showLoading();
                         window.location.href = response.url_return;
                     } else {
-                        $('#content-title').text(current_title);
-                        $('.btn-create').show();
-                        $('.top_search').show();
+                        if(current_model == 'content') {
+                            $('#content-title').text(current_title);
+                            $('.btn-create').show();
+                            $('.top_search').show();
+                        }
                     }
                 }
                 notify('success', response.message);
@@ -487,6 +487,10 @@ $(document).on('change', '#file_image', function () {
         reader.readAsDataURL(this.files[0]);
     }
     hideLoading();
+});
+
+$(document).on('click', '.send-suggestions', function () {
+    $('#suggestion-modal').modal('show');
 });
 
 function showLoading() {

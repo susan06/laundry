@@ -808,6 +808,9 @@ return [
     'order_created' => 'Orden creada',
 
     'select_lang' => 'Seleccionar idioma',
+    'suggestions' => 'Sugerencias',
+    'write_suggestion' => 'Escribe su Sugerencia',
+    'suggestion_sended' => 'Sugerencia enviada',
 
 
 ];

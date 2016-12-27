@@ -28,5 +28,5 @@
           <a href="{{ route('setting.client.privacy') }}" title="@lang('app.privacy_policies')"><i class="fa fa-file-text"></i> @lang('app.privacy_policies')
           </a>
         </li>
-        <!--//politics privacy -->     
+        <!--//politics privacy -->  
  
