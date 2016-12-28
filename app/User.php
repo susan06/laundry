@@ -194,4 +194,9 @@ class User extends Authenticatable
         return $this->hasOne(Suggestion::class, 'user_id');
     }
 
+    public function qualification()
+    {
+        return $this->hasOne(Qualification::class, 'user_id');
+    }
+
 }

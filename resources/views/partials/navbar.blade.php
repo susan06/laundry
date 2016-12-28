@@ -30,6 +30,13 @@
                 <span>@lang('app.auth_and_registration')</span>
               </a>
             </li>
+            @if (Auth::user()->role->name == 'client')
+            <li>
+              <a href="{{ route('qualification.create') }}">
+                <span>@lang('app.qualification')</span>
+              </a>
+            </li>
+            @endif
             <li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out pull-right"></i> @lang('app.sign_out')</a></li>
           </ul>
         </li>

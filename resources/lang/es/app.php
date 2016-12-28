@@ -811,6 +811,13 @@ return [
     'suggestions' => 'Sugerencias',
     'write_suggestion' => 'Escribe su Sugerencia',
     'suggestion_sended' => 'Sugerencia enviada',
+    'write_suggestion' => 'Escribe aqui tus sugerencias',
+    'qualification' => 'Calificación',
+    'qualifications' => 'Calificaciones',
+    'starts' => 'Estrellas',
+    'your_qualification' => 'Su calificación es de ',
+    'qualification_app' => 'Califica la aplicación',
+    'qualification_saved' => 'Su calificación ha sido guardada',
 
 
 ];

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableSuggestions extends Migration
+class CreateTableQualification extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTableSuggestions extends Migration
      */
     public function up()
     {
-        Schema::create('suggestions', function (Blueprint $table) {
+        Schema::create('qualifications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->text('content');
+            $table->integer('quantify');
             $table->timestamps();
             $table->engine = 'InnoDB';
             
@@ -32,6 +32,6 @@ class CreateTableSuggestions extends Migration
      */
     public function down()
     {
-        Schema::drop('suggestions');
+        Schema::drop('qualifications');
     }
 }

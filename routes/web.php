@@ -161,11 +161,14 @@
     Route::resource('package', 'PackageController');
 
     /**
-     * suggestios
+     * suggestions
     */
     Route::resource('suggestion', 'SuggestionController');
 
-
+    /**
+     * Qualification
+    */
+    Route::resource('qualification', 'QualificationController');
 
     /************************************rutas que mas adelante se deben eliminar ************/
 

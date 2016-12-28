@@ -27,9 +27,9 @@
       </div>
       <div class="modal-body">
        {!! Form::open(['route' => 'suggestion.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
-         <div class="form-group">
+         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
-          {!! Form::textarea('content', old('content'), ['class' => 'form-control']) !!}
+          {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'placeholder' => trans('app.write_suggestion')]) !!}
           </div>
         </div>
       </div>
