@@ -351,6 +351,44 @@ $(document).on('click', '.btn-submit', function (e) {
         }
     });
 });
+//save suggestion form modal
+$(document).on('click', '.btn-submit-suggestion', function (e) {
+    e.preventDefault();
+    showLoading();
+    var form = $('#form-modal-suggestion'); 
+    var type = $('#form-modal input[name="_method"]').val();
+    if(typeof type == "undefined") {
+        type = form.attr('method');
+    }
+    $.ajax({
+        url: form.attr('action'),
+        type: type,
+        data: form.serialize(),
+        dataType: 'json',
+        success: function(response) {
+            hideLoading();
+            if(response.success){
+                $('#suggestion-modal').modal('hide');
+                notify('success', response.message);
+            } else {
+                if(response.validator) {
+                  var message = '';
+                  $.each(response.message, function(key, value) {
+                    message += value+' ';
+                  });
+                  notify('error', message);
+                } else {
+                  notify('error', response.message);
+                }
+            }
+           
+        },
+        error: function (status) {
+            hideLoading();
+            notify('error', status.statusText);
+        }
+    });
+});
 
 //cancel return page old
 $(document).on('click', '.btn-cancel', function (e) {

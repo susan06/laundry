@@ -26,7 +26,7 @@
         <h4 class="modal-title">@lang('app.suggestions')</h4>
       </div>
       <div class="modal-body">
-       {!! Form::open(['route' => 'suggestion.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+       {!! Form::open(['route' => 'suggestion.store', 'id' => 'form-modal-suggestion', 'class' => 'form-horizontal form-label-left']) !!}
          <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
           {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'placeholder' => trans('app.write_suggestion')]) !!}
@@ -34,7 +34,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-submit col-sm-3 col-xs-6">@lang('app.send')</button>
+        <button type="submit" class="btn btn-primary btn-submit-suggestion col-sm-3 col-xs-6">@lang('app.send')</button>
         <button type="button" class="btn btn-default col-sm-3 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
       </div>
       {!! Form::close() !!}
