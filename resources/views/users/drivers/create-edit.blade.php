@@ -1,8 +1,8 @@
 <div class="modal-body">
 @if($edit)
-{!! Form::model($user, ['route' => ['admin-client.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+{!! Form::model($user, ['route' => ['admin-driver.update', $user->id], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @else
- {!! Form::open(['route' => 'admin-client.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+ {!! Form::open(['route' => 'admin-driver.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
 @endif
   <div class="form-group">
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.name')">@lang('app.name') <span class="required">*</span>

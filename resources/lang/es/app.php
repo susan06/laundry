@@ -91,6 +91,10 @@ return [
     'user_updated' => 'Usuario actualizado',
     'user_created' => 'Usuario creado',
     'user_created_defaut_pass' => 'Usuario creado, clave de acceso por defecto: secret',
+    'client_created_defaut_pass' => 'Cliente creado, clave de acceso por defecto: secret',
+    'driver_created_defaut_pass' => 'Conductor creado, clave de acceso por defecto: secret',
+    'driver_updated' => 'Conductor actualizado',
+    'deleted_driver' => 'Conductor eliminado',
 
     //Installation
     'installation' => 'Instalacion',

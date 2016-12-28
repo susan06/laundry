@@ -69,8 +69,6 @@
     /**
      * Adminitrations of Users
     */
-    Route::get('user/clients', 'UserController@client_index')->name('admin.client.index');
-    Route::get('user/drivers', 'UserController@driver_index')->name('admin.driver.index');
     Route::get('user/password', 'UserController@password')->name('user.password');
     Route::put('user/password', 'UserController@change_password')->name('user.password.update');
     Route::get('user/setting', 'UserController@setting')->name('user.setting');
@@ -104,6 +102,11 @@
      * Clients administrations
     */
     Route::resource('admin-client', 'Admin\ClientController');
+
+    /**
+     * Drivers administrations
+    */
+    Route::resource('admin-driver', 'Admin\DriverController');
     
     /**
      * Branch offices administrations

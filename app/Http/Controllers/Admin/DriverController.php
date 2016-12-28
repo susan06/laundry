@@ -1,22 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-
-use Auth;
-use Config;
-use App;
-use Session;
 use Validator;
-use App\User;
-use DateTime;
-use App\Http\Requests;
+use Auth;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
-use App\Repositories\Role\RoleRepository;
 use App\Support\User\UserStatus;
 
-class UserController extends Controller
+class DriverController extends Controller
 {
     /**
      * @var UserRepository
@@ -46,13 +39,12 @@ class UserController extends Controller
         $rules = [
             'name' => 'required|min:3',
             'lastname' => 'required|min:3',
-            'status' => 'required',
-            'phone_mobile' => 'required|numeric',
-            'role_id' => 'required|exists:roles,id'
+            'phone_mobile' => 'required|numeric'
         ];
 
         if ($id) {
             $rules['email'] = 'required|email|unique:users,email,'.$id;
+            $rules['status'] = 'required';
         } else {
             $rules['email'] = 'required|email|unique:users,email';
         }
@@ -67,20 +59,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $date = DateTime::createFromFormat('d-m-Y', $request->search);
-
-        if($date && $date->format('d-m-Y')) {
-            $search = date_format(date_create($request->search), 'Y-m-d');
-        } else {
-            $search = $request->search;
-        }
-        $users = $this->users->paginate_search(10, $request->search, $request->status);
+        $drivers = $this->users->driver_paginate_search(10, $request->search, $request->status);
         $status = ['' => trans('app.all_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
-            if (count($users)) {
+            if (count($drivers)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('users.list', compact('users','status'))->render(),
+                    'view' => view('users.drivers.list', compact('drivers','status'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -90,7 +75,7 @@ class UserController extends Controller
             }
         }
 
-        return view('users.index', compact('users', 'status'));
+        return view('users.drivers.index', compact('drivers', 'status'));
     }
 
     /**
@@ -98,23 +83,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, RoleRepository $roleRepository)
+    public function create()
     {
         $edit = false;
-        $role = ($request->role == 'true') ? true : false;
-        $status = ['' => trans('app.selected_item')] + UserStatus::lists();
-        $roles = ['' => trans('app.selected_item')] + $roleRepository->lists('display_name');
 
         return response()->json([
             'success' => true,
-            'view' => view('users.create-edit', compact('edit','status','roles', 'role'))->render()
+            'view' => view('users.drivers.create-edit', compact('edit'))->render()
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\CreateUpdateUser  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -125,19 +107,19 @@ class UserController extends Controller
                 'name' => $request->name,
                 'lastname' => $request->lastname,
                 'email' => $request->email,
-                'role_id' => $request->role_id,
-                'status' => $request->status,
+                'role_id' => 3,
                 'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
                 'birthday' => $request->birthday,
                 'password' => 'secret',
                 'status' => UserStatus::ACTIVE
             ];
             $user = $this->users->create($data);
+
             if ( $user ) {
 
                 return response()->json([
                     'success' => true,
-                    'message' => trans('app.user_created_defaut_pass')
+                    'message' => trans('app.driver_created_defaut_pass')
                 ]);
             } else {
                 
@@ -146,7 +128,6 @@ class UserController extends Controller
                     'message' => trans('app.error_again')
                 ]);
             }
-
         } else {
 
             $messages = $validator->errors()->getMessages();
@@ -181,21 +162,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request, RoleRepository $roleRepository)
+    public function edit($id)
     {
         $edit = true;
-        $role = ($request->role == 'true') ? true : false;
-        $roles = $roleRepository->lists('display_name');
         $status = UserStatus::lists();
-        $user = $this->users->find($id);
-        $phones_array = json_decode($user->phones, true);
-        $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
-        $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
-
-        if ( $user ) {
+        if ( $user = $this->users->find($id) ) {
+            $phones_array = json_decode($user->phones, true);
+            $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
+            $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
             return response()->json([
                 'success' => true,
-                'view' => view('users.create-edit', compact('user', 'phones', 'edit', 'role', 'roles', 'status' ))->render()
+                'view' => view('users.drivers.create-edit', compact('user','edit','status','phones'))->render()
             ]);
         } else {
             return response()->json([
@@ -208,9 +185,9 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\CreateUpdateUser  $request
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response::JSON
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -220,17 +197,17 @@ class UserController extends Controller
                 'name' => $request->name,
                 'lastname' => $request->lastname,
                 'email' => $request->email,
-                'role_id' => $request->role_id,
-                'status' => $request->status,
                 'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
-                'birthday' => $request->birthday
+                'birthday' => $request->birthday,
+                'status' => $request->status
             ];
+
             $user = $this->users->update($id, $data);
             if ( $user ) {
 
                 return response()->json([
                     'success' => true,
-                    'message' => trans('app.user_updated')
+                    'message' => trans('app.driver_updated')
                 ]);
             } else {
                 
@@ -252,7 +229,7 @@ class UserController extends Controller
                 ]);
             } 
 
-            return back()->withErrors($messages);
+            return back()->withErrors($messages); 
         }
     }
 
@@ -263,133 +240,17 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {      
-        if ( $id == Auth::id() ) {
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.you_cannot_delete_yourself')
-            ]);
-        }
-
+    {
         if ( $this->users->delete($id) ) {
             return response()->json([
                 'success' => true,
-                'message' => trans('app.deleted_user')
+                'message' => trans('app.deleted_driver')
             ]);
         } else {
             return response()->json([
                 'success'=> false,
                 'message' => trans('app.error_again')
             ]);
-        }
+        } 
     }
-
-    /**
-     * Change password
-     *
-     */
-    public function password() {
-
-        return view('users.change_password');
-    }
-
-    /**
-     * Get a validator for change password.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator_password(array $data)
-    {
-        $rules = [
-            'password' => 'required|min:6|confirmed',
-            'password_confirmation' => 'required|min:6'
-        ];
-        return Validator::make($data, $rules);
-    }
-
-    public function change_password(Request $request) {
-        $validator = $this->validator_password($request->only(
-            'password', 'password_confirmation'
-        ));
-        if ( $validator->passes() ) {          
-            $this->updatePassword(Auth::user(), $request->get('password'));
-            $message = trans('app.updated_password');
-
-             if ( $request->ajax() ) {
-
-                return response()->json([
-                    'success' => true,
-                    'message' => $message
-                ]);
-            } 
-
-            return back()->withSuccess($message);
-
-        } else {
-
-            $messages = $validator->errors()->getMessages();
-
-            if ( $request->ajax() ) {
-
-                return response()->json([
-                    'success' => false,
-                    'validator' => true,
-                    'message' => $messages
-                ]);
-            } 
-
-            return back()->withErrors($messages);         
-        }  
-    }
-
-    /**
-     * Change the given user's password.
-     *
-     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
-     * @param  string  $password
-     * @return void
-     */
-    protected function updatePassword($user, $password)
-    {
-        $user->password = $password;
-        $user->save();
-    }
-
-    /**
-     * form setting of user
-     *
-     */
-    public function setting() {
-
-        $user = Auth::user();
-        $languages = [
-            'es' => trans('app.spanish'),
-            'en' => trans('app.english')
-        ]; 
-
-        return view('users.setting', compact('user', 'languages', 'locations_labels'));
-    }
-
-    /**
-     * Update setting of user
-     *
-     */
-    protected function update_setting(Request $request)
-    {
-        $user = $this->users->update(Auth::user()->id, $request->all());
-
-        if($user) {
-            Config::set('app.locale', $request->get('lang'));
-            App::setLocale($request->get('lang'));
-            Session::put('locale', $request->get('lang'));
-
-            return back()->withSuccess(trans('app.settings_updated'));
-        } else {
-
-            return back()->withErrors(trans('app.error_again'));
-        }
-
-    }
-
 }

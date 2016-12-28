@@ -22,7 +22,7 @@
 
             <div class="row">
               <div class="col-md-2 col-sm-2 col-xs-12">
-              <button type="button" data-href="{{ route('user.create', 'role=false') }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.create_driver')">@lang('app.create_driver')</button>
+              <button type="button" data-href="{{ route('admin-driver.create', 'role=false') }}" class="btn btn-primary create-edit-show col-xs-12" data-model="modal" title="@lang('app.create_driver')">@lang('app.create_driver')</button>
               </div>
             </div>
 

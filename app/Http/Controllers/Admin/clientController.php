@@ -3,18 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use Auth;
 use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
-use App\Http\Requests\User\CreateUser;
-use App\Http\Requests\User\UpdateUser;
 use App\Support\User\UserStatus;
-use App\Http\Requests\Client\CreateClient;
-use App\Http\Requests\Client\UpdateClient;
-use App\Support\Client\ClientStatus;
 
 class ClientController extends Controller
 {
@@ -30,7 +25,33 @@ class ClientController extends Controller
     public function __construct(UserRepository $users)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->users = $users;
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $id = null)
+    {
+        $rules = [
+            'name' => 'required|min:3',
+            'lastname' => 'required|min:3',
+            'phone_mobile' => 'required|numeric'
+        ];
+
+        if ($id) {
+            $rules['email'] = 'required|email|unique:users,email,'.$id;
+            $rules['status'] = 'required';
+        } else {
+            $rules['email'] = 'required|email|unique:users,email';
+        }
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -40,12 +61,13 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->users->paginate_search(10, $request->search);
+        $clients = $this->users->client_paginate_search(10, $request->search, $request->status);
+        $status = ['' => trans('app.all_status')] + UserStatus::lists();
         if ( $request->ajax() ) {
-            if (count($users)) {
+            if (count($drivers)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('users.clients.list', compact('users'))->render(),
+                    'view' => view('users.clients.list', compact('clients','status'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -55,7 +77,7 @@ class ClientController extends Controller
             }
         }
 
-        return view('users.clients.index', compact('clients'));
+        return view('users.clients.index', compact('clients', 'status'));
     }
 
     /**
@@ -79,32 +101,49 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateClient $request)
+    public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'role_id' => 2,
-            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
-            'birthday' => $request->birthday,
-            'password' => str_random(6),
-            'status' => UserStatus::UNCONFIRMED
-        ];
-        $user = $this->users->create($data);
+        $validator = $this->validator($request->all());
+        if ( $validator->passes() ) {
+            $data = [
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'role_id' => 2,
+                'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+                'birthday' => $request->birthday,
+                'password' => 'secret',
+                'status' => UserStatus::ACTIVE
+            ];
+            $user = $this->users->create($data);
 
-        if ( $user ) {
+            if ( $user ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.client_created')
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.client_created_defaut_pass')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
         } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
+
+            $messages = $validator->errors()->getMessages();
+
+            if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            } 
+
+            return back()->withErrors($messages); 
         }
     }
 
@@ -166,28 +205,45 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $data = [
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
-            'birthday' => $request->birthday,
-            'status' => $request->status
-        ];
+        $validator = $this->validator($request->all(), $id);
+        if ( $validator->passes() ) {
+            $data = [
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+                'birthday' => $request->birthday,
+                'status' => $request->status
+            ];
 
-        $user = $this->users->update($id, $data);
-        if ( $user ) {
+            $user = $this->users->update($id, $data);
+            if ( $user ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.client_updated')
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.client_updated')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
         } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
+
+            $messages = $validator->errors()->getMessages();
+
+            if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            } 
+
+            return back()->withErrors($messages); 
         }
     }
 
@@ -199,7 +255,6 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {      
-
         if ( $this->users->delete($id) ) {
             return response()->json([
                 'success' => true,

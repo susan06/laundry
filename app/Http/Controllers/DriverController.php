@@ -82,23 +82,4 @@ class DriverController extends Controller
         //
     }
 
-    /**
-     * Display a listing of itinerary.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function myItinerary()
-    {
-        return view('driver.itinerary');
-    }
-
-    /**
-     * Display the client´s order.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function seeOrder()
-    {
-        return view('driver.order');
-    }
 }

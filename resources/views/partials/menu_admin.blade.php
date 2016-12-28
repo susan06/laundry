@@ -8,13 +8,13 @@
         <!--//Users and Roles -->
         <!--Clients -->
         <li>
-          <a href="{{ route('admin.client.index') }}" title="@lang('app.clients')"><i class="fa fa-child"></i> @lang('app.clients')
+          <a href="{{ route('admin-client.index') }}" title="@lang('app.clients')"><i class="fa fa-child"></i> @lang('app.clients')
           </a>
         </li>
         <!--//Clients -->
          <!--Drivers -->
         <li>
-          <a href="{{ route('admin.driver.index') }}" title="@lang('app.drivers')"><i class="fa fa-car"></i> @lang('app.drivers')
+          <a href="{{ route('admin-driver.index') }}" title="@lang('app.drivers')"><i class="fa fa-car"></i> @lang('app.drivers')
           </a>
         </li>
         <!--//Drivers -->
