@@ -23,8 +23,8 @@
 
               <div class="ln_solid"></div>
               <div class="form-group">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                  <button type="submit" class="btn btn-primary btn-submit col-sm-3 col-xs-6">@lang('app.save')</button>
+                <div class="col-md-offset-3">
+                  <button type="submit" class="btn btn-primary btn-submit col-sm-4 col-xs-10">@lang('app.save')</button>
                 </div>
               </div>
             {!! Form::close() !!}

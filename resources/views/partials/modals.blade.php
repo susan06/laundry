@@ -34,8 +34,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary btn-submit col-sm-2 -xs-6">@lang('app.send')</button>
-        <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
+        <button type="submit" class="btn btn-primary btn-submit col-sm-3 col-xs-6">@lang('app.send')</button>
+        <button type="button" class="btn btn-default col-sm-3 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
       </div>
       {!! Form::close() !!}
     </div>
