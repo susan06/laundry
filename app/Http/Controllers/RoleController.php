@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Validator;
 use App\Http\Requests;
 use App\Repositories\Role\RoleRepository;
-use App\Http\Requests\Role\UpdateRole;
 
 class RoleController extends Controller
 {
@@ -25,6 +24,23 @@ class RoleController extends Controller
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
         $this->roles = $roles;
+    }
+
+
+     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $rules = [
+            'display_name' => 'required',
+            'description' => 'required'
+        ];
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -112,24 +128,40 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRole $request, $id)
+    public function update(Request $request, $id)
     {
-        $role = $this->roles->update(
-            $id, 
-            $request->only('display_name','description')
-        );
-        if ( $role ) {
+        $validator = $this->validator($request->all());
+        if ( $validator->passes() ) {
+            $role = $this->roles->update(
+                $id, 
+                $request->only('display_name','description')
+            );
+            if ( $role ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.role_updated')
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.role_updated')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
         } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
+            $messages = $validator->errors()->getMessages();
+
+            if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            } 
+
+            return back()->withErrors($messages);
         }
     }
 
