@@ -25,7 +25,7 @@
                   {!! Form::select('lang', $languages, $user->lang, ['class' => 'form-control col-md-7 col-xs-12 select2_single']) !!}
                 </div>
               </div>
-              <div id="row"> 
+              <div class="row"> 
                 <div class="t_title">
                   <h2> @lang('app.locations_label')</h2>
                   <div class="clearfix"></div>

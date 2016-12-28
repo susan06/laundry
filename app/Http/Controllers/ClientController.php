@@ -6,6 +6,7 @@ use Auth;
 use Config;
 use App;
 use Session;
+use Validator;
 use Illuminate\Http\Request;
 use App\Repositories\Client\ClientRepository;
 
@@ -153,8 +154,70 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function inviteFriend()
+    public function friends()
     {
-        return view('clients.invite');
+        return view('clients.friends');
+    }
+
+    /**
+     * store invitations of friends
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function friends_store(Request $request)
+    {
+        $friends = $request->friends;
+        $friends = explode(',',$friends);
+
+        foreach ($friends as $key => $value) {
+            $validator = $this->validator_friend(['email' => $value]);
+            if ( $validator->passes() ) {
+                $friend = $this->clients->create_friend([
+                    'user_id' => Auth::user()->id,
+                    'email' => $value
+                ]);
+                if ( $request->ajax() ) {
+
+                    return response()->json([
+                        'success' => true,
+                        'url_return' => route('client.friends'),
+                        'message' => trans('invitations_sended')
+                    ]);
+                } 
+
+                return back()->withSuccess(trans('invitations_sended'));
+
+            } else {
+
+                $messages = $validator->errors()->getMessages();
+
+                if ( $request->ajax() ) {
+
+                    return response()->json([
+                        'success' => false,
+                        'validator' => true,
+                        'message' => $messages
+                    ]);
+                } 
+
+                return back()->withErrors($messages);
+                
+            }  
+        }
+    }
+
+        /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator_friend(array $data)
+    {
+        $rules = [
+            'email' => 'required|email|max:255|unique:client_friends'
+        ];
+
+        return Validator::make($data, $rules);
     }
 }

@@ -42,4 +42,13 @@ interface ClientRepository extends RepositoryInterface
      */
     public function create_update_location($client_id, Array $data);
 
+    /**
+     * create or update friends
+     *
+     * @param int $client_id
+     * @param Array $data
+     * return id of model 
+     */
+    public function create_friend(Array $data);
+
 }

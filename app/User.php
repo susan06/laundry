@@ -199,4 +199,9 @@ class User extends Authenticatable
         return $this->hasOne(Qualification::class, 'user_id');
     }
 
+    public function client_friends()
+    {
+        return $this->hasMany(ClientFriends::class, 'user_id');
+    }
+
 }

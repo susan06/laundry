@@ -28,5 +28,11 @@
           <a href="{{ route('setting.client.privacy') }}" title="@lang('app.privacy_policies')"><i class="fa fa-file-text"></i> @lang('app.privacy_policies')
           </a>
         </li>
-        <!--//politics privacy -->  
+        <!--//politics privacy --> 
+        <!--invite friends -->
+        <li>
+          <a href="{{ route('client.friends') }}" title="@lang('app.invited_friends')"><i class="fa fa-envelope-o"></i> @lang('app.invited_friends')
+          </a>
+        </li>
+        <!--//invite friends -->  
  

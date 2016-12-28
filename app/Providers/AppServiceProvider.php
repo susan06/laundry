@@ -31,6 +31,9 @@ use App\Repositories\Client\ClientRepository;
 use App\Repositories\Client\EloquentClientLocation;
 use App\Repositories\Client\ClientLocationRepository;
 
+use App\Repositories\Client\EloquentClientFriend;
+use App\Repositories\Client\ClientFriendRepository;
+
 use App\Repositories\Package\EloquentPackage;
 use App\Repositories\Package\PackageRepository;
 
@@ -86,6 +89,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SubscriberRepository::class, EloquentSubscriber::class);
         $this->app->singleton(ClientRepository::class, EloquentClient::class);
         $this->app->singleton(ClientLocationRepository::class, EloquentClientLocation::class);
+        $this->app->singleton(ClientFriendRepository::class, EloquentClientFriend::class);
         $this->app->singleton(PackageRepository::class, EloquentPackage::class);
         $this->app->singleton(PackagePriceRepository::class, EloquentPackagePrice::class);
         $this->app->singleton(PackageCategoryRepository::class, EloquentPackageCategory::class);

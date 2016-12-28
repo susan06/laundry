@@ -818,6 +818,14 @@ return [
     'your_qualification' => 'Su calificación es de ',
     'qualification_app' => 'Califica la aplicación',
     'qualification_saved' => 'Su calificación ha sido guardada',
+    'invited_friends' => 'Invitar amigos',
+    'invited_friends_win_discount' => 'Refiere a tus amigos y gana descuentos cuando estos realicen su primer pedido.',
+    'add_friends' => 'Agregar amigos',
+    'send_invitation' => 'Enviar invitación',
+    'invitations_sended' => 'Invitaciones enviadas',
+    'registered' => 'Registrado',
+    'noregistered' => 'No Registrado',
+
 
 
 ];

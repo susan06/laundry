@@ -25,10 +25,15 @@ class EloquentClient extends Repository implements ClientRepository
      *
      * @param Client $Client
      */
-    public function __construct(User $client, ClientLocationRepository $locations)
+    public function __construct(
+        User $client, 
+        ClientLocationRepository $locations,
+        ClientFriendRepository $friends
+    )
     {
         parent::__construct($client, $this->attributes);
         $this->locations = $locations;
+        $this->friends = $friends;
     }
   
      /**
@@ -128,6 +133,20 @@ class EloquentClient extends Repository implements ClientRepository
        }
 
        return $location_id;
+    }
+
+     /**
+     * create or update friends
+     *
+     * @param int $client_id
+     * @param Array $data
+     * return id of model 
+     */
+    public function create_friend(Array $data)
+    {
+        $friend = $this->friends->create($data);
+
+       return $friend;
     }
 
 }
