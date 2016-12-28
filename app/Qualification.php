@@ -11,7 +11,7 @@ class Qualification extends Model
      *
      * @var string
      */
-    protected $table = 'Qualifications';
+    protected $table = 'qualifications';
 
     /**
      * The attributes that are mass assignable.
