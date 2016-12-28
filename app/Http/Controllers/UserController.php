@@ -14,8 +14,6 @@ use DateTime;
 use App\Http\Requests;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Role\RoleRepository;
-use App\Http\Requests\User\CreateUser;
-use App\Http\Requests\User\UpdateUser;
 use App\Support\User\UserStatus;
 
 class UserController extends Controller
@@ -35,6 +33,31 @@ class UserController extends Controller
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
         $this->users = $users;
+    }
+
+     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $id = null)
+    {
+        $rules = [
+            'name' => 'required|min:3',
+            'lastname' => 'required|min:3',
+            'status' => 'required',
+            'phone_mobile' => 'required|numeric',
+            'role_id' => 'required|exists:roles,id'
+        ];
+
+        if ($id) {
+            $rules['email'] = 'required|email|unique:users,email,'.$id;
+        } else {
+            $rules['email'] = 'required|email|unique:users,email';
+        }
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -146,32 +169,50 @@ class UserController extends Controller
      * @param  \Illuminate\Http\CreateUpdateUser  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUser $request)
+    public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'role_id' => $request->role_id,
-            'status' => $request->status,
-            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
-            'birthday' => $request->birthday,
-            'password' => str_random(6),
-            'status' => UserStatus::UNCONFIRMED
-        ];
-        $user = $this->users->create($data);
-        if ( $user ) {
+        $validator = $this->validator($request->all());
+        if ( $validator->passes() ) {
+            $data = [
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'role_id' => $request->role_id,
+                'status' => $request->status,
+                'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+                'birthday' => $request->birthday,
+                'password' => 'secret',
+                'status' => UserStatus::ACTIVE
+            ];
+            $user = $this->users->create($data);
+            if ( $user ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.user_created')
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.user_created_defaut_pass')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
+
         } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
+
+            $messages = $validator->errors()->getMessages();
+
+            if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            } 
+
+            return back()->withErrors($messages); 
         }
     }
 
@@ -192,8 +233,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request)
+    public function edit($id, Request $request, RoleRepository $roleRepository)
     {
+        $edit = true;
+        $role = ($request->role == 'true') ? true : false;
+        $roles = $roleRepository->lists('display_name');
+        $status = UserStatus::lists();
         $user = $this->users->find($id);
         $phones_array = json_decode($user->phones, true);
         $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
@@ -202,7 +247,7 @@ class UserController extends Controller
         if ( $user ) {
             return response()->json([
                 'success' => true,
-                'view' => view('users.create-edit', compact('user', 'phones' ))->render()
+                'view' => view('users.create-edit', compact('user', 'phones', 'edit', 'role', 'roles', 'status' ))->render()
             ]);
         } else {
             return response()->json([
@@ -219,30 +264,47 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response::JSON
      */
-    public function update(UpdateUser $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = [
-            'name' => $request->name,
-            'lastname' => $request->lastname,
-            'email' => $request->email,
-            'role_id' => $request->role_id,
-            'status' => $request->status,
-            'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
-            'birthday' => $request->birthday
-        ];
-        $user = $this->users->update($id, $data);
-        if ( $user ) {
+        $validator = $this->validator($request->all(), $id);
+        if ( $validator->passes() ) {
+            $data = [
+                'name' => $request->name,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'role_id' => $request->role_id,
+                'status' => $request->status,
+                'phones' => '{"phone_mobile":"'.$request->phone_mobile.'","phone_home":"'.$request->phone_home.'"}',
+                'birthday' => $request->birthday
+            ];
+            $user = $this->users->update($id, $data);
+            if ( $user ) {
 
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.user_updated')
-            ]);
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.user_updated')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
         } else {
-            
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.error_again')
-            ]);
+
+            $messages = $validator->errors()->getMessages();
+
+            if ( $request->ajax() ) {
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            } 
+
+            return back()->withErrors($messages);
         }
     }
 

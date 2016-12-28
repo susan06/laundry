@@ -90,6 +90,7 @@ return [
     'user_agent' => 'Agente de Usuario',
     'user_updated' => 'Usuario actualizado',
     'user_created' => 'Usuario creado',
+    'user_created_defaut_pass' => 'Usuario creado, clave de acceso por defecto: secret',
 
     //Installation
     'installation' => 'Instalacion',

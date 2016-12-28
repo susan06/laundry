@@ -113,6 +113,8 @@ return [
 
     'attributes'           => [
         'name'                  => 'nombre',
+        'lastname'              => 'Apellido',
+        'status'                => 'Estatus',
         'username'              => 'usuario',
         'email'                 => 'correo electrónico',
         'first_name'            => 'nombre',
@@ -124,6 +126,8 @@ return [
         'address'               => 'dirección',
         'phone'                 => 'teléfono',
         'mobile'                => 'móvil',
+        'phone_mobile'          => 'Télefono movil',
+        'role_id'               => 'Rol',
         'age'                   => 'edad',
         'sex'                   => 'sexo',
         'gender'                => 'género',
