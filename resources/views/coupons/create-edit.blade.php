@@ -15,7 +15,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.validity')">@lang('app.validity') <span class="required">*</span>
     </label>
     <div class="col-md-6 col-sm-6 col-xs-12">
-    {!! Form::text('validity', isset($coupon->validity) ? date_format(date_create($coupon->validity), 'd-m-Y') : old('validity'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'validity', 'readonly' => 'readonly']) !!}
+    {!! Form::text('validity', isset($coupon->validity) ? $coupon->validity : old('validity'), ['class' => 'form-control col-md-4 col-xs-6', 'id' => 'validity', 'readonly' => 'readonly']) !!}
     </div>
   </div>
   <div class="form-group">
@@ -30,7 +30,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.status')">@lang('app.status') <span class="required">*</span>
     </label>
     <div class="col-md-4 col-sm-4 col-xs-12">
-      {!! Form::select('status', $list_status, old('status'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'list_status']) !!}
+      {!! Form::select('status', $list_status, old('status'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'list_status']) !!}
     </div>
   </div>
   @endif
@@ -63,10 +63,6 @@
         $('#validity').datetimepicker({
           format: 'DD-MM-YYYY',
           ignoreReadonly: true
-        });
-
-        $(".select2_single").select2({
-          placeholder: "@lang('app.selected_item')"
         });
       @else
         $('#validity').datetimepicker({

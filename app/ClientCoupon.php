@@ -55,6 +55,24 @@ class ClientCoupon extends Model
         return $this->status == false;
     }
 
+    public function validity_class()
+    {
+        switch($this->status) {
+            case 1:
+                $class = '';
+                break;
+
+            case 0:
+                $class = 'overline';
+                break;
+
+            default:
+                $class = '';
+        }
+
+        return $class;
+    }
+
     /**
      * Relationships
      *

@@ -278,4 +278,19 @@ class CouponController extends Controller
             ]);
         }
     }
+
+    /**
+     * Show coupons of clients.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function client_show($id, ClientCouponRepository $couponClient)
+    {
+        $coupons = $couponClient->where('client_id', $id)->get();
+
+        return response()->json([
+            'success' => true,
+            'view' => view('coupons.clients.show', compact('coupons'))->render()
+        ]);
+    }
 }

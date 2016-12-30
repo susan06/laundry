@@ -33,6 +33,24 @@ class Coupon extends Model
         return decrypt($this->code);
     }
 
+    public function validity_class()
+    {
+        switch($this->status) {
+            case CouponStatus::VALID:
+                $class = '';
+                break;
+
+            case CouponStatus::NOVALID:
+                $class = 'overline';
+                break;
+
+            default:
+                $class = '';
+        }
+
+        return $class;
+    }
+
     public function labelClass()
     {
         switch($this->status) {

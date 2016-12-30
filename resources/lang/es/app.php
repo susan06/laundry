@@ -575,6 +575,8 @@ return [
     'are_you_sure_delete_coupon' => 'Seguro que desea eliminar este cupón?',
     'code' => 'Código',
     'validity' => 'Valido hasta',
+    'novalidity_admin' => 'Deshabilitado por administración',
+    'novalidity_client' => 'Ya usado',
     'percentage' => 'Porcentaje',
     'coupons_sended' => 'Cupones enviados',
     'used' => 'Usado',
@@ -591,6 +593,8 @@ return [
     'first_introduce_coupon' => 'Introducir el código del cupón',
     'code_promo' => 'Código Promocional',
     'discount' => 'Descuento',
+    'coupons_of' => 'Cupones de ',
+    'content_coupon' => 'Descuento del: :percentage, Use este cupón en su siguiente solicitud de servicio',
 
     //Sucursales
     'In service' => 'En servicio',
