@@ -150,6 +150,7 @@ return [
         'payment_method_id'     => 'Método de Pago',
         'reference'             => 'Referencia',
         'amount'                => 'Cantidad',
+        'representative_id'     => 'Representante de sucursal',
     ],
 
 ];

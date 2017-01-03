@@ -112,7 +112,7 @@ function add_delivery_time() {
   var td2    = document.createElement("TD");
 
   button               = document.createElement('button');
-  button.className     = 'btn btn-round btn-danger btn-xs delete-delivery';
+  button.className     = 'btn btn-round btn-danger delete-delivery';
 
   var icon               = document.createElement('i');
   icon.style.cursor  = 'pointer';

@@ -25,7 +25,7 @@ function openInfoWindow(marker) {
     infowindow.close();
     infowindow = new google.maps.InfoWindow();
     var markerLatLng = marker.getPosition();
-    infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Long:</strong><br>' + markerLatLng.lng() +'</div>');
+    infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Lng:</strong><br>' + markerLatLng.lng() +'</div>');
     infowindow.open(map, marker);
     google.maps.event.addListener(marker, 'dragend', function(){ changeInfoWindow(marker); });
     google.maps.event.addListener(marker, 'click', function(){ openInfoWindow(marker); });    
@@ -34,7 +34,7 @@ function openInfoWindow(marker) {
 function changeInfoWindow(marker) {
     var markerLatLng = marker.getPosition();
     var loc_change = {lat: markerLatLng.lat(), lng: markerLatLng.lng() };
-    infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Long:</strong><br>' + markerLatLng.lng() +'</div>');
+    infowindow.setContent('<div class="lat-lng"><strong>' + location_trans + ' ' + marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Lng:</strong><br>' + markerLatLng.lng() +'</div>');
     infowindow.open(map, marker);
     $('#lat_'+marker.customInfo).val(loc_change.lat);
     $('#lng_'+marker.customInfo).val(loc_change.lng);
@@ -82,7 +82,7 @@ function add_location(loc) {
   var td3    = document.createElement("TD");
 
   button               = document.createElement('button');
-  button.className     = 'btn btn-round btn-danger btn-xs delete-location';
+  button.className     = 'btn btn-round btn-danger delete-location';
 
   var icon               = document.createElement('i');
   icon.style.cursor  = 'pointer';
@@ -121,25 +121,24 @@ function initMap() {
   infowindow = new google.maps.InfoWindow({map: map});
 
   // Try HTML5 geolocation.
-  if(!edit){
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
 
-        infowindow.setPosition(pos);
-        infowindow.setContent(location_label);
-        map.setCenter(pos);
-        }, function() {
-          handleLocationError(true, infowindow, map.getCenter());
-        });
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infowindow, map.getCenter());
-    }
+      infowindow.setPosition(pos);
+      infowindow.setContent(location_label);
+      map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infowindow, map.getCenter());
+      });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infowindow, map.getCenter());
   }
+
 
   var input = (document.getElementById('address_search'));
   // country default system
@@ -216,11 +215,81 @@ function initMap() {
 
 }
 
+function add_services() {
+
+  $('#services_table').show();
+
+  var input = document.createElement("input");
+  var tr    = document.createElement("TR");
+  var td    = document.createElement("TD");  
+
+  input.type  = 'text';
+  input.name  = 'services_name[]';
+  input.className = 'form-control', 
+  input.setAttribute('required', 'required');
+
+  var input1 = document.createElement("input");
+  var td1    = document.createElement("TD");
+
+  input1.type  = 'text';
+  input1.name  = 'services_prices[]';
+  input1.className = 'form-control',
+  input1.id = 'end-'+count;
+  input1.setAttribute('required', 'required');
+
+  if(edit){
+    var input2 = document.createElement("input");
+    input2.type  = 'hidden';
+    input2.name  = 'service_id[]';
+    input2.value = 0;
+  }
+
+  var td2    = document.createElement("TD");
+  var select2 = document.createElement("select");
+
+  select2.name  = 'services_status[]';
+  select2.className = 'form-control',
+  $.each(select_option_service, function(index, value) { 
+    var option = document.createElement("option");
+    option.value = index;
+    option.text = value;
+    select2.appendChild(option);
+  });
+
+  var td3    = document.createElement("TD");
+
+  button               = document.createElement('button');
+  button.className     = 'btn btn-round btn-danger delete-service';
+
+  var icon               = document.createElement('i');
+  icon.style.cursor  = 'pointer';
+  icon.className     = 'fa fa-trash';
+  
+  button.appendChild(icon);
+
+  td.appendChild(input);
+  if(edit){
+    td.appendChild(input2);
+  }
+  td1.appendChild(input1);
+  td2.appendChild(select2);
+  td3.appendChild(button);
+
+  tr.appendChild(td); 
+  tr.appendChild(td1); 
+  tr.appendChild(td2); 
+  tr.appendChild(td3); 
+
+  container = document.getElementById('services_list');
+  container.appendChild(tr); 
+}
+
 $(document).on('click', '.delete-location', function () {
     var row = $(this).closest('tr');
     row.remove();
 });
 
-$(document).ready(function() {
-    initMap();
+$(document).on('click', '.delete-service', function () {
+    var row = $(this).closest('tr');
+    row.remove();
 });

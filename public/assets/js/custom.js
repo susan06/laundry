@@ -318,16 +318,19 @@ $(document).on('click', '.btn-submit', function (e) {
                 if(current_model == 'modal') {
                     $('#general-modal').modal('hide');
                 } else {
-                    if(response.url_return) {
-                        showLoading();
-                        window.location.href = response.url_return;
-                    } else {
-                        if(current_model == 'content') {
+                    if(current_model == 'content') {
+                        if(response.url_next){
+                            $('#content-title').text(title_next);
+                            getPages(response.url_next);
+                        } else {
                             $('#content-title').text(current_title);
                             $('.btn-create').show();
                             $('.top_search').show();
                         }
-                    }
+                    } else if(response.url_return) {
+                        showLoading();
+                        window.location.href = response.url_return;
+                    } 
                 }
                 notify('success', response.message);
                 form.get(0).reset();

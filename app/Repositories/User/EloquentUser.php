@@ -178,6 +178,24 @@ class EloquentUser extends Repository implements UserRepository
         foreach ($users as $user) {
             $result[$user->id] = $user->full_name();
         }
+
+        return $result;
+    }
+
+    /**
+     * lists representative actives
+     */
+    public function lists_representative_active()
+    {
+        $result = array();
+        $role = Role::where('name','branch-representative')->first();
+        $users = User::where('role_id', $role->id)->get();
+        foreach ($users as $user) {
+            if(!$user->branchOffice){
+                $result[$user->id] = $user->full_name();
+            }
+        }
+        
         return $result;
     }
 

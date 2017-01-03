@@ -4,6 +4,7 @@ namespace App\Repositories\BranchOffice;
 
 use App\BranchOffice;
 use App\LocationBranchOffice;
+use App\ServiceBranchOffice;
 use App\Repositories\Repository;
 
 class EloquentBranchOffice extends Repository implements BranchOfficeRepository
@@ -108,6 +109,44 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
     public function delete_location($id)
     {
         LocationBranchOffice::destroy($id);
+    }
+
+    /**
+     *
+     * Creates a new service.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create_service(array $attributes)
+    {
+        ServiceBranchOffice::create($attributes);
+    }
+
+    /**
+     *
+     * Update the service
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_service($id, array $newData)
+    {
+        ServiceBranchOffice::where('id', $id)->update($newData);
+    }
+
+    /**
+     *
+     * Delete the service
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function delete_service($id)
+    {
+        ServiceBranchOffice::destroy($id);
     }
 
 }

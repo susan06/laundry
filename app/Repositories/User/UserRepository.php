@@ -50,6 +50,11 @@ interface UserRepository extends RepositoryInterface
      * lists representative
      */
     public function lists_representative();
+    
+    /**
+     * lists representative actives
+     */
+    public function lists_representative_active();
 
      /**
      * Find user by confirmation token.

@@ -31,6 +31,7 @@ return [
     'registration' => 'Registro', 
     'request_services' => 'Solicitar Servicios',
     'services' => 'Servicios',
+    'add_services' => 'Agregar Servicios',
     'my_orders' => 'Mis Órdenes',
     'order_show' => 'Ver órden',
     'payment_date' => 'Fecha de pago',

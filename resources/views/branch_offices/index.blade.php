@@ -42,3 +42,12 @@
 @parent
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}"></script>
 @endsection
+
+@section('scripts')
+@parent
+<!-- Select2 -->
+{!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
+<!-- jquery.inputmask -->
+{!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
+{!! HTML::script('public/assets/js/maps_services.js') !!}
+@endsection

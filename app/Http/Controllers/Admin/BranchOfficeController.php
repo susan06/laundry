@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use Auth;
+use Validator;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
 use App\Support\BranchOffice\BranchOfficeStatus;
+use App\Support\BranchOffice\BranchServicesStatus;
 
 class BranchOfficeController extends Controller
 {
@@ -28,6 +30,29 @@ class BranchOfficeController extends Controller
     }
 
     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $id = null)
+    {
+        $rules = [
+            'phone' => 'required|numeric|min:9',
+            'representative_id' => 'required'
+        ];
+
+        if ($id) {
+            $rules['name'] = 'required|min:3|unique:branch_offices,name,'.$id;
+            $rules['status'] = 'required';
+        } else {
+            $rules['name'] = 'required|min:3|unique:branch_offices';
+        }
+
+        return Validator::make($data, $rules);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -37,7 +62,6 @@ class BranchOfficeController extends Controller
         $branch_offices = $this->branch_offices->paginate_search(10, $request->search, $request->status);
 
         $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
-        $representatives = ['' => ''] + $userRepository->lists_representative();
 
         if ( $request->ajax() ) {
             if (count($branch_offices)) {
@@ -53,7 +77,7 @@ class BranchOfficeController extends Controller
             }
         }
 
-        return view('branch_offices.index', compact('branch_offices','status','representatives'));
+        return view('branch_offices.index', compact('branch_offices','status'));
     }
 
     /**
@@ -64,7 +88,7 @@ class BranchOfficeController extends Controller
     public function create(UserRepository $userRepository)
     {
         $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
-        $representatives = ['' => ''] + $userRepository->lists_representative();
+        $representatives = ['' => trans('app.selected_item')] + $userRepository->lists_representative();
 
         return response()->json([
             'success' => true,
@@ -80,42 +104,72 @@ class BranchOfficeController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'representative_id' => $request->representative_id,
-            'status' => BranchOfficeStatus::SERVICE,
-            'created_by' => Auth::id(),
-        ];
-        $branch_office = $this->branch_offices->create($data);
+        $validator = $this->validator($request->all());
+        if ( $validator->passes() ) {
+            $data = [
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'representative_id' => $request->representative_id,
+                'status' => BranchOfficeStatus::SERVICE,
+                'created_by' => Auth::id(),
+            ];
+            $branch_office = $this->branch_offices->create($data);
 
-        $locations = $request->address;
-        $lat = $request->lat;
-        $lng = $request->lng;
+            $locations = $request->address;
+            $lat = $request->lat;
+            $lng = $request->lng;
 
-        if ( $branch_office ) {
-            foreach( $locations as $key => $value ) {
-                $this->branch_offices->create_location([ 
-                    'branch_office_id' => $branch_office->id,
-                    'address' => $value,           
-                    'lat' => $lat[$key],
-                    'lng' => $lng[$key]
-                    ]
-                );
+            $services = $request->services_name;
+            $prices = $request->services_prices;
+            $service_status = $request->services_status;
+
+            if ( $branch_office ) {
+                if( $locations ){
+                    foreach( $locations as $key => $value ) {
+                        $this->branch_offices->create_location([ 
+                            'branch_office_id' => $branch_office->id,
+                            'address' => $value,           
+                            'lat' => $lat[$key],
+                            'lng' => $lng[$key]
+                            ]
+                        );
+                    }
+                }
+                if ( $services ) {
+                    foreach( $services as $key => $value ) {
+                        $this->branch_offices->create_service([ 
+                            'branch_office_id' => $branch_office->id,
+                            'name' => $value,           
+                            'price' => $prices[$key],
+                            'status' => $service_status[$key]
+                            ]
+                        );
+                    }
+                }
+                    
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.branch_office_created'),
+                    'url_next' => route('branch-office.edit', $branch_office->id),
+                    'title_next' => trans('app.edit_branch_office')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
             }
-
-            return response()->json([
-                'success' => true,
-                'message' => trans('app.branch_office_created'),
-                'url_return' => route('branch-office.edit', $branch_office->id)
-            ]);
+       
         } else {
-            
+            $messages = $validator->errors()->getMessages();
+
             return response()->json([
                 'success' => false,
-                'message' => trans('app.error_again')
+                'validator' => true,
+                'message' => $messages
             ]);
-        }
+        }  
     }
 
     /**
@@ -138,14 +192,15 @@ class BranchOfficeController extends Controller
     public function edit($id, UserRepository $userRepository)
     {
         $count = 1;
-        $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
+        $status = BranchOfficeStatus::lists();
+        $status_services = BranchServicesStatus::lists();
         $representatives = $userRepository->lists_representative();
 
         if ( $branch_office = $this->branch_offices->find($id) ) {
 
             return response()->json([
                 'success' => true,
-                'view' => view('branch_offices.edit', compact('branch_office','status','count','representatives'))->render()
+                'view' => view('branch_offices.edit', compact('branch_office','status','count','representatives', 'status_services'))->render()
             ]);
         } else {
 
@@ -165,60 +220,109 @@ class BranchOfficeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $branch_office = $this->branch_offices->find($id);
-        $locations_old = $branch_office->locations->toArray();
-        $locations = $request->address;
-        $lat = $request->lat;
-        $lng = $request->lng;
-        $location_id = $request->location_id;
-        $delete_location = array();
-        $branch_office_update = $this->branch_offices->update(
-            $id, 
-            $request->only('name', 'phone', 'representative_id', 'status')
-        );
+        $validator = $this->validator($request->all(), $id);
+        if ( $validator->passes() ) {
+            $branch_office = $this->branch_offices->find($id);
+            $locations = $request->address;
+            $services = $request->services_name;      
+            $branch_office_update = $this->branch_offices->update(
+                $id, 
+                $request->only('name', 'phone', 'representative_id', 'status')
+            );
 
-        if ( $branch_office_update ) {
+            if ( $branch_office_update ) {
 
-            foreach( $locations as $key => $value ) {
-                
-                if((int)$location_id[$key] == 0) {
-                    $this->branch_offices->create_location([ 
-                        'branch_office_id' => $id,
-                        'address' => $value,           
-                        'lat' => $lat[$key],
-                        'lng' => $lng[$key]
-                        ]
-                    );
-                } else {
-                    foreach ($locations_old as $loc_old) {
-                       if ( in_array($loc_old['id'], $location_id)  ) {
-                           $this->branch_offices->update_location(
-                                (int)$location_id[$key],
-                                [ 
+                if ( $locations ) {
+                    $locations_old = $branch_office->locations->toArray();
+                    $lat = $request->lat;
+                    $lng = $request->lng;
+                    $location_id = $request->location_id;
+                    $delete_location = array();
+                    foreach( $locations as $key => $value ) {
+                        
+                        if((int)$location_id[$key] == 0) {
+                            $this->branch_offices->create_location([ 
+                                'branch_office_id' => $id,
                                 'address' => $value,           
                                 'lat' => $lat[$key],
                                 'lng' => $lng[$key]
                                 ]
                             );
-                       } else {
-                            $this->branch_offices->delete_location($loc_old['id']);
-                       }
+                        } else {
+                            foreach ($locations_old as $loc_old) {
+                               if ( in_array($loc_old['id'], $location_id)  ) {
+                                   $this->branch_offices->update_location(
+                                        (int)$location_id[$key],
+                                        [ 
+                                        'address' => $value,           
+                                        'lat' => $lat[$key],
+                                        'lng' => $lng[$key]
+                                        ]
+                                    );
+                               } else {
+                                    $this->branch_offices->delete_location($loc_old['id']);
+                               }
+                            }
+                        }      
                     }
-                }      
+                }
+
+                if ( $services ) {
+                    $services_old = $branch_office->services->toArray();
+                    $prices = $request->services_prices;
+                    $service_status = $request->services_status;
+                    $service_id = $request->service_id;
+                    $delete_service = array();
+                    foreach( $services as $key => $value ) {
+                        
+                        if((int)$service_id[$key] == 0) {
+                            $this->branch_offices->create_service([ 
+                                'branch_office_id' => $id,
+                                'name' => $value,           
+                                'price' => $prices[$key],
+                                'status' => $service_status[$key]
+                                ]
+                            );
+                        } else {
+                            foreach ($services_old as $serv_old) {
+                               if ( in_array($serv_old['id'], $service_id)  ) {
+                                   $this->branch_offices->update_service(
+                                        (int)$service_id[$key],
+                                        [ 
+                                        'name' => $value,           
+                                        'price' => $prices[$key],
+                                        'status' => $service_status[$key]
+                                        ]
+                                    );
+                               } else {
+                                    $this->branch_offices->delete_service($serv_old['id']);
+                               }
+                            }
+                        }      
+                    }
+                }
+
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.branch_office_updated'),
+                    'url_return' => route('branch-office.edit', $id)
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
             }
+        } else {
+            $messages = $validator->errors()->getMessages();
 
             return response()->json([
-                'success' => true,
-                'message' => trans('app.branch_office_updated'),
-                'url_return' => route('branch-office.edit', $id)
-            ]);
-        } else {
-            
-            return response()->json([
                 'success' => false,
-                'message' => trans('app.error_again')
+                'validator' => true,
+                'message' => $messages
             ]);
-        }
+        } 
     }
 
     /**

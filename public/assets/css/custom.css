@@ -4087,6 +4087,9 @@ ul.notifications {
 #packages_table {
   display: none;
 }
+#services_table {
+  display: none;
+}
 .form-control-table {
   border-radius: 0;
   width: 100%;

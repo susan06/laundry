@@ -54,7 +54,7 @@
         <td><input type="text" name="lng[]" id="lng_{{$count}}" class="form-control" value="{{ $locations->lng }}" readonly="readonly"></td>
         <td>
         @if($count != 1)
-          <button type="button"  class="btn btn-round btn-danger btn-xs delete-location"> 
+          <button type="button"  class="btn btn-round btn-danger delete-location"> 
             <i class="fa fa-trash"></i>
           </button>
         @endif
@@ -68,21 +68,68 @@
 
   <div id="map-form"></div>
 
+  <div class="t_title">
+    <h2> @lang('app.services')</h2>
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="row" id="load_services">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div id="content-table">
+        <div id="load_services"> 
+          <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" id="services_table">
+          <thead>
+          <tr>
+            <th>@lang('app.name')</th>
+            <th>@lang('app.price')</th>
+            <th>@lang('app.status')</th>
+            <th width="10%">@lang('app.actions')</th>
+          </tr>
+          </thead>
+          <tbody id="services_list" class="form-horizontal">
+            @foreach($branch_office->services as $key => $service)
+              <tr>
+                <td><input type="text" name="services_name[]" class="form-control" value="{{ $service->name }}" required="required"><input type="hidden" name="service_id[]" value="{{ $service->id }}"></td>
+                <td><input type="text" name="services_prices[]" class="form-control" value="{{ $service->price }}"></td>
+                <td>
+                {!! Form::select('services_status[]', $status_services, $service->status, ['class' => 'form-control']) !!}
+                </td>
+                <td>
+                @if($key != 0)
+                  <button type="button" class="btn btn-round btn-danger delete-service"> 
+                    <i class="fa fa-trash"></i>
+                  </button>
+                @endif
+                </td>
+              </tr>
+              @endforeach
+          </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-md-3 col-sm-4 col-xs-12">
+      <button type="button" onClick="add_services()" class="btn btn-default col-xs-12">@lang('app.add_services')</button>
+    </div>
+  </div>
+
   <div class="ln_solid"></div>
   <div class="form-group">
     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
       <button type="submit" class="btn btn-primary btn-submit col-sm-3 col-xs-6">@lang('app.update')</button>
-      <button type="button" class="btn btn-default btn-cancel col-sm-3 col-xs-5">@lang('app.cancel')</button>
+      <button type="button" class="btn btn-default btn-cancel col-sm-3 col-xs-5">@lang('app.back')</button>
     </div>
   </div>
 {!! Form::close() !!}
 
-<!-- Select2 -->
-{!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
 
 <script type="text/javascript">
 
   $('#locations_table').show();
+  $('#services_table').show();
   var country_default = new String("{{Settings::get('country_default')}}");
   country_default = country_default.toLowerCase();
   var map = null;
@@ -93,11 +140,13 @@
   var edit = true;
   var count = {{ $count }};
   var locations = '{!! json_encode($branch_office->locations) !!}';
+  var select_option = {'In service':'{{trans("app.In service")}}', 'Out of service':'{{trans("app.Out of service")}}'};
+  var select_option_service = {'Available':'{{trans("app.Available")}}', 'Not available':'{{trans("app.Not available")}}'};
 
-  $(".select2_single").select2({
-    placeholder: "@lang('app.selected_item')",
-    allowClear: true
+  $(".select2_single").select2();
+
+  $(document).ready(function() {
+    initMap();
   });
 
 </script>
-{!! HTML::script('public/assets/js/maps.js') !!}
