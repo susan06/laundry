@@ -160,11 +160,21 @@
     Route::resource('admin-package', 'Admin\PackageController');
 
     /**
+     * packages categories administrations
+    */
+    Route::resource('admin-package-category', 'Admin\PackageCategoryController');
+
+    /**
      * packages
     */
     Route::get('package/show/category', 'PackageController@show_by_category')->name('package.show.category');
     Route::get('package/details', 'PackageController@details')->name('package.get.details');
     Route::resource('package', 'PackageController');
+
+    /**
+     * suggestions Administration
+    */
+    Route::resource('admin-suggestion', 'Admin\SuggestionController');
 
     /**
      * suggestions

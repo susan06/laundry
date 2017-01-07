@@ -13,12 +13,14 @@ class SuggestionTableSeeder extends Seeder
     {
         DB::table('suggestions')->insert([
         	'user_id' => 2,
-            'content' => 'Nam officiis quaerat recusandae omnis praesentium dolore. Hic ut rerum voluptas eaque voluptates. Sint in quo quidem distinctio. Quibusdam aspernatur ab non amet rerum qui harum quasi. Non cupiditate hic repellat sunt tempore commodi aliquid. Nulla itaque id corporis ut est deserunt ea. Explicabo quo temporibus magni. Sunt minima suscipit expedita qui harum dolor'
+            'content' => 'Nam officiis quaerat recusandae omnis praesentium dolore. Hic ut rerum voluptas eaque voluptates. Sint in quo quidem distinctio. Quibusdam aspernatur ab non amet rerum qui harum quasi. Non cupiditate hic repellat sunt tempore commodi aliquid. Nulla itaque id corporis ut est deserunt ea. Explicabo quo temporibus magni. Sunt minima suscipit expedita qui harum dolor',
+            'created_at' => \Carbon\Carbon::now()
         ]);
 
          DB::table('suggestions')->insert([
         	'user_id' => 2,
-            'content' => 'Explicabo quo temporibus magni. Sunt minima suscipit expedita qui harum dolor.Nam officiis quaerat recusandae omnis praesentium dolore. Hic ut rerum voluptas eaque voluptates. Sint in quo quidem distinctio.'
+            'content' => 'Explicabo quo temporibus magni. Sunt minima suscipit expedita qui harum dolor.Nam officiis quaerat recusandae omnis praesentium dolore. Hic ut rerum voluptas eaque voluptates. Sint in quo quidem distinctio.',
+            'created_at' => \Carbon\Carbon::now()
         ]);
     }
 }

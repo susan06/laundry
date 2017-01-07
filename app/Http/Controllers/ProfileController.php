@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Auth;
 use DateTime;
 use Validator;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-
 use App\User;
 use App\Http\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Role\RoleRepository;
 use App\Http\Requests\User\CreateUser;

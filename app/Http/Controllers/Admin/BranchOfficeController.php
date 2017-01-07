@@ -26,6 +26,8 @@ class BranchOfficeController extends Controller
     public function __construct(BranchOfficeRepository $branch_offices)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->branch_offices = $branch_offices;
     }
 

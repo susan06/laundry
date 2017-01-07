@@ -19,6 +19,18 @@ interface PackageRepository extends RepositoryInterface
      */
     public function paginate_search($take = 10, $search = null, $status = null);
 
+
+     /**
+     * Find category
+     *
+     *
+     * @param int $id
+     *
+     * @return Model
+     *
+     */
+    public function find_category($id);
+
      /**
      * Create category
      *
@@ -46,6 +58,13 @@ interface PackageRepository extends RepositoryInterface
      * @param $id
      */
     public function delete_category($id);
+
+    /**
+     * Can Destroy category
+     *
+     * @param $id
+     */
+    public function can_delete_category($id);
 
     /**
      * lists

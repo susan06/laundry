@@ -46,9 +46,24 @@ class QualificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $qualifications = $this->qualifications->paginate(10);
+        if ( $request->ajax() ) {
+            if (count($qualifications)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('qualifications.list', compact('qualifications'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('qualifications.index', compact('qualifications'));
     }
 
     /**

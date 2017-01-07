@@ -113,6 +113,36 @@ class EloquentPackage extends Repository implements PackageRepository
     }
 
     /**
+     * Paginate and search categories
+     *
+     * return the result paginated for the take value and with the attributes.
+     *
+     * @param int $take
+     * @param string $search
+     *
+     * @return mixed
+     *
+     */
+    public function paginate_search_categories($take = 10, $search = null, $status = null)
+    {
+        return $this->categories->paginate_search($take, $search, $status);
+    } 
+
+    /**
+     * Find category
+     *
+     *
+     * @param int $id
+     *
+     * @return Model
+     *
+     */
+    public function find_category($id)
+    {
+        return $this->categories->find($id);
+    }
+
+    /**
      * Create category
      *
      *
@@ -145,6 +175,25 @@ class EloquentPackage extends Repository implements PackageRepository
     public function delete_category($id)
     {
         return $this->categories->delete($id);
+    }
+
+    /**
+     * Can Destroy category
+     *
+     * @param $id
+     */
+    public function can_delete_category($id)
+    {
+        if (!is_null($this->categories->find($id)->package)) {
+            return [
+                'success'   => false,
+                'message' => 'La categoria no puede eliminarse porque esta asociada a uno o más paquete'
+            ];
+        }
+
+        $this->categories->delete($id);
+
+        return ['success' => true];
     }
 
     /**

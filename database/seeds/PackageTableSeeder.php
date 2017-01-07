@@ -16,31 +16,36 @@ class PackageTableSeeder extends Seeder
     	factory(Package::class)->create([
             'name' => 'Pack Test',
             'package_category_id' => 1,
-            'description' => $this->description
+            'description' => $this->description,
+            'created_at' => \Carbon\Carbon::now()
         ]);
 
     	factory(Package::class)->create([
             'name' => 'Bolsa 10 libras',
             'package_category_id' => 2,
-            'description' => $this->description
+            'description' => $this->description,
+            'created_at' => \Carbon\Carbon::now()
         ]);
 
     	factory(Package::class)->create([
             'name' => 'Bolsa 15 libras',
             'package_category_id' => 2,
-            'description' => $this->description
+            'description' => $this->description,
+            'created_at' => \Carbon\Carbon::now()
         ]);
 
     	factory(Package::class)->create([
             'name' => 'Trajes',
             'package_category_id' => 3,
-            'description' => $this->description
+            'description' => $this->description,
+            'created_at' => \Carbon\Carbon::now()
         ]);
 
     	factory(Package::class)->create([
             'name' => 'Edredones',
             'package_category_id' => 4,
-            'description' => $this->description
+            'description' => $this->description,
+            'created_at' => \Carbon\Carbon::now()
         ]);
 
     }

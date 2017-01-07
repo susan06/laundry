@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Validator;
 use DateTime;
 use Settings;
 use Illuminate\Support\Facades\Storage;
@@ -23,7 +24,32 @@ class PackageController extends Controller
     public function __construct(PackageRepository $packages)
     {
         $this->middleware('auth');
+        $this->middleware('locale'); 
+        $this->middleware('timezone'); 
         $this->packages = $packages;
+    }
+
+        /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data, $id = null)
+    {
+        $rules = [
+            'package_category_id' => 'required'
+        ];
+
+        if ($id) {
+            $rules['name'] = 'required|unique:packages,name,'.$id;
+            $rules['image'] = 'image|dimensions:min_width=200,min_height=150';
+        } else {
+            $rules['name'] = 'required|unique:packages';
+            $rules['image'] = 'required|image|dimensions:min_width=200,min_height=150';
+        }
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -87,49 +113,59 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->image;
-        if($file){
-            if ($file->isValid()) {
-                $date = new DateTime();
-                $file_name = $date->getTimestamp().'.'.$file->extension();
-                $path = $file->storeAs('packages', $file_name);
-            }else{
+        $validator = $this->validator($request->all());
+        if ( $validator->passes() ) {
+            $file = $request->image;
+            if($file){
+                if ($file->isValid()) {
+                    $date = new DateTime();
+                    $file_name = $date->getTimestamp().'.'.$file->extension();
+                    $path = $file->storeAs('packages', $file_name);
+                }else{
+
+                    return redirect()
+                    ->route('admin-package.index')
+                    ->withSuccess(trans('app.error_upload_file'));
+                }
+            }
+            $data = [
+                'name' => $request->name,
+                'package_category_id' => $request->package_category_id,
+                'description' => $request->description,
+                'image' => $file_name,
+                'status' => true
+            ];
+            $package = $this->packages->create($data);
+            $delivery_schedules = $request->delivery_schedule;
+            $prices = $request->prices;
+            if ( $package ) {
+                foreach( $delivery_schedules as $key => $value ) {
+                    $this->packages->create_price([ 
+                        'package_id' => $package->id,
+                        'delivery_schedule' => $value,           
+                        'price' => $prices[$key]
+                        ]
+                    );
+                }
 
                 return redirect()
-                ->route('admin-package.index')
-                ->withSuccess(trans('app.error_upload_file'));
-            }
-        }
-        $data = [
-            'name' => $request->name,
-            'package_category_id' => $request->package_category_id,
-            'description' => $request->description,
-            'image' => $file_name,
-            'status' => true
-        ];
-        $package = $this->packages->create($data);
-        $delivery_schedules = $request->delivery_schedule;
-        $prices = $request->prices;
-        if ( $package ) {
-            foreach( $delivery_schedules as $key => $value ) {
-                $this->packages->create_price([ 
-                    'package_id' => $package->id,
-                    'delivery_schedule' => $value,           
-                    'price' => $prices[$key]
-                    ]
-                );
-            }
+                    ->route('admin-package.index')
+                    ->withSuccess(trans('app.package_created'));
 
-            return redirect()
-                ->route('admin-package.index')
-                ->withSuccess(trans('app.package_created'));
+            } else {
+                
+                return redirect()
+                    ->route('admin-package.index')
+                    ->withErrors(trans('app.error_again'));
+            }
 
         } else {
-            
+            $messages = $validator->errors()->getMessages();
+
             return redirect()
                 ->route('admin-package.index')
-                ->withSuccess(trans('app.error_again'));
-        }
+                ->withErrors($messages);
+        }  
     }
 
     /**
@@ -152,7 +188,7 @@ class PackageController extends Controller
     public function edit($id)
     {
         $package = $this->packages->find($id);
-        $categories = ['' => ''] + $this->packages->lists_categories();
+        $categories = $this->packages->lists_categories();
         $status = [
             true  => trans('app.Published'), 
             false  => trans('app.No Published')
@@ -177,51 +213,61 @@ class PackageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $package = $this->packages->find($id);
-        $file = $request->image;
-        $file_name = $package->image;
-        if($file){
-            if ($file->isValid()) {
-                \File::delete(storage_path('app/packages').'/'.$file_name);
-                Storage::delete($file_name);
-                $date = new DateTime();
-                $file_name = $date->getTimestamp().'.'.$file->extension();
-                $path = $file->storeAs('packages', $file_name);
-            }else{
+        $validator = $this->validator($request->all(), $id);
+        if ( $validator->passes() ) {   
+            $package = $this->packages->find($id);
+            $file = $request->image;
+            $file_name = $package->image;
+            if($file){
+                if ($file->isValid()) {
+                    \File::delete(storage_path('app/packages').'/'.$file_name);
+                    Storage::delete($file_name);
+                    $date = new DateTime();
+                    $file_name = $date->getTimestamp().'.'.$file->extension();
+                    $path = $file->storeAs('packages', $file_name);
+                }else{
+
+                    return redirect()
+                    ->route('admin-package.index')
+                    ->withSuccess(trans('app.error_upload_file'));
+                }
+            }
+            $data = [
+                'name' => $request->name,
+                'package_category_id' => $request->package_category_id,
+                'description' => $request->description,
+                'image' => $file_name,
+                'status' => $request->status
+            ];
+            $package = $this->packages->update($id, $data);
+            $prices_id  = $request->prices_id;
+            $prices = $request->prices;
+            if ( $package ) {
+                foreach( $prices as $key => $value ) {
+                    $this->packages->update_price($prices_id[$key], [         
+                        'price' => $value
+                        ]
+                    );
+                }
 
                 return redirect()
-                ->route('admin-package.index')
-                ->withSuccess(trans('app.error_upload_file'));
-            }
-        }
-        $data = [
-            'name' => $request->name,
-            'package_category_id' => $request->package_category_id,
-            'description' => $request->description,
-            'image' => $file_name,
-            'status' => $request->status
-        ];
-        $package = $this->packages->update($id, $data);
-        $prices_id  = $request->prices_id;
-        $prices = $request->prices;
-        if ( $package ) {
-            foreach( $prices as $key => $value ) {
-                $this->packages->update_price($prices_id[$key], [         
-                    'price' => $value
-                    ]
-                );
-            }
+                    ->route('admin-package.index')
+                    ->withSuccess(trans('app.package_updated'));
 
-            return redirect()
-                ->route('admin-package.index')
-                ->withSuccess(trans('app.package_updated'));
-
+            } else {
+                
+                return redirect()
+                    ->route('admin-package.index')
+                    ->withErrors(trans('app.error_again'));
+            }
+       
         } else {
-            
+            $messages = $validator->errors()->getMessages();
+
             return redirect()
                 ->route('admin-package.index')
-                ->withSuccess(trans('app.error_again'));
-        }
+                ->withErrors($messages);
+        }  
     }
 
     /**

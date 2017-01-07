@@ -2,31 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
-use Validator;
-use App\Faq;
-use App\Repositories\Faq\FaqRepository;
-use App\Support\Faq\FaqStatus;
+use App\Repositories\Package\PackageRepository;
 
-class FaqController extends Controller
+class PackageCategoryController extends Controller
 {
-    /**
-     * @var FaqRepository
+     /**
+     * @var PackageRepository
      */
-    private $faqs;
+    private $categories;
 
     /**
-     * FaqController constructor.
-     * @param FaqRepository $faqs
+     * PackageController constructor.
+     * @param PackageRepository $packages
      */
-    public function __construct(FaqRepository $faqs)
+    public function __construct(PackageRepository $categories)
     {
         $this->middleware('auth');
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
-        $this->faqs = $faqs;
+        $this->categories = $categories;
     }
 
     /**
@@ -37,13 +34,11 @@ class FaqController extends Controller
      */
     protected function validator(array $data, $id = null)
     {
-        $rules['answer'] = 'required';
-        $rules['status'] = 'required';
-
         if ($id) {
-            $rules['question'] = 'required|unique:faqs,question,'.$id;  
+            $rules['name'] = 'required|unique:package_categories,name,'.$id;
+            $rules['status'] = 'required';
         } else {
-            $rules['question'] = 'required|unique:faqs,question';
+            $rules['name'] = 'required|unique:package_categories,name';
         }
 
         return Validator::make($data, $rules);
@@ -56,12 +51,21 @@ class FaqController extends Controller
      */
     public function index(Request $request)
     {
-       $faqs = $this->faqs->paginate_search(10, $request->search);
+        $status = null;
+        if($request->status) {
+            $status = ($request->status == 1) ? true : false;
+        }
+        $categories = $this->categories->paginate_search_categories(10, $request->search, $status);
+        $status = [
+            '' => trans('app.all_status'), 
+            true  => trans('app.Published'), 
+            false  => trans('app.No Published')
+        ];
         if ( $request->ajax() ) {
-            if (count($faqs)) {
+            if (count($categories)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('faqs.list', compact('faqs'))->render(),
+                    'view' => view('packages.categories.list', compact('categories','status'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -71,7 +75,7 @@ class FaqController extends Controller
             }
         }
 
-        return view('faqs.index', compact('faqs'));
+        return view('packages.categories.index', compact('categories', 'status'));
     }
 
     /**
@@ -82,11 +86,10 @@ class FaqController extends Controller
     public function create()
     {
         $edit = false;
-        $status = ['' => trans('app.selected_item')] + FaqStatus::lists();
 
         return response()->json([
             'success' => true,
-            'view' => view('faqs.create-edit', compact('status','edit'))->render()
+            'view' => view('packages.categories.create-edit', compact('edit'))->render()
         ]);
     }
 
@@ -98,20 +101,14 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'question' => $request->question,
-            'answer' => $request->answer,
-            'status' => $request->status,
-            'created_by' => Auth::id(),
-        ];
-        $validator = $this->validator($data);
+        $validator = $this->validator($request->all());
         if ( $validator->passes() ) {
-            $faq = $this->faqs->create($data);
-            if ( $faq ) {
+            $category = $this->categories->create_category($request->all());
+            if ( $category ) {
 
                 return response()->json([
                     'success' => true,
-                    'message' => trans('app.faq_created')
+                    'message' => trans('app.category_created')
                 ]);
             } else {
                 
@@ -129,7 +126,7 @@ class FaqController extends Controller
                 'validator' => true,
                 'message' => $messages
             ]);
-        }        
+        }  
     }
 
     /**
@@ -140,17 +137,7 @@ class FaqController extends Controller
      */
     public function show($id)
     {
-        if ( $faq = $this->faqs->find($id) ) {
-            return response()->json([
-                'success' => true,
-                'view' => view('faqs.show', compact('faq'))->render()
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'message' => trans('app.no_record_found')
-            ]);
-        }
+        //
     }
 
     /**
@@ -162,11 +149,15 @@ class FaqController extends Controller
     public function edit($id)
     {
         $edit = true;
-        $status = FaqStatus::lists();
-        if ( $faq = $this->faqs->find($id) ) {
+        if ( $category = $this->categories->find_category($id) ) {
+
+            $list_status = [
+                true  => trans('app.Published'), 
+                false  => trans('app.No Published')
+            ];
             return response()->json([
                 'success' => true,
-                'view' => view('faqs.create-edit', compact('faq','edit','status'))->render()
+                'view' => view('packages.categories.create-edit', compact('category','list_status','edit'))->render()
             ]);
         } else {
             return response()->json([
@@ -187,15 +178,15 @@ class FaqController extends Controller
     {
         $validator = $this->validator($request->all(), $id);
         if ( $validator->passes() ) {
-            $faq = $this->faqs->update(
+           $category = $this->categories->update_category(
                 $id, 
-                $request->only('question', 'answer', 'status')
+                $request->all()
             );
-            if ( $faq ) {
+            if ( $category ) {
 
                 return response()->json([
                     'success' => true,
-                    'message' => trans('app.faq_updated')
+                    'message' => trans('app.category_updated')
                 ]);
             } else {
                 
@@ -204,6 +195,7 @@ class FaqController extends Controller
                     'message' => trans('app.error_again')
                 ]);
             }
+       
         } else {
             $messages = $validator->errors()->getMessages();
 
@@ -223,15 +215,17 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-        if ( $this->faqs->delete($id) ) {
+        $delete = $this->categories->can_delete_category($id);
+
+        if ( $delete['success'] ) {
             return response()->json([
                 'success' => true,
-                'message' => trans('app.faq_deleted')
+                'message' => trans('app.category_deleted')
             ]);
         } else {
             return response()->json([
                 'success'=> false,
-                'message' => trans('app.error_again')
+                'message' => $delete['message']
             ]);
         }
     }

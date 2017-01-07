@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
 use App\Http\Requests;
 use App\Coupon;
 use App\Repositories\Coupon\CouponRepository;
@@ -33,6 +33,21 @@ class CouponController extends Controller
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
         $this->coupons = $coupons;
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $rules['code'] = 'required';
+        $rules['validity'] = 'required|date';
+        $rules['percentage'] = 'required';
+
+        return Validator::make($data, $rules);
     }
 
     /**
@@ -101,20 +116,32 @@ class CouponController extends Controller
             'status' => CouponStatus::VALID,
             'created_by' => Auth::id(),
         ];
-        $coupon = $this->coupons->create($data);
-        if ( $coupon ) {
+        $validator = $this->validator($data);
+        if ( $validator->passes() ) {
+            $coupon = $this->coupons->create($data);
+            if ( $coupon ) {
+
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.coupon_created')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
+       
+        } else {
+            $messages = $validator->errors()->getMessages();
 
             return response()->json([
-                'success' => true,
-                'message' => trans('app.coupon_created')
-            ]);
-        } else {
-            
-            return response()->json([
                 'success' => false,
-                'message' => trans('app.error_again')
+                'validator' => true,
+                'message' => $messages
             ]);
-        }
+        }  
     }
 
     /**
@@ -165,23 +192,35 @@ class CouponController extends Controller
             'validity' => $request->validity,
             'status' => $request->status,
         ];
-        $coupon = $this->coupons->update(
-            $id, 
-            $data
-        );
-        if ( $coupon ) {
+        $validator = $this->validator($data);
+        if ( $validator->passes() ) {
+            $coupon = $this->coupons->update(
+                $id, 
+                $data
+            );
+            if ( $coupon ) {
+
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.coupon_updated')
+                ]);
+            } else {
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
+       
+        } else {
+            $messages = $validator->errors()->getMessages();
 
             return response()->json([
-                'success' => true,
-                'message' => trans('app.coupon_updated')
-            ]);
-        } else {
-            
-            return response()->json([
                 'success' => false,
-                'message' => trans('app.error_again')
+                'validator' => true,
+                'message' => $messages
             ]);
-        }
+        }  
     }
 
     /**

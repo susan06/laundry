@@ -35,11 +35,17 @@
         <!--packages -->
         <li><a><i class="fa fa-archive"></i> @lang('app.packages') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
-            <li><a href="{{ route('admin-package.categories.index') }}">@lang('app.categories')</a></li>
+            <li><a href="{{ route('admin-package-category.index') }}">@lang('app.categories')</a></li>
             <li><a href="{{ route('admin-package.index') }}">@lang('app.packages')</a></li>
           </ul>
         </li>
         <!--//packages -->
+        <!--suggestions -->
+        <li>
+          <a href="{{ route('admin-suggestion.index') }}" title="@lang('app.suggestions')"><i class="fa fa-envelope-o"></i> @lang('app.suggestions')
+          </a>
+        </li>
+        <!--//suggestions -->
         <!--terms of service -->
         <li>
           <a href="{{ route('setting.conditions_and_privacy') }}" title="@lang('app.terms_service')"><i class="fa fa-info"></i> @lang('app.terms_service')
@@ -58,6 +64,12 @@
           </a>
         </li>
         <!--//faqs -->
+        <!--qualifications -->
+        <li>
+          <a href="{{ route('qualification.index') }}" title="@lang('app.qualifications')"><i class="fa fa-heart-o"></i> @lang('app.qualifications')
+          </a>
+        </li>
+        <!--//qualifications -->
         <!--setting -->
         <li>
           <a href="{{ route('setting.administration') }}" title="@lang('app.setting')"><i class="fa fa-cog"></i> @lang('app.setting')
