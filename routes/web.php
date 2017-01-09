@@ -102,6 +102,7 @@
     /**
      * Clients administrations
     */
+    Route::get('admin-client/friends', 'Admin\ClientController@friends')->name('admin-client.friends');
     Route::resource('admin-client', 'Admin\ClientController');
 
     /**
@@ -154,6 +155,11 @@
     Route::resource('order', 'OrderController');
 
     /**
+     * orders administrations
+    */
+    Route::resource('admin-order', 'Admin\OrderController');
+
+    /**
      * packages administrations
     */
     Route::get('admin-package/categories', 'Admin\PackageController@categories_index')->name('admin-package.categories.index');
@@ -186,42 +192,4 @@
     */
     Route::resource('qualification', 'QualificationController');
 
-    /************************************rutas que mas adelante se deben eliminar ************/
-
-    /**
-     * My Profile
-    */
-    Route::get('profileClient', [
-        'as' => 'client.profile',
-        'uses' => 'ClientController@myProfile'
-    ]);
-
-    /**
-     * Invit a Friend
-    */
-    Route::get('invite', [
-        'as' => 'client.invite',
-        'uses' => 'ClientController@inviteFriend'
-    ]);
-
-    /**
-     * My Itinerary
-    */
-    Route::get('itinerary', [
-        'as' => 'driver.itinerary',
-        'uses' => 'DriverController@myItinerary'
-    ]);
-
-    /**
-     * See Order - Driver
-    */
-    Route::get('ordersDriver', [
-        'as' => 'driver.order',
-        'uses' => 'DriverController@seeOrder'
-    ]);
-
-    /**
-     * See Order - Driver
-    */
-    
-    
+ 

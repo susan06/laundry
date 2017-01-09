@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Subscriber\SubscriberRepository;
+use App\Repositories\Client\ClientRepository;
 
 class RegisterController extends Controller
 {
@@ -106,7 +107,7 @@ class RegisterController extends Controller
      * @param RoleRepository $roles
      * @return \Illuminate\Http\Route
      */
-    public function registration(Request $request, UserMailer $mailer)
+    public function registration(Request $request, UserMailer $mailer, ClientRepository $clientRepository)
     {
         $data = [
             'name' => $request->name,
@@ -135,6 +136,8 @@ class RegisterController extends Controller
                 'lang' => Settings::get('language_default') 
                 ]
             ));
+
+            $clientRepository->find_friend($user->email);
                 
             if ($request->accept_promotions) {
                 $this->subscribers->create(['user_id' => $user->id]);

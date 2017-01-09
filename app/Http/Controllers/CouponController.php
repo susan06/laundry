@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use App\Coupon;
+use Carbon\Carbon;
 use App\Repositories\Coupon\CouponRepository;
 use App\Repositories\Coupon\ClientCouponRepository;
 use App\Repositories\User\UserRepository;
@@ -278,17 +279,17 @@ class CouponController extends Controller
     public function check_coupon(Request $request, ClientCouponRepository $couponClient)
     {
         $code = $request->code;
-
-        $coupon = $this->coupons->all()->filter(function($record) use($code) {
-            if(decrypt($record->code) == $code) {
-                return $record;
+        $coupon = null;
+        foreach ($this->coupons->all() as $key => $item) {
+            if(decrypt($item->code) == $code) {
+                $coupon = $item;
             }
-        })->values()->first()->toArray();
+        };
 
-        if ( $coupon && $coupon['status'] == 'Valid' ) {
+        if ( $coupon && $coupon->status == 'Valid' && $coupon->validity >= Carbon::now()->format('d-m-Y') ) {
 
             $user = Auth::user();
-            $coupon_client = $couponClient->where('coupon_id', $coupon['id'])->where('client_id', $user->id)->first();
+            $coupon_client = $couponClient->where('coupon_id', $coupon->id)->where('client_id', $user->id)->first();
 
             if ($coupon_client) {
                 if ( $coupon_client->isValid() ) {

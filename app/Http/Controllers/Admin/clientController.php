@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
 use App\Support\User\UserStatus;
+use App\Repositories\Client\ClientRepository;
 
 class ClientController extends Controller
 {
@@ -266,6 +267,31 @@ class ClientController extends Controller
                 'message' => trans('app.error_again')
             ]);
         } 
+    }
+
+    /**
+     * Display a listing of friends invited.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function friends(Request $request, ClientRepository $clientRepository)
+    {
+        $friends = $clientRepository->paginate_friends(10);
+        if ( $request->ajax() ) {
+            if (count($drivers)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('users.clients.list_friends', compact('friends'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('users.clients.index_friends', compact('friends'));
     }
     
     

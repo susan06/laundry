@@ -74,6 +74,13 @@
         <b>@lang('app.payment_date'):</b> {{ $order->order_payment->created_at }} 
       </p>
       @endif
+      @if($order->client_coupon_id != 0)
+      <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+        <b>@lang('app.coupon'):</b> {{ $order->coupon->first()->codeDecrypt() }}<br/>
+        <b>@lang('app.percentage'):</b> {{ $order->coupon->first()->percentage }}<br/>
+        <b>@lang('app.validity'):</b> {{ $order->coupon->first()->validity }}<br/>  
+      </p>
+      @endif
     </div>
     <!-- /.col -->
     <div class="col-xs-6">

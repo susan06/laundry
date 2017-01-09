@@ -46,16 +46,17 @@ class EloquentUser extends Repository implements UserRepository
             );
 
         if ($search) {
+            dd($search);
             $searchTerms = explode(' ', $search);
             $query->where( function ($q) use($searchTerms) {
                 foreach ($searchTerms as $term) {
-                    foreach ($this->attributes as $attribute) {
-                        $q->orwhere($attribute, "like", "%{$term}%");
-                    }
-                    $q->whereHas('role', function($qu) use($term) {
+                    $q->orWhereHas('role', function($qu) use($term) {
                         $qu->orwhere('name', "like", "%{$term}%");
                         $qu->orwhere('display_name', "like", "%{$term}%");
                     });
+                    foreach ($this->attributes as $attribute) {
+                        $q->orwhere($attribute, "like", "%{$term}%");
+                    }
                 }
             });
         }

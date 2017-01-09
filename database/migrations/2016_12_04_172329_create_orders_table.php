@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('time_search');
             $table->date('date_delivery');
             $table->integer('time_delivery');
+            $table->integer('branch_offices_id')->nullable();
             $table->integer('client_coupon_id')->nullable();
             $table->text('special_instructions')->nullable();
             $table->double('sub_total');
@@ -34,9 +35,6 @@ class CreateOrdersTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('client_location_id')->references('id')->on('clients_locations')
                 ->onUpdate('cascade')->onDelete('cascade');
-           // $table->foreign('client_coupon_id')->references('id')->on('clients_coupons')
-                //->onUpdate('cascade')->onDelete('cascade');
-
         });
     }
 

@@ -246,6 +246,7 @@ function total() {
     })   
     $("#total").text(sum.toFixed(2).toString());  
     $("#total_price").val(sum.toFixed(2).toString());
+    $("#sub-total").text(sum.toFixed(2).toString()); 
     $("#sub_total_price").val(sum.toFixed(2).toString());
     discount(); 
   }
@@ -356,8 +357,11 @@ function discount() {
     discount = total * percentage/100;
     var sub_total = total - discount;
 
-    $("#discount").text('-'+discount.toFixed(2).toString());  
-    $("#total").text(sub_total.toFixed(2).toString()); 
+    $("#discount").text('-'+discount.toFixed(2).toString());
+    $("#discount-porcentage").text(' ('+percentage+'%)');
+    $("#total").text(sub_total.toFixed(2).toString());  
+    $("#total_price").val(sub_total.toFixed(2).toString());
+    $('.sub-total').show();  
     $('.discount').show();    
     $("#discount_price").val(discount.toFixed(2).toString());  
   }

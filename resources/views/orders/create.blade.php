@@ -200,15 +200,30 @@
                 </div>
                 {!! Form::hidden('client_coupon_id', '0', ['id' => 'client_coupon_id']) !!}
 
+                <div class="sub-total" style="display: none;">
+                  <div class="t_title">
+                    <h2> @lang('app.sub_total')</h2>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                      <h1 class="price"><span id="sub-total">0.00</span> {{Settings::get('coin') }}</h1> 
+                    </div>
+                  </div>
+                </div>
+                {!! Form::hidden('sub_total', '0', ['id' => 'sub_total_price']) !!}
+                  
                 <div class="discount" style="display: none;">
                   <div class="t_title">
-                    <h2> @lang('app.discount')</h2>
+                    <h2> @lang('app.discount')</h2> 
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="row">
                     <div class="product_price col-md-4 col-sm-4 col-xs-12">
                       <h1 class="price" id="discount">0.00</h1>
+                      <h1 class="price" id="discount-porcentage">(0%)</h1>
                     </div>
                   </div>
                   {!! Form::hidden('discount', '0', ['id' => 'discount_price']) !!}
@@ -225,7 +240,6 @@
                     </div>
                   </div>
 
-                  {!! Form::hidden('sub_total', '0', ['id' => 'sub_total_price']) !!}
                   {!! Form::hidden('total', '0', ['id' => 'total_price']) !!}
 
                   <div class="ln_solid"></div>

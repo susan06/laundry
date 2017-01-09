@@ -114,7 +114,7 @@ class EloquentClient extends Repository implements ClientRepository
                 if($item->lat == $data['lat'] && $item->lng == $data['lng']) {
                     $location = $item;
                 }
-            };
+            }
             if ($location) {
                 $data_update = [
                     'address' => isset($data['address']) ? $data['address'] : $location->address,
@@ -144,9 +144,34 @@ class EloquentClient extends Repository implements ClientRepository
      */
     public function create_friend(Array $data)
     {
-        $friend = $this->friends->create($data);
+       $friend = $this->friends->create($data);
 
        return $friend;
+    }
+
+    /**
+     * find friend
+     *
+     * @param string $email
+     */
+    public function find_friend($email)
+    {
+       $friend = $this->friends->where('email', $email)->first();
+
+       if ($friend) {
+            $this->friends->update($friend->id, ['registered' => true]);
+       }
+    }
+
+    /**
+     * Paginate friends
+     *
+     * @param int $take
+     *
+     */
+    public function paginate_friends($take = 10)
+    {
+        return $this->friends->paginate($take);
     }
 
 }

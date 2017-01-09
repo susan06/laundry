@@ -48,6 +48,7 @@ class QualificationController extends Controller
      */
     public function index(Request $request)
     {
+        $quantify = $this->qualifications->media_quantify();
         $qualifications = $this->qualifications->paginate(10);
         if ( $request->ajax() ) {
             if (count($qualifications)) {
@@ -63,7 +64,7 @@ class QualificationController extends Controller
             }
         }
 
-        return view('qualifications.index', compact('qualifications'));
+        return view('qualifications.index', compact('qualifications', 'quantify'));
     }
 
     /**

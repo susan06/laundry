@@ -12,6 +12,8 @@
           <div class="page-title">
             <div class="title_left">
               <h3>@lang('app.qualifications')</h3>
+               @lang('app.your_qualification') <span class="stars-count-existing">{!! $quantify !!}</span>
+               <div class="starrr stars-existing-0" data-rating='{!! $quantify !!}'></div>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -42,6 +44,10 @@
 
     <script>
       $(document).ready(function() {
+        $('.stars-existing-0').starrr({
+          rating: {!! $quantify !!},
+          readOnly: true
+        });
         @foreach ($qualifications as $qualification)
         $('.stars-existing-{{$qualification->id}}').starrr({
           rating: {!! $qualification->quantify !!},

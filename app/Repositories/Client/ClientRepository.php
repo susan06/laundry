@@ -51,4 +51,19 @@ interface ClientRepository extends RepositoryInterface
      */
     public function create_friend(Array $data);
 
+    /**
+     * find friend
+     *
+     * @param string $email
+     */
+    public function find_friend($email);
+
+    /**
+     * Paginate friends
+     *
+     * @param int $take
+     *
+     */
+    public function paginate_friends($take = 10);
+
 }

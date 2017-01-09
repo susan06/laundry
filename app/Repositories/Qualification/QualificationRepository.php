@@ -12,4 +12,10 @@ interface QualificationRepository extends RepositoryInterface
      * @param int $quantify
      */
     public function create_update($quantify);
+
+     /**
+     * promedy o media 
+     *
+     */
+    public function media_quantify();
 }

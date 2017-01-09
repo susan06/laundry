@@ -9,19 +9,7 @@ use App\Repositories\Repository;
 
 class EloquentOrder extends Repository implements OrderRepository
 {
-	 /**
-     * Fields attributes
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'bag_code',
-        'date_search', 
-        'date_delivery', 
-        'special_instructions', 
-        'total'
-    ];
-
+    protected $attributes = [];
     /**
      * @var OrderPaymentRepository
      */
@@ -148,11 +136,14 @@ class EloquentOrder extends Repository implements OrderRepository
         if ($search) {
             $searchTerms = explode(' ', $search);
             $query->where( function ($q) use($searchTerms) {
-                foreach ($searchTerms as $term) {
-                    foreach ($this->attributes as $attribute) {
-                        $q->orwhere($attribute, "like", "%{$term}%");
-                    }
-                }
+                foreach ($searchTerms as $term) { 
+                    $q->whereHas('user', function($qu) use($term) {
+                        $qu->where('name', 'like', "%{$term}%");
+                        $qu->orwhere('lastname', 'like', "%{$term}%");
+                        $qu->orwhere('phones', 'like', "%{$term}%");
+                        $qu->orwhere('email', 'like', "%{$term}%");
+                    });
+                } 
             });
         }
 

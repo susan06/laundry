@@ -47,4 +47,15 @@ class EloquentQualification extends Repository implements QualificationRepositor
         return $qualifications; 
     }
 
+    /**
+     * promedy o media 
+     *
+     */
+    public function media_quantify()
+    {
+        $media = $this->all()->sum('quantify') / $this->all()->count();
+
+        return $media;
+    }
+
 }

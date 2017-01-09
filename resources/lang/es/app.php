@@ -91,6 +91,7 @@ return [
     'user_agent' => 'Agente de Usuario',
     'user_updated' => 'Usuario actualizado',
     'user_created' => 'Usuario creado',
+    'search_by_client' => 'Buscar por cliente (nombre, email, télefonos)',
     'user_created_defaut_pass' => 'Usuario creado, clave de acceso por defecto: secret',
     'client_created_defaut_pass' => 'Cliente creado, clave de acceso por defecto: secret',
     'driver_created_defaut_pass' => 'Conductor creado, clave de acceso por defecto: secret',
@@ -585,7 +586,7 @@ return [
     'send_coupons' => 'Enviar cupones',
     'num_coupons' => '# Cupones',
     'show_coupons' => 'Ver cupones',
-    'the_coupon_was_no_valid_by_adminitration' => 'El cupón no existe o fue deshabilitado por administración',
+    'the_coupon_was_no_valid_by_adminitration' => 'Cupón no válido: El cupón no existe, o fue deshabilitado por administración o caduco.',
     'the_coupon_was_useless' => 'El cupón ya fue usado',
     'no_register_coupon_client' => 'No se tiene registros de haberle enviado el cupón que introdujo',
     'coupon_useless' => 'El cupón ya ha sido usado',
@@ -598,6 +599,7 @@ return [
     'content_coupon' => 'Descuento del: :percentage, Use este cupón en su siguiente solicitud de servicio',
 
     //Sucursales
+    'noasigned' => 'No asignado',
     'In service' => 'En servicio',
     'Out of service' => 'Fuera de servicio',
     'branch_office' => 'Sucursal',
@@ -842,6 +844,7 @@ return [
     'qualification_app' => 'Califica la aplicación',
     'qualification_saved' => 'Su calificación ha sido guardada',
     'invited_friends' => 'Invitar amigos',
+    'friends_invited' => 'Amigos invitados',
     'invited_friends_win_discount' => 'Refiere a tus amigos y gana descuentos cuando estos realicen su primer pedido.',
     'add_friends' => 'Agregar amigos',
     'send_invitation' => 'Enviar invitación',

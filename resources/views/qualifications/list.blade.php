@@ -12,7 +12,6 @@
                 <td>{{ $qualification->user->full_name() }}</td>
                 <td>
                   <div class="starrr stars-existing-{{$qualification->id}}" data-rating='{!! $qualification->quantify !!}'></div>
-
                 </td>
                 <td>{{ $qualification->created_at }}</td>
             </tr>

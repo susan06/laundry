@@ -18,6 +18,12 @@
           </a>
         </li>
         <!--//Drivers -->
+        <!--Orders -->
+        <li>
+          <a href="{{ route('admin-order.index') }}" title="@lang('app.orders')"><i class="fa fa-file-o"></i> @lang('app.orders')
+          </a>
+        </li>
+        <!--//Orders --> 
         <!--Coupons -->
         <li><a><i class="fa fa-tags"></i> @lang('app.coupons') <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
@@ -70,6 +76,12 @@
           </a>
         </li>
         <!--//qualifications -->
+        <!--friends -->
+        <li>
+          <a href="{{ route('admin-client.friends') }}" title="@lang('app.friends_invited')"><i class="fa fa-address-book"></i> @lang('app.friends_invited')
+          </a>
+        </li>
+        <!--//friends -->
         <!--setting -->
         <li>
           <a href="{{ route('setting.administration') }}" title="@lang('app.setting')"><i class="fa fa-cog"></i> @lang('app.setting')

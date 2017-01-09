@@ -25,6 +25,7 @@ class Order extends Model
     	'client_id', 
     	'client_location_id',
     	'client_coupon_id', 
+        'branch_offices_id',
         'date_search', 
         'time_search', 
         'date_delivery', 
@@ -135,5 +136,21 @@ class Order extends Model
     public function client_coupon()
     {
         return $this->belongsTo(ClientCoupon::class, 'client_coupon_id');
+    }
+
+    public function coupon()
+    {
+        return $this->hasManyThrough(
+            Coupon::class, 
+            ClientCoupon::class, 
+            'coupon_id',
+            'id',
+            'client_coupon_id'
+        );
+    }
+
+    public function branch_office()
+    {
+        return $this->belongsTo(BranchOffice::class, 'branch_offices_id');
     }
 }
