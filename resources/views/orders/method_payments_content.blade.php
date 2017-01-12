@@ -38,7 +38,7 @@
     <div class="alert alert-info alert-dismissible fade in" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
       </button>
-      Estimado cliente, en estos momentos su pedido ha sido programado y está en espera para su pago, por favor seleccionar su método de pago y nuestro equipo lo verificará, una vez verificado se procederá a la búsqueda de su ropa
+      @lang('app.resumen_payment_programer')
     </div>
   <br/>
 
@@ -76,7 +76,7 @@
   @if($order->order_payment)
     <button type="submit" class="btn btn-primary btn-submit col-sm-2 col-xs-6">@lang('app.update')</button>
   @else
-      <button type="submit" class="btn btn-primary btn-submit col-sm-2 -xs-6">@lang('app.save')</button>
+      <button type="submit" class="btn btn-primary btn-submit col-sm-2 col-xs-6">@lang('app.save')</button>
   @endif
   <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
 </div>

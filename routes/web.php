@@ -97,12 +97,14 @@
     /**
      * Branch offices administrations
     */
+    Route::get('admin-branch-office/locations', 'Admin\BranchOfficeController@locations')->name('admin-branch-office.map');
     Route::resource('admin-branch-office', 'Admin\BranchOfficeController');
 
     /**
      * Clients administrations
     */
     Route::get('admin-client/friends', 'Admin\ClientController@friends')->name('admin-client.friends');
+    Route::get('admin-client/locations', 'Admin\ClientController@locations')->name('admin-client.map');
     Route::resource('admin-client', 'Admin\ClientController');
 
     /**

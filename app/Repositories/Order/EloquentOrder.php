@@ -125,12 +125,20 @@ class EloquentOrder extends Repository implements OrderRepository
      * @return mixed
      *
      */
-    public function paginate_search($take = 10, $search = null, $status = null, $client = null)
+    public function paginate_search($take = 10, $search = null, $client = null, $status = null, $status_admin = null, $status_driver = null, $branch_office = null)
     {
         $query = Order::query();
 
         if ($client) {
-            $query->where('client_id', $client);
+            $query->where('client_id', $client)->orderBy('created_at', 'DESC');
+        }
+        
+        if ($branch_office) {
+            $query->where('branch_offices_id', $branch_office);
+        }
+
+        if ($status_driver) {
+            $query->where('status', $status_driver);
         }
 
         if ($search) {
@@ -153,6 +161,12 @@ class EloquentOrder extends Repository implements OrderRepository
             });
         }
 
+        if ($status_admin) {
+            $query->whereHas('order_payment', function($q) use($status_admin) {
+                $q->where('status', $status_admin);
+            });
+        }
+
         $result = $query->paginate($take);
 
         if ($search) {
@@ -161,6 +175,18 @@ class EloquentOrder extends Repository implements OrderRepository
 
         if ($status) {
             $result->appends(['status' => $status]);
+        }
+
+        if ($status_admin) {
+            $result->appends(['status_admin' => $status_admin]);
+        }
+
+        if ($branch_office) {
+            $result->appends(['branch_office' => $branch_office]);
+        }
+
+        if ($status_driver) {
+            $result->appends(['status_driver' => $status_driver]);
         }
 
         return $result;

@@ -4303,3 +4303,7 @@ ul.notifications {
 .overline {
   text-decoration: line-through;
 }
+
+.margin-left {
+  margin-left: 5px;
+}

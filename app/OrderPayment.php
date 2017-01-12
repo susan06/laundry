@@ -38,77 +38,41 @@ class OrderPayment extends Model
         return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
     }
 
-    public function statuslabelClass()
+    public function getConfirmedPayment()
     {
-        switch($this->status) {
-            case 1:
-                $class = 'success';
+        switch($this->confirmed) {
+            case true:
+                $text = '<span class="label label-success">'.trans("app.confirmed").'</span>';
                 break;
 
-            case 0:
-                $class = 'warning';
+            case false:
+                $text = '<span class="label label-danger">'.trans('app.Unconfirmed').'</span>';
                 break;
 
             default:
-                $class = 'warning';
-        }
-
-        return $class;
-    }
-
-    public function statusText()
-    {
-        switch($this->status) {
-            case 1:
-                $text = trans('canceled');
-                break;
-
-            case 0:
-                $text = trans('canceled');
-                break;
-
-            default:
-                $text = trans('app.pending_payment');
+                $text = '';
         }
 
         return $text;
-    }
+    } 
 
-    public function confirmedlabelClass()
+    public function getStatusPayment()
     {
-        switch($this->confirmed) {
-            case 1:
-                $class = 'success';
+        switch($this->status) {
+            case true:
+                $text = '<span class="label label-success">'.trans("app.canceled").'</span>';
                 break;
 
-            case 0:
-                $class = 'danger';
+            case false:
+                $text = '<span class="label label-danger">'.trans('pending_payment').'</span>';
                 break;
 
             default:
-                $class = 'danger';
-        }
-
-        return $class;
-    }
-
-    public function confirmedText()
-    {
-        switch($this->confirmed) {
-            case 1:
-                $text = trans('confirmed');
-                break;
-
-            case 0:
-                $text = trans('Unconfirmed');
-                break;
-
-            default:
-                $text = trans('Unconfirmed');
+                $text = '';
         }
 
         return $text;
-    }
+    } 
 
     /**
      * Relationships

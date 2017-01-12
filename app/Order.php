@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Settings;
 use Illuminate\Database\Eloquent\Model;
+use App\Support\Order\OrderStatus;
 
 class Order extends Model
 {
@@ -33,7 +34,8 @@ class Order extends Model
         'special_instructions', 
         'discount', 
         'sub_total',
-        'total'
+        'total',
+        'status'
     ];
 
     /**
@@ -108,7 +110,33 @@ class Order extends Model
 
         return $time_delivery;
     }
-    
+
+    public function getStatus()
+    {
+        switch($this->status) {
+            case OrderStatus::search:
+                $class = '<span class="label label-danger">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            case OrderStatus::recoge:
+                $class = '<span class="label label-warning">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            case OrderStatus::inbranch:
+                $class = '<span class="label label-info">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            case OrderStatus::inexit:
+                $class = '<span class="label label-success">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            default:
+                $class = '<span class="label label-warning">'.trans("app.{$this->status}").'</span>';
+        }
+
+        return $class;
+    }
+
     /**
      * Relationships
      *

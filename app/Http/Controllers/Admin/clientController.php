@@ -64,11 +64,12 @@ class ClientController extends Controller
     {
         $clients = $this->users->client_paginate_search(10, $request->search, $request->status);
         $status = ['' => trans('app.all_status')] + UserStatus::lists();
+        $all_clients = $this->users->where('role_id', 2)->get();
         if ( $request->ajax() ) {
             if (count($drivers)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('users.clients.list', compact('clients','status'))->render(),
+                    'view' => view('users.clients.list', compact('clients', 'status', 'all_clients'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -78,7 +79,7 @@ class ClientController extends Controller
             }
         }
 
-        return view('users.clients.index', compact('clients', 'status'));
+        return view('users.clients.index', compact('clients', 'status', 'all_clients'));
     }
 
     /**
@@ -292,6 +293,19 @@ class ClientController extends Controller
         }
 
         return view('users.clients.index_friends', compact('friends'));
+    }
+
+    /**
+     * Display map of locations clients
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locations()
+    {
+        return response()->json([
+            'success' => true,
+            'view' => view('users.clients.map')->render()
+        ]);
     }
     
     

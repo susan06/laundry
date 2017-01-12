@@ -7,6 +7,7 @@ use DateTime;
 use Validator;
 use Settings;
 use Illuminate\Http\Request;
+use App\Support\Order\OrderStatus;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Client\ClientRepository;
 use App\Repositories\Payment\PaymentRepository;
@@ -87,19 +88,20 @@ class OrderController extends Controller
         } else {
             $search = $request->search;
         }
-        $orders = $this->orders->paginate_search(10, $request->search, $request->status);
+        $orders = $this->orders->paginate_search(10, $request->search, null, $request->status);
         
         $status = [
-            '' => trans('app.all_status'), 
+            '' => trans('app.all_status_order'), 
             true  => trans('app.confirmed'), 
             false  => trans('app.Unconfirmed')
         ];
+        $status_driver = ['' => trans('app.all_status_driver')] + OrderStatus::lists();
 
         if ( $request->ajax() ) {
             if (count($orders)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('orders.list', compact('orders', 'status'))->render(),
+                    'view' => view('orders.list', compact('orders', 'status', 'status_driver'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -109,7 +111,7 @@ class OrderController extends Controller
             }
         }
 
-        return view('orders.index', compact('orders', 'status'));
+        return view('orders.index', compact('orders', 'status', 'status_driver'));
     }
 
     /**
@@ -318,10 +320,10 @@ class OrderController extends Controller
         } else {
             $search = $request->search;
         }
-        $orders = $this->orders->paginate_search(10, $request->search, $request->status, Auth::user()->id);
-        
+        $orders = $this->orders->paginate_search(10, $request->search, Auth::user()->id, $request->status, null, $request->status_driver);
+        $status_driver = ['' => trans('app.all_status_driver')] + OrderStatus::lists();
         $status = [
-            '' => trans('app.all_status'), 
+            '' => trans('app.all_status_order'), 
             true  => trans('app.confirmed'), 
             false  => trans('app.Unconfirmed')
         ];
@@ -330,7 +332,7 @@ class OrderController extends Controller
             if (count($orders)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('orders.list', compact('orders', 'status'))->render(),
+                    'view' => view('orders.list', compact('orders', 'status', 'status_driver'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -340,7 +342,7 @@ class OrderController extends Controller
             }
         }
 
-        return view('orders.index', compact('orders', 'status'));
+        return view('orders.index', compact('orders', 'status', 'status_driver'));
     }
 
     /**

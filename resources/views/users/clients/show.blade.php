@@ -57,6 +57,6 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
+  <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
 </div>
 {!! Form::close() !!}

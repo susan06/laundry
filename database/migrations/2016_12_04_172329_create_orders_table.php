@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->double('sub_total');
             $table->double('discount')->nullable();
             $table->double('total');
+            $table->string('status')->default('search');
             $table->timestamps();
             $table->engine = 'InnoDB';
             

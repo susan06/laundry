@@ -66,11 +66,17 @@
   <div class="row">
     <!-- accepted payments column -->
     <div class="col-xs-6">
+      @if($order->special_instructions)
+      <p class="lead">@lang('app.special_instructions'):</p>
+      <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+          {{ $order->special_instructions }}
+      </p>
+      @endif
       <p class="lead">@lang('app.method_payment'):</p>
       @if($order->order_payment)
       <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
         <b>{{ $order->order_payment->payment_method->name }}</b> <br/>
-        <b>@lang('app.status'):</b> {{ trans("app.{$order->order_payment->statusText()}") }} <br/> 
+        <b>@lang('app.status'):</b> {!! $order->order_payment->getStatusPayment() !!} <br/> 
         <b>@lang('app.payment_date'):</b> {{ $order->order_payment->created_at }} 
       </p>
       @endif

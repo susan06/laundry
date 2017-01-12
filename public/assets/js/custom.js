@@ -452,6 +452,7 @@ $(document).on('change', '#status', function () {
         data:{ status: $this.val() },
         dataType: 'json',
         success: function(response) {
+            CURRENT_URL = this.url;
             hideLoading();
             if(response.success){
                 $('#content-table').html(response.view);
@@ -466,6 +467,32 @@ $(document).on('change', '#status', function () {
         }
     });
 });
+
+// search branch all
+$(document).on('change', '#branch', function () {
+    showLoading();
+    var $this = $(this);
+    $.ajax({
+        url: CURRENT_URL,
+        type:"GET",
+        data:{ branch_office: $this.val() },
+        dataType: 'json',
+        success: function(response) {
+            hideLoading();
+            if(response.success){
+                $('#content-table').html(response.view);
+                loadResposiveTable();
+            } else {
+                notify('error', response.message);
+            }
+        },
+        error: function (status) {
+            hideLoading();
+            notify('error', status.statusText);
+        }
+    });
+});
+
 
 $(document).ready(function() {
     $(document).on('click', '.pagination a', function (e) {

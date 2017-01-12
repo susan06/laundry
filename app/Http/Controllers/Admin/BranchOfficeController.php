@@ -62,14 +62,14 @@ class BranchOfficeController extends Controller
     public function index(Request $request, UserRepository $userRepository)
     {
         $branch_offices = $this->branch_offices->paginate_search(10, $request->search, $request->status);
-
+        $all_branch_offices = $this->branch_offices->all();
         $status = ['' => trans('app.selected_item')] + BranchOfficeStatus::lists();
 
         if ( $request->ajax() ) {
             if (count($branch_offices)) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('branch_offices.list', compact('branch_offices', 'status'))->render(),
+                    'view' => view('branch_offices.list', compact('branch_offices', 'status', 'all_branch_offices'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -79,7 +79,7 @@ class BranchOfficeController extends Controller
             }
         }
 
-        return view('branch_offices.index', compact('branch_offices','status'));
+        return view('branch_offices.index', compact('branch_offices','status', 'all_branch_offices'));
     }
 
     /**
@@ -346,5 +346,18 @@ class BranchOfficeController extends Controller
                 'message' => trans('app.error_again')
             ]);
         }
+    }
+
+    /**
+     * Display map of locations
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function locations()
+    {
+        return response()->json([
+            'success' => true,
+            'view' => view('branch_offices.map')->render()
+        ]);
     }
 }
