@@ -28,6 +28,9 @@ use App\Repositories\Subscriber\SubscriberRepository;
 use App\Repositories\Client\EloquentClient;
 use App\Repositories\Client\ClientRepository;
 
+use App\Repositories\Driver\EloquentDriver;
+use App\Repositories\Driver\DriverRepository;
+
 use App\Repositories\Client\EloquentClientLocation;
 use App\Repositories\Client\ClientLocationRepository;
 
@@ -88,6 +91,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(FaqRepository::class, EloquentFaq::class);
         $this->app->singleton(SubscriberRepository::class, EloquentSubscriber::class);
         $this->app->singleton(ClientRepository::class, EloquentClient::class);
+        $this->app->singleton(DriverRepository::class, EloquentDriver::class);
         $this->app->singleton(ClientLocationRepository::class, EloquentClientLocation::class);
         $this->app->singleton(ClientFriendRepository::class, EloquentClientFriend::class);
         $this->app->singleton(PackageRepository::class, EloquentPackage::class);

@@ -7,6 +7,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
+use App\Repositories\Driver\DriverRepository;
 use App\Support\User\UserStatus;
 
 class DriverController extends Controller
@@ -17,15 +18,21 @@ class DriverController extends Controller
     private $users;
 
     /**
+     * @var DriverRepository
+     */
+    private $drivers;
+
+    /**
      * UserController constructor.
      * @param UserRepository $roles
      */
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepository $users, DriverRepository $drivers)
     {
         $this->middleware('auth');
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
         $this->users = $users;
+        $this->drivers = $drivers;
     }
 
      /**
@@ -252,5 +259,20 @@ class DriverController extends Controller
                 'message' => trans('app.error_again')
             ]);
         } 
+    }
+
+    /**
+     * Edit comission and shedule form
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editComissionShedule($id)
+    {
+        $driver = $this->users->find($id);
+        
+        return response()->json([
+            'success' => true,
+            'view' => view('users.drivers.comission_shedule', compact('driver'))->render()
+        ]);
     }
 }

@@ -864,6 +864,8 @@ return [
     'invitations_sended' => 'Invitaciones enviadas',
     'registered' => 'Registrado',
     'noregistered' => 'No Registrado',
+    'history_financial' => 'Historial financiero',
+    'comission_shedule' => 'Comisión y Horario',
 
 
 

@@ -6,6 +6,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Support\Order\OrderStatus;
+use App\Repositories\User\UserRepository;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
 
@@ -130,5 +131,45 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function finance($client, Request $request, UserRepository $userRepository, BranchOfficeRepository $branchOfficeRepository)
+    {
+        $user = $userRepository->find($client);
+        $status_admin = ($request->status_admin == 1) ? true : false;
+        $orders = $this->orders->paginate_search(10, $request->search, $client, $request->status, $status_admin, $request->status_driver, $request->branch_office);
+        $status_driver = ['' => trans('app.all_status_driver')] + OrderStatus::lists();
+        $branch_offices = ['' => trans('app.all_branchs')] + $branchOfficeRepository->lists();
+        $status = [
+            '' => trans('app.all_status_order'), 
+            true  => trans('app.confirmed'), 
+            false  => trans('app.Unconfirmed')
+        ];
+        $status_admin = [
+            '' => trans('app.all_status_payment'), 
+            true  => trans('app.canceled'), 
+            false  => trans('app.pending_payment')
+        ];
+       if ( $request->ajax() ) {
+            if (count($orders)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('admin-orders.finance.list', compact('orders', 'status', 'status_driver', 'user', 'branch_offices', 'status_admin'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('admin-orders.finance.index', compact('orders', 'status', 'status_driver', 'user', 'branch_offices', 'status_admin'));
     }
 }

@@ -110,6 +110,8 @@
     /**
      * Drivers administrations
     */
+    Route::get('admin-driver/comission/{id}', 'Admin\ClientDriverController@editComissionShedule')->name('admin-driver.comission.edit');
+    Route::put('admin-driver/comission/{id}', 'Admin\ClientDriverController@updateComissionShedule')->name('admin-driver.comission.update');
     Route::resource('admin-driver', 'Admin\DriverController');
     
     /**
@@ -159,6 +161,7 @@
     /**
      * orders administrations
     */
+    Route::get('admin-order/{client}/finance', 'Admin\OrderController@finance')->name('admin-order.finance');
     Route::resource('admin-order', 'Admin\OrderController');
 
     /**

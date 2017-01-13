@@ -20,6 +20,9 @@
                                    title="@lang('app.view_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
+                    <a href="{{ route('admin-order.finance', $client->id) }}" class="btn btn-round btn-primary" title="@lang('app.history_financial')" data-toggle="tooltip" data-placement="top">
+                    <i class="fa fa-bars"></i>
+                    </a>
                     <button type="button" data-href="{{ route('admin-client.edit', $client->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>

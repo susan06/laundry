@@ -20,6 +20,10 @@
                        title="@lang('app.edit_driver')" data-toggle="tooltip" data-placement="top">
                         <i class="fa fa-edit"></i>
                     </button>
+                    <button type="button" data-href="{{ route('admin-driver.comission.edit', $driver->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
+                       title="@lang('app.comission_shedule')" data-toggle="tooltip" data-placement="top">
+                        <i class="fa fa-bars"></i>
+                    </button>
                     <button type="button" data-href="{{ route('admin-driver.destroy', $driver->id) }}"  
                       class="btn btn-round btn-danger btn-delete" 
                       data-confirm-text="@lang('app.are_you_sure_delete_driver')"

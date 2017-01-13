@@ -70,7 +70,6 @@ class User extends Authenticatable
         if ($value) {
             $this->attributes['birthday'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
         }
-       
     }
 
     public function full_name()
