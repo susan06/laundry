@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('last_login')->nullable();
             $table->string('password');
             $table->string('confirmation_token', 60)->nullable();
+            $table->boolean('online')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->engine = 'InnoDB';

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTime;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -33,7 +34,8 @@ class User extends Authenticatable
         'last_login', 
         'birthday',
         'phones', 
-        'confirmation_token'
+        'confirmation_token',
+        'online'
     ];
 
     /**
@@ -141,6 +143,43 @@ class User extends Authenticatable
         return $this->status == UserStatus::BANNED;
     }
 
+    public function isOnline()
+    {
+        switch($this->online) {
+            case true:
+                $class = '<span class="badge bg-nav badge-green">&nbsp;</span>';
+                break;
+
+            case false:
+                $class = '<span class="badge badge-gray">&nbsp;</span>';
+                break;
+
+            default:
+                $class = '<span class="badge">&nbsp;</span>';
+        }
+
+        return $class;
+    }
+
+    public function timeLogin() {
+        $time = '';
+        if ( $this->last_login ) {
+            $date1 = new DateTime(Carbon::now());
+            $date2 = new DateTime($this->last_login);
+            $diff = $date1->diff($date2);
+
+            if( $diff->d) {
+                $time.= trans('app.old').$diff->d.trans('app.days_and');
+            }
+            if( $diff->h) {
+                $time.= $diff->h.trans('app.hours_and');
+            }
+            $time.= $diff->i.trans('app.seconds');
+        }
+
+        return  $time;
+    }
+
     public function labelClass()
     {
         switch($this->status) {
@@ -206,6 +245,16 @@ class User extends Authenticatable
     public function client_friends()
     {
         return $this->hasMany(ClientFriends::class, 'user_id');
+    }
+
+    public function driver_comission()
+    {
+        return $this->hasOne(DriverComission::class, 'user_id');
+    }
+
+    public function driver_shedules()
+    {
+        return $this->hasMany(DriverShedule::class, 'user_id');
     }
 
 }

@@ -149,4 +149,13 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
         ServiceBranchOffice::destroy($id);
     }
 
+    /**
+     * all branch offices in service
+     *
+     */
+    public function all_active()
+    {
+        return $this->where('status', 'In service')->get();
+    }
+
 }

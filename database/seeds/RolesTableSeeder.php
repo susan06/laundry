@@ -13,35 +13,35 @@ class RolesTableSeeder extends Seeder
     {
         DB::table('roles')->insert([
             'name' => 'admin',
-            'display_name' => 'Administrator',
+            'display_name' => 'Administrador',
             'description' => 'System Administrator',
             'removable' => false
         ]);
 
         DB::table('roles')->insert([
             'name' => 'client',
-            'display_name' => 'Client',
+            'display_name' => 'Cliente',
             'description' => 'system Client',
             'removable' => false
         ]);
 
         DB::table('roles')->insert([
             'name' => 'driver',
-            'display_name' => 'Driver',
+            'display_name' => 'Conductor',
             'description' => 'system Driver',
             'removable' => false
         ]);
 
         DB::table('roles')->insert([
             'name' => 'supervisor',
-            'display_name' => 'Service Supervisor',
+            'display_name' => 'Asesor de servicio',
             'description' => 'system Service Supervisor',
             'removable' => false
         ]);
 
         DB::table('roles')->insert([
             'name' => 'branch-representative',
-            'display_name' => 'Branch Representative',
+            'display_name' => 'Representante de surcursal',
             'description' => 'system Branch Representative',
             'removable' => false
         ]);

@@ -26,6 +26,10 @@ class DatabaseSeeder extends Seeder
          $this->call(SuggestionTableSeeder::class);
          $this->call(QualificationTableSeeder::class);
          $this->call(ClientFriendsTableSeeder::class);
+         $this->call(ClientLocationTableSeeder::class);
+         $this->call(DriverComissionTableSeeder::class);
+         $this->call(DriverSheduleTableSeeder::class);
+         $this->call(OrdersTableSeeder::class);
 
     }
 }

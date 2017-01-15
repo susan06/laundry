@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.branch_offices'))
+@section('page-title', trans('app.list_branch_offices'))
 
 @section('content')
 
@@ -11,26 +11,13 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3 id="content-title">@lang('app.branch_offices')</h3>
+              <h3>@lang('app.list_branch_offices') {{ $order->bag_code }}</h3>
             </div>
-            @include('partials.status')
-            @include('partials.search')
+            <div class="clearfix"></div>
           </div>
-        
           <div class="x_content">
-          
-            <div class="row">
-              <div class="col-md-2 col-sm-2 col-xs-12">
-                  <button type="button" data-href="{{ route('admin-branch-office.create') }}" class="btn btn-primary create-edit-show btn-create col-xs-12" data-model="content" title="@lang('app.create_branch_office')">@lang('app.create_branch_office')</button>
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-12">
-                <button type="button" data-href="{{ route('admin-branch-office.map') }}" class="btn btn-primary create-edit-show btn-create col-xs-12" data-model="content" title="@lang('app.map_branch')">@lang('app.map_branch')</button>
-              </div>
-            </div>
 
-            <div id="content-table">
-              @include('branch_offices.list')
-            </div>
+            <div id="map-form"></div>
 
           </div>
         </div>
@@ -47,12 +34,6 @@
 @endsection
 
 @section('scripts')
-@parent
-<!-- Select2 -->
-{!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
-<!-- jquery.inputmask -->
-{!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}
-{!! HTML::script('public/assets/js/maps_services.js') !!}
 
 <script type="text/javascript">
 
@@ -66,28 +47,35 @@
   }
 
   function initMapBranch() {
+
+    var center = new google.maps.LatLng('{!! $order->client_location->lat !!}', '{!! $order->client_location->lng !!}');
+
     map = new google.maps.Map(document.getElementById('map-form'), {
-      center: map_center,
-      zoom: 12,
+      center: center,
+      zoom: 14,
       styles: [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}]
     });
 
     infowindow = new google.maps.InfoWindow({map: map});
 
+    marker = new google.maps.Marker({
+      position: center,
+      map: map,
+      title: '{{ $order->user->full_name() }}',
+      icon: icon_map
+    });
+
     @foreach($all_branch_offices as $branch)
 
       @if($branch->locations)
 
-      locations_old = JSON.parse('{!! json_encode($branch->locations) !!}');
-
-      $.each(locations_old, function(index, item) {
+      $.each(JSON.parse('{!! json_encode($branch->locations) !!}'), function(index, item) {
 
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(item['lat'], item['lng']),
           map: map,
           customInfo: item['address'],
-          title: '{{ $branch->name }}',
-          icon: icon_map
+          title: '{{ $branch->name }} - '+item['address'],
         });
 
         openInfoWindowBranch(marker);
@@ -100,6 +88,12 @@
     @endforeach  
 
     google.maps.event.addListener(marker, 'click', function(){ openInfoWindowBranch(marker); });
+
 }
+
+  $(document).ready(function() {
+    initMapBranch();
+  });
+
 </script>
 @endsection

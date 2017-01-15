@@ -74,7 +74,7 @@
 </div>
 
 <div class="row">
-  <div class="form-group col-md-3 col-sm-4 col-xs-12">
+  <div class="form-group col-md-4 col-sm-4 col-xs-12">
     <button type="button" onClick="add_delivery_time()" class="btn btn-default col-xs-12">@lang('app.add_delivery_hour')</button>
   </div>
 </div>
@@ -120,7 +120,7 @@
 </div>
 
 <div class="row">
-  <div class="form-group col-md-3 col-sm-4 col-xs-12">
+  <div class="form-group col-md-4 col-sm-4 col-xs-12">
     <button type="button" onClick="add_working_hour()" class="btn btn-default col-xs-12">@lang('app.add_interval')</button>
   </div>
 </div>

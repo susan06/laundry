@@ -77,4 +77,10 @@ interface BranchOfficeRepository extends RepositoryInterface
      * @param array $newData
      */
     public function delete_service($id);
+
+    /**
+     * all branch offices in service
+     *
+     */
+    public function all_active();
 }

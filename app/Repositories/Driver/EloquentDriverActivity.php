@@ -5,7 +5,7 @@ namespace App\Repositories\Driver;
 use App\DriverActivity;
 use App\Repositories\Repository;
 
-class EloquentDriverActivity extends Repository implements DriverRepository
+class EloquentDriverActivity extends Repository implements DriverActivityRepository
 {
 	 /**
      * Fields attributes

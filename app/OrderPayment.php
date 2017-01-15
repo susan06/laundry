@@ -64,7 +64,7 @@ class OrderPayment extends Model
                 break;
 
             case false:
-                $text = '<span class="label label-danger">'.trans('pending_payment').'</span>';
+                $text = '<span class="label label-danger">'.trans('app.pending_payment').'</span>';
                 break;
 
             default:

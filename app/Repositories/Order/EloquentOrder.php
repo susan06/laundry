@@ -125,12 +125,12 @@ class EloquentOrder extends Repository implements OrderRepository
      * @return mixed
      *
      */
-    public function paginate_search($take = 10, $search = null, $client = null, $status = null, $status_admin = null, $status_driver = null, $branch_office = null)
+    public function paginate_search($take = 10, $search = null, $client = null, $status = null, $status_payment = null, $status_driver = null, $branch_office = null)
     {
         $query = Order::query();
 
         if ($client) {
-            $query->where('client_id', $client)->orderBy('created_at', 'DESC');
+            $query->where('client_id', $client);
         }
         
         if ($branch_office) {
@@ -161,13 +161,13 @@ class EloquentOrder extends Repository implements OrderRepository
             });
         }
 
-        if ($status_admin) {
-            $query->whereHas('order_payment', function($q) use($status_admin) {
-                $q->where('status', $status_admin);
+        if ($status_payment) {
+            $query->whereHas('order_payment', function($q) use($status_payment) {
+                $q->where('status', $status_payment);
             });
         }
 
-        $result = $query->paginate($take);
+        $result = $query->orderBy('created_at', 'DESC')->paginate($take);
 
         if ($search) {
             $result->appends(['search' => $search]);
@@ -177,8 +177,8 @@ class EloquentOrder extends Repository implements OrderRepository
             $result->appends(['status' => $status]);
         }
 
-        if ($status_admin) {
-            $result->appends(['status_admin' => $status_admin]);
+        if ($status_payment) {
+            $result->appends(['status_admin' => $status_payment]);
         }
 
         if ($branch_office) {
@@ -192,5 +192,61 @@ class EloquentOrder extends Repository implements OrderRepository
         return $result;
     }
 
+    /**
+     * itinerary of driver
+     *
+     */
+    public function itinerary_driver($take = 10, $driver = null, $search = null, $status_driver = null)
+    {
+        $query = Order::where('status', '!=', 'delivered');
+
+        $shedules = $driver->driver_shedules;
+
+        if(count($shedules) > 0) {
+
+            $query->where(function($q) use ($shedules){
+                foreach ($shedules as $shedule) {
+                    $q->orWhere('time_search', '=', $shedule->value);
+                } 
+            });
+
+            $query->whereHas('order_payment', function($q) {
+                $q->where('confirmed', true);
+            });
+
+            if ($status_driver) {
+                $query->where('status', $status_driver);
+            }
+
+            if ($search) {
+                $searchTerms = explode(' ', $search);
+                $query->where( function ($q) use($searchTerms) {
+                    foreach ($searchTerms as $term) { 
+                        $q->whereHas('user', function($qu) use($term) {
+                            $qu->where('name', 'like', "%{$term}%");
+                            $qu->orwhere('lastname', 'like', "%{$term}%");
+                            $qu->orwhere('phones', 'like', "%{$term}%");
+                            $qu->orwhere('email', 'like', "%{$term}%");
+                        });
+                    } 
+                });
+            }
+
+            $result = $query->paginate($take);
+
+            if ($search) {
+                $result->appends(['search' => $search]);
+            }
+
+            if ($status_driver) {
+                $result->appends(['status_driver' => $status_driver]);
+            }
+
+        } else {
+            $result = null;
+        }
+
+        return $result;
+    }
 
 }

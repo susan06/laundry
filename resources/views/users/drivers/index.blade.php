@@ -47,5 +47,6 @@
  {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
  <!-- bootstrap-daterangepicker -->
  {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
- 
+
+ {!! HTML::script('public/assets/js/comission_shedules.js') !!}
 @endsection

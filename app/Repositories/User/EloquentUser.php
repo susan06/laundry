@@ -46,7 +46,6 @@ class EloquentUser extends Repository implements UserRepository
             );
 
         if ($search) {
-            dd($search);
             $searchTerms = explode(' ', $search);
             $query->where( function ($q) use($searchTerms) {
                 foreach ($searchTerms as $term) {

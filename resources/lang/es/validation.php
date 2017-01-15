@@ -152,6 +152,7 @@ return [
         'amount'                => 'Cantidad',
         'representative_id'     => 'Representante de sucursal',
         'package_category_id'   => 'Categoria',
+        'shedules'              => 'Horarios',
     ],
 
 ];

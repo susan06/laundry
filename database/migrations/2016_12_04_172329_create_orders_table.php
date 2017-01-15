@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->string('bag_code')->unique();
             $table->integer('client_id')->unsigned();
+            $table->integer('driver_id')->unsigned()->nullable();
             $table->integer('client_location_id')->unsigned();
             $table->date('date_search');
             $table->integer('time_search');
@@ -29,10 +30,13 @@ class CreateOrdersTable extends Migration
             $table->double('discount')->nullable();
             $table->double('total');
             $table->string('status')->default('search');
+            $table->timestamp('date_delivered')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             
             $table->foreign('client_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('client_location_id')->references('id')->on('clients_locations')
                 ->onUpdate('cascade')->onDelete('cascade');

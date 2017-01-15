@@ -1,5 +1,6 @@
 <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
     <thead>
+      <th>@lang('app.bag_code')</th>
       <th>@lang('app.branch_office')</th>
       <th>@lang('app.client')</th>
       <th>@lang('app.search_date')</th>
@@ -14,6 +15,7 @@
     <tbody>
         @foreach ($orders as $order)
             <tr>
+                <td>{{ $order->bag_code }}</td>
                 <td>{{ is_null($order->branch_office)  ? trans('app.noasigned') : $order->branch_office->name }}</td>
                 <td>{{ $order->user->full_name() }}</td>
                 <td>{{ $order->date_search }}</td>
@@ -40,6 +42,14 @@
                                    title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
+                    @if ( Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'supervisor' && $order->order_payment)
+                      @if($order->order_payment->status)
+                      <button type="button" data-href="{{ route('admin-order.change.confirmed', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
+                                     title="@lang('app.confirmed_order')" data-toggle="tooltip" data-placement="top">
+                      <i class="fa fa-check"></i>
+                      </button>
+                      @endif
+                    @endif
                 </td>
             </tr>
         @endforeach

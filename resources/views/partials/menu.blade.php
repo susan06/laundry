@@ -38,6 +38,10 @@
         @if (Auth::user()->role->name == 'client')
           @include('partials.menu_client')
         @endif
+
+        @if (Auth::user()->role->name == 'driver')
+          @include('partials.menu_driver')
+        @endif
        
         </ul>
       </div>

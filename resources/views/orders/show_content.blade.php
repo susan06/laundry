@@ -4,7 +4,7 @@
     <div class="col-xs-12" style="text-align: center;">
       <img height="150" width="150" src="{{ url('public/assets/images/logos/logo.png') }}">
          <h1>
-        @lang('app.order') {{ $order->bag_code }}
+        @lang('app.order') ({{ trans('app.bag_code').' '.$order->bag_code }})
         </h1>
     </div>
   </div>
@@ -24,6 +24,10 @@
           <strong>@lang('app.delivery_date'):</strong> {{ $order->date_delivery }}
           <br>
           <strong>@lang('app.delivery_hour'):</strong> {{ $order->get_time_delivery() }}
+          <br>
+          @if (Auth::user()->role->name == 'driver' || Auth::user()->role->name == 'admin')
+           <strong>@lang('app.status_driver'):</strong> {!! $order->getStatus() !!}
+          @endif
       </address>
     </div>
     <div class="col-sm-4 invoice-col"></div>
@@ -35,6 +39,10 @@
       @endif
       <br>
       {{ $order->user->label_phones() }}
+      @if (Auth::user()->role->name == 'driver')
+      <br>
+      <button class="btn btn-success col-sm-12 col-xs-12" onclick="show_map('{{$order->client_location->address }}')">@lang('app.show_map')</button>
+      @endif
     </div>
   </div>
   <!-- /.row -->
@@ -120,8 +128,48 @@
   <div class="row no-print">
     <div class="ln_solid"></div>
     <div class="col-xs-12">
+      @if (Auth::user()->role->name == 'driver' && $order->status == 'search')
+      {!! Form::open(['route' => ['driver.order.taked', $order->id], 'method' => 'post', 'id' => 'form-modal']) !!}
+        <button type="submit" class="btn btn-success btn-submit col-sm-2 col-xs-5">@lang('app.taked')</button>
+      {!! Form::close() !!}
+      @endif
       <button class="btn btn-primary col-sm-2 col-xs-5" onclick="window.print();"><i class="fa fa-print"></i> @lang('app.print')</button>
       <button type="button" class="btn btn-default btn-cancel col-sm-2 col-xs-5">@lang('app.back')</button>
     </div>
   </div>
 </section>
+
+<div class="modal fade bs-example-modal-lg no-print" id="show_map_modal" tabindex="-1" role="dialog" aria-hidden="true" style="z-index: 9999">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title">@lang('app.map')</h4>
+      </div>
+
+    <div class="modal-body">
+      <div class="content_map form-horizontal">
+        <div class="col-md-11 col-sm-11 col-xs-11 input_delivery_address">
+          {!! Form::text('delivery_address', $order->client_location->address, ['id' => 'delivery_address', 'readonly' => 'readonly' ]) !!}
+        </div>
+
+        <div id="map-form"></div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var center = new google.maps.LatLng('{!! $order->client_location->lat !!}', '{!! $order->client_location->lng !!}');
+  $("#show_map_modal").on("shown.bs.modal", function () {
+      google.maps.event.trigger(map, "resize");
+      map.setCenter(center);
+  });
+</script>

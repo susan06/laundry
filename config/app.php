@@ -3,8 +3,7 @@
 return [
     
     'autor' => [
-        'susangmedina@gmail.com',
-        'dayannis@gmail.com'
+        'susangmedina@gmail.com'
     ],
     /*
     |--------------------------------------------------------------------------

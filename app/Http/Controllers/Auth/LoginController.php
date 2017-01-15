@@ -98,7 +98,7 @@ class LoginController extends Controller
 
             Auth::login($user, true);
 
-            $this->users->update($user->id, ['last_login' => Carbon::now()]);
+            $this->users->update($user->id, ['last_login' => Carbon::now(), 'online' => true]);
 
             return redirect()->intended('home');
 
@@ -179,6 +179,7 @@ class LoginController extends Controller
     {
         $role = null;
         if ( Auth::guard()->check() ) {
+            $this->users->update(Auth::user()->id, ['online' => false]);
             $role = Auth::user()->role_id;
             Auth::guard()->logout();
         }

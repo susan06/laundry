@@ -14,12 +14,16 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
-$(document).ready(function() {
-    $('#datatable-responsive').DataTable({
-      "searching": false,
-      "paging": false,
-      "bInfo": false,
-    }); 
+$(document).ready(function() { 
+    var options = {
+        "searching": false,
+        "paging": false,
+        "bInfo": false,
+        "language": {
+          "emptyTable": lang.no_data_table
+        }
+    };
+    $('#datatable-responsive').DataTable(options); 
 });
 
 // Sidebar
@@ -318,7 +322,7 @@ $(document).on('click', '.btn-submit', function (e) {
                 if(current_model == 'modal') {
                     $('#general-modal').modal('hide');
                 } else {
-                    if(current_model == 'content') {
+                    if(current_model == 'content' && !response.url_return) {
                         if(response.url_next){
                             $('#content-title').text(title_next);
                             getPages(response.url_next);
@@ -327,9 +331,11 @@ $(document).on('click', '.btn-submit', function (e) {
                             $('.btn-create').show();
                             $('.top_search').show();
                         }
-                    } else if(response.url_return) {
-                        showLoading();
-                        window.location.href = response.url_return;
+                    } else {
+                        if(response.url_return) {
+                            showLoading();
+                            window.location.href = response.url_return;
+                        }
                     } 
                 }
                 notify('success', response.message);
@@ -533,13 +539,15 @@ function notify(type, message){
 
 // datatable-responsive
 function loadResposiveTable() {
-   
-    $('#datatable-responsive').DataTable({
-      "destroy": true,  
-      "searching": false,
-      "paging": false,
-      "bInfo": false,
-    });
+    var options = {
+        "searching": false,
+        "paging": false,
+        "bInfo": false,
+        "language": {
+          "emptyTable": lang.no_data_table
+        }
+    };
+    $('#datatable-responsive').DataTable(options); 
 
 }
 

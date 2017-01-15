@@ -14,7 +14,7 @@ body {
   color: #000 !important;
   background: #2A3F54;
   font-family: "Avenir", sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.471; 
   overflow-x: hidden;
@@ -4306,4 +4306,34 @@ ul.notifications {
 
 .margin-left {
   margin-left: 5px;
+}
+
+.badge {
+  padding: 3px 7px;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.badge-red {
+  background-color: #d24d33;
+  color: #fff;
+}
+
+.badge-green {
+  background-color: #82b964;
+  color: #fff;
+}
+
+.badge-gray {
+  background-color: #DFDFDF;
+  color: #fff;
+}
+.bg-nav {
+  animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+  60% {transform: scale(.9);} 
+  80% {transform: scale(1.2);} 
+  100% {transform: scale(1);}
 }

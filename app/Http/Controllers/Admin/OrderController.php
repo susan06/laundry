@@ -172,4 +172,48 @@ class OrderController extends Controller
 
         return view('admin-orders.finance.index', compact('orders', 'status', 'status_driver', 'user', 'branch_offices', 'status_admin'));
     }
+
+    public function changeConfirmed($id, Request $request) 
+    {
+        $order = $this->orders->find($id);
+        $status_order = [
+            '' => trans('app.all_status_order'), 
+            true  => trans('app.confirmed'), 
+            false  => trans('app.Unconfirmed')
+        ];
+        if ( $order ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('admin-orders.edit_confirmed', compact('order', 'status_order'))->render()
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.no_record_found')
+            ]);
+        }
+    }
+
+    public function updateConfirmed($id, Request $request) 
+    {
+        $order = $this->orders->find($id);
+        $payment_id = $order->order_payment->id;
+        $payment = $this->orders->update_payment(
+            $payment_id, 
+            ['confirmed' => $request->confirmed]
+        );
+        if ( $payment ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.order_confirmed_updated')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
+    }
 }

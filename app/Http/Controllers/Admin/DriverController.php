@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Validator;
 use Auth;
+use Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepository;
@@ -264,15 +265,120 @@ class DriverController extends Controller
     /**
      * Edit comission and shedule form
      *
-     * @return \Illuminate\Http\Response
+     * @return Response JSON
      */
     public function editComissionShedule($id)
     {
         $driver = $this->users->find($id);
-        
+        if(Settings::get('working_hours')) {
+            $working_array = json_decode(Settings::get('working_hours'), true);
+            $working_hours = array_column($working_array, 'interval', 'id');
+        } else {
+            $working_hours = array();
+        }
         return response()->json([
             'success' => true,
-            'view' => view('users.drivers.comission_shedule', compact('driver'))->render()
+            'view' => view('users.drivers.comission_shedule', compact('driver', 'working_hours', 'working_array'))->render()
         ]);
+    }
+
+     /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validatorComissionShedule(array $data)
+    {
+        $rules = [
+            'comission' => 'required|numeric',
+            'shedules' => 'required',
+        ];
+
+        return Validator::make($data, $rules);
+    }
+    /**
+     * Store or update comission and shedule.
+     *
+     */
+    public function updateComissionShedule($id, Request $request)
+    {
+        $validator = $this->validatorComissionShedule($request->all());
+        if ( $validator->passes() ) {
+            $data = [
+                'user_id' => $id,
+                'percentage' => $request->comission
+            ];
+            $user = $this->users->find($id);
+            $comission = $this->drivers->create_update_comission($user, $data);
+            $shedules = $request->shedules;
+             if ( $shedules ) {
+                $shedules_old = $user->driver_shedules;
+                $shedule_id = $request->shedule_id;
+                $delete_shedule = array();
+                foreach( array_unique($shedules) as $key => $value ) {
+                    if((int)$shedule_id[$key] == 0) {
+                        $this->drivers->create_shedule([ 
+                            'user_id' => $user->id,
+                            'value' => $value
+                            ]
+                        );
+                    } else {
+                        if ($shedules_old) {
+                            foreach ($shedules_old->toArray() as $she_old) {
+                               if ( in_array($she_old['id'], $shedule_id)  ) {
+                                   $this->drivers->update_shedule(
+                                        (int)$shedule_id[$key],
+                                        [ 'value' => $value ]
+                                    );
+                               } else {
+                                    $this->drivers->delete_shedule($she_old['id']);
+                               }
+                            }
+                        }
+                    }      
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.comission_shedule_update')
+            ]);
+       
+        } else {
+            $messages = $validator->errors()->getMessages();
+
+            return response()->json([
+                'success' => false,
+                'validator' => true,
+                'message' => $messages
+            ]);
+        }  
+    }
+
+    /**
+     * show list of activities by driver
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showActivities($id, Request $request) 
+    {
+        $activities = $this->drivers->activities($id, $request->search);
+        $user = $this->users->find($id);
+        if ( $request->ajax() ) {
+            if (count($activities) > 0) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('users.drivers.list_activities', compact('activities'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('users.drivers.index_activities', compact('activities', 'user'));
     }
 }

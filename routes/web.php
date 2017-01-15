@@ -110,8 +110,12 @@
     /**
      * Drivers administrations
     */
-    Route::get('admin-driver/comission/{id}', 'Admin\ClientDriverController@editComissionShedule')->name('admin-driver.comission.edit');
-    Route::put('admin-driver/comission/{id}', 'Admin\ClientDriverController@updateComissionShedule')->name('admin-driver.comission.update');
+    Route::get('admin-driver/activities/{id}', 'Admin\DriverController@showActivities')
+        ->name('admin-driver.activities');
+    Route::get('admin-driver/comission/shedule/{id}', 'Admin\DriverController@editComissionShedule')
+        ->name('admin-driver.comission.shedule.edit');
+    Route::put('admin-driver/comission/shedule/{id}', 'Admin\DriverController@updateComissionShedule')
+        ->name('admin-driver.comission.shedule.update');
     Route::resource('admin-driver', 'Admin\DriverController');
     
     /**
@@ -137,6 +141,10 @@
     /**
      * Driver
     */
+    Route::get('driver/my-activities', 'DriverController@activities')->name('driver.activities');
+    Route::get('driver/order/itinerary', 'DriverController@itinerary')->name('driver.order.itinerary');
+    Route::post('driver/order/{id}/taked', 'DriverController@takedOrder')->name('driver.order.taked');
+    Route::get('driver/order/branch-taked/{id}', 'DriverController@list_branch')->name('driver.order.branch.list');
     Route::resource('driver', 'DriverController');
 
     /**
@@ -162,6 +170,8 @@
      * orders administrations
     */
     Route::get('admin-order/{client}/finance', 'Admin\OrderController@finance')->name('admin-order.finance');
+    Route::get('admin-order/confirmed/{id}', 'Admin\OrderController@changeConfirmed')->name('admin-order.change.confirmed');
+    Route::put('admin-order/confirmed/{id}', 'Admin\OrderController@updateConfirmed')->name('admin-order.confirmed.update');
     Route::resource('admin-order', 'Admin\OrderController');
 
     /**

@@ -24,3 +24,14 @@
 </div>
 
 @endsection
+
+@section('scripts_head')
+@parent
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}"></script>
+@endsection
+
+@sections('scripts')
+
+{!! HTML::script('public/assets/js/show_map.js') !!}
+
+@endsection

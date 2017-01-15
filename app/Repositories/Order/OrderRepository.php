@@ -63,5 +63,11 @@ interface OrderRepository extends RepositoryInterface
      * @return mixed
      *
      */
-    public function paginate_search($take = 10, $search = null, $client = null, $status = null, $status_admin = null, $status_driver = null, $branch_office = null);
+    public function paginate_search($take = 10, $search = null, $client = null, $status = null, $status_payment = null, $status_driver = null, $branch_office = null);
+
+    /**
+     * itinerary of driver
+     *
+     */
+    public function itinerary_driver($take = 10, $driver = null, $search = null, $status_driver = null);
 }
