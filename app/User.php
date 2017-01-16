@@ -94,7 +94,7 @@ class User extends Authenticatable
         if ($this->phones) {
             $phones = json_decode($this->phones, true);
             foreach ($phones as $label => $phone) {
-                $text_phones .= trans('app.'.$label).': '.$phone.', ';
+                $text_phones .= '<strong>'.trans('app.'.$label).'</strong>: '.$phone.', ';
             }
             $text_phones = substr($text_phones, 0, -2);
         } 

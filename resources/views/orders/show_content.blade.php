@@ -16,32 +16,32 @@
           <strong>@lang('app.client'):</strong> {{ $order->user->full_name() }}
           <br>
           <strong>@lang('app.email'):</strong> {{ $order->user->email }}
+          @if($order->user->client_location)
           <br>
-          <strong>@lang('app.search_date'):</strong> {{ $order->date_search }}
+            <strong>@lang('app.address'):</strong>{{ $order->client_location->address }}
+          @endif
           <br>
-          <strong>@lang('app.search_hour'):</strong> {{ $order->get_time_search() }}
+          {!! $order->user->label_phones() !!}
+          @if (Auth::user()->role->name == 'driver')
           <br>
-          <strong>@lang('app.delivery_date'):</strong> {{ $order->date_delivery }}
-          <br>
-          <strong>@lang('app.delivery_hour'):</strong> {{ $order->get_time_delivery() }}
-          <br>
-          @if (Auth::user()->role->name == 'driver' || Auth::user()->role->name == 'admin')
-           <strong>@lang('app.status_driver'):</strong> {!! $order->getStatus() !!}
+          <button class="btn btn-success col-sm-10 col-xs-10" onclick="show_map()">@lang('app.show_map')</button>
           @endif
       </address>
     </div>
     <div class="col-sm-4 invoice-col"></div>
     <div class="col-sm-4 invoice-col">
-      @if($order->user->client_location)
-      @lang('app.address'):
+      <strong>@lang('app.search_date'):</strong> {{ $order->date_search }}
       <br>
-      {{ $order->client_location->address }}
-      @endif
+      <strong>@lang('app.search_hour'):</strong> {{ $order->get_time_search() }}
       <br>
-      {{ $order->user->label_phones() }}
-      @if (Auth::user()->role->name == 'driver')
+      <strong>@lang('app.delivery_date'):</strong> {{ $order->date_delivery }}
       <br>
-      <button class="btn btn-success col-sm-12 col-xs-12" onclick="show_map('{{$order->client_location->address }}')">@lang('app.show_map')</button>
+      <strong>@lang('app.delivery_hour'):</strong> {{ $order->get_time_delivery() }}
+      <br>
+       <strong>@lang('app.status_driver'):</strong> {!! $order->getStatus() !!}
+      @if($order->branch_offices_location_id)
+       <br>
+       <strong>@lang('app.branch_office'):</strong> {{ $order->branch_office->name.', '.$order->location_branch()->address }}
       @endif
     </div>
   </div>
@@ -133,6 +133,11 @@
         <button type="submit" class="btn btn-success btn-submit col-sm-2 col-xs-5">@lang('app.taked')</button>
       {!! Form::close() !!}
       @endif
+      @if (Auth::user()->role->name == 'driver' && $order->status == 'recoge')
+      {!! Form::open(['route' => ['driver.order.inbranch', $order->id], 'method' => 'post', 'id' => 'form-modal']) !!}
+        <button type="submit" class="btn btn-success btn-submit col-sm-2 col-xs-5">@lang('app.inbranch')</button>
+      {!! Form::close() !!}
+      @endif
       <button class="btn btn-primary col-sm-2 col-xs-5" onclick="window.print();"><i class="fa fa-print"></i> @lang('app.print')</button>
       <button type="button" class="btn btn-default btn-cancel col-sm-2 col-xs-5">@lang('app.back')</button>
     </div>
@@ -168,6 +173,12 @@
 
 <script type="text/javascript">
   var center = new google.maps.LatLng('{!! $order->client_location->lat !!}', '{!! $order->client_location->lng !!}');
+  @if($order->branch_offices_location_id)
+  var latLngBranch = new google.maps.LatLng('{!! $order->location_branch()->lat !!}', '{!! $order->location_branch()->lng !!}');
+  var branch_name = '{{ $order->branch_office->name }}';
+  @else
+  var latLngBranch = false;
+  @endif
   $("#show_map_modal").on("shown.bs.modal", function () {
       google.maps.event.trigger(map, "resize");
       map.setCenter(center);

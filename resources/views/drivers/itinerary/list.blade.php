@@ -13,7 +13,7 @@
     </thead>
 <tbody>
     @foreach ($orders as $key => $order)
-        <tr class="@if($order->special_instructions) success @endif">
+        <tr class="@if($order->special_instructions && $order->status == 'search' || $order->status == 'recoge') success @endif">
             <td>{{ ($orders->currentpage()-1) * $orders->perpage() + $key + 1 }}</td>
             <td>{{ $order->bag_code }}</td>
             <td>{{ $order->user->full_name() }}</td>
@@ -38,6 +38,12 @@
                 <a href="{{ route('driver.order.branch.list', $order->id) }}" class="btn btn-round btn-primary" title="@lang('app.select_branch_office')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-map-marker"></i>
                 </a>
+                @endif
+                @if($order->status == 'inbranch')
+                {!! Form::open(['route' => ['driver.order.inexit', $order->id], 'method' => 'post', 'id' => 'form-modal']) !!}
+                <button href="{{ route('driver.order.branch.list', $order->id) }}" class="btn btn-round btn-primary btn-submit" title="@lang('app.inexit')">@lang('app.inexit')
+                </button>
+                {!! Form::close() !!}
                 @endif
             </td>
         </tr>

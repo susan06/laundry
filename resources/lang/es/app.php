@@ -883,7 +883,10 @@ return [
     'show_map' => 'Ver mapa',
     'taked' => 'Recogida',
     'taked_commodity_satisfactorily' => 'Ha recogido la mercancia satisfactoriamente, ahora seleccione la sucursal mas cercana',
+    'change_status_order_branch' => 'La órden ahora se encuentra en sucursal',
+    'change_status_order_inexit' => 'La órden ahora se encuentra en camino para la entrega',
     'list_branch_offices' => 'Lista de sucursales, seleccionar para la órden: ',
     'select_branch_office' => 'Seleccionar sucursal',
+    'order_branch_update' => 'Sucursal :branch asignada a la órden',
 
 ];

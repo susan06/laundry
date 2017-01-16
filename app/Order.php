@@ -28,6 +28,7 @@ class Order extends Model
     	'client_location_id',
     	'client_coupon_id', 
         'branch_offices_id',
+        'branch_offices_location_id',
         'date_search', 
         'time_search', 
         'date_delivery', 
@@ -181,5 +182,13 @@ class Order extends Model
     public function branch_office()
     {
         return $this->belongsTo(BranchOffice::class, 'branch_offices_id');
+    }
+
+    public function location_branch()
+    {
+        $location_branch = LocationBranchOffice::find($this->branch_offices_location_id);
+
+        return $location_branch;
+
     }
 }

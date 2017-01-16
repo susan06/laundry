@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Driver\DriverRepository;
@@ -213,40 +214,41 @@ class DriverController extends Controller
     /**
      * Add method payment to order.
      *
-     * @return \Illuminate\Http\Response
      */
     public function list_branch($id, Request $request, BranchOfficeRepository $branchOfficeRepository)
     {
         $order = $this->orders->find($id);
         $all_branch_offices = $branchOfficeRepository->all_active();
+        $branch_offices = $branchOfficeRepository->all_active();
 
-        return view('branch_offices.select_branch', compact('order', 'all_branch_offices'));
+        return view('branch_offices.select_branch', compact('order', 'branch_offices', 'all_branch_offices'));
     }
 
     /**
-     * Store a newly payment created resource in storage.
+     * update branch office of order by driver
      *
-     * @param  int $order
-     * @return \Illuminate\Http\Response
      */    
-    public function method_payment_store($order, Request $request)
+    public function update_branch_order($id, Request $request)
     {
-        $validator = $this->validator_payment($request->all());
+        $rules = ['branch_office' => 'required'];
+        $validator = Validator::make($request->all(), $rules);
         if ( $validator->passes() ) {
             $data = [
-                'order_id' => $order,
-                'payment_method_id' => $request->payment_method_id,
-                'reference' =>  $request->reference,
-                'amount' => $request->amount,
-                'status' => true,
+                'branch_offices_id' => $request->branch_office,
+                'branch_offices_location_id' => $request->branch_location,
             ];
-            $payment = $this->orders->create_payment($data);
-            if ($payment) {
+            $order = $this->orders->update($id, $data);
+            if ($order) {
+
+                $activity = $this->drivers->create_activity([
+                    'user_id' => Auth::user()->id,
+                    'description' => trans('driver.assign_branch_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name, 'address' => $order->location_branch()->address])
+                ]);
 
                 return response()->json([
                     'success' => true,
-                    'url_return' => route('order.show', $order),
-                    'message' => trans('app.order_payment_created')
+                    'url_return' => route('order.show', $order->id),
+                    'message' => trans('app.order_branch_update', ['branch' => $order->branch_office->name])
                 ]);
             } else {
 
@@ -262,6 +264,62 @@ class DriverController extends Controller
                 'success' => false,
                 'validator' => true,
                 'message' => $messages
+            ]);
+        }       
+    }
+
+    /**
+     * in branch of driver
+     *
+     */
+    public function inBranchOrder($id, Request $request)
+    {
+        $driver = Auth::user();
+        $order = $this->orders->update($id, ['status' => OrderStatus::inbranch]);
+
+        if ($order) {
+            $activity = $this->drivers->create_activity([
+                'user_id' => $driver->id,
+                'description' => trans('driver.inbranch_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'url_return' => route('driver.order.itinerary'),
+                'message' => trans('app.change_status_order_branch')
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
+        
+    }
+
+    /**
+     * inexit of driver
+     *
+     */
+    public function inexitOrder($id, Request $request)
+    {
+        $driver = Auth::user();
+        $order = $this->orders->update($id, ['status' => OrderStatus::inexit]);
+
+        if ($order) {
+            $activity = $this->drivers->create_activity([
+                'user_id' => $driver->id,
+                'description' => trans('driver.inexit_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.change_status_order_inexit')
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
             ]);
         }
         

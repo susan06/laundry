@@ -16,6 +16,43 @@
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
+            <div id="row"> 
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>@lang('app.name')</th>
+                  <th>@lang('app.address')</th>
+                  <th width="10%"></th>
+                </tr>
+                </thead>
+                <tbody id="locations_list" class="form-horizontal">
+                  @foreach($branch_offices as $branch_office)
+                  @if($branch_office->locations)
+                    @foreach($branch_office->locations as $loc)
+                      <tr class="locations {{ ($order->branch_offices_location_id == $loc->id) ? 'success' : '' }}">
+                        <td>{{ $loc->branchOffice->name }}</td>
+                        <td>{{ $loc->address }}</td>
+                        <td>
+                          <button type="button" data-branch="{{ $loc->branch_office_id }}"" data-id="{{ $loc->id }}" class="btn btn-round btn-success select-branch"> 
+                            <i class="fa fa-check"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+
+            <div class="ln_solid"></div>
+            {!! Form::open(['route' => ['driver.order.branch.update', $order->id], 'method' => 'PUT', 'id' => 'form-modal']) !!}
+            {!! Form::hidden('branch_office', $order->branch_offices_id, ['id' => 'branch_office']) !!}
+            {!! Form::hidden('branch_location', $order->branch_offices_location_id, ['id' => 'branch_office_location']) !!}
+              <div class="form-group col-md-3 col-sm-3 col-xs-12">
+              <button type="submit" class="btn btn-primary btn-submit col-xs-12">@lang('app.save')</button>
+            {!! Form::close() !!}
+            </div>
 
             <div id="map-form"></div>
 
@@ -91,9 +128,16 @@
 
 }
 
-  $(document).ready(function() {
-    initMapBranch();
-  });
+$(document).on('click', '.select-branch', function () {
+    $('.locations').removeClass('success');
+    $(this).closest('tr').addClass('success');
+    $('#branch_office').val($(this).data('branch'));
+    $('#branch_office_location').val($(this).data('id'));
+});
+
+$(document).ready(function() {
+  initMapBranch();
+});
 
 </script>
 @endsection

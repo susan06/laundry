@@ -30,7 +30,14 @@
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}"></script>
 @endsection
 
-@sections('scripts')
+@section('scripts')
+
+<script type="text/javascript">
+  $("#show_map_modal").on("shown.bs.modal", function () {
+      google.maps.event.trigger(map, "resize");
+      map.setCenter(center);
+  });
+</script>
 
 {!! HTML::script('public/assets/js/show_map.js') !!}
 

@@ -16,7 +16,7 @@
         @foreach ($orders as $order)
             <tr>
                 <td>{{ $order->bag_code }}</td>
-                <td>{{ is_null($order->branch_office)  ? trans('app.noasigned') : $order->branch_office->name }}</td>
+                <td>{{ is_null($order->branch_offices_location_id)  ? trans('app.noasigned') : $order->branch_office->name }}</td>
                 <td>{{ $order->user->full_name() }}</td>
                 <td>{{ $order->date_search }}</td>
                 <td>{{ $order->get_time_search() }}</td>

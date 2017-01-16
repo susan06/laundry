@@ -1,13 +1,13 @@
-function openInfoWindowShowMap(marker, address) {
+function openInfoWindowShowMap(marker) {
     infowindow.close();
     var markerLatLng = marker.getPosition();
     infowindow.setPosition(markerLatLng);
     map.setCenter(markerLatLng);
-    infowindow.setContent('<div class="lat-lng"><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Lng:</strong><br>' + markerLatLng.lng() +'<br> '+address+'</div>');
+    infowindow.setContent('<div class="lat-lng"><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Lng:</strong><br>' + markerLatLng.lng() +'</div>');
     infowindow.open(map, marker);   
 }
 
-function show_map(lat, lng, address) {
+function show_map() {
 
     map = new google.maps.Map(document.getElementById('map-form'), {
       zoom: 15,
@@ -23,15 +23,25 @@ function show_map(lat, lng, address) {
       icon: icon_map
     });
 
-    openInfoWindowShowMap(marker, address);
+    openInfoWindowShowMap(marker);
     infowindow.close();
+
+    if(latLngBranch){
+      marker = new google.maps.Marker({
+        position: latLngBranch,
+        map: map,
+        title: branch_name
+      });
+      openInfoWindowShowMap(marker);
+      infowindow.close();
+    }
 
     map.setCenter(center);
     map.panTo(center);
     map.setZoom(15); 
 
     google.maps.event.addListener(marker, 'click', 
-      function(){ openInfoWindowShowMap(marker, address); 
+      function(){ openInfoWindowShowMap(marker); 
     });
 
     google.maps.event.trigger(map, "resize");
