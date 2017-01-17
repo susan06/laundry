@@ -896,5 +896,12 @@ return [
     'order_complete' => 'Órdenes completadas',
     'order_in_branch' => 'Órdenes en la sucursal',
     'select_a_branch_office' => 'Seleccione una sucursal',
-
+    'penalty' => 'Penalización',
+    'penalty_total' => 'Penalización (% del monto total)',
+    'change_status_order_complete' => 'La órden fue completa exitosamente',
+    'change_branch' => 'Cambio de sucursal',
+    'write_reazon_change_branch' => 'Escriba la razón por la que no puede completar la órden',
+    'change_status_order_change_branch' => 'Se ha notificado al asesor de servicios para el cambio de sucursal, pronto un conductor se encargará de buscarla',
+    'reazon_change_branch_description' => 'La sucursal :branch, ha solicitado un cambio de sucursal debido a la siguiente razón: :reazon',
+ 
 ];

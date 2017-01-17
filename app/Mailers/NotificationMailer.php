@@ -24,4 +24,13 @@ class NotificationMailer extends AbstractMailer
 
         $this->sendTo($order->user->email, $subject, $view, $data);
     }
+
+    public function sendNotificationStatusOrderDriver(Order $order)
+    {
+        $view = 'emails.notifications.branch_complete';
+        $data = ['order' => $order];
+        $subject = 'status of order';
+
+        $this->sendTo($order->driver->email, $subject, $view, $data);
+    }
 }

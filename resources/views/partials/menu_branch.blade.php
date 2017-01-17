@@ -8,14 +8,14 @@
 
   <!--Order in branch -->
   <li>
-    <a href="{{ route('driver.order.itinerary') }}" title="@lang('app.order_in_branch')"><i class="fa fa-file-o"></i> @lang('app.order_in_branch')
+    <a href="{{ route('branch-office.order', 'inbranch') }}" title="@lang('app.order_in_branch')"><i class="fa fa-file-o"></i> @lang('app.order_in_branch')
     </a>
   </li>
   <!--//Order in branch -->
 
    <!--Order complete -->
   <li>
-    <a href="{{ route('driver.order.itinerary') }}" title="@lang('app.order_complete')"><i class="fa fa-file-o"></i> @lang('app.order_complete')
+    <a href="{{ route('branch-office.order', 'branch_finish') }}" title="@lang('app.order_complete')"><i class="fa fa-file-o"></i> @lang('app.order_complete')
     </a>
   </li>
   <!--//Order complete -->

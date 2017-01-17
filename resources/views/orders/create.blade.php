@@ -108,7 +108,7 @@
                     <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
                   </div>
                 </div>
-
+                
                 <div class="row"> 
                   <div class="col-md-4 col-sm-4 col-xs-12 form-group">
                     <select name="time_search" class="form-control" id="time_search">

@@ -18,6 +18,11 @@ $("#check_tomorrow").on("ifClicked", function() {
   $("#date_search").data('DateTimePicker').date(tomorrow2);
 });
 
+/*
+$(document).on('change', '#time_delivery', function () {
+});
+*/
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   notify('error', error_geolocation);
 }

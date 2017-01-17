@@ -67,6 +67,9 @@ use App\Repositories\Suggestion\SuggestionRepository;
 use App\Repositories\Qualification\EloquentQualification;
 use App\Repositories\Qualification\QualificationRepository;
 
+use App\Repositories\Notification\EloquentNotification;
+use App\Repositories\Notification\NotificationRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -107,5 +110,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(PaymentRepository::class, EloquentPayment::class);
         $this->app->singleton(SuggestionRepository::class, EloquentSuggestion::class);
         $this->app->singleton(QualificationRepository::class, EloquentQualification::class);
+         $this->app->singleton(NotificationRepository::class, EloquentNotification::class);
     }
 }

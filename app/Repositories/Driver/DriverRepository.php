@@ -50,4 +50,5 @@ interface DriverRepository extends RepositoryInterface
      * @param array $data
      */
     public function create_activity(array $data);
+
 }

@@ -119,9 +119,18 @@
     Route::resource('admin-driver', 'Admin\DriverController');
     
     /**
-     * Branch offices administrations
+     * Branch offices 
     */ 
-    Route::get('branch-office/{id}/services', 'BranchOfficeController@services')->name('branch-office.services');
+    Route::get('branch-office/{id}/services', 'BranchOfficeController@services')
+        ->name('branch-office.services');
+    Route::get('branch-office/order/{status}', 'BranchOfficeController@orders')
+        ->name('branch-office.order');
+    Route::post('branch-office/order/{id}/complete', 'BranchOfficeController@completeOrder')
+        ->name('branch-office.order.complete');
+    Route::get('branch-office/order/{id}/change/incomplete', 'BranchOfficeController@reazonChangeBranch')
+        ->name('branch-office.order.incomplete');
+    Route::post('branch-office/order/{id}/incomplete/update', 'BranchOfficeController@reazonChangeBranchUpdate')
+        ->name('branch-office.order.incomplete.update');
     Route::resource('branch-office', 'BranchOfficeController');
 
     /**
@@ -149,7 +158,7 @@
     Route::put('driver/order/branch/update/{id}', 'DriverController@update_branch_order')->name('driver.order.branch.update');
     Route::post('driver/order/{id}/inbranch', 'DriverController@inBranchOrder')->name('driver.order.inbranch');
     Route::post('driver/order/{id}/inexit', 'DriverController@inexitOrder')->name('driver.order.inexit');
-    Route::post('driver/order/{id}/delivered', 'DriverController@DeliveredOrder')->name('driver.order.delivered');
+    Route::post('driver/order/{id}/delivered', 'DriverController@deliveredOrder')->name('driver.order.delivered');
     Route::resource('driver', 'DriverController');
 
     /**

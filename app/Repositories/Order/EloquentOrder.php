@@ -253,4 +253,22 @@ class EloquentOrder extends Repository implements OrderRepository
         return $result;
     }
 
+    /**
+     * itinerary of driver
+     *
+     */
+    public function itinerary_branch($take = 10, $status = null, $search = null)
+    {
+        $query = Order::where('branch_offices_id', session('branch_office')->id)
+            ->where('status', $status);
+  
+        $result = $query->paginate($take);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;
+    }
+
 }

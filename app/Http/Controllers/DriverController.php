@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Validator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mailers\NotificationMailer;
 use App\Repositories\User\UserRepository;
@@ -363,7 +364,7 @@ class DriverController extends Controller
     public function deliveredOrder($id, Request $request, NotificationMailer $mailer, ClientRepository $clientRepository)
     {
         $driver = Auth::user();
-        $order = $this->orders->update($id, ['status' => OrderStatus::delivered]);
+        $order = $this->orders->update($id, ['status' => OrderStatus::delivered, 'date_delivered' => Carbon::now()]);
         $location = $order->client_location_id;
         $client_location = $clientRepository->update_status_location(
             $location, 

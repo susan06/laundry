@@ -30,8 +30,7 @@ class EloquentDriver extends Repository implements DriverRepository
     public function __construct(
         User $driver, 
         DriverActivityRepository $activities
-    )
-    {
+    ) {
         parent::__construct($driver, $this->attributes);
         $this->activities = $activities;
     }
