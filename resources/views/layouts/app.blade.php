@@ -88,7 +88,9 @@
             <!-- /footer content -->
         </div>
     </div>
-    
+    @if (Auth::user()->role->name == 'branch-representative')
+        @include('partials.modal_branch_offices')
+    @endif
     <!--JQuery--> 
     {!! HTML::script('public/vendors/jquery/dist/jquery.min.js') !!}
 
@@ -137,7 +139,13 @@
     @include('partials.messages')
 
     @if (Auth::user()->role->name == 'branch-representative')
-        @include('partials.modal_branch_offices')
+        <script type="text/javascript">
+        function change_branch_office(){
+            @if (session('branch_offices'))
+            $('#modal_branch_offices').modal('show');
+            @endif
+        }
+        </script>
     @endif
 
     @if (Auth::user()->role->name == 'branch-representative' && !session('branch_office'))

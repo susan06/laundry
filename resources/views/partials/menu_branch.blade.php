@@ -1,13 +1,8 @@
  @if(session('branch_office'))
    <!--Branch office -->
-  <li>
-    <a href="javascript::void(0)"  
-      @if(session('branch_offices'))
-        onclick="change_branch_office()"
-      @endif 
-     ><i class="fa fa-building-o"></i> @lang('app.branch_office') {{ session('branch_office')->name }}
-    </a>
-  </li>
+   <li>
+    <a href="#" onclick="change_branch_office()"><i class="fa fa-building-o"></i> @lang('app.branch_office') {{ session('branch_office')->name }}</a>
+    </li>
   <!--//Branch office -->
   @endif
 

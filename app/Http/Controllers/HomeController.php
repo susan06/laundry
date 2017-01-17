@@ -26,7 +26,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Users $users, BranchOffice $branchOffice)
+    public function index(Request $request, Users $users, BranchOffice $branchOffice)
     {
         if (Auth::user()->role_id == 1) {
             $totalUsers = $users->all();
@@ -49,7 +49,32 @@ class HomeController extends Controller
         }
 
         if (Auth::user()->role_id == 5) {
+            $this->select_branch($request, $branchOffice);
             return view('dashboard.branch-representative');
+        }
+    }
+
+    /**
+     * select in session list branch
+     *
+     */
+    public function select_branch(Request $request, BranchOffice $branchOfficeRepository)
+    {
+        $branch_offices_all = $branchOfficeRepository->where('representative_id', Auth::user()->id)->where('status', 'In service')->pluck('name', 'id')->all();
+        $branch_office = $branchOfficeRepository->where('representative_id', Auth::user()->id)->where('status', 'In service')->first();
+        
+        if ($request->branch_office_id) {
+            $branch_office = $branchOfficeRepository->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
+        if ( count($branch_offices_all) > 1 && !session('branch_offices')) {
+            $branch_offices = ['' => trans('app.select_a_branch_office')] + $branch_offices_all;
+            session()->put('branch_offices', $branch_offices); 
+        } else {
+            if(!session('branch_office')) {
+                session()->put('branch_office', $branch_office); 
+            }
         }
     }
 }
