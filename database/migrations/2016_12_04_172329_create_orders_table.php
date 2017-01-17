@@ -27,6 +27,7 @@ class CreateOrdersTable extends Migration
             $table->integer('branch_offices_location_id')->nullable();
             $table->integer('client_coupon_id')->nullable();
             $table->text('special_instructions')->nullable();
+            $table->text('note')->nullable();
             $table->double('sub_total');
             $table->double('discount')->nullable();
             $table->double('total');

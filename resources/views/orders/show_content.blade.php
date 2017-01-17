@@ -43,6 +43,10 @@
        <br>
        <strong>@lang('app.branch_office'):</strong> {{ $order->branch_office->name.', '.$order->location_branch()->address }}
       @endif
+      @if (Auth::user()->role->name == 'admin' && $order->driver_id)
+      <br>
+      <strong>@lang('app.driver'):</strong> {{ $order->driver->full_name() }}
+      @endif
     </div>
   </div>
   <!-- /.row -->

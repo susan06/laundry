@@ -174,4 +174,13 @@ class EloquentClient extends Repository implements ClientRepository
         return $this->friends->paginate($take);
     }
 
+    /**
+     * update status location
+     *
+     */
+    public function update_status_location($id, $data)
+    {
+        return $this->locations->update($id, $data);  
+    }
+
 }

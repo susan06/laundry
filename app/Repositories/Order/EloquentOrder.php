@@ -196,9 +196,13 @@ class EloquentOrder extends Repository implements OrderRepository
      * itinerary of driver
      *
      */
-    public function itinerary_driver($take = 10, $driver = null, $search = null, $status_driver = null)
+    public function itinerary_driver($take = 10, $itinerary = null, $driver = null, $search = null, $status_driver = null)
     {
-        $query = Order::where('status', '!=', 'delivered');
+        if($itinerary) {
+            $query = Order::where('status', '!=', 'delivered');
+        } else {
+            $query = Order::where('status', '=', 'delivered');
+        }
 
         $shedules = $driver->driver_shedules;
 

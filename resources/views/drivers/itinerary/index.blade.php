@@ -11,7 +11,7 @@
         <div class="x_panel">
           <div class="page-title no-print">
             <div class="title_left">
-              <h3>@lang('app.my_itinerary')</h3>
+              <h3>{{ $title }}</h3>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
               {!! Form::select('status_driver', $status_driver, old('status_driver'), ['class' => 'form-control', 'id' => 'status_driver']) !!}

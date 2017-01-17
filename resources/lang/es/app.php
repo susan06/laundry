@@ -228,6 +228,7 @@ return [
     'Please Enter Your Information' => 'Ingresa tu información',
     'New User Registration' => 'Nuevo Usuario',
     'Enter your details to begin' => 'Ingresa tus detalles',
+    'status of order' => 'Estatus de su órden',
 
 
     'hey' => 'Hey',
@@ -885,8 +886,12 @@ return [
     'taked_commodity_satisfactorily' => 'Ha recogido la mercancia satisfactoriamente, ahora seleccione la sucursal mas cercana',
     'change_status_order_branch' => 'La órden ahora se encuentra en sucursal',
     'change_status_order_inexit' => 'La órden ahora se encuentra en camino para la entrega',
+    'change_status_order_delivered' => 'La órden ha sido entregada con éxito',
     'list_branch_offices' => 'Lista de sucursales, seleccionar para la órden: ',
     'select_branch_office' => 'Seleccionar sucursal',
     'order_branch_update' => 'Sucursal :branch asignada a la órden',
+    'branch_finish' => 'Lista para recoger en sucursal',
+    'change_status_order' => 'El estatus de su orden ha cambiado',
+    'order_delivered' => 'Órdenes entregadas',
 
 ];

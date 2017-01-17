@@ -69,5 +69,5 @@ interface OrderRepository extends RepositoryInterface
      * itinerary of driver
      *
      */
-    public function itinerary_driver($take = 10, $driver = null, $search = null, $status_driver = null);
+    public function itinerary_driver($take = 10, $itinerary = null, $driver = null, $search = null, $status_driver = null);
 }

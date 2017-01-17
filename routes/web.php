@@ -143,11 +143,13 @@
     */
     Route::get('driver/my-activities', 'DriverController@activities')->name('driver.activities');
     Route::get('driver/order/itinerary', 'DriverController@itinerary')->name('driver.order.itinerary');
+    Route::get('driver/order/itinerary/delivery', 'DriverController@itinerary_delivery')->name('driver.order.itinerary.delivery');
     Route::post('driver/order/{id}/taked', 'DriverController@takedOrder')->name('driver.order.taked');
     Route::get('driver/order/branch-taked/{id}', 'DriverController@list_branch')->name('driver.order.branch.list');
     Route::put('driver/order/branch/update/{id}', 'DriverController@update_branch_order')->name('driver.order.branch.update');
     Route::post('driver/order/{id}/inbranch', 'DriverController@inBranchOrder')->name('driver.order.inbranch');
     Route::post('driver/order/{id}/inexit', 'DriverController@inexitOrder')->name('driver.order.inexit');
+    Route::post('driver/order/{id}/delivered', 'DriverController@DeliveredOrder')->name('driver.order.delivered');
     Route::resource('driver', 'DriverController');
 
     /**

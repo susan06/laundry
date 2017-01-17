@@ -39,9 +39,15 @@
                     <i class="fa fa-map-marker"></i>
                 </a>
                 @endif
-                @if($order->status == 'inbranch')
+                @if($order->status == 'branch_finish')
                 {!! Form::open(['route' => ['driver.order.inexit', $order->id], 'method' => 'post', 'id' => 'form-modal']) !!}
-                <button href="{{ route('driver.order.branch.list', $order->id) }}" class="btn btn-round btn-primary btn-submit" title="@lang('app.inexit')">@lang('app.inexit')
+                <button type="submit" class="btn btn-round btn-primary btn-submit" title="@lang('app.inexit')">@lang('app.inexit')
+                </button>
+                {!! Form::close() !!}
+                @endif
+                @if($order->status == 'inexit')
+                {!! Form::open(['route' => ['driver.order.delivered', $order->id], 'method' => 'post', 'id' => 'form-modal']) !!}
+                <button type="submit" class="btn btn-round btn-primary btn-submit" title="@lang('app.delivered')">@lang('app.delivered')
                 </button>
                 {!! Form::close() !!}
                 @endif

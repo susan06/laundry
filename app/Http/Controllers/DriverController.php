@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Auth;
 use Validator;
 use Illuminate\Http\Request;
+use App\Mailers\NotificationMailer;
 use App\Repositories\User\UserRepository;
 use App\Repositories\Driver\DriverRepository;
 use App\Support\User\UserStatus;
 use App\Support\Order\OrderStatus;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
+use App\Repositories\Client\ClientRepository;
 
 class DriverController extends Controller
 {
@@ -158,8 +160,9 @@ class DriverController extends Controller
     public function itinerary(Request $request) 
     {
         $driver = Auth::user();
+        $title = trans('app.my_itinerary');
         $status_driver = ['' => trans('app.all_status_driver')] + OrderStatus::listsDrivers();
-        $orders = $this->orders->itinerary_driver(10, $driver, $request->search, $request->status);
+        $orders = $this->orders->itinerary_driver(10, true, $driver, $request->search, $request->status);
         if ( $request->ajax() ) {
             if (count($orders) > 0) {
                 return response()->json([
@@ -174,9 +177,36 @@ class DriverController extends Controller
             }
         }
 
-        return view('drivers.itinerary.index', compact('orders', 'status_driver'));
+        return view('drivers.itinerary.index', compact('orders', 'status_driver', 'title'));
     }
 
+    /**
+     * itinerary of driver
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function itinerary_delivery(Request $request) 
+    {
+        $driver = Auth::user();
+        $title = trans('app.order_delivered');
+        $status_driver = ['' => trans('app.all_status_driver')] + OrderStatus::listsDrivers();
+        $orders = $this->orders->itinerary_driver(10, null, $driver, $request->search, $request->status);
+        if ( $request->ajax() ) {
+            if (count($orders) > 0) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('drivers.itinerary.list', compact('orders'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('drivers.itinerary.index', compact('orders', 'status_driver', 'title'));
+    }
      /**
      * taked order by driver
      *
@@ -272,12 +302,13 @@ class DriverController extends Controller
      * in branch of driver
      *
      */
-    public function inBranchOrder($id, Request $request)
+    public function inBranchOrder($id, Request $request, NotificationMailer $mailer)
     {
         $driver = Auth::user();
         $order = $this->orders->update($id, ['status' => OrderStatus::inbranch]);
 
         if ($order) {
+            $mailer->sendNotificationStatusOrder($order);
             $activity = $this->drivers->create_activity([
                 'user_id' => $driver->id,
                 'description' => trans('driver.inbranch_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
@@ -301,12 +332,13 @@ class DriverController extends Controller
      * inexit of driver
      *
      */
-    public function inexitOrder($id, Request $request)
+    public function inexitOrder($id, Request $request, NotificationMailer $mailer)
     {
         $driver = Auth::user();
         $order = $this->orders->update($id, ['status' => OrderStatus::inexit]);
 
         if ($order) {
+            $mailer->sendNotificationStatusOrder($order);
             $activity = $this->drivers->create_activity([
                 'user_id' => $driver->id,
                 'description' => trans('driver.inexit_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
@@ -315,6 +347,39 @@ class DriverController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => trans('app.change_status_order_inexit')
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }    
+    }
+
+    /**
+     * inexit of driver
+     *
+     */
+    public function deliveredOrder($id, Request $request, NotificationMailer $mailer, ClientRepository $clientRepository)
+    {
+        $driver = Auth::user();
+        $order = $this->orders->update($id, ['status' => OrderStatus::delivered]);
+        $location = $order->client_location_id;
+        $client_location = $clientRepository->update_status_location(
+            $location, 
+            ['confirmed' => true]
+        );
+        
+        if ($order) {
+            $mailer->sendNotificationStatusOrder($order);
+            $activity = $this->drivers->create_activity([
+                'user_id' => $driver->id,
+                'description' => trans('driver.delivered_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.change_status_order_delivered')
             ]);
         } else {
             return response()->json([

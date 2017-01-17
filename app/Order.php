@@ -37,7 +37,8 @@ class Order extends Model
         'discount', 
         'sub_total',
         'total',
-        'status'
+        'status',
+        'note'
     ];
 
     /**
@@ -132,6 +133,14 @@ class Order extends Model
                 $class = '<span class="label label-success">'.trans("app.{$this->status}").'</span>';
                 break;
 
+            case OrderStatus::branch_finish:
+                $class = '<span class="label label-warning">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            case OrderStatus::delivered:
+                $class = '<span class="label label-success">'.trans("app.{$this->status}").'</span>';
+                break;
+
             default:
                 $class = '<span class="label label-warning">'.trans("app.{$this->status}").'</span>';
         }
@@ -146,6 +155,11 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(User::class, 'driver_id');
     }
 
     public function client_location()

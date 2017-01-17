@@ -8,6 +8,7 @@ class OrderStatus
     const recoge = 'recoge';
     const inbranch = 'inbranch';
     const inexit = 'inexit';
+    const branch_finish = 'branch_finish';
     const delivered = 'delivered';
 
     public static function lists()
@@ -27,7 +28,8 @@ class OrderStatus
             self::search => trans('app.'.self::search),
             self::recoge => trans('app.'. self::recoge),
             self::inbranch => trans('app.' . self::inbranch),
-            self::inexit => trans('app.' . self::inexit)
+            self::inexit => trans('app.' . self::inexit),
+            self::branch_finish => trans('app.' . self::branch_finish)
         ];
     }
 }

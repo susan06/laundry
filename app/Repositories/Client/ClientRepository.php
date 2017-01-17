@@ -66,4 +66,10 @@ interface ClientRepository extends RepositoryInterface
      */
     public function paginate_friends($take = 10);
 
+     /**
+     * update status location
+     *
+     */
+    public function update_status_location($id, $data);
+
 }
