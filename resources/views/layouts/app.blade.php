@@ -136,6 +136,16 @@
 
     @include('partials.messages')
 
+    @if (Auth::user()->role->name == 'branch-representative')
+        @include('partials.modal_branch_offices')
+    @endif
+
+    @if (Auth::user()->role->name == 'branch-representative' && !session('branch_office'))
+        <script type="text/javascript">
+            $('#modal_branch_offices').modal('show');
+        </script>
+    @endif
+
     @yield('scripts')
 
 </body>

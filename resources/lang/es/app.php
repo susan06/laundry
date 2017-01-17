@@ -893,5 +893,8 @@ return [
     'branch_finish' => 'Lista para recoger en sucursal',
     'change_status_order' => 'El estatus de su orden ha cambiado',
     'order_delivered' => 'Órdenes entregadas',
+    'order_complete' => 'Órdenes completadas',
+    'order_in_branch' => 'Órdenes en la sucursal',
+    'select_a_branch_office' => 'Seleccione una sucursal',
 
 ];

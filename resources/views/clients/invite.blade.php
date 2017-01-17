@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'titulo')
+@section('page-title', trans('app.invited_friends'))
 
 @section('content')
 

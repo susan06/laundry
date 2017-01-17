@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('page-title', trans('app.terms_and_conditions'))
 

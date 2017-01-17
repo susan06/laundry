@@ -42,6 +42,10 @@
         @if (Auth::user()->role->name == 'driver')
           @include('partials.menu_driver')
         @endif
+
+        @if (Auth::user()->role->name == 'branch-representative')
+          @include('partials.menu_branch')
+        @endif
        
         </ul>
       </div>
