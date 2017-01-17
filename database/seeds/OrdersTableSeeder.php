@@ -13,7 +13,7 @@ class OrdersTableSeeder extends Seeder
     {
         DB::table('orders')->insert([
             'bag_code' => rand(5,9000).'-'.date('H').date('i'),
-            'user_id' => 2,
+            'client_id' => 2,
             'client_location_id' => 1,
             'date_search' => '2017-01-16',
             'time_search' => 1,
@@ -28,7 +28,7 @@ class OrdersTableSeeder extends Seeder
 
         DB::table('orders')->insert([
             'bag_code' => rand(5,9000).'-'.date('H').date('i'),
-            'user_id' => 2,
+            'client_id' => 2,
             'client_location_id' => 1,
             'date_search' => '2017-01-17',
             'time_search' => 2,
@@ -43,7 +43,7 @@ class OrdersTableSeeder extends Seeder
 
         DB::table('orders')->insert([
             'bag_code' => rand(5,9000).'-'.date('H').date('i'),
-            'user_id' => 2,
+            'client_id' => 2,
             'client_location_id' => 1,
             'date_search' => '2017-01-18',
             'time_search' => 3,
@@ -77,7 +77,7 @@ class OrdersTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now()
         ]);
 
-        DB::table('orders_payment')->insert([
+        DB::table('orders_payments')->insert([
             'order_id' => 1,
             'payment_method_id' => 1,
             'reference' => 12345,
@@ -87,7 +87,7 @@ class OrdersTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now()
         ]);
 
-        DB::table('orders_payment')->insert([
+        DB::table('orders_payments')->insert([
             'order_id' => 2,
             'payment_method_id' => 2,
             'reference' => 98765,
@@ -97,7 +97,7 @@ class OrdersTableSeeder extends Seeder
             'created_at' => \Carbon\Carbon::now()
         ]);
 
-        DB::table('orders_payment')->insert([
+        DB::table('orders_payments')->insert([
             'order_id' => 3,
             'payment_method_id' => 2,
             'reference' => 54321,
