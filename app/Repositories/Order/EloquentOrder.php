@@ -261,7 +261,11 @@ class EloquentOrder extends Repository implements OrderRepository
     {
         $query = Order::where('branch_offices_id', session('branch_office')->id)
             ->where('status', $status);
-  
+
+        if($status == 'inbranch') {
+            $query->orWhere('status', 'change_branch');
+        }
+
         $result = $query->paginate($take);
 
         if ($search) {

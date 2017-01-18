@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Mailers\NotificationMailer;
@@ -141,13 +142,36 @@ class BranchOfficeController extends Controller
     }
 
     /**
+     * select in session list branch
+     *
+     */
+    public function select_branch(Request $request)
+    {
+        $branch_offices_all = $this->branch_offices->where('representative_id', Auth::user()->id)->where('status', 'In service')->pluck('name', 'id')->all();
+        $branch_office = $this->branch_offices->where('representative_id', Auth::user()->id)->where('status', 'In service')->first();
+        
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
+        if ( count($branch_offices_all) > 1 && !session('branch_offices')) {
+            $branch_offices = ['' => trans('app.select_a_branch_office')] + $branch_offices_all;
+            session()->put('branch_offices', $branch_offices); 
+        } else {
+            if(!session('branch_office')) {
+                session()->put('branch_office', $branch_office); 
+            }
+        }
+    }
+    /**
      * list order in branch offices
      *
      * @return \Illuminate\Http\Response
      */
     public function orders($status, Request $request) 
     {
-        $driver = Auth::user();
+        $this->select_branch($request);
         if ($status == 'inbranch') {
             $title = trans('app.order_in_branch');
         } else {
@@ -205,7 +229,7 @@ class BranchOfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function reazonChangeBranch($id, Request $request)
+    public function reasonChangeBranch($id, Request $request)
     {
         $order = $this->orders->find($id);
 
@@ -219,27 +243,39 @@ class BranchOfficeController extends Controller
      * reazon Change Branch Update
      *
      */
-    public function reazonChangeBranchUpdate($id, Request $request, NotificationRepository $notificationRepository)
+    public function reasonIncompleteUpdate($id, Request $request, NotificationRepository $notificationRepository)
     {
-        $order = $this->orders->update($id, ['status' => OrderStatus::change_branch]);
-        
-        if ($order) {
-            
-            $notification = $notificationRepository->create([
-                'branch_offices_id' => $order->branch_offices_id,
-                'description' => trans('app.reazon_change_branch_description', ['branch' => $order->branch_office->name, 'reazon' => $request->reazon])
-            ]);
+        $rules = [ 'description' => 'required'];
+
+        $validator = Validator::make($request->only('description'), $rules);
+        if ( $validator->passes() ) {
+            $order = $this->orders->update($id, ['status' => OrderStatus::change_branch]);       
+            if ($order) {
+                
+                $notification = $notificationRepository->create([
+                    'branch_office_id' => $order->branch_offices_id,
+                    'description' => trans('app.reazon_change_branch_description', ['branch' => $order->branch_office->name, 'reason' => $request->description])
+                ]);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.change_status_order_change_branch')
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }   
+        } else {
+            $messages = $validator->errors()->getMessages();
 
             return response()->json([
-                'success' => true,
-                'message' => trans('app.change_status_order_change_branch')
-            ]);
-        } else {
-            return response()->json([
                 'success' => false,
-                'message' => trans('app.error_again')
+                'validator' => true,
+                'message' => $messages
             ]);
-        }      
+        }   
     }
 
 }

@@ -25,6 +25,9 @@
                 <button data-model="modal" data-href="{{ route('branch-office.order.incomplete', $order->id) }}" class="btn btn-round btn-danger create-edit-show" title="@lang('app.change_branch')">@lang('app.change_branch')
                 </button>
                 @endif
+                @if($order->status == 'change_branch')
+                  {!! $order->getStatus() !!}
+                @endif
             </td>
         </tr>
     @endforeach

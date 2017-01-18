@@ -127,9 +127,10 @@
         ->name('branch-office.order');
     Route::post('branch-office/order/{id}/complete', 'BranchOfficeController@completeOrder')
         ->name('branch-office.order.complete');
-    Route::get('branch-office/order/{id}/change/incomplete', 'BranchOfficeController@reazonChangeBranch')
+    Route::get('branch-office/order/{id}/change/incomplete', 'BranchOfficeController@reasonChangeBranch')
         ->name('branch-office.order.incomplete');
-    Route::post('branch-office/order/{id}/incomplete/update', 'BranchOfficeController@reazonChangeBranchUpdate')
+    Route::post('branch-office/reason/{id}/incomplete/update', 
+        'BranchOfficeController@reasonIncompleteUpdate')
         ->name('branch-office.order.incomplete.update');
     Route::resource('branch-office', 'BranchOfficeController');
 

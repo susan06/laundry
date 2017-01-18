@@ -137,6 +137,10 @@ class Order extends Model
                 $class = '<span class="label label-warning">'.trans("app.{$this->status}").'</span>';
                 break;
 
+            case OrderStatus::change_branch:
+                $class = '<span class="label label-danger">'.trans("app.{$this->status}").'</span>';
+                break;
+
             case OrderStatus::delivered:
                 $class = '<span class="label label-success">'.trans("app.{$this->status}").'</span>';
                 break;

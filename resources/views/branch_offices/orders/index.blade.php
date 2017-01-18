@@ -31,35 +31,35 @@
 
 @endsection
 
-@section('scripts_head')
-@parent
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}"></script>
-@endsection
-
 @section('scripts')
-@parent
-
-{!! HTML::script('public/assets/js/show_map.js') !!}
-
 <script type="text/javascript">
-  // search status order payment all
-$(document).on('change', '#status_driver', function () {
+  $(document).on('click', '.btn-submit-reason', function (e) {
+    e.preventDefault();
     showLoading();
-    var $this = $(this);
+    var form = $('#form-modal-reason'); 
     $.ajax({
-        url: CURRENT_URL,
-        type:"GET",
-        data:{ status_driver: $this.val() },
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
         dataType: 'json',
         success: function(response) {
-            CURRENT_URL = this.url;
             hideLoading();
             if(response.success){
-                $('#content-table').html(response.view);
-                loadResposiveTable();
+                $('#general-modal').modal('hide');
+                notify('success', response.message);
+                getPages(form.attr('action'));
             } else {
-                notify('error', response.message);
+                if(response.validator) {
+                  var message = '';
+                  $.each(response.message, function(key, value) {
+                    message += value+' ';
+                  });
+                  notify('error', message);
+                } else {
+                  notify('error', response.message);
+                }
             }
+           
         },
         error: function (status) {
             hideLoading();
