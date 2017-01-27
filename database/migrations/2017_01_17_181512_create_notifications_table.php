@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('driver_id')->unsigned()->nullable();
             $table->integer('branch_office_id')->unsigned()->nullable();
             $table->text('description')->nullable();
+            $table->boolean('read_on')->default(false);
             $table->timestamps();
             $table->engine = 'InnoDB';
             

@@ -154,6 +154,26 @@
         </script>
     @endif
 
+    @if (Auth::user()->role->name == 'driver')
+    <script type="text/javascript">
+        function driver_notifications() {
+            $.ajax({
+                url: '{{ route("driver.notification.count") }}',
+                type : 'get',
+                dataType: 'json',
+                success: function (response) {
+                   $(".driver-notifications").text(response.count);
+                }
+            });
+        }
+    
+        $(document).ready(function () {            
+            driver_notifications();
+            setInterval(driver_notifications,30000);
+        });
+    </script>
+    @endif
+
     @yield('scripts')
 
 </body>

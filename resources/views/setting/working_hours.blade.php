@@ -32,7 +32,10 @@
 
 <script type="text/javascript">
   var select_option = {'available':'{{trans("app.Available")}}', 'notavailable':'{{trans("app.Not available")}}'};
-  var select_delivery = {'public':'{{trans("app.public")}}', 'private':'{{trans("app.private")}}'};
+  var select_delivery = {
+    'public':'{{trans("app.public")}}', 
+    'private':'{{trans("app.private")}}'
+  };
   var count = {!! count($working_hours) !!};
 </script>
 

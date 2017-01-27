@@ -1,6 +1,7 @@
  <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
     <thead>
       <th>#</th>
+      <th>@lang('app.address-branch')</th>
       <th>@lang('app.bag_code')</th>
       <th>@lang('app.delivery_date')</th>
       <th>@lang('app.special_instructions')</th>
@@ -11,6 +12,7 @@
     @foreach ($orders as $key => $order)
         <tr>
             <td>{{ ($orders->currentpage()-1) * $orders->perpage() + $key + 1 }}</td>
+            <td>{{ $order->location_branch()->address }}</td>
             <td>{{ $order->bag_code }}</td>
             <td>{{ $order->date_delivery }}</td>
             <td>{{ $order->special_instructions }}</td>

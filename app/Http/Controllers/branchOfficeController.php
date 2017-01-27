@@ -179,17 +179,10 @@ class BranchOfficeController extends Controller
         }
         $orders = $this->orders->itinerary_branch(10, $status, $request->search);
         if ( $request->ajax() ) {
-            if (count($orders) > 0) {
-                return response()->json([
-                    'success' => true,
-                    'view' => view('branch_offices.orders.list', compact('orders'))->render(),
-                ]);
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'message' => trans('app.no_records_found')
-                ]);
-            }
+            return response()->json([
+                'success' => true,
+                'view' => view('branch_offices.orders.list', compact('orders'))->render(),
+            ]);
         }
 
         return view('branch_offices.orders.index', compact('orders', 'title'));

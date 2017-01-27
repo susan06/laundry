@@ -19,6 +19,7 @@ class LocationsBranchOfficeTable extends Migration
             $table->string('lat');
             $table->string('lng');
             $table->string('address');
+            $table->string('shedule')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             

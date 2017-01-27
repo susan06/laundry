@@ -47,7 +47,7 @@
             if(response.success){
                 $('#general-modal').modal('hide');
                 notify('success', response.message);
-                getPages(form.attr('action'));
+                getPages(CURRENT_URL);
             } else {
                 if(response.validator) {
                   var message = '';

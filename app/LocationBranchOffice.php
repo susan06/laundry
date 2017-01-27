@@ -19,7 +19,7 @@ class LocationBranchOffice extends Model
      * @var array
      */
     protected $fillable = [
-        'lat', 'lng', 'address', 'branch_office_id'
+        'lat', 'lng', 'address', 'branch_office_id', 'shedule'
     ];
 
      /**

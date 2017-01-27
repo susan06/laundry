@@ -160,6 +160,9 @@
     Route::post('driver/order/{id}/inbranch', 'DriverController@inBranchOrder')->name('driver.order.inbranch');
     Route::post('driver/order/{id}/inexit', 'DriverController@inexitOrder')->name('driver.order.inexit');
     Route::post('driver/order/{id}/delivered', 'DriverController@deliveredOrder')->name('driver.order.delivered');
+    Route::get('driver/notification/count', 'DriverController@countNotification')->name('driver.notification.count');
+    Route::get('driver/notification', 'DriverController@notifications')->name('driver.notifications');
+
     Route::resource('driver', 'DriverController');
 
     /**
@@ -222,4 +225,8 @@
     */
     Route::resource('qualification', 'QualificationController');
 
+    /**
+     * Notification
+    */
+    Route::resource('notification', 'NotificationController');
  

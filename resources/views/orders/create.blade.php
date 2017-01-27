@@ -113,9 +113,11 @@
                   <div class="col-md-4 col-sm-4 col-xs-12 form-group">
                     <select name="time_search" class="form-control" id="time_search">
                       @foreach($working_hours as $working_hour)
-                        @if($working_hour['status'] == 'available')
-                        <option value="{{$working_hour['id']}}">{{$working_hour['interval']}}
-                        @endif
+                      @if($working_hour['status'] == 'notavailable')
+                         <option value="" disabled="disabled">{{$working_hour['interval'].' - '.trans("app.Not available") }}
+                      @else
+                         <option value="{{$working_hour['id']}}">{{$working_hour['interval']}} 
+                      @endif
                       @endforeach
                     </select>
                   </div>

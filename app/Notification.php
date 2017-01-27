@@ -20,7 +20,16 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'driver_id', 'branch_office_id', 'description'
+        'driver_id', 'branch_office_id', 'description', 'read_on'
+    ];
+
+    /**
+     * Field type
+     *
+     * @var array
+     */
+    protected $casts = [
+        'read_on' => 'boolean'
     ];
 
     public function getCreatedAtAttribute($date)

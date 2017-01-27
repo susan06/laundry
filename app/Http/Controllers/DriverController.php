@@ -14,6 +14,7 @@ use App\Support\Order\OrderStatus;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
 use App\Repositories\Client\ClientRepository;
+use App\Repositories\Notification\NotificationRepository;
 
 class DriverController extends Controller
 {
@@ -33,6 +34,11 @@ class DriverController extends Controller
     private $drivers;
 
     /**
+     * @var NotificationRepository
+     */
+    private $notifications;
+
+    /**
      * UserController constructor.
      * @param UserRepository $users
      * @param DriverRepository $drivers
@@ -41,7 +47,8 @@ class DriverController extends Controller
     public function __construct(
         UserRepository $users, 
         DriverRepository $drivers,
-        OrderRepository $orders 
+        OrderRepository $orders,
+        NotificationRepository $notifications 
     ){
         $this->middleware('auth');
         $this->middleware('locale'); 
@@ -49,6 +56,7 @@ class DriverController extends Controller
         $this->users = $users;
         $this->drivers = $drivers;
         $this->orders = $orders;
+        $this->notifications = $notifications;
     }
 
     /**
@@ -387,8 +395,47 @@ class DriverController extends Controller
                 'success' => false,
                 'message' => trans('app.error_again')
             ]);
-        }
-        
+        }   
     }
 
+    /**
+     * Get count Notification
+     *
+     * @return \Illuminate\Http\Response::JSON     
+     */
+    public function countNotification(Request $request)
+    {
+        $user = Auth::user();
+
+        return response()->json( 
+            $this->notifications->countNotificationDriver($user->id) 
+        );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function notifications(Request $request)
+    {
+        $user = Auth::user();
+        $notifications = $this->notifications->where('driver_id', $user->id)->get();
+        $update = $this->notifications->where('driver_id', $user->id)->update(['read_on' => true]);
+        if ( $request->ajax() ) {
+            if (count($notifications)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('drivers.notifications.list', compact('notifications'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('drivers.notifications.index', compact('notifications'));
+    }
 }

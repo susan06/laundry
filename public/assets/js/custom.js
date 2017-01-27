@@ -229,6 +229,7 @@ $.ajaxSetup({
 $(document).on('click', '.btn-delete', function () {
     $('[data-toggle="tooltip"]').tooltip('hide');
     var $this = $(this);
+    $this..tooltip('hide');
     //var row = $this.closest('tr');
     swal({   
         title: $this.attr('title'),   

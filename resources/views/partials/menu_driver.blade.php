@@ -1,3 +1,10 @@
+<!--notifications-->
+  <li>
+    <a href="{{ route('driver.notifications') }}" title="@lang('app.notifications')"><i class="fa fa-bell"></i> @lang('app.notifications') <span class="badge bg-green driver-notifications">0</span>
+    </a>
+  </li>
+<!--//notifications-->
+
   <!--Itinerary -->
   <li>
     <a href="{{ route('driver.order.itinerary') }}" title="@lang('app.my_itinerary')"><i class="fa fa-file-o"></i> @lang('app.my_itinerary')
