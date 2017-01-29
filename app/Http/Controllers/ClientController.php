@@ -206,7 +206,7 @@ class ClientController extends Controller
         }
     }
 
-        /**
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -219,5 +219,41 @@ class ClientController extends Controller
         ];
 
         return Validator::make($data, $rules);
+    }
+
+    /**
+     * locations
+     *
+     */
+    protected function locations(Request $request)
+    {
+        $user = Auth::user();
+        $count = 1;
+        $locations_labels = $this->clients->lists_locations_labels(Auth::user()->id);
+
+        return view('clients.locations', compact('user', 'count', 'locations_labels'));
+    }
+
+    /**
+     * Update locations
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateLocations(Request $request)
+    {
+        $locations = $request->address;
+        $data_location = [
+            'client_id' => $client_id,
+            'lat' => $request->lat,
+            'lng' => $request->lng,
+            'address' => $request->delivery_address,
+            'label' => $request->locations_labels,
+            'description' => $request->details_address
+        ];
+        $location_id = $this->clients->create_update_location(
+            $client_id, 
+            $data_location 
+        );
     }
 }

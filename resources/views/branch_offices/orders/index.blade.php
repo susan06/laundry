@@ -33,39 +33,43 @@
 
 @section('scripts')
 <script type="text/javascript">
-  $(document).on('click', '.btn-submit-reason', function (e) {
-    e.preventDefault();
-    showLoading();
-    var form = $('#form-modal-reason'); 
-    $.ajax({
-        url: form.attr('action'),
-        type: 'post',
-        data: form.serialize(),
-        dataType: 'json',
-        success: function(response) {
-            hideLoading();
-            if(response.success){
-                $('#general-modal').modal('hide');
-                notify('success', response.message);
-                getPages(CURRENT_URL);
-            } else {
-                if(response.validator) {
-                  var message = '';
-                  $.each(response.message, function(key, value) {
-                    message += value+' ';
-                  });
-                  notify('error', message);
-                } else {
-                  notify('error', response.message);
-                }
-            }
-           
-        },
-        error: function (status) {
-            hideLoading();
-            notify('error', status.statusText);
-        }
-    });
+
+setInterval(getPages(CURRENT_URL),60000);
+
+$(document).on('click', '.btn-submit-reason', function (e) {
+  e.preventDefault();
+  showLoading();
+  var form = $('#form-modal-reason'); 
+  $.ajax({
+      url: form.attr('action'),
+      type: 'post',
+      data: form.serialize(),
+      dataType: 'json',
+      success: function(response) {
+          hideLoading();
+          if(response.success){
+              $('#general-modal').modal('hide');
+              notify('success', response.message);
+              getPages(CURRENT_URL);
+          } else {
+              if(response.validator) {
+                var message = '';
+                $.each(response.message, function(key, value) {
+                  message += value+' ';
+                });
+                notify('error', message);
+              } else {
+                notify('error', response.message);
+              }
+          }
+         
+      },
+      error: function (status) {
+          hideLoading();
+          notify('error', status.statusText);
+      }
+  });
 });
+
 </script>
 @endsection

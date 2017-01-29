@@ -137,10 +137,15 @@ class OrderController extends Controller
             $time_delivery = array();
         }
         $categories = ['' => trans('app.select_category')] + $packageRepository->lists_categories_actives();
-        $locations_labels = $this->clients->lists_locations_labels(Auth::user()->id);
         $client = $this->clients->find(Auth::user()->id);
+        $exist_address = false;
+        foreach ($client->client_location as $key => $item) {
+            if($item->status != 'on_hold'){
+                $exist_address = true;
+            }
+        }
 
-        return view('orders.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories', 'client'));
+        return view('orders.create', compact('locations_labels', 'working_hours', 'week', 'time_delivery', 'categories', 'client', 'exist_address'));
     }
 
     /**

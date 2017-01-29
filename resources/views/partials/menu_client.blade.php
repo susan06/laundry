@@ -1,3 +1,10 @@
+        <!--My locations -->
+        <li>
+          <a href="{{ route('client.locations') }}" title="@lang('app.my_locations')"><i class="fa fa-location-arrow"></i> @lang('app.my_locations')
+          </a>
+        </li>
+        <!--//My locations -->
+
         <!--Services -->
         <li>
           <a href="{{ secure_url(route('order.create')) }}" title="@lang('app.service_request')"><i class="fa fa-cubes"></i> @lang('app.service_request')

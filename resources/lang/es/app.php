@@ -908,5 +908,10 @@ return [
     'are_you_sure_delete_notification' => 'Esta seguro de eliminar la notificación?',
     'delete_notification' => 'Eliminar notificación',
     'deleted_notification' => 'notificación eliminada',
+
+    'my_locations' => 'Mis direcciones',
+    'rejected' => 'Rechazada por el supervisor',
+    'accepted' => 'Aceptada por el supervisor',
+    'on_hold' => 'En espera por confirmación',
  
 ];

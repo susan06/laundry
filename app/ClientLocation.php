@@ -19,7 +19,7 @@ class ClientLocation extends Model
      * @var array
      */
     protected $fillable = [
-        'lat', 'lng', 'address', 'client_id', 'label', 'description', 'confirmed'
+        'lat', 'lng', 'address', 'client_id', 'label', 'description', 'confirmed', 'status'
     ];
 
     /**
@@ -44,6 +44,28 @@ class ClientLocation extends Model
         }
 
         return $label;
+    }
+
+    public function getStatus()
+    {
+        switch($this->status) {
+            case 'rejected':
+                $class = '<span class="label label-danger">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            case 'on_hold':
+                $class = '<span class="label label-warning">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            case 'accepted':
+                $class = '<span class="label label-success">'.trans("app.{$this->status}").'</span>';
+                break;
+
+            default:
+                $class = '';
+        }
+
+        return $class;
     }
 
      /**

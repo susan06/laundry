@@ -16,27 +16,13 @@
           <div class="x_content">
             <div class="" id="order_create">
               {!! Form::open(['route' => 'order.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
-                <!--
-                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                  </button>
-                  No tiene direcciones confirmadas aún, será tomada su ubicación actual. Puede mover el marcador para más exactitud de su ubicación.
-                </div>
-                -->
 
                 <div class="t_title">
                   <h2> @lang('app.address')</h2>
                   <div class="clearfix"></div>
                 </div>
 
-                <div class="content_map">
-                  <div class="col-md-11 col-sm-11 col-xs-11 input_delivery_address">
-                    {!! Form::text('delivery_address', old('delivery_address'), ['id' => 'delivery_address', 'required' => 'required', 'placeholder' => trans('app.delivery_address') ]) !!}
-                  </div>
-
-                  <div id="map-form"></div>
-                </div>
-
+                @if($exist_address)
                 <table class="table">
                   <thead>
                   <tr>
@@ -49,7 +35,7 @@
                   </thead>
                     <tbody id="locations_list" class="form-horizontal">
                     @foreach($client->client_location as $key => $item)
-                      @if($item->confirmed)
+                      @if($item->status != 'on_hold')
                       <tr>
                         <td>{{ $item->get_label() }}</td>
                         <td><input type="text" class="form-control" id="address_{{$key}}" class="form-control" value="{{ $item->address }}" readonly="readonly"></td>
@@ -65,43 +51,18 @@
                       @endforeach
                     </tbody>
                  </table>
-
+                @else
+                <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                  No tiene direcciones aceptadas por el supervisor. Si aún no añadido sus direcciones de búsqueda, ir a: <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
+                </div>
+                @endif 
                 <br />
-               
-                  {!! Form::hidden('lat', '', ['id' => 'lat']) !!}
-                  {!! Form::hidden('lng', '', ['id' => 'lng']) !!}
-
-                <div class="row">
-                  <div class="form-group col-md-4 col-sm-4 col-xs-12">
-                    {!! Form::select('locations_labels', $locations_labels, old('locations_labels'), ['class' => 'form-control', 'id' => 'locations_labels']) !!}
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-                      {!! Form::textarea('details_address', old('details_address'), ['class' => 'form-control', 'id' => 'details_address', 'rows' => '3', 'placeholder' => trans('app.details_address')]) !!}
-                  </div>
-                </div>
 
                 <div class="t_title">
                   <h2> @lang('app.searched')</h2>
                   <div class="clearfix"></div>
                 </div>
 
-                <!--
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox" class="flat" id="check_today" checked="checked"> @lang('app.today_search')
-                  </label>
-                  <label>
-                    <input type="checkbox" class="flat" id="check_tomorrow"> @lang('app.tomorrow_search') 
-                  </label> 
-                </div>
-
-                <br />
-
-                -->
-                
                 <div class="row">            
                   <div class="col-md-4 col-sm-4 col-xs-12 form-group">
                       {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
@@ -244,10 +205,12 @@
 
                   {!! Form::hidden('total', '0', ['id' => 'total_price']) !!}
 
+                  @if($exist_address)
                   <div class="ln_solid"></div>
                   <div class="form-group col-md-3 col-sm-3 col-xs-12">
                     <button type="submit" class="btn btn-primary btn-submit col-xs-12">@lang('app.save')</button>
                   </div>
+                  @endif
               {!! Form::close() !!}
             </div>
           </div>

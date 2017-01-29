@@ -146,6 +146,8 @@
     Route::put('client/setting', 'ClientController@update_setting')->name('client.setting.update');
     Route::get('client/friend', 'ClientController@friends')->name('client.friends');
     Route::post('client/friend', 'ClientController@friends_store')->name('client.friends.store');
+    Route::get('client/locations', 'ClientController@locations')->name('client.locations');
+    Route::put('client/locations/update', 'ClientController@updateLocations')->name('client.locations.update');
     Route::resource('client', 'ClientController');
 
     /**

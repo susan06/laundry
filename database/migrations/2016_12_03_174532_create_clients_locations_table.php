@@ -22,6 +22,7 @@ class CreateClientsLocationsTable extends Migration
             $table->integer('label');
             $table->text('description')->nullable();
             $table->boolean('confirmed')->default(false);
+            $table->string('status')->default('on_hold');
             $table->timestamps();
             $table->engine = 'InnoDB';
             
