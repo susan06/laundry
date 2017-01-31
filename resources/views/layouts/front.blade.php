@@ -137,10 +137,11 @@
     {!! HTML::script('public/vendors/pnotify/dist/pnotify.nonblock.js') !!}
 
     <script>
-       var lang = {"cancel" : "@lang('app.cancel')",
-        "no_data_table" : "@lang('app.no_records_found')"};
-       var icon_map = "{{ url('public/images/pointer-celeste.png') }}";
-       var map_center = {lat: {{Settings::get('lat')}}, lng: {{Settings::get('lng')}} };   
+        var lang = {"cancel" : "@lang('app.cancel')",
+            "no_data_table" : "@lang('app.no_records_found')",
+            "on_hold": "@lang('app.on_hold')"};
+        var icon_map = "{{ url('public/images/pointer-celeste.png') }}";
+        var map_center = {lat: {{Settings::get('lat')}}, lng: {{Settings::get('lng')}} };   
     </script>
 
     <!-- Custom Theme Scripts -->

@@ -84,6 +84,21 @@ function add_location(loc) {
   input4.value = loc.lng;
 
   var td5    = document.createElement("TD");
+  var input5 = document.createElement("input");
+
+  input5.type  = 'text';
+  input5.name  = 'description[]';
+  input5.className = 'form-control'; 
+
+  var td6    = document.createElement("TD");
+
+  span             = document.createElement('span');
+  span.className   = 'label label-warning';
+  var text_span = document.createTextNode(lang.on_hold); 
+  
+  span.appendChild(text_span);
+
+  var td7    = document.createElement("TD");
 
   button             = document.createElement('button');
   button.className   = 'btn btn-round btn-danger delete-location';
@@ -102,12 +117,16 @@ function add_location(loc) {
   td2.appendChild(inputid);
   td2.appendChild(input3);
   td2.appendChild(input4);
-  td5.appendChild(button);
+  td5.appendChild(input5);
+  td6.appendChild(span);
+  td7.appendChild(button);
  
   tr.appendChild(td); 
   tr.appendChild(td1); 
   tr.appendChild(td2); 
   tr.appendChild(td5); 
+  tr.appendChild(td6); 
+  tr.appendChild(td7); 
 
   container = document.getElementById('locations_list');
   container.appendChild(tr); 

@@ -28,21 +28,17 @@
                   <tr>
                     <th>@lang('app.label')</th>
                     <th>@lang('app.address')</th>
-                    <th width="18%">Lat</th>
-                    <th width="18%">lng</th>
                     <th width="10%"></th>
                   </tr>
                   </thead>
                     <tbody id="locations_list" class="form-horizontal">
                     @foreach($client->client_location as $key => $item)
-                      @if($item->status != 'on_hold')
-                      <tr>
+                      @if($item->status == 'accepted')
+                      <tr class="row_location">
                         <td>{{ $item->get_label() }}</td>
-                        <td><input type="text" class="form-control" id="address_{{$key}}" class="form-control" value="{{ $item->address }}" readonly="readonly"></td>
-                        <td><input type="text" id="lat_{{$key}}" class="form-control" value="{{ $item->lat }}" readonly="readonly"></td>
-                        <td><input type="text" id="lng_{{$key}}" class="form-control" value="{{ $item->lng }}" readonly="readonly"></td>
+                        <td>{{ $item->address }}</td>
                         <td>
-                          <button type="button" data-label="{{ $item->get_label() }}" data-id="{{$key}}"  class="btn btn-success select-location"> 
+                          <button type="button" data-location="{{ $item->id }}" class="btn btn-success select-location"> 
                             @lang('app.select')
                           </button>
                         </td>
@@ -53,10 +49,10 @@
                  </table>
                 @else
                 <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                  No tiene direcciones aceptadas por el supervisor. Si aún no añadido sus direcciones de búsqueda, ir a: <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
+                  @lang('app.dont_address_accepted') <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
                 </div>
                 @endif 
-                <br />
+                {{Form::hidden('client_location_id', '', ['id' => 'client_location_id'])}}
 
                 <div class="t_title">
                   <h2> @lang('app.searched')</h2>
@@ -222,32 +218,17 @@
 
 @endsection
 
-@section('scripts_head')
-@parent
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key={{ env('API_KEY_GOOGLE')}}&libraries=places&language={{Auth::User()->lang}}&region={{Settings::get('country_default')}}"></script>
-@endsection
-
 @section('scripts')
 @parent
 
   <!-- Select2 -->
   {!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
-  <!-- moment -->
-  {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
   <!-- bootstrap-daterangepicker -->
   {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
-  <!-- icheck -->
-  {!! HTML::script('public/vendors/iCheck/icheck.min.js') !!}
+
 
 <script type="text/javascript">
 
-  var country_default = new String("{{Settings::get('country_default')}}");
-  country_default = country_default.toLowerCase();
-  var map = null;
-  var infowindow = null;
-  var marker = null;
-  var location_trans = "{{ trans('app.location') }}";
-  var location_label = "{{ trans('app.my_location') }}";
   var first_select_package = "{{ trans('app.first_select_package') }}";
   var first_introduce_coupon = "{{ trans('app.first_introduce_coupon') }}";
   var package_added = "{{ trans('app.package_added') }}";
@@ -260,8 +241,6 @@
   var url_validate_coupon = "{{ route('coupon.check') }}";
   var endTime = '{!! Settings::get("time_close") !!}';
   var coin = "{{ Settings::get('coin') }}";
-  var dont_found_your_location = "{{ trans('app.dont_found_your_location')}}";
-  var error_geolocation = "{{ trans('app.error_geolocation') }}";
 
   var beginningTime = moment().add({ hours: 0, minutes: 30}).format('h:mm A');
 

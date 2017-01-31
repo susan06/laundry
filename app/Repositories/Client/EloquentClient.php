@@ -98,6 +98,43 @@ class EloquentClient extends Repository implements ClientRepository
     }
 
     /**
+     *
+     * Creates a new location.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create_location(array $attributes)
+    {
+        $this->locations->create($attributes);
+    }
+
+     /**
+     *
+     * Update the location
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_location($id, array $newData)
+    {
+        $this->locations->update($id, $newData);
+    }
+
+    /**
+     *
+     * Delete the location
+     *
+     * @param $id
+     */
+    public function delete_location($id)
+    {
+        $this->locations->delete($id);
+    }
+
+    /**
      * create or update location
      *
      * @param int $client_id

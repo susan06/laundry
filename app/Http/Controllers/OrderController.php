@@ -58,11 +58,7 @@ class OrderController extends Controller
     protected function validator(array $data)
     {
         $rules = [
-            'delivery_address' => 'required',
-            'lat' => 'required',
-            'lng' => 'required',
-            'locations_labels' => 'required',
-            'details_address' => 'max:500',
+            'client_location_id' => 'required',
             'date_search' => 'required',
             'time_search' => 'required',
             'date_delivery' => 'required',
@@ -160,22 +156,9 @@ class OrderController extends Controller
         if ( $validator->passes() ) {
             $client_id = Auth::user()->id;
             if ( $this->check_reserve($request->time_search) ) {
-                $data_location = [
-                    'client_id' => $client_id,
-                    'lat' => $request->lat,
-                    'lng' => $request->lng,
-                    'address' => $request->delivery_address,
-                    'label' => $request->locations_labels,
-                    'description' => $request->details_address
-                ];
-                $location_id = $this->clients->create_update_location(
-                    $client_id, 
-                    $data_location 
-                );
                 $data_order = [
-                    'bag_code' => rand(5,9000).'-'.date('H').date('i'),
                     'client_id' => $client_id,
-                    'client_location_id' => $location_id,
+                    'client_location_id' => $request->client_location_id,
                     'client_coupon_id' => $request->client_coupon_id,
                     'date_search' => $request->date_search,
                     'time_search' => $request->time_search,

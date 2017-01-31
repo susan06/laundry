@@ -35,6 +35,34 @@ interface ClientRepository extends RepositoryInterface
     public function lists_locations_labels($client);
 
     /**
+     *
+     * Creates a new location.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create_location(array $attributes);
+
+     /**
+     *
+     * Update the location
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_location($id, array $newData);
+
+    /**
+     *
+     * Delete the location
+     *
+     * @param $id
+     */
+    public function delete_location($id);
+    
+    /**
      * create or update location
      *
      * @param int $client_id

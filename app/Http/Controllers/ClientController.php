@@ -242,18 +242,71 @@ class ClientController extends Controller
      */
     public function updateLocations(Request $request)
     {
-        $locations = $request->address;
-        $data_location = [
-            'client_id' => $client_id,
-            'lat' => $request->lat,
-            'lng' => $request->lng,
-            'address' => $request->delivery_address,
-            'label' => $request->locations_labels,
-            'description' => $request->details_address
+        $rules = [
+            'locations_labels' => 'required',
+            'address' => 'required'
         ];
-        $location_id = $this->clients->create_update_location(
-            $client_id, 
-            $data_location 
-        );
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ( $validator->passes() ) {
+            $client_id = Auth::user()->id;
+            $locations = $request->address;
+            $lat = $request->lat;
+            $lng = $request->lng;
+            $description = $request->description;
+            $labels = $request->locations_labels;
+            $location_id = $request->location_id;
+            if ( $locations ) {
+                $locations_old = Auth::user()->client_location->toArray();
+                foreach( $locations as $key => $value ) {
+                    if((int)$location_id[$key] == 0) {
+                        if($value) {
+                            $this->clients->create_location([ 
+                                'client_id' => $client_id,
+                                'label' => $labels[$key],
+                                'address' => $value,           
+                                'lat' => $lat[$key],
+                                'lng' => $lng[$key],
+                                'description' => $description[$key]
+                                ]
+                            );
+                        }
+                    } else {
+                        foreach ($locations_old as $loc_old) {
+                            if ( in_array($loc_old['id'], $location_id) ) {
+                                if($value) {
+                                    $this->clients->update_location(
+                                        (int)$location_id[$key],[ 
+                                        'label' => $labels[$key],
+                                        'address' => $value,           
+                                        'lat' => $lat[$key],
+                                        'lng' => $lng[$key],
+                                        'description' => $description[$key]
+                                    ]);
+                                }
+                           } else {
+                                $this->clients->delete_location($loc_old['id']);
+                           }
+                        }
+                    }      
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.client_location_updated'),
+                'url_return' => route('client.locations')
+            ]);
+
+        } else {
+            $messages = $validator->errors()->getMessages();
+
+            return response()->json([
+                'success' => false,
+                'validator' => true,
+                'message' => $messages
+            ]);
+        }
     }
 }

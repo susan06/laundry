@@ -154,6 +154,7 @@ return [
         'package_category_id'   => 'Categoria',
         'shedules'              => 'Horarios',
         'branch_office'         => 'sucursal',
+        'client_location_id'    => 'dirección',
     ],
 
 ];

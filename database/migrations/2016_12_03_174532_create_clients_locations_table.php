@@ -23,6 +23,7 @@ class CreateClientsLocationsTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('confirmed')->default(false);
             $table->string('status')->default('on_hold');
+            $table->text('reazon_status')->nullable();
             $table->timestamps();
             $table->engine = 'InnoDB';
             

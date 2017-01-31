@@ -19,7 +19,7 @@ class ClientLocation extends Model
      * @var array
      */
     protected $fillable = [
-        'lat', 'lng', 'address', 'client_id', 'label', 'description', 'confirmed', 'status'
+        'lat', 'lng', 'address', 'client_id', 'label', 'description', 'confirmed', 'status', 'reazon_status'
     ];
 
     /**
@@ -31,7 +31,7 @@ class ClientLocation extends Model
         'confirmed' => 'boolean'
     ];
 
-     public function get_label()
+    public function get_label()
     {
         $setting = ClientSetting::where('user_id', $this->client_id)->first();
         $locations = json_decode($setting->locations_labels, true);

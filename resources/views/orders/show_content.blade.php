@@ -4,7 +4,7 @@
     <div class="col-xs-12" style="text-align: center;">
       <img height="150" width="150" src="{{ url('public/assets/images/logos/logo.png') }}">
          <h1>
-        @lang('app.order') ({{ trans('app.bag_code').' '.$order->bag_code }})
+        @lang('app.order') @if($order->bag_code) ({{ trans('app.bag_code').' '.$order->bag_code }}) @endif
         </h1>
     </div>
   </div>

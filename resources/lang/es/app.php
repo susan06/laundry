@@ -913,5 +913,10 @@ return [
     'rejected' => 'Rechazada por el supervisor',
     'accepted' => 'Aceptada por el supervisor',
     'on_hold' => 'En espera por confirmación',
- 
+
+    'client_location_updated' => 'Localizaciones actualizadas',
+    'Confirmada por el conductor' => 'Confirmada por el conductor',
+    'show_reazon' => 'Ver razón',
+    'reazon_supervisor_location' => 'Razón de rechazo de la localización',
+    'dont_address_accepted' => 'No tiene direcciones aceptadas por el supervisor. Si aún no añadido sus direcciones de búsqueda, ir a: ',
 ];

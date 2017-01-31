@@ -26,24 +26,57 @@
                   <th>#</th>
                   <th>@lang('app.label')</th>
                   <th>@lang('app.address')</th>
+                  <th>@lang('app.description')</th>
                   <th class="center">@lang('app.status')</th>
+                  <th class="center">@lang('app.actions')</th>
                 </tr>
                 </thead>
                 <tbody id="locations_list" class="form-horizontal">
                   @foreach($user->client_location as $key => $item)
                   <tr>
                     <td>{{ $count }}</td>
-                    <td>{!! Form::select('locations_labels[]', $locations_labels, $item->get_label(), ['class' => 'form-control']) !!}</td>
+                    <td>{!! Form::select('locations_labels[]', $locations_labels, $item->label, ['class' => 'form-control']) !!}</td>
                     <td>
                       <input type="text" name="address[]" class="form-control" value="{{ $item->address }}" required="required"><input type="hidden" name="location_id[]" value="{{ $item->id }}">
                       <input type="hidden" name="lat[]" id="lat_{{$count}}" class="form-control" value="{{ $item->lat }}">
                       <input type="hidden" name="lng[]" id="lng_{{$count}}" class="form-control" value="{{ $item->lng }}">
                     </td>
+                    <td>
+                      <input type="text" name="description[]" class="form-control" value="{{ $item->description }}">
+                    </td>
                     <td class="center">
                     {!! $item->getStatus() !!}
                     @if($item->confirmed)
-                      Confirmada por el conductor
+                      @lang('app.confirmed_driver')
                     @endif
+                    </td>
+                    <td class="center">
+                      @if($item->status == 'rejected')
+                        <a href="#reazon_status_{{$item->id}}" data-toggle="modal" class="btn btn-round btn-warning"><i class="fa fa-eye"></i></a>
+                        <div class="modal fade" id="reazon_status_{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="tos-label">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                      <h3 class="modal-title">@lang('app.reazon_supervisor_location')</h3>
+                                  </div>
+                                  <div class="modal-body">
+                                      {!! $item->reazon_status !!}
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                      @endif
+                      @if($item->status != 'accepted')
+                        <button type="button" class="btn btn-round btn-danger delete-location"> 
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      @endif
                     </td>
                   </tr>
                   <?Php $count++; ?>
@@ -56,7 +89,7 @@
                 <label class="control-label col-md-4 col-sm-4 col-xs-12" for="@lang('app.address_add_autocomplete')">@lang('app.address_add_autocomplete') 
                 </label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  {!! Form::text('address', old('address'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'address_search']) !!}
+                  {!! Form::text('address_search', old('address_search'), ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'address_search']) !!}
                 </div>
               </div>
 
