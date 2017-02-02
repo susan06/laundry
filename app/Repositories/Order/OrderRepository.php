@@ -26,6 +26,25 @@ interface OrderRepository extends RepositoryInterface
     public function update_payment($id, array $newData);
 
     /**
+     * Create payment penalty
+     *
+     *
+     * @param array $attributes
+     * @return Model
+     *
+     */
+    public function create_penalty(array $attributes);
+
+    /**
+     * Update payment penalty
+     *
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_penalty($id, array $newData);
+
+    /**
      * Create package
      *
      *

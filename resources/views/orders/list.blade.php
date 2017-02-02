@@ -39,6 +39,14 @@
                <button type="button" data-href="{{ route('order.show', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="content"
                                    title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
+                </button>
+      
+              @if($order->get_date_search() >= 3)
+               <button type="button" data-href="{{ route('order.edit', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="content"
+                                   title="@lang('app.order_edit')" data-toggle="tooltip" data-placement="top">
+                    <i class="fa fa-edit"></i>
+                </button>
+              @endif
 
                <button type="button" data-href="{{ route('order.payment', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.method_payment')" data-toggle="tooltip" data-placement="top">

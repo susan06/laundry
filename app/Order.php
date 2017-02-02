@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use DateTime;
 use Settings;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\Order\OrderStatus;
@@ -96,6 +97,57 @@ class Order extends Model
         return $time_search;
     }
 
+    public function get_date_search()
+    {
+        if(Settings::get('working_hours')) {
+            $working_hours = json_decode(Settings::get('working_hours'), true);
+        } else {
+            $working_hours = array();
+        }
+
+        $time_search = 0;
+        foreach ($working_hours as $key => $working_hour) {
+            if($working_hour['id'] == $this->time_search) {
+                $time_search = $this->date_search.' '.$working_hour['start'];
+                if(date('Y-m-d H:i') <= $time_search) {
+                    $time_search = Carbon::createFromFormat('d-m-Y h:i A', $time_search)->format('Y-m-d H:i');
+                } else {        
+                    $time_search = 0; 
+                }
+            }
+        }
+
+        return $time_search;
+    }
+
+    public function before_hour_search()
+    {
+        date_default_timezone_set(Settings::get('timezone'));
+
+        if(Settings::get('working_hours')) {
+            $working_hours = json_decode(Settings::get('working_hours'), true);
+        } else {
+            $working_hours = array();
+        }
+
+        $time_search = null;
+        foreach ($working_hours as $key => $working_hour) {
+            if($working_hour['id'] == $this->time_search) {
+                $time_search = $this->date_search.' '.$working_hour['start'];
+            }
+        }
+        $date_search = Carbon::createFromFormat('d-m-Y h:i A', $time_search)->format('Y-m-d H:i');
+        $date1 = new DateTime(Carbon::now()->format('Y-m-d H:i'));
+        $date2 = new DateTime($date_search);
+        $diff = $date2->diff($date1);
+        $time = false;
+        if( date('Y-m-d H:i') <= $date_search ) {
+            $time = $diff->h;
+        }
+
+        return  $time;
+    }
+
      public function get_time_delivery()
     {
         if(Settings::get('delivery_hours')) {
@@ -181,6 +233,11 @@ class Order extends Model
         return $this->hasOne(OrderPayment::class, 'order_id');
     }
 
+    public function order_penalty()
+    {
+        return $this->hasMany(OrderPenalty::class, 'order_id');
+    }
+
     public function client_coupon()
     {
         return $this->belongsTo(ClientCoupon::class, 'client_coupon_id');
@@ -207,6 +264,5 @@ class Order extends Model
         $location_branch = LocationBranchOffice::find($this->branch_offices_location_id);
 
         return $location_branch;
-
     }
 }

@@ -10,10 +10,16 @@ use App\Repositories\Repository;
 class EloquentOrder extends Repository implements OrderRepository
 {
     protected $attributes = [];
+
     /**
      * @var OrderPaymentRepository
      */
     protected $payments;
+
+    /**
+     * @var OrderPenaltyRepository
+     */
+    protected $penaltys;
 
      /**
      * @var OrderPackageRepository
@@ -28,12 +34,13 @@ class EloquentOrder extends Repository implements OrderRepository
     public function __construct(
         Order $order, 
         OrderPaymentRepository $payments, 
-        OrderPackageRepository $order_packages
-    )
-    {
+        OrderPackageRepository $order_packages,
+        OrderPenaltyRepository $penaltys
+    ){
         parent::__construct($order, $this->attributes);
         $this->payments = $payments;
         $this->order_packages = $order_packages;
+        $this->penaltys = $penaltys;
     }
 
     /**
@@ -87,6 +94,31 @@ class EloquentOrder extends Repository implements OrderRepository
        }
 
        return $payment;
+    }
+
+    /**
+     * Create payment penalty
+     *
+     *
+     * @param array $attributes
+     * @return Model
+     *
+     */
+    public function create_penalty(array $attributes)
+    {
+        return $this->penaltys->create($attributes);
+    }
+
+    /**
+     * Update payment penalty
+     *
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update_penalty($id, array $newData)
+    {
+        return $this->penaltys->update($id, $newData);
     }
 
     /**

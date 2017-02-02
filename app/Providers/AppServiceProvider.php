@@ -58,6 +58,9 @@ use App\Repositories\Order\OrderPaymentRepository;
 use App\Repositories\Order\EloquentOrderPackage;
 use App\Repositories\Order\OrderPackageRepository;
 
+use App\Repositories\Order\EloquentOrderPenalty;
+use App\Repositories\Order\OrderPenaltyRepository;
+
 use App\Repositories\Payment\EloquentPayment;
 use App\Repositories\Payment\PaymentRepository;
 
@@ -106,10 +109,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(PackageCategoryRepository::class, EloquentPackageCategory::class);
         $this->app->singleton(OrderRepository::class, EloquentOrder::class);
         $this->app->singleton(OrderPaymentRepository::class, EloquentOrderPayment::class);
+        $this->app->singleton(OrderPenaltyRepository::class, EloquentOrderPenalty::class);
         $this->app->singleton(OrderPackageRepository::class, EloquentOrderPackage::class);
         $this->app->singleton(PaymentRepository::class, EloquentPayment::class);
         $this->app->singleton(SuggestionRepository::class, EloquentSuggestion::class);
         $this->app->singleton(QualificationRepository::class, EloquentQualification::class);
-         $this->app->singleton(NotificationRepository::class, EloquentNotification::class);
+        $this->app->singleton(NotificationRepository::class, EloquentNotification::class);
     }
 }
