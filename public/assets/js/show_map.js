@@ -3,7 +3,7 @@ function openInfoWindowShowMap(marker) {
     var markerLatLng = marker.getPosition();
     infowindow.setPosition(markerLatLng);
     map.setCenter(markerLatLng);
-    infowindow.setContent('<div class="lat-lng"><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Lng:</strong><br>' + markerLatLng.lng() +'</div>');
+    infowindow.setContent('<div class="lat-lng">' + marker.customInfo + '</div>');
     infowindow.open(map, marker);   
 }
 
@@ -30,7 +30,8 @@ function show_map() {
       marker = new google.maps.Marker({
         position: latLngBranch,
         map: map,
-        title: branch_name
+        title: branch_name,
+        customInfo: branch_name_address
       });
       openInfoWindowShowMap(marker);
       infowindow.close();

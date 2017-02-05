@@ -46,6 +46,10 @@
         @if (Auth::user()->role->name == 'branch-representative')
           @include('partials.menu_branch')
         @endif
+
+        @if (Auth::user()->role->name == 'supervisor')
+          @include('partials.menu_supervisor')
+        @endif
        
         </ul>
       </div>

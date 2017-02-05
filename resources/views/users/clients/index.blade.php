@@ -21,9 +21,11 @@
           <div class="x_content">
 
             <div class="row">
+            @if (Auth::user()->role->name == 'admin')
               <div class="col-md-2 col-sm-2 col-xs-12">
                 <button type="button" data-href="{{ route('admin-client.create') }}" class="btn btn-primary create-edit-show btn-create col-xs-12" data-model="modal" title="@lang('app.create_client')">@lang('app.create_client')</button>
               </div>
+            @endif
               <div class="col-md-3 col-sm-3 col-xs-12">
                 <button type="button" data-href="{{ route('admin-client.map') }}" class="btn btn-primary create-edit-show btn-create col-xs-12" data-model="content" title="@lang('app.map_client')">@lang('app.map_client')</button>
               </div>

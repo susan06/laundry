@@ -78,7 +78,7 @@
     infowindow.close();
     infowindow = new google.maps.InfoWindow();
     var markerLatLng = marker.getPosition();
-    infowindow.setContent('<div class="lat-lng"><strong>'+ marker.customInfo +':</strong><br><strong>Lat:</strong><br> ' + markerLatLng.lat() + '<br><strong>Lng:</strong><br>' + markerLatLng.lng() +'</div>');
+    infowindow.setContent('<div class="lat-lng"><strong>'+ marker.customInfo +':</strong></div>');
     infowindow.open(map, marker);
     google.maps.event.addListener(marker, 'click', function(){ openInfoWindowBranch(marker); })
   }
@@ -111,7 +111,7 @@
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(item['lat'], item['lng']),
           map: map,
-          customInfo: item['address'],
+          customInfo: '{{ $branch->name }} - '+item['address'],
           title: '{{ $branch->name }} - '+item['address'],
         });
 

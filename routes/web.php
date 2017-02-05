@@ -186,6 +186,9 @@
     Route::put('service/payment/{payment}', 'OrderController@method_payment_update')->name('order.payment.update');
     Route::get('service/payment/penalty/{order}', 'OrderController@method_payment_penalty')->name('order.payment.penalty');
     Route::put('service/payment/penalty/{payment}', 'OrderController@method_payment_penalty_update')->name('order.payment.penalty.update');
+
+    Route::get('order/bag-code/{id}', 'OrderController@changeBagCode')->name('order.change.bag');
+    Route::put('order/bag-code/{id}', 'OrderController@updateBagCode')->name('order.bag.update');
     Route::resource('order', 'OrderController');
 
     /**
@@ -194,6 +197,8 @@
     Route::get('admin-order/{client}/finance', 'Admin\OrderController@finance')->name('admin-order.finance');
     Route::get('admin-order/confirmed/{id}', 'Admin\OrderController@changeConfirmed')->name('admin-order.change.confirmed');
     Route::put('admin-order/confirmed/{id}', 'Admin\OrderController@updateConfirmed')->name('admin-order.confirmed.update');
+    Route::get('admin-order/status/{id}', 'Admin\OrderController@changeStatus')->name('admin-order.change.status');
+    Route::put('admin-order/status/{id}', 'Admin\OrderController@updateStatus')->name('admin-order.status.update');
     Route::resource('admin-order', 'Admin\OrderController');
 
     /**
@@ -232,5 +237,8 @@
     /**
      * Notification
     */
+    
+    Route::get('notification/supervisor/count', 'NotificationController@countNotificationSupervisor')->name('supervisor.notification.count');
+    
     Route::resource('notification', 'NotificationController');
  

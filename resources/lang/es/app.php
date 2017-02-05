@@ -929,4 +929,9 @@ return [
     'details_order' => 'Detalles de la órden',
     'status_penalty' => 'Estado de pago',
     'status_penalty' => 'Estado de penalización',
+    'show_driver' => 'Datos de conductor',
+    'change_status' => 'Cambiar Estado',
+    'order_status_updated' => 'Estado de la órden actualizado',
+    'asign_bad_code' => 'Asignar código de bolsa',
+    'order_bag_code_updated' => 'Código de bolsa de la órden actualizado',
 ]; 

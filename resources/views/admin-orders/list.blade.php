@@ -48,12 +48,24 @@
                                    title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
+
                     @if ( Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'supervisor' && count($order->order_payment) > 0 )
                       @if(isset($order->order_payment->status))
                       <button type="button" data-href="{{ route('admin-order.change.confirmed', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" title="@lang('app.confirmed_order')" data-toggle="tooltip" data-placement="top">
                       <i class="fa fa-check"></i>
                       </button>
                       @endif
+                    @endif
+                    @if( Auth::user()->role->name == 'supervisor' && $order->get_date_search() && !$order->order_penalty)
+                       <button type="button" data-href="{{ route('order.edit', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="content"
+                                           title="@lang('app.edit_order')" data-toggle="tooltip" data-placement="top">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    @endif
+
+                    @if( Auth::user()->role->name == 'supervisor')
+                      <button type="button" data-href="{{ route('admin-order.change.status', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" title="@lang('app.change_status')" data-toggle="tooltip" data-placement="top">@lang('app.change_status')
+                      </button>
                     @endif
                 </td>
             </tr>

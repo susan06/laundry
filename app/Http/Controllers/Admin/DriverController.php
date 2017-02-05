@@ -161,7 +161,15 @@ class DriverController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = $this->users->find($id);
+        $phones_array = json_decode($user->phones, true);
+        $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
+        $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
+        $status = UserStatus::lists();
+        return response()->json([
+            'success' => true,
+            'view' => view('users.drivers.show', compact('user', 'phones', 'status'))->render()
+        ]);
     }
 
     /**

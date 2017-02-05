@@ -223,4 +223,40 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function changeStatus($id, Request $request) 
+    {
+        $order = $this->orders->find($id);
+        $status = OrderStatus::lists();
+        if ( $order ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('admin-orders.edit_status', compact('order', 'status'))->render()
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.no_record_found')
+            ]);
+        }
+    }
+
+    public function updateStatus($id, Request $request) 
+    {
+        $order = $this->orders->update($id, $request->all());
+
+        if ( $order ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.order_status_updated')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
+    }
 }

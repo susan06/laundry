@@ -17,6 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->increments('id');
             $table->integer('driver_id')->unsigned()->nullable();
             $table->integer('branch_office_id')->unsigned()->nullable();
+            $table->integer('order_id')->unsigned()->nullable();
             $table->text('description')->nullable();
             $table->boolean('read_on')->default(false);
             $table->timestamps();
@@ -25,6 +26,8 @@ class CreateNotificationsTable extends Migration
             $table->foreign('driver_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('branch_office_id')->references('id')->on('branch_offices')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }

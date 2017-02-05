@@ -247,6 +247,7 @@ class BranchOfficeController extends Controller
                 
                 $notification = $notificationRepository->create([
                     'branch_office_id' => $order->branch_offices_id,
+                    'order_id' => $order->id,
                     'description' => trans('app.reazon_change_branch_description', ['branch' => $order->branch_office->name, 'reason' => $request->description])
                 ]);
 

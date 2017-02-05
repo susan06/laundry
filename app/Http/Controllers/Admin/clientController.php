@@ -158,10 +158,13 @@ class ClientController extends Controller
     public function show($id, Request $request)
     {
         if ( $user = $this->users->find($id) ) {
+            $phones_array = json_decode($user->phones, true);
+            $phones['phone_mobile'] = isset($phones_array['phone_mobile']) ?  $phones_array['phone_mobile'] : null;
+            $phones['phone_home'] = isset($phones_array['phone_home']) ?  $phones_array['phone_home'] : null;
             $status = UserStatus::lists();
             return response()->json([
                 'success' => true,
-                'view' => view('users.clients.show', compact('user','status'))->render()
+                'view' => view('users.clients.show', compact('user','status', 'phones'))->render()
             ]);
         } else {
             return response()->json([

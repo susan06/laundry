@@ -589,11 +589,16 @@ class OrderController extends Controller
             ];
             $payment = $this->orders->update_penalty($payment, $data);
             if ($payment) {
-
+                if(Auth::user()->role->name == 'supervisor') {
+                    $route = route('admin-order.index'); 
+                } else {
+                    $route = route('order.index');    
+                }
+                
                 return response()->json([
                     'success' => true,
                     'message' => trans('app.order_payment_updated'),
-                    'url_return' => route('order.index')
+                    'url_return' => $route 
                 ]);
             } else {
 
@@ -610,8 +615,42 @@ class OrderController extends Controller
                 'validator' => true,
                 'message' => $messages
             ]);
+        }    
+    }
+
+    public function changeBagCode($id, Request $request) 
+    {
+        $order = $this->orders->find($id);
+        if ( $order ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('orders.edit_bag_code', compact('order'))->render()
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.no_record_found')
+            ]);
         }
-        
+    }
+
+    public function updateBagCode($id, Request $request) 
+    {
+        $order = $this->orders->update($id, $request->all());
+
+        if ( $order ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.order_bag_code_updated')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 
 }

@@ -13,7 +13,7 @@
     </thead>
 <tbody>
     @foreach ($orders as $key => $order)
-        <tr>
+        <tr class="{{ ($order->order_penalty && !$order->order_penalty->confirmed) ? 'danger' : '' }}">
             <td>{{ ($orders->currentpage()-1) * $orders->perpage() + $key + 1 }}</td>
             <td>{{ $order->bag_code }}</td>
             <td>{{ $order->date_search }}</td>
@@ -25,12 +25,18 @@
             @else
               <span class="label label-warning">{{ trans("app.pending_payment") }}</span>
             @endif
+            @if($order->order_penalty)
+              {!! $order->order_penalty->getStatusPayment() !!}
+            @endif
             </td>
             <td>
             @if($order->order_payment)
               {!! $order->order_payment->getConfirmedPayment() !!}
             @else
               <span class="label label-danger">{{ trans("app.Unconfirmed") }}</span>
+            @endif
+            @if($order->order_penalty)
+              {!! $order->order_penalty->getConfirmedPayment() !!}
             @endif
             </td>
             <td>{!! $order->getStatus() !!}</td>

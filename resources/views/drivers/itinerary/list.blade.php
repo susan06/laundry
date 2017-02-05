@@ -13,7 +13,7 @@
     </thead>
 <tbody>
     @foreach ($orders as $key => $order)
-        <tr class="@if($order->special_instructions && $order->status == 'search' || $order->status == 'recoge') success @endif">
+        <tr class="@if($order->special_instructions && $order->status == 'recoge') success @endif">
             <td>{{ ($orders->currentpage()-1) * $orders->perpage() + $key + 1 }}</td>
             <td>{{ $order->bag_code }}</td>
             <td>{{ $order->user->full_name() }}</td>
@@ -50,6 +50,10 @@
                 <button type="submit" class="btn btn-round btn-primary btn-submit" title="@lang('app.delivered')">@lang('app.delivered')
                 </button>
                 {!! Form::close() !!}
+                @endif
+                @if($order->status == 'recoge')
+                <button type="button" data-href="{{ route('order.change.bag', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" title="@lang('app.asign_bad_code')" data-toggle="tooltip" data-placement="top">@lang('app.asign_bad_code')
+                </button>
                 @endif
             </td>
         </tr>

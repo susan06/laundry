@@ -20,7 +20,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'driver_id', 'branch_office_id', 'description', 'read_on'
+        'driver_id', 'branch_office_id', 'order_id', 'description', 'read_on'
     ];
 
     /**
@@ -54,5 +54,10 @@ class Notification extends Model
     public function branch_office()
     {
         return $this->belongsTo(BranchOffice::class, 'branch_office_id');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
     }
 }

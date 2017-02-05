@@ -175,6 +175,27 @@
     </script>
     @endif
 
+    @if (Auth::user()->role->name == 'supervisor')
+    <script type="text/javascript">
+        function driver_notifications() {
+            $.ajax({
+                url: '{{ route("supervisor.notification.count") }}',
+                type : 'get',
+                dataType: 'json',
+                success: function (response) {
+                   $(".supervisor-notifications").text(response.count);
+                }
+            });
+        }
+    
+        $(document).ready(function () {            
+            driver_notifications();
+            setInterval(driver_notifications,30000);
+        });
+    </script>
+    @endif
+
+
     @yield('scripts')
 
 </body>

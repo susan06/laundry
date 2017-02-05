@@ -29,9 +29,25 @@ class NotificationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $notifications = $this->notifications->where('driver_id', null)->get();
+        $update = $this->notifications->where('driver_id', null)->update(['read_on' => true]);
+        if ( $request->ajax() ) {
+            if (count($notifications)) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('notifications.list', compact('notifications'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('notifications.index', compact('notifications'));
     }
 
     /**
@@ -108,5 +124,17 @@ class NotificationController extends Controller
                 'message' => trans('app.error_again')
             ]);
         }
+    }
+
+    /**
+     * Get count Notification for supervisor
+     *
+     * @return \Illuminate\Http\Response::JSON     
+     */
+    public function countNotificationSupervisor(Request $request)
+    {
+        return response()->json( 
+            $this->notifications->countNotificationSupervisor() 
+        );
     }
 }

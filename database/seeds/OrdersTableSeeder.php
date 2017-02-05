@@ -12,12 +12,11 @@ class OrdersTableSeeder extends Seeder
     public function run()
     {
         DB::table('orders')->insert([
-            'bag_code' => rand(5,9000).'-'.date('H').date('i'),
             'client_id' => 2,
             'client_location_id' => 1,
-            'date_search' => '2017-01-16',
+            'date_search' => '2017-02-15',
             'time_search' => 1,
-            'date_delivery' => '2017-01-17',
+            'date_delivery' => '2017-02-17',
             'time_delivery' => 2,
             'special_instructions' => 'con instrucciones especiales',
             'sub_total' => 13,
@@ -27,12 +26,11 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         DB::table('orders')->insert([
-            'bag_code' => rand(5,9000).'-'.date('H').date('i'),
             'client_id' => 2,
             'client_location_id' => 1,
-            'date_search' => '2017-01-17',
+            'date_search' => '2017-02-15',
             'time_search' => 2,
-            'date_delivery' => '2017-01-18',
+            'date_delivery' => '2017-01-17',
             'time_delivery' => 2,
             'special_instructions' => 'con instrucciones especiales',
             'sub_total' => 20,
@@ -42,12 +40,11 @@ class OrdersTableSeeder extends Seeder
         ]);
 
         DB::table('orders')->insert([
-            'bag_code' => rand(5,9000).'-'.date('H').date('i'),
             'client_id' => 2,
             'client_location_id' => 1,
-            'date_search' => '2017-01-18',
+            'date_search' => '2017-05-15',
             'time_search' => 3,
-            'date_delivery' => '2017-01-19',
+            'date_delivery' => '2017-02-17',
             'time_delivery' => 2,
             'special_instructions' => 'con instrucciones especiales',
             'sub_total' => 17,

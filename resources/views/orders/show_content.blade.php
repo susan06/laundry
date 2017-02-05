@@ -158,6 +158,10 @@
       {!! Form::open(['route' => ['driver.order.inbranch', $order->id], 'method' => 'post', 'id' => 'form-modal']) !!}
         <button type="submit" class="btn btn-success btn-submit col-sm-2 col-xs-5">@lang('app.inbranch')</button>
       {!! Form::close() !!}
+     
+      <button type="button" data-href="{{ route('order.change.bag', $order->id) }}" class="btn btn-warning create-edit-show col-sm-2 col-xs-5" data-model="modal" title="@lang('app.asign_bad_code')">@lang('app.asign_bad_code')
+      </button>
+                
       @endif
       <button class="btn btn-primary col-sm-2 col-xs-5" onclick="window.print();"><i class="fa fa-print"></i> @lang('app.print')</button>
       <button type="button" class="btn btn-default btn-cancel col-sm-2 col-xs-5">@lang('app.back')</button>
@@ -196,12 +200,10 @@
   var center = new google.maps.LatLng('{!! $order->client_location->lat !!}', '{!! $order->client_location->lng !!}');
   @if($order->branch_offices_location_id)
   var latLngBranch = new google.maps.LatLng('{!! $order->location_branch()->lat !!}', '{!! $order->location_branch()->lng !!}');
-  var branch_name = '{{ $order->branch_office->name }}';
+  var branch_name =  '{{ $order->branch_office->name }}';
+  var branch_name_address = '{{ $order->branch_office->name." - ".$order->location_branch()->address }}';
   @else
   var latLngBranch = false;
   @endif
-  $("#show_map_modal").on("shown.bs.modal", function () {
-      google.maps.event.trigger(map, "resize");
-      map.setCenter(center);
-  });
+
 </script>

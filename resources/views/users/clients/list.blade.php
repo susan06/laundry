@@ -9,7 +9,7 @@
     <tbody>
         @foreach ($clients as $client)
             <tr>
-                <td>{{ $client->full_name() }}</td>
+                <td>{!! $client->full_name().' '.$client->isOnline() !!}</td>
                 <td>{{ $client->email }}</td>
                 <td>{{ $client->created_at }}</td>
                 <td>
@@ -23,18 +23,20 @@
                     <a href="{{ route('admin-order.finance', $client->id) }}" class="btn btn-round btn-primary" title="@lang('app.history_financial')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-bars"></i>
                     </a>
+                    @if (Auth::user()->role->name == 'admin')
                     <button type="button" data-href="{{ route('admin-client.edit', $client->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                                    title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                     </button>
-                    @if ($client->status == 'Banned')
-                    <button type="button" data-href="{{ route('admin-client.destroy', $client->id) }}" 
-                      class="btn btn-round btn-danger btn-delete" 
-                      data-confirm-text="@lang('app.are_you_sure_delete_client')"
-                      data-confirm-delete="@lang('app.yes_delete_him')"
-                      title="@lang('app.delete_client')" data-toggle="tooltip" data-placement="top">
-                        <i class="fa fa-trash"></i>
-                    </button>
+                      @if ($client->status == 'Banned')
+                      <button type="button" data-href="{{ route('admin-client.destroy', $client->id) }}" 
+                        class="btn btn-round btn-danger btn-delete" 
+                        data-confirm-text="@lang('app.are_you_sure_delete_client')"
+                        data-confirm-delete="@lang('app.yes_delete_him')"
+                        title="@lang('app.delete_client')" data-toggle="tooltip" data-placement="top">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                      @endif
                     @endif
                 </td>
             </tr>

@@ -19,7 +19,7 @@
           </tr>
       @endforeach
     </tbody>
-    </table>
+  </table>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>

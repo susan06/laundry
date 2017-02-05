@@ -18,13 +18,18 @@
                   <span class="label label-{{ $driver->labelClass() }}">{{ trans("app.{$driver->status}") }}</span>
                 </td>
                 <td class="text-center">
+                    <a href="{{ route('admin-driver.activities', $driver->id) }}" class="btn btn-round btn-primary" title="@lang('app.activities')" data-toggle="tooltip" data-placement="top">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                    <button type="button" data-href="{{ route('admin-driver.show', $driver->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
+                       title="@lang('app.show_driver')" data-toggle="tooltip" data-placement="top">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    @if (Auth::user()->role->name == 'admin')
                     <button type="button" data-href="{{ route('admin-driver.edit', $driver->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                        title="@lang('app.edit_driver')" data-toggle="tooltip" data-placement="top">
                         <i class="fa fa-edit"></i>
                     </button>
-                    <a href="{{ route('admin-driver.activities', $driver->id) }}" class="btn btn-round btn-primary" title="@lang('app.activities')" data-toggle="tooltip" data-placement="top">
-                        <i class="fa fa-bars"></i>
-                    </a>
                     <button type="button" data-href="{{ route('admin-driver.comission.shedule.edit', $driver->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                        title="@lang('app.comission_shedule')" data-toggle="tooltip" data-placement="top">
                         <i class="fa fa-calendar"></i>
@@ -36,6 +41,7 @@
                       title="@lang('app.delete_driver')" data-toggle="tooltip" data-placement="top">
                         <i class="fa fa-trash"></i>
                     </button>
+                    @endif
                 </td>
             </tr>
         @endforeach
