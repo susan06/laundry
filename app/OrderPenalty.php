@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderPenalty extends Model
@@ -21,6 +22,7 @@ class OrderPenalty extends Model
     protected $fillable = [
     	'order_id', 
     	'payment_method_id',
+        'percentage',
     	'reference',
     	'amount',
         'status',
@@ -41,11 +43,11 @@ class OrderPenalty extends Model
     {
         switch($this->confirmed) {
             case true:
-                $text = '<span class="label label-success">'.trans("app.confirmed").'</span>';
+                $text = '<span class="label label-success">'.trans("app.penalty").' - '.trans("app.confirmed").'</span>';
                 break;
 
             case false:
-                $text = '<span class="label label-danger">'.trans('app.Unconfirmed').'</span>';
+                $text = '<span class="label label-danger">'.trans("app.penalty").' - '.trans('app.Unconfirmed').'</span>';
                 break;
 
             default:
@@ -59,11 +61,11 @@ class OrderPenalty extends Model
     {
         switch($this->status) {
             case true:
-                $text = '<span class="label label-success">'.trans("app.canceled").'</span>';
+                $text = '<span class="label label-success">'.trans("app.penalty").' - '.trans("app.canceled").'</span>';
                 break;
 
             case false:
-                $text = '<span class="label label-danger">'.trans('app.pending_payment').'</span>';
+                $text = '<span class="label label-danger">'.trans("app.penalty").' - '.trans('app.pending_payment').'</span>';
                 break;
 
             default:

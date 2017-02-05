@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.payments_order'))
+@section('page-title', trans('app.method_payment_penalty'))
 
 @section('content')
 
@@ -11,12 +11,12 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>@lang('app.method_payment_order')</h3>
+              <h3 id="content-title">@lang('app.method_payment_penalty')</h3>
             </div>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-            @include('orders.method_payments_content')
+            @include('orders.method_payments_penalty_content')
           </div>
         </div>
       </div>

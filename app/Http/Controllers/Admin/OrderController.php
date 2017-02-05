@@ -200,8 +200,15 @@ class OrderController extends Controller
         $payment_id = $order->order_payment->id;
         $payment = $this->orders->update_payment(
             $payment_id, 
-            ['confirmed' => $request->confirmed]
+            ['confirmed' => $request->confirmed_payment]
         );
+        if ($order->order_penalty) {
+            $penalty_id = $order->order_penalty->id;
+            $penalty = $this->orders->update_penalty(
+                $penalty_id, 
+                ['confirmed' => $request->confirmed_penalty]
+            );
+        }
         if ( $payment ) {
 
             return response()->json([

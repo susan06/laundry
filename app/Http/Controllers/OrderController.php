@@ -152,7 +152,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-       $validator = $this->validator($request->all());
+        $validator = $this->validator($request->all());
         if ( $validator->passes() ) {
             $client_id = Auth::user()->id;
             if ( $this->check_reserve($request->time_search) ) {
@@ -266,9 +266,26 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        $order = $this->orders->find($id);
+        $porcentaje = Settings::get('penalty');
+        $penalty = $order->total * ($porcentaje/100);
+        if(Settings::get('working_hours')) {
+            $working_hours = json_decode(Settings::get('working_hours'), true);
+        } else {
+            $working_hours = array();
+        }
+        $client = $this->clients->find(Auth::user()->id);
+        if ( $request->ajax() ) {
+
+            return response()->json([
+                'success' => true,
+                'view' => view('orders.edit', compact('order', 'penalty', 'porcentaje', 'working_hours', 'client'))->render(),
+            ]);
+        }
+
+        return view('orders.edit', compact('order', 'penalty', 'porcentaje', 'working_hours', 'client'));
     }
 
     /**
@@ -280,7 +297,63 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $order_old = $this->orders->find($id);
+        if( $order_old->client_location_id != $request->client_location_id ||
+            $order_old->time_search != $request->time_search
+        ) {
+            $rules = [
+                'client_location_id' => 'required',
+                'time_search' => 'required'
+            ];
+            $validator = Validator::make($request->all(), $rules);
+            if ( $validator->passes() ) {
+                $order = $this->orders->update($id, $request->all());
+                if ($order) {
+                    if($order->before_hour_search() <= 3) {           
+                        $percentage = Settings::get('penalty');
+                        $penalty = $order->total * ($percentage/100);
+                        $data = [
+                            'order_id' => $order->id,
+                            'percentage' => $percentage,
+                            'amount' => $penalty,
+                        ];
+                        $payment = $this->orders->create_penalty($data);
+                        if ($payment) {
+
+                            return response()->json([
+                                'success' => true,
+                                'url_return' => route('order.payment.penalty', $order->id),
+                                'title_next' => trans('method_payment_penalty'),
+                                'message' => trans('app.order_updated')
+                            ]);
+                        } else {
+
+                            return response()->json([
+                                'success' => false,
+                                'message' => trans('app.error_again')
+                            ]);
+                        }
+                    }
+                    return response()->json([
+                        'success' => true,
+                        'message' => trans('app.order_updated')
+                    ]);
+                }
+            } else {
+                $messages = $validator->errors()->getMessages();
+
+                return response()->json([
+                    'success' => false,
+                    'validator' => true,
+                    'message' => $messages
+                ]);
+            }  
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.order_no_change')
+            ]);
+        } 
     }
 
     /**
@@ -446,6 +519,81 @@ class OrderController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => trans('app.order_payment_updated')
+                ]);
+            } else {
+
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.error_again')
+                ]);
+            }
+        } else {
+            $messages = $validator->errors()->getMessages();
+
+            return response()->json([
+                'success' => false,
+                'validator' => true,
+                'message' => $messages
+            ]);
+        }
+        
+    }
+
+    /**
+     * Add method payment to penalty.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function method_payment_penalty($id, PaymentRepository $methods, Request $request)
+    {
+        $modal = ($request->modal == 'true') ? true : false;
+        $order = $this->orders->find($id);
+        $payments = ['' => trans('app.select_method_payment')] + $methods->lists_payments();
+        
+        if ( $request->ajax() ) {
+            if ($order) {
+                return response()->json([
+                    'success' => true,
+                    'view' => view('orders.method_payments_penalty_content', compact('payments', 'order', 'modal'))->render(),
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => trans('app.no_records_found')
+                ]);
+            }
+        }
+
+        return view('orders.method_payment_penalty', compact('payments', 'order','modal'));
+    }
+
+    /**
+     * Update method payment to penalty
+     *
+     * @param  int $order
+     * @return \Illuminate\Http\Response
+     */    
+    public function method_payment_penalty_update($payment, Request $request)
+    {
+        $rules['payment_method_id'] = 'required';
+        $rules['amount'] = 'required';
+        $rules['reference'] = 'required|min:3|numeric|unique:orders_penalty,reference,'.$payment;
+
+        $validator = Validator::make($request->all(), $rules);
+        if ( $validator->passes() ) {
+            $data = [
+                'payment_method_id' => $request->payment_method_id,
+                'reference' =>  $request->reference,
+                'amount' => $request->amount,
+                'status' => true,
+            ];
+            $payment = $this->orders->update_penalty($payment, $data);
+            if ($payment) {
+
+                return response()->json([
+                    'success' => true,
+                    'message' => trans('app.order_payment_updated'),
+                    'url_return' => route('order.index')
                 ]);
             } else {
 

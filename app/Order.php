@@ -105,14 +105,14 @@ class Order extends Model
             $working_hours = array();
         }
 
-        $time_search = 0;
+        $time_search = false;
         foreach ($working_hours as $key => $working_hour) {
             if($working_hour['id'] == $this->time_search) {
                 $time_search = $this->date_search.' '.$working_hour['start'];
                 if(date('Y-m-d H:i') <= $time_search) {
                     $time_search = Carbon::createFromFormat('d-m-Y h:i A', $time_search)->format('Y-m-d H:i');
                 } else {        
-                    $time_search = 0; 
+                    $time_search = true; 
                 }
             }
         }
@@ -140,12 +140,12 @@ class Order extends Model
         $date1 = new DateTime(Carbon::now()->format('Y-m-d H:i'));
         $date2 = new DateTime($date_search);
         $diff = $date2->diff($date1);
-        $time = false;
+        $time = 0;
         if( date('Y-m-d H:i') <= $date_search ) {
             $time = $diff->h;
         }
 
-        return  $time;
+        return $time;
     }
 
      public function get_time_delivery()
@@ -235,7 +235,7 @@ class Order extends Model
 
     public function order_penalty()
     {
-        return $this->hasMany(OrderPenalty::class, 'order_id');
+        return $this->hasOne(OrderPenalty::class, 'order_id');
     }
 
     public function client_coupon()

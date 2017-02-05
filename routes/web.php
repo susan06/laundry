@@ -184,6 +184,8 @@
     Route::get('service/payment/{order}', 'OrderController@method_payment')->name('order.payment');
     Route::post('service/payment/{order}', 'OrderController@method_payment_store')->name('order.payment.store');
     Route::put('service/payment/{payment}', 'OrderController@method_payment_update')->name('order.payment.update');
+    Route::get('service/payment/penalty/{order}', 'OrderController@method_payment_penalty')->name('order.payment.penalty');
+    Route::put('service/payment/penalty/{payment}', 'OrderController@method_payment_penalty_update')->name('order.payment.penalty.update');
     Route::resource('order', 'OrderController');
 
     /**

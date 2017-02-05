@@ -18,7 +18,7 @@ class CreateOrdersPaymentsTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->integer('payment_method_id')->unsigned();
             $table->integer('reference')->unique();
-            $table->double('amount');
+            $table->double('amount', 15, 2);
             $table->boolean('status')->default(false);
             $table->boolean('confirmed')->default(false);
             $table->timestamps();

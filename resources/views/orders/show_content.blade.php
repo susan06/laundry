@@ -2,9 +2,10 @@
   <!-- title row -->
   <div class="row">
     <div class="col-xs-12" style="text-align: center;">
-      <img height="150" width="150" src="{{ url('public/assets/images/logos/logo.png') }}">
+    <!--
+      <img height="150" width="150" src="{{ url('public/assets/images/logos/logo.png') }}">-->
          <h1>
-        @lang('app.order') @if($order->bag_code) ({{ trans('app.bag_code').' '.$order->bag_code }}) @endif
+        @lang('app.details_order')
         </h1>
     </div>
   </div>
@@ -30,6 +31,10 @@
     </div>
     <div class="col-sm-4 invoice-col"></div>
     <div class="col-sm-4 invoice-col">
+      @if($order->bag_code) 
+      <strong>@lang('app.bag_code'):</strong> {{ $order->bag_code }}
+      <br>
+      @endif
       <strong>@lang('app.search_date'):</strong> {{ $order->date_search }}
       <br>
       <strong>@lang('app.search_hour'):</strong> {{ $order->get_time_search() }}
@@ -89,7 +94,19 @@
       <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
         <b>{{ $order->order_payment->payment_method->name }}</b> <br/>
         <b>@lang('app.status'):</b> {!! $order->order_payment->getStatusPayment() !!} <br/> 
-        <b>@lang('app.payment_date'):</b> {{ $order->order_payment->created_at }} 
+        <b>@lang('app.payment_date'):</b> {{ $order->order_payment->created_at }} <br/> 
+      @endif
+      @if($order->order_penalty)
+        --------------------------<br/>
+        <b>@lang('app.method_payment_penalty'):</b> <br/>
+        <b>{{ $order->order_penalty->payment_method->name }}</b> <br/>
+        <b>@lang('app.status'):</b> {!! $order->order_penalty->getStatusPayment() !!} <br/> 
+        <b>@lang('app.percentage'):</b> {{ $order->order_penalty->percentage.' %' }} <br/> 
+        <b>@lang('app.amount'):</b> {{ $order->order_penalty->amount.' '.Settings::get('coin') }} <br/> 
+        <b>@lang('app.payment_date'):</b> {{ $order->order_penalty->created_at }} 
+      </p>
+      @endif
+      @if($order->order_payment)
       </p>
       @endif
       @if($order->client_coupon_id != 0)

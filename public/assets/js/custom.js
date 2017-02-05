@@ -325,7 +325,7 @@ $(document).on('click', '.btn-submit', function (e) {
                 } else {
                     if(current_model == 'content' && !response.url_return) {
                         if(response.url_next){
-                            $('#content-title').text(title_next);
+                            $('#content-title').text(response.title_next);
                             getPages(response.url_next);
                         } else {
                             $('#content-title').text(current_title);
@@ -334,8 +334,8 @@ $(document).on('click', '.btn-submit', function (e) {
                         }
                     } else {
                         if(response.url_return) {
-                            showLoading();
                             window.location.href = response.url_return;
+                            showLoading();
                         }
                     } 
                 }

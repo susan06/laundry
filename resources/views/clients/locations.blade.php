@@ -47,7 +47,8 @@
                     <td class="center">
                     {!! $item->getStatus() !!}
                     @if($item->confirmed)
-                      @lang('app.confirmed_driver')
+                    <span class="label label-success">@lang('app.confirmed_driver')</span>
+                      
                     @endif
                     </td>
                     <td class="center">

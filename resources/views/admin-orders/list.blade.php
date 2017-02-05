@@ -14,7 +14,7 @@
     </thead>
     <tbody>
         @foreach ($orders as $order)
-            <tr>
+            <tr class="{{ ($order->order_penalty && !$order->order_penalty->confirmed) ? 'danger' : '' }}">
                 <td>{{ $order->bag_code }}</td>
                 <td>{{ is_null($order->branch_offices_location_id)  ? trans('app.noasigned') : $order->branch_office->name }}</td>
                 <td>{{ $order->user->full_name() }}</td>
@@ -27,12 +27,18 @@
                   @else
                     <span class="label label-danger">{{ trans("app.no_register_payment") }}</span>
                   @endif
+                  @if($order->order_penalty)
+                    {!! $order->order_penalty->getStatusPayment() !!}
+                  @endif
                 </td>
                  <td>
                   @if($order->order_payment)
                     {!! $order->order_payment->getConfirmedPayment() !!}
                   @else
                     <span class="label label-danger">{{ trans("app.no_register_payment") }}</span>
+                  @endif
+                  @if($order->order_penalty)
+                    {!! $order->order_penalty->getConfirmedPayment() !!}
                   @endif
                   </td>
                 <td>{!! $order->getStatus() !!}</td>
@@ -42,10 +48,9 @@
                                    title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
-                    @if ( Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'supervisor' && $order->order_payment)
-                      @if($order->order_payment->status)
-                      <button type="button" data-href="{{ route('admin-order.change.confirmed', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
-                                     title="@lang('app.confirmed_order')" data-toggle="tooltip" data-placement="top">
+                    @if ( Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'supervisor' && count($order->order_payment) > 0 )
+                      @if(isset($order->order_payment->status))
+                      <button type="button" data-href="{{ route('admin-order.change.confirmed', $order->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" title="@lang('app.confirmed_order')" data-toggle="tooltip" data-placement="top">
                       <i class="fa fa-check"></i>
                       </button>
                       @endif
