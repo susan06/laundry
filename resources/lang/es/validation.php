@@ -153,8 +153,9 @@ return [
         'representative_id'     => 'Representante de sucursal',
         'package_category_id'   => 'Categoria',
         'shedules'              => 'Horarios',
-        'branch_office'         => 'sucursal',
-        'client_location_id'    => 'dirección',
-    ],
+        'branch_office'         => 'Sucursal',
+        'client_location_id'    => 'Dirección',
+        'branch_location'       => 'Dirección de sucursal',
+    ], 
 
 ];

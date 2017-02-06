@@ -201,7 +201,8 @@ class BranchOfficeController extends Controller
             
             $notification = $notificationRepository->create([
                 'driver_id' => $order->driver_id,
-                'description' => trans('driver.complete_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+                'order_id' => $order->id,
+                'description' => trans('driver.complete_order', ['order' => $order->id, 'branch' => $order->branch_office->name])
             ]);
 
             return response()->json([

@@ -20,6 +20,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('order_id')->unsigned()->nullable();
             $table->text('description')->nullable();
             $table->boolean('read_on')->default(false);
+            $table->boolean('change_branch')->default(false);
             $table->timestamps();
             $table->engine = 'InnoDB';
             

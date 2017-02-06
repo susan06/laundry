@@ -20,7 +20,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'driver_id', 'branch_office_id', 'order_id', 'description', 'read_on'
+        'driver_id', 'branch_office_id', 'order_id', 'description', 'read_on', 'change_branch'
     ];
 
     /**
@@ -29,7 +29,8 @@ class Notification extends Model
      * @var array
      */
     protected $casts = [
-        'read_on' => 'boolean'
+        'read_on' => 'boolean',
+        'change_branch' => 'boolean',
     ];
 
     public function getCreatedAtAttribute($date)

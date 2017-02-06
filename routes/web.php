@@ -239,6 +239,7 @@
     */
     
     Route::get('notification/supervisor/count', 'NotificationController@countNotificationSupervisor')->name('supervisor.notification.count');
+    Route::post('notification/store/change-branch/{id}', 'NotificationController@storeChangeBranch')->name('notification.store.change.branch');
     
     Route::resource('notification', 'NotificationController');
  

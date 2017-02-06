@@ -9,6 +9,7 @@ class OrderStatus
     const inbranch = 'inbranch';
     const branch_finish = 'branch_finish';
     const change_branch = 'change_branch';
+    const via_branch = 'via_branch';
     const inexit = 'inexit';
     const delivered = 'delivered';
 

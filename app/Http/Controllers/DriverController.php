@@ -233,7 +233,7 @@ class DriverController extends Controller
         if ($order) {
             $activity = $this->drivers->create_activity([
                 'user_id' => $driver->id,
-                'description' => trans('driver.taked_order', ['order' => $order->bag_code, 'client' => $order->user->full_name(), 'address' => $order->client_location->address])
+                'description' => trans('driver.taked_order', ['order' => $order->id, 'client' => $order->user->full_name(), 'address' => $order->client_location->address])
             ]);
 
             return response()->json([
@@ -256,11 +256,13 @@ class DriverController extends Controller
      */
     public function list_branch($id, Request $request, BranchOfficeRepository $branchOfficeRepository)
     {
+        $branch = isset($request->noti) ? true : false;
+        $noti = isset($request->noti) ? $request->noti : 0;
         $order = $this->orders->find($id);
         $all_branch_offices = $branchOfficeRepository->all_active();
         $branch_offices = $branchOfficeRepository->all_active();
 
-        return view('branch_offices.select_branch', compact('order', 'branch_offices', 'all_branch_offices'));
+        return view('branch_offices.select_branch', compact('order', 'branch_offices', 'all_branch_offices', 'branch', 'noti'));
     }
 
     /**
@@ -269,19 +271,27 @@ class DriverController extends Controller
      */    
     public function update_branch_order($id, Request $request)
     {
-        $rules = ['branch_office' => 'required'];
+        $rules = ['branch_office' => 'required', 'branch_location' => 'required',];
         $validator = Validator::make($request->all(), $rules);
         if ( $validator->passes() ) {
             $data = [
                 'branch_offices_id' => $request->branch_office,
                 'branch_offices_location_id' => $request->branch_location,
             ];
+            if ($request->branch != 0) {
+                $data['status'] = OrderStatus::via_branch;
+            } 
             $order = $this->orders->update($id, $data);
             if ($order) {
-
+                if ($request->branch != 0) {
+                    $msg_activity = trans('driver.change_branch_order', ['order' => $order->id, 'branch' => $order->branch_office->name, 'address' => $order->location_branch()->address]);
+                    $notification = $this->notifications->delete($request->branch);
+                } else {
+                    $msg_activity = trans('driver.assign_branch_order', ['order' => $order->id, 'branch' => $order->branch_office->name, 'address' => $order->location_branch()->address]);
+                }
                 $activity = $this->drivers->create_activity([
                     'user_id' => Auth::user()->id,
-                    'description' => trans('driver.assign_branch_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name, 'address' => $order->location_branch()->address])
+                    'description' => $msg_activity
                 ]);
 
                 return response()->json([
@@ -320,7 +330,7 @@ class DriverController extends Controller
             $mailer->sendNotificationStatusOrder($order);
             $activity = $this->drivers->create_activity([
                 'user_id' => $driver->id,
-                'description' => trans('driver.inbranch_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+                'description' => trans('driver.inbranch_order', ['order' => $order->id, 'branch' => $order->branch_office->name])
             ]);
 
             return response()->json([
@@ -350,7 +360,7 @@ class DriverController extends Controller
             $mailer->sendNotificationStatusOrder($order);
             $activity = $this->drivers->create_activity([
                 'user_id' => $driver->id,
-                'description' => trans('driver.inexit_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+                'description' => trans('driver.inexit_order', ['order' => $order->id, 'branch' => $order->branch_office->name])
             ]);
 
             return response()->json([
@@ -383,7 +393,7 @@ class DriverController extends Controller
             $mailer->sendNotificationStatusOrder($order);
             $activity = $this->drivers->create_activity([
                 'user_id' => $driver->id,
-                'description' => trans('driver.delivered_order', ['order' => $order->bag_code, 'branch' => $order->branch_office->name])
+                'description' => trans('driver.delivered_order', ['order' => $order->id, 'branch' => $order->branch_office->name])
             ]);
 
             return response()->json([

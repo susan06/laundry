@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\Notification\NotificationRepository;
+use App\Repositories\Order\OrderRepository;
 
 class NotificationController extends Controller
 {
@@ -136,5 +137,35 @@ class NotificationController extends Controller
         return response()->json( 
             $this->notifications->countNotificationSupervisor() 
         );
+    }
+
+    /**
+     * store notification for driver change branch
+     *   
+     */
+    public function storeChangeBranch($id, Request $request, OrderRepository $orderRepository) 
+    {
+        $order = $orderRepository->find($id);
+
+        $notification = $this->notifications->create([
+           'driver_id' => $order->driver_id,
+           'order_id' => $order->id, 
+           'change_branch' => true,
+           'description' => trans('app.transfer_driver_branch')
+        ]);
+
+        if ( $notification ) {
+
+            return response()->json([
+                'success' => true,
+                'message' => trans('app.notification_send_driver')
+            ]);
+        } else {
+            
+            return response()->json([
+                'success' => false,
+                'message' => trans('app.error_again')
+            ]);
+        }
     }
 }

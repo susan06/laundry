@@ -1,6 +1,7 @@
  <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
     <thead>
       <th>#</th>
+      <th>ID</th>
       <th>@lang('app.bag_code')</th>
       <th>@lang('app.client')</th>
       <th>@lang('app.search_date')</th>
@@ -15,6 +16,7 @@
     @foreach ($orders as $key => $order)
         <tr class="@if($order->special_instructions && $order->status == 'recoge') success @endif">
             <td>{{ ($orders->currentpage()-1) * $orders->perpage() + $key + 1 }}</td>
+            <td>{{ $order->id }}</td>
             <td>{{ $order->bag_code }}</td>
             <td>{{ $order->user->full_name() }}</td>
             <td>{{ $order->date_search }}</td>

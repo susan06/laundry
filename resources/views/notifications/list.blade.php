@@ -10,7 +10,13 @@
                 <td>{{ $notification->description }}</td>
                 <td>{{ $notification->created_at }}</td>
                 <td class="text-center">
-                
+
+                  @if (Auth::user()->role->name == 'supervisor' && $notification->branch_office_id)
+                  {!! Form::open(['route' => ['notification.store.change.branch', $notification->order_id], 'method' => 'post', 'id' => 'form-modal']) !!}
+                    <button type="submit" class="btn btn-warning btn-submit">@lang('app.notificacion_driver_branch')</button>
+                  {!! Form::close() !!}
+                  @endif
+
                     <button type="button" data-href="{{ route('notification.destroy', $notification->id) }}" 
                       class="btn btn-round btn-danger btn-delete" 
                       data-confirm-text="@lang('app.are_you_sure_delete_notification')"

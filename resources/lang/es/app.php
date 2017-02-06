@@ -934,4 +934,11 @@ return [
     'order_status_updated' => 'Estado de la órden actualizado',
     'asign_bad_code' => 'Asignar código de bolsa',
     'order_bag_code_updated' => 'Código de bolsa de la órden actualizado',
+    'asign_driver_change_branch' => 'Asignar conductor para cambio de sucursal',
+    'asign_driver' => 'Asignar conductor',
+    'notification_send_driver' => 'Notificación enviada al conductor',
+    'transfer_driver_branch' => 'Trasladar mercancia de pedido a otra sucursal',
+    'notificacion_driver_branch' => 'Notificar cambio de sucursal',
+    'branch_solicitous_change' => 'La sucursal solicitó cambio',
+    'via_branch' => 'Vía a otra sucursal',
 ]; 
