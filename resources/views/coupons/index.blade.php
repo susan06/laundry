@@ -11,7 +11,7 @@
         <div class="x_panel">
           <div class="page-title">
             <div class="title_left">
-              <h3>@lang('app.coupons')</h3>
+              <h3 id="content-title">@lang('app.coupons')</h3>
             </div>
             @include('partials.status')
             @include('partials.search')

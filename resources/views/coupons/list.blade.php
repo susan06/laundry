@@ -19,6 +19,8 @@
               </td>
               <td class="text-center">
               @if($coupon->status == 'Valid')
+                  <a href="{{ route('coupon.send', $coupon->id) }}" class="btn btn-primary" title="@lang('app.send_coupons')">@lang('app.send_coupons')</a>
+
                   <button type="button" data-href="{{ route('coupon.edit', $coupon->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
                      title="@lang('app.edit_coupon')" data-toggle="tooltip" data-placement="top">
                       <i class="fa fa-edit"></i>

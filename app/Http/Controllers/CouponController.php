@@ -333,4 +333,22 @@ class CouponController extends Controller
             'view' => view('coupons.clients.show', compact('coupons'))->render()
         ]);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendToClients($id, Request $request, UserRepository $userRepository)
+    {
+        $clients = $userRepository->client_send_coupon();
+        $coupon = $this->coupons->find($id);
+
+        return view('coupons.clients.send', compact('coupon', 'clients'));
+    }
+
+    public function sendStoreCouponsClients($id, Request $request)
+    {
+        
+    }
 }

@@ -941,4 +941,5 @@ return [
     'notificacion_driver_branch' => 'Notificar cambio de sucursal',
     'branch_solicitous_change' => 'La sucursal solicitó cambio',
     'via_branch' => 'Vía a otra sucursal',
+    'selected_client' => 'Seleccionar cliente',
 ]; 

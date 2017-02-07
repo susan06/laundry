@@ -198,6 +198,40 @@ class User extends Authenticatable
         return $class;
     }
 
+    public function count_friends() 
+    {
+        $count = 0;
+        if($this->client_friends) {
+            foreach ($this->client_friends as $key => $value) {
+                if($value->registered){
+                    $count++;
+                }
+            }
+        } 
+
+        return $count;
+    }
+
+    public function last_order() 
+    {
+        $order = '';
+        if($this->order) {
+            $order .= isset($this->order->last()->created_at) ? $this->order->last()->created_at : '0';
+        } 
+
+        return $order;
+    }
+
+    public function countCoupon() 
+    {
+        $count = 0;
+        if($this->client_coupon) {
+            $count = $this->client_coupon->count();
+        } 
+
+        return $count;
+    }
+
     /**
      * Relationships
      *

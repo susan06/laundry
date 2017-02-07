@@ -82,4 +82,9 @@ interface UserRepository extends RepositoryInterface
      * @param $email
      */
     public function findByEmail($email);
+
+    /**
+     * lists clients potencial send coupons
+     */
+    public function client_send_coupon();
 }

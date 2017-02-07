@@ -253,4 +253,19 @@ class EloquentUser extends Repository implements UserRepository
         return $this->model->where('email', $email)->first();
     }
 
+    /**
+     * lists clients potencial send coupons
+     */
+    public function client_send_coupon()
+    {
+        $result = array();
+        $role = Role::where('name','client')->first();
+        $users = User::where('role_id', $role->id)->get();
+        foreach ($users as $user) {
+            $result[$user->id] = $user->full_name().' - correo: '.$user->email.' Cupones enviados: '.$user->countCoupon().' - última solicitud: '.$user->last_order().' - Amigos registrados: '.$user->count_friends();
+        }
+
+        return $result;
+    }
+
 }

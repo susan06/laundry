@@ -92,6 +92,8 @@
     Route::get('coupon/clients', 'CouponController@clients')->name('coupon.clients');
     Route::get('coupon/validate', 'CouponController@check_coupon')->name('coupon.check');
     Route::get('coupon/clients/show/{id}', 'CouponController@client_show')->name('coupon.clients.show');
+    Route::get('coupon/send/{id}', 'CouponController@sendToClients')->name('coupon.send');
+    Route::post('coupon/store/send/{id}', 'CouponController@sendStoreCouponsClients')->name('coupon.store.send');
     Route::resource('coupon', 'CouponController');
 
     /**
