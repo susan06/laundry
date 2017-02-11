@@ -81,11 +81,13 @@ class User extends Authenticatable
 
     public function avatar()
     {
+        /*
         if (! $this->avatar ) {
             return asset('public/images/noimage.png');
-        }
+        }*/
+        //asset('storage/app/users/'.$this->avatar)
 
-        return asset('storage/app/users/'.$this->avatar);
+        return asset('public/images/icon_user.png');
     }
 
     public function label_phones()

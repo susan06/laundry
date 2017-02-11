@@ -26,118 +26,40 @@ var options_table = {
 
 var table = $('#datatable-responsive').DataTable(options_table); 
 
-// Sidebar
-$(document).ready(function() {
-    // TODO: This is some kind of easy fix, maybe we can improve this
-    var setContentHeight = function () {
-        // reset height
-        $RIGHT_COL.css('min-height', $(window).height());
+$(function() {
+    $('#side-menu').metisMenu();
+});
 
-        var bodyHeight = $BODY.outerHeight(),
-            footerHeight = $BODY.hasClass('footer_fixed') ? 0 : $FOOTER.height(),
-            leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-            contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-
-        // normalize content
-        contentHeight -= $NAV_MENU.height() + footerHeight;
-
-        $RIGHT_COL.css('min-height', contentHeight);
-    };
-
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
-        var $li = $(this).parent();
-
-        if ($li.is('.active')) {
-            $li.removeClass('active active-sm');
-            $('ul:first', $li).slideUp(function() {
-                setContentHeight();
-            });
+//Loads the correct sidebar on window load,
+//collapses the sidebar on window resize.
+// Sets the min-height of #page-wrapper to window size
+$(function() {
+    $(window).bind("load resize", function() {
+        topOffset = 50;
+        width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+        if (width < 768) {
+            $('div.navbar-collapse').addClass('collapse');
+            topOffset = 100; // 2-row-menu
         } else {
-            // prevent closing menu if we are on child menu
-            if (!$li.parent().is('.child_menu')) {
-                $SIDEBAR_MENU.find('li').removeClass('active active-sm');
-                $SIDEBAR_MENU.find('li ul').slideUp();
-            }
-            
-            $li.addClass('active');
+            $('div.navbar-collapse').removeClass('collapse');
+        }
 
-            $('ul:first', $li).slideDown(function() {
-                setContentHeight();
-            });
+        height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+        height = height - topOffset;
+        if (height < 1) height = 1;
+        if (height > topOffset) {
+            $("#page-wrapper").css("min-height", (height) + "px");
         }
     });
 
-    // toggle small or large menu
-    $MENU_TOGGLE.on('click', function() {
-        if ($BODY.hasClass('nav-md')) {
-            $SIDEBAR_MENU.find('li.active ul').hide();
-            $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-            $('#site_logo').addClass('site_logo_small').removeClass('site_logo_big').removeClass('site_logo');
-        } else {
-            $SIDEBAR_MENU.find('li.active-sm ul').show();
-            $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
-            $('#site_logo').addClass('site_logo_big').removeClass('site_logo_small').removeClass('site_logo');
-        }
-
-        $BODY.toggleClass('nav-md nav-sm');
-
-        setContentHeight();
-    });
-
-    // check active menu
-    $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
-
-    $SIDEBAR_MENU.find('a').filter(function () {
-        return this.href == CURRENT_URL;
-    }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
-        setContentHeight();
-    }).parent().addClass('active');
-
-    // recompute content when resizing
-    $(window).smartresize(function(){  
-        setContentHeight();
-    });
-
-    setContentHeight();
-
-    // fixed sidebar
-    if ($.fn.mCustomScrollbar) {
-        $('.menu_fixed').mCustomScrollbar({
-            autoHideScrollbar: true,
-            theme: 'minimal',
-            mouseWheel:{ preventDefault: true }
-        });
+    var url = window.location;
+    var element = $('ul.nav a').filter(function() {
+        return this.href == url || url.href.indexOf(this.href) == 0;
+    }).addClass('active').parent().parent().addClass('in').parent();
+    if (element.is('li')) {
+        element.addClass('active');
     }
 });
-// /Sidebar
-
-// Panel toolbox
-$(document).ready(function() {
-    $('.collapse-link').on('click', function() {
-        var $BOX_PANEL = $(this).closest('.x_panel'),
-            $ICON = $(this).find('i'),
-            $BOX_CONTENT = $BOX_PANEL.find('.x_content');
-        
-        // fix for some div with hardcoded fix class
-        if ($BOX_PANEL.attr('style')) {
-            $BOX_CONTENT.slideToggle(200, function(){
-                $BOX_PANEL.removeAttr('style');
-            });
-        } else {
-            $BOX_CONTENT.slideToggle(200); 
-            $BOX_PANEL.css('height', 'auto');  
-        }
-
-        $ICON.toggleClass('fa-chevron-up fa-chevron-down');
-    });
-
-    $('.close-link').click(function () {
-        var $BOX_PANEL = $(this).closest('.x_panel');
-
-        $BOX_PANEL.remove();
-    });
-});
-// /Panel toolbox
 
 // Tooltip
 $(document).ready(function() {
@@ -159,62 +81,6 @@ $(document).ready(function() {
     }
 });
 // /Switchery
-
-// iCheck
-$(document).ready(function() {
-    if ($("input.flat")[0]) {
-        $(document).ready(function () {
-            $('input.flat').iCheck({
-                checkboxClass: 'icheckbox_flat-green',
-                radioClass: 'iradio_flat-green'
-            });
-        });
-    }
-});
-// /iCheck
-
-// Accordion
-$(document).ready(function() {
-    $(".expand").on("click", function () {
-        $(this).next().slideToggle(200);
-        $expand = $(this).find(">:first-child");
-
-        if ($expand.text() == "+") {
-            $expand.text("-");
-        } else {
-            $expand.text("+");
-        }
-    });
-});
-
-
-(function($,sr){
-    // debouncing function from John Hann
-    // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-    var debounce = function (func, threshold, execAsap) {
-      var timeout;
-
-        return function debounced () {
-            var obj = this, args = arguments;
-            function delayed () {
-                if (!execAsap)
-                    func.apply(obj, args);
-                timeout = null; 
-            }
-
-            if (timeout)
-                clearTimeout(timeout);
-            else if (execAsap)
-                func.apply(obj, args);
-
-            timeout = setTimeout(delayed, threshold || 100); 
-        };
-    };
-
-    // smartresize 
-    jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
-
-})(jQuery,'smartresize');
 
 /**
  * script general
