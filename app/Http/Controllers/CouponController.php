@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 use App\Coupon;
 use Carbon\Carbon;
+use App\Mailers\UserMailer;
 use App\Repositories\Coupon\CouponRepository;
 use App\Repositories\Coupon\ClientCouponRepository;
 use App\Repositories\User\UserRepository;
@@ -347,8 +348,26 @@ class CouponController extends Controller
         return view('coupons.clients.send', compact('coupon', 'clients'));
     }
 
-    public function sendStoreCouponsClients($id, Request $request)
+    public function sendStoreCouponsClients($id, Request $request, UserMailer $mailer, UserRepository $users)
     {
-        
+        $coupon = $this->coupons->find($id);
+        $clients = $request->clients;
+        if($clients) {
+            foreach ($clients as $key => $value) {
+                $send = $this->coupons->create_client_coupon([
+                    'client_id' => $value,
+                    'coupon_id' => $id
+                ]);
+
+                $mailer->sendCoupon($users->find($value), $coupon);
+            }
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => trans('app.coupon_sended'),
+            'url_return' => route('coupon.clients')
+        ]);
+
     }
 }

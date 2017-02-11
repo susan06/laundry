@@ -198,7 +198,84 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 /* Be sure to place a .clear element after each set of columns, just to be safe */
 .clear { display: block; clear: both; }
 
+/*Coupons */
 
+.coupons {
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  min-height: 60px;
+  text-align: center;
+  box-shadow: 0 1px 1px rgba(0,0,0, .05);
+  background: #c6d5d3;
+}
+.coupons-inner {
+  margin-left: 50px;
+  font-size: 0.85em;
+  font-weight: 600;
+  border-left: 5px dashed #fff;
+  padding: 15px;
+  background: #ddd
+}
+.coupons:before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 15px;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+}
+.coupons-code {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: #fff;
+  padding: 5px;
+  margin-top: 5px;
+  background-color: #858689;
+}
+.coupons .one-time {
+  margin-top: 10px;
+  color: #999;
+  border: 2px solid #999;
+  display: inline-block;
+  padding: 3px 7px;
+  font-weight: 800;
+  font-size: 1em;
+}
+
+.overline {
+  text-decoration: line-through;
+}
+
+.margin-left {
+  margin-left: 5px;
+}
+
+.badge {
+  padding: 3px 7px;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.badge-red {
+  background-color: #d24d33;
+  color: #fff;
+}
+
+.badge-green {
+  background-color: #82b964;
+  color: #fff;
+}
+
+.badge-gray {
+  background-color: #DFDFDF;
+  color: #fff;
+}
+.bg-nav {
+  animation: pulse 2s linear infinite;
+}
 /* ------------------------------------------- 
         PHONE
         For clients that support media queries.

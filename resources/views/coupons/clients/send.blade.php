@@ -22,7 +22,7 @@
               <label class="control-label col-md-2 col-sm-2 col-xs-12" for="@lang('app.selected_client')">@lang('app.selected_client') <span class="required">*</span>
               </label>
               <div class="col-md-10 col-sm-10 col-xs-12">
-                {!! Form::select('clients', $clients, old('clients'), ['class' => 'form-control select2_single', 'multiple' => 'multiple', 'id' => 'clients']) !!}
+                {!! Form::select('clients[]', $clients, old('clients'), ['class' => 'form-control select2_single', 'multiple' => 'multiple', 'id' => 'clients']) !!}
               </div>
             </div>
               <div class="row"> 
@@ -53,7 +53,8 @@
               <div class="ln_solid"></div>
                 <div class="form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <button type="button" class="btn btn-default btn-cancel col-sm-3 col-xs-12">@lang('app.back')</button>
+                       <button type="submit" class="btn btn-primary btn-submit col-sm-4 col-xs-6">@lang('app.send')</button>
+                    <button type="button" class="btn btn-default btn-cancel col-sm-4 col-xs-12">@lang('app.back')</button>
                   </div>
                 </div>
               {!! Form::close() !!}
@@ -72,8 +73,7 @@
 
 <script type="text/javascript">
   $(".select2_single").select2({
-    placeholder: "@lang('app.selected_client')",
-    allowClear: true
+    placeholder: "@lang('app.selected_client')"
   });
 </script>
 

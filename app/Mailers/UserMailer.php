@@ -3,6 +3,7 @@
 namespace App\Mailers;
 
 use App\User;
+use App\Coupon;
 
 class UserMailer extends AbstractMailer
 {
@@ -20,6 +21,15 @@ class UserMailer extends AbstractMailer
         $view = 'emails.password.remind';
         $data = ['user' => $user, 'token' => $token, 'admin' => $admin];
         $subject = trans('app.password_reset_required');
+
+        $this->sendTo($user->email, $subject, $view, $data);
+    }
+
+    public function sendCoupon(User $user, Coupon $coupon)
+    {
+        $view = 'emails.coupons.send';
+        $data = ['user' => $user, 'coupon' => $coupon];
+        $subject = trans('app.coupon_winnier');
 
         $this->sendTo($user->email, $subject, $view, $data);
     }

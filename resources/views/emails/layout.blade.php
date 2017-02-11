@@ -22,7 +22,9 @@
                 <div class="content">
                 <table bgcolor="#999999">
                     <tr>
-                        <td><img width="150" height="150" src="{{ url('public/assets/images/logos/logo.png') }}" /></td>
+                        <td>
+                        {{ HTML::image('assets/images/logos/logo.png', Settings::get('app_name'), array('width' => 150, 'height' => 150)) }}
+                        </td>
                         <td align="right"><h6 class="collapse">{{ Settings::get('app_name') }}</h6></td>
                     </tr>
                 </table>

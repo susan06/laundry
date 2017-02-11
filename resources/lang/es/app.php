@@ -942,4 +942,6 @@ return [
     'branch_solicitous_change' => 'La sucursal solicitó cambio',
     'via_branch' => 'Vía a otra sucursal',
     'selected_client' => 'Seleccionar cliente',
+    'coupon_sended' => 'Cupón enviado',
+    'coupon_winnier' => 'Has ganado un cupón de descuento en laundry',
 ]; 

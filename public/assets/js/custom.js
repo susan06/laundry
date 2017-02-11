@@ -14,17 +14,17 @@ var CURRENT_URL = window.location.href.split('?')[0],
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
 
-$(document).ready(function() { 
-    var options = {
-        "searching": false,
-        "paging": false,
-        "bInfo": false,
-        "language": {
-          "emptyTable": lang.no_data_table
-        }
-    };
-    $('#datatable-responsive').DataTable(options); 
-});
+var options_table = {
+    retrieve: true,
+    "searching": false,
+    "paging": false,
+    "bInfo": false,
+    "language": {
+      "emptyTable": lang.no_data_table
+    }
+};
+
+var table = $('#datatable-responsive').DataTable(options_table); 
 
 // Sidebar
 $(document).ready(function() {
@@ -540,16 +540,8 @@ function notify(type, message){
 
 // datatable-responsive
 function loadResposiveTable() {
-    var options = {
-        "searching": false,
-        "paging": false,
-        "bInfo": false,
-        "language": {
-          "emptyTable": lang.no_data_table
-        }
-    };
-    $('#datatable-responsive').DataTable(options); 
-
+    table.destroy();
+    table = $('#datatable-responsive').DataTable(options_table);
 }
 
 $(document).on('change', '#file_image', function () { 

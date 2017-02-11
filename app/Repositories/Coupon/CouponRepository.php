@@ -20,4 +20,11 @@ interface CouponRepository extends RepositoryInterface
      */
     public function paginate_search($take = 10, $search = null, $status = null);
 
+     /**
+     * create client copuon
+     *
+     *
+     */
+    public function create_client_coupon(array $attributes);
+
 }

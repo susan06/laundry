@@ -77,4 +77,14 @@ class EloquentCoupon extends Repository implements CouponRepository
         return $result;
     }
 
+         /**
+     * create client copuon
+     *
+     *
+     */
+    public function create_client_coupon(array $attributes)
+    {
+        return $this->clientCoupons->firstOrCreate($attributes);
+    }
+
 }
