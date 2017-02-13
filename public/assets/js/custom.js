@@ -19,6 +19,7 @@ var options_table = {
     "searching": false,
     "paging": false,
     "bInfo": false,
+    "ordering": false,
     "language": {
       "emptyTable": lang.no_data_table
     }

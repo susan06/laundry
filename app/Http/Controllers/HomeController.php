@@ -6,19 +6,26 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepository as Users;
 use App\Repositories\BranchOffice\BranchOfficeRepository as BranchOffice;
+use App\Repositories\Order\OrderRepository;
 
 class HomeController extends Controller
 {
+    /**
+     * @var OrderRepository
+     */
+    private $orders;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(OrderRepository $orders)
     {
         $this->middleware('auth');
         $this->middleware('locale'); 
-        $this->middleware('timezone'); 
+        $this->middleware('timezone');
+        $this->orders = $orders; 
     }
 
     /**
@@ -37,7 +44,8 @@ class HomeController extends Controller
         }
 
         if (Auth::user()->role_id == 2) {
-            return view('dashboard.client');
+            $count = $this->orders->countDahsboard();
+            return view('dashboard.client', compact('count'));
         }
 
         if (Auth::user()->role_id == 3) {

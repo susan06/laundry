@@ -52,7 +52,6 @@ return [
     'resumen_payment_programer' => 'Estimado cliente, en estos momentos su pedido ha sido programado y está en espera para su pago, por favor seleccionar su método de pago y nuestro equipo lo verificará, una vez verificado se procederá a la búsqueda de su ropa',
     'method_payment' => 'Método de Pago',
     'no_register_payment' => 'Aún sin pago',
-    'terms_and_conditions' => 'Términos y Condiciones',
     'frequent_questions' => 'Preguntas Frecuentes',
     'privacy_policies' => 'Políticas de Privacidad',
     'invite_friend' => 'Invitar a un Amigo',
@@ -80,8 +79,8 @@ return [
     'select' => 'Seleccionar',
     'status_driver' => 'Estado - conductor',
     'recoge' => 'Recogida',
-    'inbranch' => 'En sucursal',
-    'inexit' => 'De salida',
+    'inbranch' => 'Sucursal',
+    'inexit' => 'Salida',
     
     // Activity Log Section
     'activity_log' => 'Registros',
@@ -703,7 +702,7 @@ return [
     'validaty_card'       => 'Fecha de Expiración',
     'accept_terms_and_conditions'     => 'Aceptar términos y condiciones.',
     'receive_promotion_and_discounts' => 'Recibir promociones y descuentos.',
-    'terms_and_conditions'            => 'Términos y Condiciones',
+    'terms_and_conditions'            => 'Condiciones de uso',
     'request_services'          => 'Solicitar Servicios',
     'address'                   => 'Dirección',
     'select_address'            => 'Seleccionar Dirección',
@@ -944,4 +943,8 @@ return [
     'selected_client' => 'Seleccionar cliente',
     'coupon_sended' => 'Cupón enviado',
     'coupon_winnier' => 'Has ganado un cupón de descuento en laundry',
+    'order_delivered' => 'Órdenes entregadas',
+    'order_inbranch' => 'Órdenes en sucursal',
+    'order_search' => 'Órdenes recogidas',
+    'order_id' => 'Órden ID',
 ]; 

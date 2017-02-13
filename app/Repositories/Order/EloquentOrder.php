@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Order;
 
+use Auth;
 use App\Order;
 use App\OrderPayment;
 use App\OrderPackage;
@@ -302,6 +303,32 @@ class EloquentOrder extends Repository implements OrderRepository
 
         if ($search) {
             $result->appends(['search' => $search]);
+        }
+
+        return $result;
+    }
+
+    public function countDahsboard() {
+
+        if (Auth::user()->role_id == 1) {
+            //
+        }
+
+         if (Auth::user()->role_id == 2) {
+            $orders = $this->model->where('client_id', Auth::user()->id);
+            $total = $orders->count();
+
+            $result['delivered'] = $orders->where('status', 'delivered')->count();
+            $delivered_percent = ($result['delivered']*100)/$total;
+            $result['delivered-percent'] = (int) $delivered_percent;
+
+            $result['inbranch'] = $orders->where('status', 'inbranch')->count();
+            $inbranch_percent = ($result['inbranch']*100)/$total;
+            $result['inbranch-percent'] = (int) $inbranch_percent;
+
+            $result['search'] = $orders->where('status', 'search')->count();
+            $search_percent = ($result['search']*100)/$total;
+            $result['search-percent'] = (int) $search_percent;
         }
 
         return $result;

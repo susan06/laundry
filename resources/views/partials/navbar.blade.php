@@ -15,23 +15,23 @@
       <div class="drop-men">
           <ul class="nav_1">  
             <li class="dropdown">
-              <a href="{{ url('/home') }}" class="margin-right">
+              <a href="{{ url('/home') }}" class="margin-right-nav">
                 <i class="fa fa-2x fa-dashboard"></i>
               </a>
             </li>
             @if (Auth::user()->role->name == 'client')
             <li class="dropdown">
-              <a href="{{ route('my.orders') }}" class="margin-left margin-right">
+              <a href="{{ route('my.orders') }}" class="margin-left-nav margin-right-nav">
                 <i class="fa fa-2x fa-cart-plus"></i>
               </a>
             </li>
             <li class="dropdown">
-              <a href="{{ route('client.locations') }}" class="margin-left margin-right">
+              <a href="{{ route('client.locations') }}" class="margin-left-nav margin-right-nav">
                 <i class="fa fa-2x fa-location-arrow"></i>
               </a>
             </li>
             <li class="dropdown">
-              <a href="javascript:void(0);" class="margin-left margin-right send-suggestions">
+              <a href="javascript:void(0);" class="margin-left-nav margin-right-nav send-suggestions">
                 <i class="fa fa-2x fa-envelope-o"></i>
               </a>
             </li>

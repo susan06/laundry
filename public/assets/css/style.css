@@ -552,6 +552,19 @@ i.fa.fa-globe {
 	padding:0.3em ;
 }
 /*--content--*/
+.content {
+  padding: 1em;
+  background: #fff;
+  margin: 1em;
+  border: 1px solid #ebeff6;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
 .content-top-1 {
     background-color: #fff;
    	padding: 1.8em;
@@ -2188,9 +2201,221 @@ tr.table-row {
 .sidebar .nav-third-level li a {
     padding-left: 52px;
 }
-.margin-left {
+.margin-left-nav {
   margin-left: 18px;
 }
-.margin-right {
+.margin-right-nav {
   margin-right: 18px;
+}
+
+/***** loading *******/
+.loader {
+    color: #fff;
+    position: fixed;
+    box-sizing: border-box;
+    left: -9999px;
+    top: -9999px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: 999999;
+    display: none;
+}
+
+.loader:after,
+.loader:before {
+    box-sizing: border-box
+}
+
+.loader.is-active {
+    background-color: rgba(0, 0, 0, 0.45);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: block;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0) scale(1);
+        border-radius: 0;
+        background: #f3d53f
+    }
+    25%,
+    75% {
+        transform: rotate(180deg) scale(.4);
+        border-radius: 50%;
+        background: #0fd6ff
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        border-radius: 0;
+        background: #f3d53f
+    }
+}
+
+@keyframes blink {
+    from {
+        opacity: .5
+    }
+    to {
+        opacity: 1
+    }
+}
+
+.loader[data-text]:before {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    color: currentColor;
+    font-family: "Montserrat-Regular";
+    text-align: center;
+    width: 100%;
+    font-size: 14px
+}
+
+.loader[data-text='']:before {
+    content: 'Loading'
+}
+
+.loader[data-text]:not([data-text='']):before {
+    content: attr(data-text)
+}
+
+.loader[data-text][data-blink]:before {
+    animation: blink 1s linear infinite alternate
+}
+
+.loader-default[data-text]:before {
+    top: calc(50% - 63px)
+}
+
+.loader-default:after {
+    content: '';
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    display: inline-block;
+    box-sizing: border-box;
+    background: #0fd6ff;
+    animation: rotation 1s linear infinite
+}
+
+.loader-default[data-half]:after {
+    border-right-color: transparent
+}
+
+.loader-default[data-inverse]:after {
+    animation-direction: reverse
+}
+
+/* other */
+.float_left {
+  float: left;
+}
+
+.float_right {
+  float: right;
+}
+button i {
+  color: #fff;
+}
+.clear {
+  clear: both;
+}
+.text-center {
+  text-align: center;
+}
+.title_list_order {
+  clear: both;
+  text-align: center;
+  color: #009fe3;
+  margin: 5px 0 5px;
+}
+
+/* Form Progress */
+.progress {
+  width: 100%;
+  height: auto;
+  margin: 10px auto;
+  text-align: center;
+  background: transparent;
+}
+.progress .circle,
+.progress .bar {
+  display: inline-block;
+  background: #fff;
+  width: 40px; height: 40px;
+  border-radius: 40px;
+  border: 1px solid #d5d5da;
+}
+.progress .bar {
+  position: relative;
+  /*width: 80px;*/
+  height: 6px;
+  top: -33px;
+  margin-left: -5px;
+  margin-right: -5px;
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
+.progress .circle .label {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  line-height: 28px;
+  border-radius: 32px;
+  margin-top: 3px;
+  color: #b5b5ba;
+  /*font-size: 17px;*/
+}
+.progress .circle .label i{
+  color: #eee;
+}
+.progress .circle.done .label i,
+.progress .circle.active .label i{
+  color: #fff;
+}
+.label-progress {
+    padding: 4px;
+    border: none;
+    text-shadow: none;
+}
+
+.progress .circle .title {
+  color: #b5b5ba;
+  font-size: 1em;
+  line-height: 30px;
+  margin-left: -5px;
+}
+
+/* Done / Active */
+.progress .bar.done,
+.progress .circle.done {
+  background: #eee;
+}
+.progress .bar.active {
+  background: linear-gradient(to right, #EEE 40%, #FFF 60%);
+}
+.progress .circle.done .label {
+  color: #FFF;
+  background: #8bc435;
+  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
+  padding: 4px;
+}
+.progress .circle.done .title {
+  color: #444;
+}
+.progress .circle.active .label {
+  color: #FFF;
+  background: #0c95be;
+  box-shadow: inset 0 0 2px rgba(0,0,0,.2);
+  padding: 4px;
+}
+.progress .circle.active .title {
+  color: #0c95be;
 }

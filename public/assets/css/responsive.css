@@ -484,6 +484,7 @@ div#home {
     font-size: 1.5em;
 }
 }
+
 @media(max-width:470px){
 .modal-dialog {
     width: 320px;
@@ -505,6 +506,48 @@ div#home {
 .top-content {
     width: 56%;
 }
+}
+
+@media(min-width:100px) and (max-width:320px) {
+    .progress .bar {
+        width: 10px;
+    }
+}
+@media(min-width:321px) and (max-width:414px) {
+    .progress .bar {
+        width: 20px;
+    }
+}
+@media(min-width:415px) and (max-width:770px) {
+    .progress .bar {
+        width: 40px;
+    }
+}
+@media(min-width:771px) and (max-width:1024px) {
+    .progress .bar {
+        width: 80px;
+    }
+}
+@media(max-width:420px){
+    .float_left {
+      float: none;
+      text-align: center;
+    }
+    .float_right {
+      float: none;
+      text-align: center;
+    }
+    .progress .circle .title,
+    .progress .circle.done .title,
+    .progress .circle.active .title {
+        color: transparent;
+    }
+    .margin-left-nav {
+      margin-left: 0;
+    }
+    .margin-right-nav {
+      margin-right: 18px;
+    }  
 }
 @media(max-width:404px){
 span.name-caret {
