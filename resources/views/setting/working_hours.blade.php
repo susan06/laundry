@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.back')
 
 @section('page-title', trans('app.working_hours'))
 

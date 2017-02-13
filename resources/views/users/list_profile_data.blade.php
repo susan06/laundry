@@ -13,6 +13,6 @@
   </tr>
   <tr>
     <td><strong>@lang('app.phone'):</strong></td>
-    <td>{{ $user->label_phones() }}</td>
+    <td>{!! $user->label_phones() !!}</td>
   </tr>
 </table>

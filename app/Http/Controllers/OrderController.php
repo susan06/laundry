@@ -257,7 +257,13 @@ class OrderController extends Controller
             ]);
         }
 
-        return view('orders.show', compact('order'));
+        if(Auth::user()->role_id == 2) {
+            $view = 'orders.show';
+        } else {
+            $view = 'orders.show_back';
+        }
+
+        return view($view, compact('order'));
     }
 
     /**

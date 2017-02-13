@@ -290,7 +290,13 @@ class UserController extends Controller
      */
     public function password() {
 
-        return view('users.change_password');
+        if(Auth()->user()->role_id == 2) {
+            $view = 'users.change_password';
+        } else {
+            $view = 'users.change_password_back';
+        }
+
+        return view($view);
     }
 
     /**

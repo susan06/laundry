@@ -79,7 +79,13 @@ class ProfileController extends Controller
             ]);     
         }
 
-        return view('users.profile', compact('user'));
+        if($user->role_id == 2) {
+            $view = 'users.profile';
+        } else {
+            $view = 'users.profile_back';
+        }
+
+        return view($view, compact('user'));
     }
 
     /**

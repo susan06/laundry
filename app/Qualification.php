@@ -38,7 +38,9 @@ class Qualification extends Model
      */
     public function getCreatedAtAttribute($date)
     {
-        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+        if($date){
+            return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+        }
     }
 
     public function getUpdatedAtAttribute($date)

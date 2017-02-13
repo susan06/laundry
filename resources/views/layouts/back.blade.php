@@ -22,7 +22,6 @@
     {!! HTML::style("public/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css") !!}
-    {!! HTML::style("public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css") !!}
     {!! HTML::style("public/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css") !!}
     <!-- PNotify -->
@@ -38,9 +37,9 @@
     <!-- bootstrap datetimepicker -->
     {!! HTML::style("public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.css") !!}
     <!-- Custom Theme Style -->
-    {!! HTML::style("public/assets/css/custom.css") !!}
+    {!! HTML::style("public/assets/css/custom_back.css") !!}
     <!-- Responsive -->
-    {!! HTML::style("public/assets/css/responsive.css") !!}
+    {!! HTML::style("public/assets/css/responsive_back.css") !!}
     
     @yield('styles')  
     <!-- Scripts -->
@@ -49,30 +48,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-
-    <!-- Google Analytics -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-6741427-13', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-
-    <!--Start of Zendesk Chat Script-->
-    <script type="text/javascript">
-    
-    window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
-    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-    _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
-    $.src="https://v2.zopim.com/?4O4qGFz3j5u7LynP2fQPpGHDgtpqigrH";z.t=+new Date;$.
-    type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
-
-    </script>
-    <!--End of Zendesk Chat Script-->
     
     @yield('scripts_head') 
 
@@ -83,9 +58,9 @@
         <div class="loader loader-default" id="loading"></div>
 
         <div class="main_container">
-            @include('partials.menu')
+            @include('partials.menu_back')
 
-            @include('partials.navbar')
+            @include('partials.navbar_back')
 
             @yield('content') 
 
@@ -104,9 +79,6 @@
 
     <!--JQuery--> 
     {!! HTML::script('public/vendors/jquery/dist/jquery.min.js') !!}
-    
-    <!-- bootstrap-daterangepicker -->
-    {!! HTML::script('public/assets/js/moment/moment.min.js') !!}
 
     <!--Bootstrap--> 
     {!! HTML::script('public/vendors/bootstrap/dist/js/bootstrap.min.js') !!}
@@ -145,7 +117,7 @@
     </script>
 
     <!-- Custom Theme Scripts -->
-    {!! HTML::script('public/assets/js/custom.js') !!}
+    {!! HTML::script('public/assets/js/custom_back.js') !!}
 
     @include('partials.messages')
     
