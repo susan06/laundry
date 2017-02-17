@@ -9,6 +9,7 @@ use Session;
 use Validator;
 use Illuminate\Http\Request;
 use App\Repositories\Client\ClientRepository;
+use App\Mailers\UserMailer;
 
 class ClientController extends Controller
 {
@@ -164,30 +165,32 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function friends_store(Request $request)
+    public function friends_store(Request $request, UserMailer $mailer)
     {
         $friends = $request->friends;
         $friends = explode(',',$friends);
 
         foreach ($friends as $key => $value) {
-            $validator = $this->validator_friend(['email' => $value]);
-            if ( $validator->passes() ) {
+            //$validator = $this->validator_friend(['email' => $value]);
+            //if ( $validator->passes() ) {
                 $friend = $this->clients->create_friend([
                     'user_id' => Auth::user()->id,
                     'email' => $value
                 ]);
+                $mailer->sendInvitation($value, Auth::user()->full_name());
+
                 if ( $request->ajax() ) {
 
                     return response()->json([
                         'success' => true,
                         'url_return' => route('client.friends'),
-                        'message' => trans('invitations_sended')
+                        'message' => trans('app.invitations_sended')
                     ]);
                 } 
 
-                return back()->withSuccess(trans('invitations_sended'));
+                return back()->withSuccess(trans('app.invitations_sended'));
 
-            } else {
+            /*} else {
 
                 $messages = $validator->errors()->getMessages();
 
@@ -202,7 +205,7 @@ class ClientController extends Controller
 
                 return back()->withErrors($messages);
                 
-            }  
+            }  */
         }
     }
 

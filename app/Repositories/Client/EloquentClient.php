@@ -181,7 +181,7 @@ class EloquentClient extends Repository implements ClientRepository
      */
     public function create_friend(Array $data)
     {
-       $friend = $this->friends->create($data);
+       $friend = $this->friends->firstOrCreate($data);
 
        return $friend;
     }

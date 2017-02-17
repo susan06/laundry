@@ -947,4 +947,6 @@ return [
     'order_inbranch' => 'Órdenes en sucursal',
     'order_search' => 'Órdenes recogidas',
     'order_id' => 'Órden ID',
+    'invite_to_register_by' => 'Has sido invitado por :friend',
+    'invite_email' => 'Invitación para laundyMovil',
 ]; 

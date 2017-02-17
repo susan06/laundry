@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10 col-xs-12">
-             <button type="submit" class="btn btn-primary col-sm-4 col-xs-12">@lang('app.send_invitation')</button>
+             <button type="submit" class="btn btn-primary btn-submit col-sm-4 col-xs-12">@lang('app.send_invitation')</button>
           </div>
         </div>
       {!! Form::close() !!}
