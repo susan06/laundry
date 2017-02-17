@@ -14,50 +14,55 @@
     <div class="grid-form1">
         {!! Form::open(['route' => 'client.setting.update', 'method' => 'PUT', 'class' => 'form-horizontal form-label-left']) !!}
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="@lang('app.language_default')">@lang('app.language_default')
+            <label class="control-label col-md-3 col-sm-3 col-xs-12 hor-form" for="@lang('app.language_default')">@lang('app.language_default')
             </label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               {!! Form::select('lang', $languages, $user->lang, ['class' => 'form-control col-md-7 col-xs-12 select2_single']) !!}
             </div>
           </div>
-          <div class="row"> 
-            <div class="t_title">
-              <h2> @lang('app.locations_label')</h2>
-              <div class="clearfix"></div>
-            </div>
-            <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" cellspacing="0" width="100%">
-            <thead>
-            <tr>
-              <th>@lang('app.name')</th>
-              <th width="10%">@lang('app.actions')</th>
-            </tr>
-            </thead>
-            <tbody id="locations_label_list">
+          <br>
+          <div class="form-group"> 
+             <label class="control-label col-md-3 col-sm-3 col-xs-12 hor-form" for="@lang('app.locations_label')">@lang('app.locations_label')
+            </label>
+          </div>
+          <div class="form-group aling-center-button">
+              <button type="button" onClick="add_location_label()" class="btn btn-default col-sm-3 col-xs-12">@lang('app.add_location_label')</button>
+          </div>
 
-              @foreach ($locations_label as $key => $label)
-              <tr>
-                <td><input type="text" name="location_label[]"  class="form-control" value="{{ $label }}" required="required"></td>
-                <td>
-                @if($key != 1)
-                  <button type="button"  class="btn btn-round btn-danger btn-xs delete-label-location"> 
-                    <i class="fa fa-trash"></i>
-                  </button>
-                @endif
-                </td>
-              </tr>
-              @endforeach
-              <!-- load content locations -->
-            </tbody>
+          <div class="row clear">
+          <div class="col-sm-6 col-xs-12">
+            <table class="table-responsive table table-striped table-bordered dt-responsive nowrap form-horizontal" cellspacing="0" width="100%">
+              <thead>
+                <tr>
+                  <th>@lang('app.name')</th>
+                  <th width="10%">@lang('app.actions')</th>
+                </tr>
+              </thead>
+                <tbody id="locations_label_list">
+                  @foreach ($locations_label as $key => $label)
+                  <tr>
+                    <td><input type="text" name="location_label[]"  class="form-control" value="{{ $label }}" required="required"></td>
+                    <td class="text-center">
+                    @if($key != 1)
+                      <button type="button"  class="btn btn-danger delete-label-location"> 
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    @endif
+                    </td>
+                  </tr>
+                  @endforeach
+                  <!-- load content locations -->
+                </tbody>
             </table>
-            <div class="row">
-              <div class="form-group col-md-3 col-sm-4 col-xs-12">
-                <button type="button" onClick="add_location_label()" class="btn btn-default col-xs-12">@lang('app.add_location_label')</button>
-              </div>
-            </div>
           </div>
-          <div class="form-group col-md-2 col-sm-2 col-xs-12">
-            <button type="submit" class="btn btn-primary col-xs-12">@lang('app.update')</button>
           </div>
+
+          <br>
+
+          <div class="form-group aling-center-button">
+            <button type="submit" class="btn btn-primary col-sm-3 col-xs-12">@lang('app.update')</button>
+          </div>
+
           {!! Form::close() !!}
     </div>
    </div> 

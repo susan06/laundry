@@ -4,36 +4,32 @@
 
 @section('content')
 
-<div class="right_col" role="main">
-  <div class="">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="page-title">
-            <div class="title_left">
-              <h3 id="content-title">@lang('app.qualification_app')</h3>
-            </div>
-          </div>
-        
-          <div class="x_content">
-             {!! Form::open(['route' => 'qualification.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
-                <div class="starrr stars-existing" data-rating='{!! $quantify !!}'></div>
-                @lang('app.your_qualification') <span class="stars-count-existing">{!! $quantify !!}</span> @lang('app.starts')
-                {!! Form::hidden('quantify', $quantify, ['id' => 'quantify_start']) !!}
-
-              <div class="ln_solid"></div>
-              <div class="form-group">
-                <div class="col-md-offset-3">
-                  <button type="submit" class="btn btn-primary btn-submit col-sm-4 col-xs-10">@lang('app.save')</button>
-                </div>
-              </div>
-            {!! Form::close() !!}
-          </div>
-        </div>
-      </div>
-    </div>
+<!--banner--> 
+  <div class="banner"> 
+    <h2 id="content-title">@lang('app.qualification_app')</h2>
   </div>
-</div>
+<!--//banner-->
+
+
+  <div class="grid-form">
+    <div class="grid-form1">
+     {!! Form::open(['route' => 'qualification.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+        <div class="row clear text-center margin-bottom-10">
+         <div class="starrr stars-existing" data-rating='{!! $quantify !!}'></div>
+
+          <br>
+          @lang('app.your_qualification') <span class="stars-count-existing">{!! $quantify !!}</span> @lang('app.starts')
+
+          {!! Form::hidden('quantify', $quantify, ['id' => 'quantify_start']) !!}
+
+       </div> 
+        <div class="form-group aling-center-button">
+            <button type="submit" class="btn btn-primary btn-submit col-sm-3 col-xs-12">@lang('app.save')</button>
+        </div>
+
+        {!! Form::close() !!}
+    </div>
+   </div> 
 
 @endsection
 
