@@ -12,7 +12,7 @@
     <td>{{ $user->email }}</td>
   </tr>
   <tr>
-    <td><strong>@lang('app.phone'):</strong></td>
+    <td><strong>@lang('app.phones'):</strong></td>
     <td>{!! $user->label_phones() !!}</td>
   </tr>
 </table>
