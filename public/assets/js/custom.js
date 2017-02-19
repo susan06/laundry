@@ -143,6 +143,9 @@ $(document).on('click', '.create-edit-show', function () {
     var $this = $(this);
     var title = $this.attr("title");
     current_model = $this.data('model');
+    if($this.data("title")){
+        title = $this.data("title");
+    }
     $.ajax({
         url: $this.data('href'),
         type:'GET',

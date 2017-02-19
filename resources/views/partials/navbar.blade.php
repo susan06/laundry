@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
       </button>
-     <h1> <a class="navbar-brand" href="{{ url('/home')}}"><strong>Laundry</strong>Móvil</a></h1>
+     <div class="site_logo" id="site_logo"></div>
     </div>
 
    <div class="border-bottom">

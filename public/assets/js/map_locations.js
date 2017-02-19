@@ -39,9 +39,11 @@ function changeInfoWindow(marker) {
 
 function add_location(loc) {
 
-  $('#locations_table').show();
+  var tr    = document.createElement("TR");
+  tr.className = 'row-loc' + (count); 
 
-  var tr    = document.createElement("TR");  
+  var tr1    = document.createElement("TR");
+  tr1.className = 'row-loc' + (count);   
 
   var td1    = document.createElement("TD");
   var select1 = document.createElement("select");
@@ -55,12 +57,15 @@ function add_location(loc) {
     select1.appendChild(option);
   });
 
+  var tr2    = document.createElement("TR");
+  tr2.className = 'row-loc' + (count); 
+
   var td2    = document.createElement("TD");
   var input2 = document.createElement("input");
 
   input2.type  = 'text';
   input2.name  = 'address[]';
-  input2.className = 'form-control',
+  input2.className = 'form-control';
   input2.id    = 'address_input_' + (count);  
   input2.setAttribute('required', 'required');
 
@@ -72,16 +77,19 @@ function add_location(loc) {
   var input3 = document.createElement("input");
   input3.type  = 'hidden';
   input3.name  = 'lat[]';
-  input3.className = 'form-control',
+  input3.className = 'form-control';
   input3.id    = 'lat_' + (count); 
   input3.value = loc.lat;
 
   var input4 = document.createElement("input");
   input4.type  = 'hidden';
   input4.name  = 'lng[]';
-  input4.className = 'form-control',
+  input4.className = 'form-control';
   input4.id    = 'lng_' + (count); 
   input4.value = loc.lng;
+
+  var tr3    = document.createElement("TR");
+  tr3.className = 'row-loc' + (count); 
 
   var td5    = document.createElement("TD");
   var input5 = document.createElement("input");
@@ -90,6 +98,9 @@ function add_location(loc) {
   input5.name  = 'description[]';
   input5.className = 'form-control'; 
 
+  var tr4    = document.createElement("TR");
+  tr4.className = 'row-loc' + (count);
+  
   var td6    = document.createElement("TD");
 
   span             = document.createElement('span');
@@ -98,10 +109,14 @@ function add_location(loc) {
   
   span.appendChild(text_span);
 
+  var tr5    = document.createElement("TR");
+  tr5.className = 'row-loc' + (count); 
+
   var td7    = document.createElement("TD");
 
   button             = document.createElement('button');
   button.className   = 'btn btn-round btn-danger delete-location';
+  button.setAttribute('data-row', 'row-loc' + count);
   var icon           = document.createElement('i');
   icon.style.cursor  = 'pointer';
   icon.className     = 'fa fa-trash';
@@ -109,7 +124,7 @@ function add_location(loc) {
   button.appendChild(icon);
 
   var td    = document.createElement("TD");
-  var text = document.createTextNode(count); 
+  var text = document.createTextNode(address_trans +' '+ count); 
 
   td.appendChild(text);
   td1.appendChild(select1);
@@ -121,19 +136,24 @@ function add_location(loc) {
   td6.appendChild(span);
   td7.appendChild(button);
  
-  tr.appendChild(td); 
-  tr.appendChild(td1); 
-  tr.appendChild(td2); 
-  tr.appendChild(td5); 
-  tr.appendChild(td6); 
-  tr.appendChild(td7); 
-
   container = document.getElementById('locations_list');
-  container.appendChild(tr); 
 
-  document.getElementById('lat_' + count).readOnly = true;
-  document.getElementById('lng_' + count).readOnly = true;
+  tr.appendChild(td); 
+  tr1.appendChild(td1); 
+  tr2.appendChild(td2); 
+  tr3.appendChild(td5); 
+  tr4.appendChild(td6); 
+  tr5.appendChild(td7); 
 
+  container.appendChild(tr);
+  container.appendChild(tr1);
+  container.appendChild(tr2);
+  container.appendChild(tr3);
+  container.appendChild(tr4);
+  container.appendChild(tr5);
+   
+  //document.getElementById('lat_' + count).readOnly = true;
+  //document.getElementById('lng_' + count).readOnly = true;
 }
 
 function initMap() {
@@ -232,6 +252,6 @@ function initMap() {
 }
 
 $(document).on('click', '.delete-location', function () {
-    var row = $(this).closest('tr');
-    row.remove();
+    var row = $(this).data('row');
+    $('.'+row).remove();
 });

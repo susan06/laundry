@@ -521,23 +521,24 @@ i.fa.fa-globe {
 .banner { 
     background: #fff;
     display: block;
-    margin: 0em 1em ;
-	padding:1em;
-	border: 1px solid #ebeff6;
+    margin: 0em 1em;
+	  padding:1em;
+	  border: 1px solid #ebeff6;
     border-color: #ebeff6;
     border-radius: 4px;
-	-webkit-border-radius: 4px;
-	-o-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
+	  -webkit-border-radius: 4px;
+	  -o-border-radius: 4px;
+	  -moz-border-radius: 4px;
+	  -ms-border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 .banner  h2{
 	font-size:0.9em;
 }
+
 .banner  h2 a { 
-    color:#009fe3;
+  color:#009fe3;
 	text-decoration:none;
 	font-family: 'Muli-Regular';
 	padding:0.3em ;
@@ -2495,3 +2496,26 @@ div.aling-center-button {
 .btn-inherit {
   float: inherit;
 }
+
+#map-form {
+  width:100% !important; 
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+.locations-client tr td {
+  text-align: center;
+}
+
+.margin-top-5 {
+  margin-top: 5px;
+}
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.site_logo {
+  background: url(../images/logos/logo-4.png);
+  background-size: 200px 50px;
+  background-repeat: no-repeat;
+  height: 50px; width: 200px; }

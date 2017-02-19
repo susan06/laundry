@@ -1,4 +1,4 @@
- <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+ <table class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
 <tbody>
     @foreach ($orders as $key => $order)
         <tr>
@@ -60,24 +60,22 @@
         </tr>
          <tr>
             <td colspan="2" class="text-center">
-              <button type="button" data-href="{{ route('order.show', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content"
-                                   title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
+              <button type="button" data-href="{{ route('order.show', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content" data-title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                 </button>
       
               @if( $order->get_date_search() && !$order->order_penalty)
-               <button type="button" data-href="{{ route('order.edit', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content"
-                                   title="@lang('app.edit_order')" data-toggle="tooltip" data-placement="top">
+               <button type="button" data-href="{{ route('order.edit', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content" data-title="@lang('app.edit_order')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                 </button>
               @endif
 
               @if($order->order_penalty)
-                <button type="button" data-href="{{ route('order.payment.penalty', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" title="@lang('app.method_payment_penalty')" data-toggle="tooltip" data-placement="top"><i class="fa fa-minus-square"></i>
+                <button type="button" data-href="{{ route('order.payment.penalty', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.method_payment_penalty')" data-toggle="tooltip" data-placement="top"><i class="fa fa-minus-square"></i>
                   </button>
                @endif
                 
-               <button type="button" data-href="{{ route('order.payment', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" title="@lang('app.method_payment')" data-toggle="tooltip" data-placement="top">
+               <button type="button" data-href="{{ route('order.payment', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.method_payment')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-money"></i>
                 </button>
             </td>

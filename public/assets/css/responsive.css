@@ -4,6 +4,9 @@
         position: inherit;
         margin: 0 0 0 250px;
     }
+    #map-form {
+     height:370px !important;
+    }
 }
 @media (min-width: 768px) {
   #page-wrapper {
@@ -327,7 +330,8 @@ form.navbar-form.navbar-right {
     right: 93%;
 }
 .navbar-header {
-    background-color: #009fe3;
+    /*background-color: #009fe3;*/
+    border-bottom: 4px solid #e7f7fe;
 }
 h1 a.navbar-brand {
     width: 152px;
@@ -394,7 +398,9 @@ label.hor-form{
 .full-left {
     width: 49%;
 }
-
+#map-form {
+  height:450px !important;
+}
 .hvr-bounce-to-right:before {
     right: 91%;
 }
@@ -493,6 +499,9 @@ div#home {
 @media(max-width:414px){
 .full-left {
     width: 45%;
+}
+#map-form {
+ height:350px !important;
 }
 .drop-men {
     margin-right: 0;
