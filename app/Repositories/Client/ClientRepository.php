@@ -100,9 +100,4 @@ interface ClientRepository extends RepositoryInterface
      */
     public function update_status_location($id, $data);
 
-    /**
-     * chart get friend invited
-     */
-    public function chart_friend_invited($client = null);
-
 }

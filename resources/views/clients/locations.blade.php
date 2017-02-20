@@ -11,10 +11,9 @@
 <!--//banner-->
 
   <div class="grid-form">
+
     <div class="grid-form1">
-
       {!! Form::open(['route' => ['client.locations.update'], 'method' => 'PUT', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
-
         <div id="load_locations" class="col-md-6 col-sm-6 col-xs-12"> 
           <table id="locations_table" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
               <tbody id="locations_list" class="locations-client form-horizontal">
@@ -85,22 +84,20 @@
               </tbody>
           </table>
         </div>
-
         <div class="margin-top-10 clear col-md-6 col-sm-6 col-xs-12">
             <button type="submit" class="btn btn-primary col-sm-6 col-xs-12 btn-submit">@lang('app.update')</button>
         </div>
+      {!! Form::close() !!}
 
-        <div class="clear">
-          <div class="col-md-12 col-xs-12 margin-top-10">
-            {!! Form::text('address_search', old('address_search'), ['class' => 'form-control col-md-12 col-xs-12', 'placeholder' => trans('app.address_add_autocomplete'), 'id' => 'address_search']) !!}
-          </div>
-        </div>
-
-        {!! Form::close() !!}
-
+      <div class="content_map">
+        <div class="input_delivery_address">
+          {!! Form::text('address_search', old('address_search'), ['class' => 'form-control col-md-12 col-xs-12', 'placeholder' => trans('app.address_add_autocomplete'), 'id' => 'address_search']) !!}
+        </div>  
         <div id="map-form"></div>
-
+      </div>
+      
     </div>
+
   </div>
 
 @endsection

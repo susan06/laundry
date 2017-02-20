@@ -2519,3 +2519,17 @@ div.aling-center-button {
   background-size: 200px 50px;
   background-repeat: no-repeat;
   height: 50px; width: 200px; }
+
+.content_map {
+  /*position: absolute;
+  width: 100%;*/
+}
+.input_delivery_address {
+    position: relative;
+    top: 40px;
+    /* left: 5px; */
+    /* right: 5px; */
+    padding: 10px 5px 10px 5px;
+    z-index: 99;
+    width: 100%;
+}

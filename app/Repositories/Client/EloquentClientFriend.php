@@ -24,7 +24,7 @@ class EloquentClientFriend extends Repository implements ClientFriendRepository
         parent::__construct($clientfriend, $this->attributes);
     }
 
-        /**
+    /**
      * chart get friend invited
      */
     public function chart_friend_invited($client = null)
