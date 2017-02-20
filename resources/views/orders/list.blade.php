@@ -60,7 +60,7 @@
         </tr>
          <tr>
             <td colspan="2" class="text-center">
-              <button type="button" data-href="{{ route('order.show', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content" data-title="@lang('app.order_show')" data-toggle="tooltip" data-placement="top">
+              <button type="button" data-href="{{ route('order.show', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content" data-title="{{ trans('app.order_id').': '.$order->id }}" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                 </button>
       

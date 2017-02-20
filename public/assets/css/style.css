@@ -2536,3 +2536,14 @@ div.aling-center-button {
     z-index: 99;
     width: 100%;
 }
+
+.font-size-18 {
+  font-size: 18px;
+}
+
+.title {
+  border-bottom: 1px solid #009fe3;
+  padding: 1px 5px 2px;
+  margin-bottom: 10px;
+  color: #009fe3;
+}

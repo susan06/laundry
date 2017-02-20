@@ -953,4 +953,5 @@ return [
     'invite_to_register_by' => 'Has sido invitado por :friend',
     'invite_email' => 'Invitación para laundyMovil',
     'save_img' => 'Guardar imagen',
+    'items' => 'Items',
 ]; 

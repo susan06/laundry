@@ -251,9 +251,15 @@ class OrderController extends Controller
 
         if ( $request->ajax() ) {
 
+            if(Auth::user()->role_id == 2) {
+                $view = 'orders.show_content';
+            } else {
+                $view = 'orders.show_content_back';
+            }
+
             return response()->json([
                 'success' => true,
-                'view' => view('orders.show_content', compact('order'))->render(),
+                'view' => view($view, compact('order'))->render(),
             ]);
         }
 
