@@ -27,6 +27,10 @@ var options_table = {
 
 var table = $('#datatable-responsive').DataTable(options_table); 
 
+$('.navbar-toggle').on('click', function(e) {
+    $('.sidebar').show();
+});
+
 $(function() {
     $('#side-menu').metisMenu();
 });

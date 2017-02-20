@@ -20,7 +20,7 @@
         z-index: 1;
         position: absolute;
         width: 250px;
-        
+        display: block; 
     }
 
     .navbar-top-links .dropdown-messages,

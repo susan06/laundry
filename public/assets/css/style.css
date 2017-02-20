@@ -245,6 +245,9 @@ i.nav_icon {
   color: #fff;
   margin-right:6px;
 }
+.sidebar {
+  display: none; 
+}
 .sidebar ul li a{
   color: #999;
   font-size:14px;
