@@ -267,5 +267,4 @@ class EloquentUser extends Repository implements UserRepository
 
         return $result;
     }
-
 }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Package;
 
+use DB;
 use App\Package;
 use App\PackageCategory;
 use App\Repositories\Repository;

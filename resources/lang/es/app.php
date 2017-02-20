@@ -56,6 +56,9 @@ return [
     'privacy_policies' => 'Políticas de Privacidad',
     'invite_friend' => 'Invitar a un Amigo',
     'driver' => 'Conductor',
+    'admins' => 'Administradores',
+    'supervisors' => 'Supervisores de servicios',
+    'represent_branchs' => 'Rep. de sucursales',
     'my_itinerary' => 'Mi Itinerario',
     'see_order' => 'Ver órden',
     'price' => 'Precio',
@@ -949,4 +952,5 @@ return [
     'order_id' => 'Órden ID',
     'invite_to_register_by' => 'Has sido invitado por :friend',
     'invite_email' => 'Invitación para laundyMovil',
+    'save_img' => 'Guardar imagen',
 ]; 

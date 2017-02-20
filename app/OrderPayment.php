@@ -74,6 +74,17 @@ class OrderPayment extends Model
         return $text;
     } 
 
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        if(isset($array['payment_method_id'])) {
+            $array['name'] = PaymentMethods::find($array['payment_method_id'])->name;
+        }
+
+        return $array;
+    }
+
     /**
      * Relationships
      *

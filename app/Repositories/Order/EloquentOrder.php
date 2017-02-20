@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Order;
 
+use DB;
 use Auth;
 use App\Order;
 use App\OrderPayment;
@@ -334,4 +335,100 @@ class EloquentOrder extends Repository implements OrderRepository
         return $result;
     }
 
+    /**
+     * echart data hour in day
+     *
+     */
+    public function chart_order_by_hour($client = null, $driver = null)
+    {
+        $result = array();
+        $query = Order::groupBy('time_search')
+            ->select('time_search', DB::raw('count(*) as value'));
+
+        if($client) {
+            $result = $query->where('client_id', $client);
+        }
+        if($driver) {
+            $result = $query->where('driver_id', $driver);
+        }
+
+        $result = $query->get()->toArray();
+  
+        return $result;
+    }
+
+    /**
+     * echart data delivery hour in day
+     *
+     */
+    public function chart_order_by_hour_delivery($client = null, $driver = null)
+    {
+        $result = array();
+        $query = Order::groupBy('time_delivery')
+            ->select('time_delivery', DB::raw('count(*) as value'));
+
+        if($client) {
+            $result = $query->where('client_id', $client);
+        }
+        if($driver) {
+            $result = $query->where('driver_id', $driver);
+        }
+
+        $result = $query->get()->toArray();
+  
+        return $result;
+    }
+
+    /**
+     * echart data by branch offices
+     *
+     */
+    public function chart_order_branch($client = null, $driver = null)
+    {
+        $result = array();
+        $query = Order::whereNotNull('branch_offices_id')
+            ->groupBy('branch_offices_id')
+            ->select('branch_offices_id', DB::raw('count(*) as value'));
+
+        if($client) {
+            $result = $query->where('client_id', $client);
+        }
+        if($driver) {
+            $result = $query->where('driver_id', $driver);
+        }
+
+        $result = $query->get()->toArray();
+  
+        return $result;
+    }
+
+    /**
+     * chart_order_packages
+     *     
+     */
+    public function chart_order_packages()
+    {
+        $result = array();
+        $query = OrderPackage::groupBy('name')
+            ->select('name', DB::raw('count(*) as total'));
+
+        $result = $query->get()->toArray();
+  
+        return $result;
+    }
+
+    /**
+     * chart_order_payments
+     *     
+     */
+    public function chart_order_payments()
+    {
+        $result = array();
+        $query = OrderPayment::groupBy('payment_method_id')
+            ->select('payment_method_id', DB::raw('count(*) as value'));
+
+        $result = $query->get()->toArray();
+  
+        return $result;
+    }
 }

@@ -95,4 +95,35 @@ interface OrderRepository extends RepositoryInterface
      *
      */
     public function itinerary_branch($take = 10, $status = null, $search = null);
+
+    /**
+     * echart data hour in day
+     *
+     */
+    public function chart_order_by_hour($client = null, $driver = null);
+
+    /**
+     * echart data delivery hour in day
+     *
+     */
+    public function chart_order_by_hour_delivery($client = null, $driver = null);
+
+    /**
+     * echart data by branch offices
+     *
+     */
+    public function chart_order_branch($client = null, $driver = null);
+
+    /**
+     * chart_order_packages
+     *     
+     */
+    public function chart_order_packages();
+
+    /**
+     * chart_order_payments
+     *     
+     */
+    public function chart_order_payments();
+
 }

@@ -79,7 +79,7 @@ class Order extends Model
         return Carbon::createFromFormat('Y-m-d', $date)->format('d-m-Y');
     }
 
-    public function get_time_search()
+    public function get_time_search($time = null)
     {
         if(Settings::get('working_hours')) {
             $working_hours = json_decode(Settings::get('working_hours'), true);
@@ -88,8 +88,13 @@ class Order extends Model
         }
 
         $time_search = null;
+        if($time) {
+            $search_time = $time;
+        } else {
+            $search_time = $this->time_search;
+        }
         foreach ($working_hours as $key => $working_hour) {
-            if($working_hour['id'] == $this->time_search) {
+            if($working_hour['id'] == $search_time) {
                 $time_search = $working_hour['interval'];
             }
         }
@@ -148,7 +153,7 @@ class Order extends Model
         return $time;
     }
 
-     public function get_time_delivery()
+     public function get_time_delivery($time = null)
     {
         if(Settings::get('delivery_hours')) {
             $time_deliveries = json_decode(Settings::get('delivery_hours'), true);
@@ -157,8 +162,13 @@ class Order extends Model
         }
 
         $time_delivery = null;
+        if($time) {
+            $search_time = $time;
+        } else {
+            $search_time = $this->time_delivery;
+        }
         foreach ($time_deliveries as $key => $time) {
-            if($time['id'] == $this->time_delivery) {
+            if($time['id'] == $search_time) {
                 $time_delivery = $time['interval'];
             }
         }
@@ -202,6 +212,25 @@ class Order extends Model
         }
 
         return $class;
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        if(isset($array['time_search'])) {
+            $array['name'] = $this->get_time_search($array['time_search']);
+        }
+
+        if(isset($array['time_delivery'])) {
+            $array['name'] = $this->get_time_delivery($array['time_delivery']);   
+        }
+
+        if(isset($array['branch_offices_id'])) {
+            $array['name'] = BranchOffice::find($array['branch_offices_id'])->name;   
+        }
+
+        return $array;
     }
 
     /**
@@ -265,4 +294,5 @@ class Order extends Model
 
         return $location_branch;
     }
+
 }

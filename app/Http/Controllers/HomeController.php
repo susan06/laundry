@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Settings;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepository as Users;
+use App\Repositories\Client\ClientFriendRepository as ClientFriend;
 use App\Repositories\BranchOffice\BranchOfficeRepository as BranchOffice;
 use App\Repositories\Order\OrderRepository;
+use App\Repositories\Package\PackageRepository;
 
 class HomeController extends Controller
 {
@@ -33,14 +36,42 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Users $users, BranchOffice $branchOffice)
+    public function index(Request $request, ClientFriend $clientFriend, Users $users, BranchOffice $branchOffice)
     {
         if (Auth::user()->role_id == 1) {
-            $totalUsers = $users->all();
-            $totalClients = $users->where('role_id', "2")->get();
-            $totalDrivers = $users->where('role_id', "3")->get();
-            $totalBranchOffices = $branchOffice->all();
-            return view('dashboard.admin', compact('totalUsers', 'totalClients', 'totalDrivers', 'totalBranchOffices'));
+            $total['admin'] = $users->where('role_id', 1)->count();
+            $total['clients'] = $users->where('role_id', 2)->count();
+            $total['drivers'] = $users->where('role_id', 3)->count();
+            $total['supervisor'] = $users->where('role_id', 4)->count();
+            $total['representants'] = $users->where('role_id', 5)->count();
+            $total['branchOffices'] = $branchOffice->all()->count();
+
+            if(Settings::get('working_hours')) {
+                $working_hours = json_decode(Settings::get('working_hours'), true);
+            } else {
+                $working_hours = array();
+            }
+            foreach($working_hours as $working_hour) {
+                $order_by_hour['legend'][] = $working_hour['interval'];
+            }
+            $order_by_hour['data'] = $this->orders->chart_order_by_hour();
+
+            if(Settings::get('delivery_hours')) {
+                $time_delivery = json_decode(Settings::get('delivery_hours'), true);
+            } else {
+                $time_delivery = array();
+            }
+            foreach($time_delivery as $time_del) {
+                $order_by_hour_delivery['legend'][] = $time_del['interval'];
+            }
+            $order_by_hour_delivery['data'] = $this->orders->chart_order_by_hour_delivery();
+
+            $order_branchs['data'] = $this->orders->chart_order_branch();
+            $friend_invited['data'] = $clientFriend->chart_friend_invited();
+            $order_packages['data'] = $this->orders->chart_order_packages();
+            $order_payments['data'] = $this->orders->chart_order_payments();
+
+            return view('dashboard.admin', compact('total', 'order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'friend_invited', 'order_packages', 'order_payments'));
         }
 
         if (Auth::user()->role_id == 2) {
@@ -49,11 +80,63 @@ class HomeController extends Controller
         }
 
         if (Auth::user()->role_id == 3) {
-            return view('dashboard.driver');
+            if(Settings::get('working_hours')) {
+                $working_hours = json_decode(Settings::get('working_hours'), true);
+            } else {
+                $working_hours = array();
+            }
+            foreach($working_hours as $working_hour) {
+                $order_by_hour['legend'][] = $working_hour['interval'];
+            }
+            $order_by_hour['data'] = $this->orders->chart_order_by_hour(null, Auth::user()->id);
+
+            if(Settings::get('delivery_hours')) {
+                $time_delivery = json_decode(Settings::get('delivery_hours'), true);
+            } else {
+                $time_delivery = array();
+            }
+            foreach($time_delivery as $time_del) {
+                $order_by_hour_delivery['legend'][] = $time_del['interval'];
+            }
+            $order_by_hour_delivery['data'] = $this->orders->chart_order_by_hour_delivery(null, Auth::user()->id);
+
+            $order_branchs['data'] = $this->orders->chart_order_branch(null, Auth::user()->id);
+
+            return view('dashboard.driver', compact('order_by_hour', 'order_by_hour_delivery', 'order_branchs'));
         }
 
         if (Auth::user()->role_id == 4) {
-            return view('dashboard.supervisor');
+            $total['clients'] = $users->where('role_id', 2)->count();
+            $total['drivers'] = $users->where('role_id', 3)->count();
+            $total['representants'] = $users->where('role_id', 5)->count();
+            $total['branchOffices'] = $branchOffice->all()->count();
+
+            if(Settings::get('working_hours')) {
+                $working_hours = json_decode(Settings::get('working_hours'), true);
+            } else {
+                $working_hours = array();
+            }
+            foreach($working_hours as $working_hour) {
+                $order_by_hour['legend'][] = $working_hour['interval'];
+            }
+            $order_by_hour['data'] = $this->orders->chart_order_by_hour();
+
+            if(Settings::get('delivery_hours')) {
+                $time_delivery = json_decode(Settings::get('delivery_hours'), true);
+            } else {
+                $time_delivery = array();
+            }
+            foreach($time_delivery as $time_del) {
+                $order_by_hour_delivery['legend'][] = $time_del['interval'];
+            }
+            $order_by_hour_delivery['data'] = $this->orders->chart_order_by_hour_delivery();
+
+            $order_branchs['data'] = $this->orders->chart_order_branch();
+            $friend_invited['data'] = $clientFriend->chart_friend_invited();
+            $order_packages['data'] = $this->orders->chart_order_packages();
+            $order_payments['data'] = $this->orders->chart_order_payments();
+
+            return view('dashboard.supervisor', compact('total', 'order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'friend_invited', 'order_packages', 'order_payments'));
         }
 
         if (Auth::user()->role_id == 5) {

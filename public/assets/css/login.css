@@ -22,12 +22,12 @@ body {
 }
 
 body{
-  width: 100%;
-  background: -webkit-linear-gradient(left, #22d686, #24d3d3, #22d686, #24d3d3);
-  background: linear-gradient(to right, #22d686, #24d3d3, #22d686, #24d3d3);
-  background-size: 600% 100%;
-  -webkit-animation: HeroBG 20s ease infinite;
-          animation: HeroBG 20s ease infinite;
+    width: 100%;
+    background: -webkit-linear-gradient(left, #B3CC1E, #009FE3, #B3CC1E, #009FE3);
+    background: linear-gradient(to right, #e6e6e5, #51bae6, #f9fde4, #51bae6);
+    background-size: 600% 100%;
+    -webkit-animation: HeroBG 20s ease infinite;
+    animation: HeroBG 20s ease infinite;
 }
 
 @-webkit-keyframes HeroBG {
@@ -259,7 +259,7 @@ label {
 }
 .panel-login>.panel-heading .register {
   padding: 20px 30px;
-  background: #2D3F55;
+  background: #0075B8;
   border-bottom-right-radius: 5px;
 }
 .panel-login>.panel-heading a{
@@ -549,7 +549,7 @@ img.site_logo_login {
 .form-control-feedback {
   margin-top: 8px;
   height: 30px;
-  color: #1ABB9C;
+  color: #42ACAB;
   line-height: 24px;
   font-size: 24px;
   position: absolute; }
