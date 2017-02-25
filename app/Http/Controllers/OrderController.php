@@ -132,7 +132,7 @@ class OrderController extends Controller
         } else {
             $time_delivery = array();
         }
-        $categories = ['' => trans('app.select_category')] + $packageRepository->lists_categories_actives();
+        $categories = $packageRepository->categories();
         $client = $this->clients->find(Auth::user()->id);
         $exist_address = false;
         foreach ($client->client_location as $key => $item) {

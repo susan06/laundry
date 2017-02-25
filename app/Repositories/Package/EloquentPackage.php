@@ -219,4 +219,13 @@ class EloquentPackage extends Repository implements PackageRepository
         return PackageCategory::all()->sortBy($column)->where('status', 1)->pluck($column, $key)->all();
     }
 
+    /**
+     * get categories
+     *
+     */
+    public function categories()
+    {
+        return PackageCategory::where('status', 1)->get();
+    }
+
 }

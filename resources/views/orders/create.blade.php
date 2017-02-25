@@ -52,43 +52,44 @@
 
             {!! Form::open(['route' => 'order.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
                 <div class="tab-content">
+
                     <div class="tab-pane active" role="tabpanel" id="step1">
                         <div class="title">
                           <h4> @lang('app.address')</h4>
                         </div>
 
-                      @if($exist_address)
-                        <table class="table">
-                          <thead>
-                          <tr>
-                            <th>@lang('app.label')</th>
-                            <th>@lang('app.address')</th>
-                            <th width="10%"></th>
-                          </tr>
-                          </thead>
-                            <tbody id="locations_list" class="form-horizontal">
-                            @foreach($client->client_location as $key => $item)
-                              @if($item->status == 'accepted')
-                              <tr class="row_location">
-                                <td>{{ $item->get_label() }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>
-                                  <button type="button" data-location="{{ $item->id }}" class="btn btn-success select-location"> 
-                                    @lang('app.select')
-                                  </button>
-                                </td>
-                              </tr>
-                              @endif
-                              @endforeach
-                            </tbody>
-                         </table>
-                      @else
-                        <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                          @lang('app.dont_address_accepted') <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
-                        </div>
-                      @endif 
+                        @if($exist_address)
+                          <table class="table">
+                            <thead>
+                            <tr>
+                              <th>@lang('app.label')</th>
+                              <th>@lang('app.address')</th>
+                              <th width="10%"></th>
+                            </tr>
+                            </thead>
+                              <tbody id="locations_list" class="form-horizontal">
+                              @foreach($client->client_location as $key => $item)
+                                @if($item->status == 'accepted')
+                                <tr class="row_location">
+                                  <td>{{ $item->get_label() }}</td>
+                                  <td>{{ $item->address }}</td>
+                                  <td>
+                                    <button type="button" data-location="{{ $item->id }}" class="btn btn-success select-location"> 
+                                      @lang('app.select')
+                                    </button>
+                                  </td>
+                                </tr>
+                                @endif
+                                @endforeach
+                              </tbody>
+                           </table>
+                        @else
+                          <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                            @lang('app.dont_address_accepted') <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
+                          </div>
+                        @endif 
 
-                      {{Form::hidden('client_location_id', '', ['id' => 'client_location_id'])}}
+                        {{Form::hidden('client_location_id', '', ['id' => 'client_location_id'])}}
 
                         <ul class="border-top list-inline pull-right">
                             <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
@@ -164,6 +165,68 @@
                       <div class="title">
                         <h4> @lang('app.packages')</h4>
                       </div>
+
+                      <!-- start accordion -->
+                      <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                       @foreach($categories as $category)
+                          <div class="panel questions">
+                            <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion" href="#collapse-{{ $category->id }}" aria-expanded="true" aria-controls="collapseOne">
+                              <h6 class="panel-title">{{ $category->name }}</h6>
+                            </a>
+                            <div id="collapse-{{ $category->id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-{{ $category->id }}">
+                              <div class="panel-body question-answer">
+                                  <table class="table">
+                                      <tbody>
+                                      @foreach($category->package as $package)
+                                        @if($package->status)
+                                        <tr>
+                                          <td style="float: left;">
+                                          <img src="{{ $package->image }}" width="100" height="100"></td>
+                                          <td>
+                                          {!! '<strong>'.$package->name.'</strong>' !!}<br>
+                                          </td>
+                                          <td width="25%">
+                                                <div class="input-group">
+                                                  <span class="input-group-btn">
+                                                      <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                      </button>
+                                                  </span>
+                                                  <input type="text" name="quant[2]" style="width: 50px;" class="form-control input-number" value="0" min="1" max="100">
+                                                  <span class="input-group-btn">
+                                                      <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
+                                                          <span class="glyphicon glyphicon-plus"></span>
+                                                      </button>
+                                                  </span>
+                                              </div>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                        <td colspan="3"> 
+                                          <div class="accordion" id="accordion-2" role="tablist" aria-multiselectable="true">
+                                            <div class="panel questions">
+                                              <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion-2" href="#collapse-description-{{ $package->id }}" aria-expanded="true" aria-controls="collapseOne">
+                                                <h6 class="panel-title">Descripción - {{ $package->name }}</h6>
+                                              </a>
+                                              <div id="collapse-description-{{ $package->id }}" class="panel-collapse collapse" role="tabpanel"">
+                                                <div class="panel-body question-answer">
+                                                  {!! $package->description !!}
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                      </tbody>
+                                   </table>
+                              </div>
+                            </div>
+                          </div>
+                      @endforeach
+                      </div>
+                      <!-- end of accordion -->
 
                         <ul class="border-top list-inline pull-right">
                             <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
@@ -349,6 +412,78 @@ function nextTab(elem) {
 function prevTab(elem) {
     $(elem).prev().find('a[data-toggle="tab"]').click();
 }
+
+$('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+});
+$('.input-number').focusin(function(){
+   $(this).data('oldValue', $(this).val());
+});
+$('.input-number').change(function() {
+    
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+    
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    
+    
+});
+$(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
 </script>
 
 {!! HTML::script('public/assets/js/services_create.js') !!}

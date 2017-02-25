@@ -101,4 +101,10 @@ interface PackageRepository extends RepositoryInterface
      */
     public function create_price(array $attributes);
 
+    /**
+     * get categories
+     *
+     */
+    public function categories();
+
 }
