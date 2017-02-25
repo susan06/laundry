@@ -1,235 +1,280 @@
-@extends('layouts.front')
+@extends('layouts.app')
 
 @section('page-title', trans('app.service_request'))
 
 @section('content')
 
-<div class="right_col" role="main">
-  <div class="">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="x_title">
-            <h3>@lang('app.service_request')</h3>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            <div class="" id="order_create">
-              {!! Form::open(['route' => 'order.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
-
-                <div class="t_title">
-                  <h2> @lang('app.address')</h2>
-                  <div class="clearfix"></div>
-                </div>
-
-                @if($exist_address)
-                <table class="table">
-                  <thead>
-                  <tr>
-                    <th>@lang('app.label')</th>
-                    <th>@lang('app.address')</th>
-                    <th width="10%"></th>
-                  </tr>
-                  </thead>
-                    <tbody id="locations_list" class="form-horizontal">
-                    @foreach($client->client_location as $key => $item)
-                      @if($item->status == 'accepted')
-                      <tr class="row_location">
-                        <td>{{ $item->get_label() }}</td>
-                        <td>{{ $item->address }}</td>
-                        <td>
-                          <button type="button" data-location="{{ $item->id }}" class="btn btn-success select-location"> 
-                            @lang('app.select')
-                          </button>
-                        </td>
-                      </tr>
-                      @endif
-                      @endforeach
-                    </tbody>
-                 </table>
-                @else
-                <div class="alert alert-warning alert-dismissible fade in" role="alert">
-                  @lang('app.dont_address_accepted') <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
-                </div>
-                @endif 
-                {{Form::hidden('client_location_id', '', ['id' => 'client_location_id'])}}
-
-                <div class="t_title">
-                  <h2> @lang('app.searched')</h2>
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="row">            
-                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                      {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
-                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                  </div>
-                </div>
-                
-                <div class="row"> 
-                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                    <select name="time_search" class="form-control" id="time_search">
-                      @foreach($working_hours as $working_hour)
-                      @if($working_hour['status'] == 'notavailable')
-                         <option value="" disabled="disabled">{{$working_hour['interval'].' - '.trans("app.Not available") }}
-                      @else
-                         <option value="{{$working_hour['id']}}">{{$working_hour['interval']}} 
-                      @endif
-                      @endforeach
-                    </select>
-                  </div>
-                </div>
-                  
-                <div class="t_title">
-                  <h2> @lang('app.delivery')</h2>
-                  <div class="clearfix"></div>
-                </div>
-
-     
-                <div class="row">
-                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                    {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control has-feedback-left datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
-                    <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
-                  </div>                
-                </div>
-                 <div class="row">
-                  <div class="col-md-4 col-sm-4 col-xs-12 form-group">
-                    <select name="time_delivery" class="form-control" id="time_delivery">
-                      @foreach($time_delivery as $delivery)
-                        @if($delivery['published'] == 'public')
-                        <option value="{{$delivery['id']}}">{{$delivery['interval']}}
-                        @endif
-                      @endforeach
-                    </select>  
-                  </div>            
-                </div>
-                
-                <div class="t_title">
-                  <h2> @lang('app.packages')</h2>
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-5 col-sm-5 col-xs-12 form-group">
-                    {!! Form::select('category', $categories, old('category'), ['class' => 'form-control col-md-7 col-xs-12 select2_single', 'id' => 'category']) !!}
-                  </div>            
-                </div>
-
-                <div class="row">
-                    <table class="table" id="packages_table">
-                      <thead>
-                      <tr>
-                        <th>@lang('app.name')</th>
-                        <th>@lang('app.category')</th>
-                        <th>@lang('app.price') {{ '('.Settings::get('coin').')' }}</th>
-                        <th width="10%"></th>
-                      </tr>
-                      </thead>
-                      <tbody id="packages_list" class="form-horizontal">
-                        <!-- load content locations -->
-                      </tbody>
-                    </table>
-                </div>
-
-                <div class="t_title">
-                  <h2> @lang('app.details')</h2>
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-                      {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
-                  </div>
-                </div>
-
-                <div class="t_title">
-                  <h2> @lang('app.code_promo')</h2>
-                  <div class="clearfix"></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-7 col-sm-7 col-xs-12 form-group">
-                    <div class="input-group">
-                      {!! Form::text('coupon', old('coupon'), ['class' => 'form-control', 'id' => 'coupon', 'placeholder' => trans('app.coupon')]) !!}
-                      <span class="input-group-btn">
-                          <button class="btn btn-primary validate" type="button">@lang('app.validate')</button>
-                        </span>
-                    </div>
-                  </div>
-                </div>
-                {!! Form::hidden('client_coupon_id', '0', ['id' => 'client_coupon_id']) !!}
-
-                <div class="sub-total" style="display: none;">
-                  <div class="t_title">
-                    <h2> @lang('app.sub_total')</h2>
-                    <div class="clearfix"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="product_price col-md-4 col-sm-4 col-xs-12">
-                      <h1 class="price"><span id="sub-total">0.00</span> {{Settings::get('coin') }}</h1> 
-                    </div>
-                  </div>
-                </div>
-                {!! Form::hidden('sub_total', '0', ['id' => 'sub_total_price']) !!}
-                  
-                <div class="discount" style="display: none;">
-                  <div class="t_title">
-                    <h2> @lang('app.discount')</h2> 
-                    <div class="clearfix"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="product_price col-md-4 col-sm-4 col-xs-12">
-                      <h1 class="price" id="discount">0.00</h1>
-                      <h1 class="price" id="discount-porcentage">(0%)</h1>
-                    </div>
-                  </div>
-                  {!! Form::hidden('discount', '0', ['id' => 'discount_price']) !!}
-                </div>
-                  
-                  <div class="t_title">
-                    <h2> @lang('app.total')</h2>
-                    <div class="clearfix"></div>
-                  </div>
-
-                  <div class="row">
-                    <div class="product_price col-md-4 col-sm-4 col-xs-12">
-                      <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
-                    </div>
-                  </div>
-
-                  {!! Form::hidden('total', '0', ['id' => 'total_price']) !!}
-
-                  @if($exist_address)
-                  <div class="ln_solid"></div>
-                  <div class="form-group col-md-3 col-sm-3 col-xs-12">
-                    <button type="submit" class="btn btn-primary btn-submit col-xs-12">@lang('app.save')</button>
-                  </div>
-                  @endif
-              {!! Form::close() !!}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!--banner--> 
+  <div class="banner"> 
+    <h2 id="content-title">@lang('app.service_request')</h2>
   </div>
+<!--//banner-->
+
+<div class="content content-wizard">
+    <div id="content-table">
+        <div class="wizard">
+            <div class="wizard-inner">
+                <div class="connecting-line"></div>
+                <ul class="nav nav-tabs" role="tablist">
+
+                    <li role="presentation" class="active">
+                        <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="@lang('app.address')">
+                            <span class="round-tab">
+                                <i class="fa fa-location-arrow"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="@lang('app.searched') - @lang('app.delivery')">
+                            <span class="round-tab">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="disabled">
+                        <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="@lang('app.packages')">
+                            <span class="round-tab">
+                                <i class="fa fa-cart-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li role="presentation" class="disabled">
+                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            {!! Form::open(['route' => 'order.store', 'id' => 'form-modal', 'class' => 'form-horizontal form-label-left']) !!}
+                <div class="tab-content">
+                    <div class="tab-pane active" role="tabpanel" id="step1">
+                        <div class="title">
+                          <h4> @lang('app.address')</h4>
+                        </div>
+
+                      @if($exist_address)
+                        <table class="table">
+                          <thead>
+                          <tr>
+                            <th>@lang('app.label')</th>
+                            <th>@lang('app.address')</th>
+                            <th width="10%"></th>
+                          </tr>
+                          </thead>
+                            <tbody id="locations_list" class="form-horizontal">
+                            @foreach($client->client_location as $key => $item)
+                              @if($item->status == 'accepted')
+                              <tr class="row_location">
+                                <td>{{ $item->get_label() }}</td>
+                                <td>{{ $item->address }}</td>
+                                <td>
+                                  <button type="button" data-location="{{ $item->id }}" class="btn btn-success select-location"> 
+                                    @lang('app.select')
+                                  </button>
+                                </td>
+                              </tr>
+                              @endif
+                              @endforeach
+                            </tbody>
+                         </table>
+                      @else
+                        <div class="alert alert-warning alert-dismissible fade in" role="alert">
+                          @lang('app.dont_address_accepted') <a href="{{ route('client.locations') }}">@lang('app.my_locations')</a>
+                        </div>
+                      @endif 
+
+                      {{Form::hidden('client_location_id', '', ['id' => 'client_location_id'])}}
+
+                        <ul class="border-top list-inline pull-right">
+                            <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane" role="tabpanel" id="step2">
+                        <div class="title">
+                          <h4> @lang('app.searched')</h4>
+                        </div>
+                        
+                        <div class="row margin-bottom-10">            
+                          <div class="col-md-4 col-sm-4 col-xs-12">
+                              {!! Form::text('date_search', old('date_search'), ['class' => 'form-control datetime has-feedback-left', 'id' => 'date_search', 'readonly' => 'readonly']) !!}
+                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                          </div>
+                        </div>
+
+                        <div class="row margin-bottom-10"> 
+                          <div class="col-md-4 col-sm-4 col-xs-12">
+                            <select name="time_search" class="form-control" id="time_search">
+                              @foreach($working_hours as $working_hour)
+                              @if($working_hour['status'] == 'notavailable')
+                                 <option value="" disabled="disabled">{{$working_hour['interval'].' - '.trans("app.Not available") }}
+                              @else
+                                 <option value="{{$working_hour['id']}}">{{$working_hour['interval']}} 
+                              @endif
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                  
+                        <div class="title">
+                          <h4> @lang('app.delivery')</h4>
+                        </div>
+             
+                        <div class="row margin-bottom-10">
+                          <div class="col-md-4 col-sm-4 col-xs-12">
+                            {!! Form::text('date_delivery', old('date_delivery'), ['class' => 'form-control has-feedback-left datetime', 'id' => 'date_delivery', 'readonly' => 'readonly']) !!}
+                            <span class="fa fa-calendar form-control-feedback left" aria-hidden="true"></span>
+                          </div>                
+                        </div>
+
+                        <div class="row margin-bottom-10">
+                          <div class="col-md-4 col-sm-4 col-xs-12">
+                            <select name="time_delivery" class="form-control" id="time_delivery">
+                              @foreach($time_delivery as $delivery)
+                                @if($delivery['published'] == 'public')
+                                <option value="{{$delivery['id']}}">{{$delivery['interval']}}
+                                @endif
+                              @endforeach
+                            </select>  
+                          </div>            
+                        </div>
+
+                          <div class="title">
+                            <h4> @lang('app.details')</h4>
+                          </div>
+
+                           <div class="row margin-bottom-10">
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                {!! Form::textarea('special_instructions', old('special_instructions'), ['class' => 'form-control', 'id' => 'special_instructions', 'rows' => '3', 'placeholder' => trans('app.special_instructions')]) !!}
+                            </div>
+                          </div>
+                        
+                        <ul class="border-top list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                            <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane" role="tabpanel" id="step3">
+                      <div class="title">
+                        <h4> @lang('app.packages')</h4>
+                      </div>
+
+                        <ul class="border-top list-inline pull-right">
+                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Continuar</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-pane" role="tabpanel" id="complete">
+                      <div class="title">
+                        <h4> órden previa</h4>
+                      </div>
+                        <div class="row margin-bottom-10">
+                            <table class="table" id="packages_table">
+                              <thead>
+                              <tr>
+                                <th>@lang('app.name')</th>
+                                <th>@lang('app.category')</th>
+                                <th>@lang('app.price') {{ '('.Settings::get('coin').')' }}</th>
+                                <th width="10%"></th>
+                              </tr>
+                              </thead>
+                              <tbody id="packages_list" class="form-horizontal">
+                                <!-- load content locations -->
+                              </tbody>
+                            </table>
+                        </div>
+
+                        <div class="title">
+                          <h4> @lang('app.code_promo')</h4>
+                        </div>
+
+                        <div class="row margin-bottom-10">
+                          <div class="col-md-7 col-sm-7 col-xs-12">
+                            <div class="input-group">
+                              {!! Form::text('coupon', old('coupon'), ['class' => 'form-control', 'id' => 'coupon', 'placeholder' => trans('app.coupon'), 'style' => 'height:41px']) !!}
+                              <span class="input-group-btn">
+                                  <button class="btn btn-primary validate" type="button">@lang('app.validate')</button>
+                                </span>
+                            </div>
+                          </div>
+                        </div>
+                        {!! Form::hidden('client_coupon_id', '0', ['id' => 'client_coupon_id']) !!}
+
+                      <div class="sub-total" style="display: none;">
+                        <div class="title">
+                          <h4> @lang('app.sub_total')</h4>
+                        </div>
+
+                        <div class="row margin-bottom-10">
+                          <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                            <h1 class="price"><span id="sub-total">0.00</span> {{Settings::get('coin') }}</h1> 
+                          </div>
+                        </div>
+                      </div>
+                      {!! Form::hidden('sub_total', '0', ['id' => 'sub_total_price']) !!}
+                          
+                        <div class="discount" style="display: none;">
+                          <div class="title">
+                            <h4> @lang('app.discount')</h4> 
+                          </div>
+
+                          <div class="row">
+                            <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                              <h1 class="price" id="discount">0.00</h1>
+                              <h1 class="price" id="discount-porcentage">(0%)</h1>
+                            </div>
+                          </div>
+                          {!! Form::hidden('discount', '0', ['id' => 'discount_price']) !!}
+                        </div>
+                  
+                        <div class="title">
+                          <h4> @lang('app.total')</h4>
+                        </div>
+
+                        <div class="row margin-bottom-10">
+                          <div class="product_price col-md-4 col-sm-4 col-xs-12">
+                            <h1 class="price"><span id="total">0.00</span> {{Settings::get('coin') }}</h1> 
+                          </div>
+                        </div>
+
+                        {!! Form::hidden('total', '0', ['id' => 'total_price']) !!}
+
+                          @if($exist_address)
+                          <div class="border-top pull-right">
+                            <button type="submit" class="btn btn-primary btn-submit col-md-2 col-sm-3 pull-right col-xs-12">@lang('app.save')</button>
+                          </div>
+                          @endif
+                      {!! Form::close() !!}
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 @endsection
 
-@section('scripts')
-@parent
+@section('styles')
+{!! HTML::style("public/assets/css/datetimepicker/bootstrap-datetimepicker.css") !!}
+@endsection
 
-  <!-- Select2 -->
-  {!! HTML::script('public/vendors/select2/dist/js/select2.full.min.js') !!}
+@section('scripts')
+
   <!-- bootstrap-daterangepicker -->
   {!! HTML::script('public/vendors/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js') !!}
 
-
 <script type="text/javascript">
 
-  var first_select_package = "{{ trans('app.first_select_package') }}";
+var first_select_package = "{{ trans('app.first_select_package') }}";
   var first_introduce_coupon = "{{ trans('app.first_introduce_coupon') }}";
   var package_added = "{{ trans('app.package_added') }}";
   var edit = false;
@@ -269,6 +314,41 @@
     daysOfWeekDisabled: day_disabled
   }); 
 
+  $(document).ready(function () {
+    //Initialize tooltips
+    $('.nav-tabs > li a[title]').tooltip();
+    
+    //Wizard
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+        var $target = $(e.target);
+    
+        if ($target.parent().hasClass('disabled')) {
+            return false;
+        }
+    });
+
+    $(".next-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        nextTab($active);
+
+    });
+    $(".prev-step").click(function (e) {
+
+        var $active = $('.wizard .nav-tabs li.active');
+        prevTab($active);
+
+    });
+});
+
+function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+}
 </script>
 
 {!! HTML::script('public/assets/js/services_create.js') !!}

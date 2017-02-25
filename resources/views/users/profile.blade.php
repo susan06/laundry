@@ -32,6 +32,10 @@
 
 @endsection
 
+@section('styles')
+{!! HTML::style("public/assets/css/datetimepicker/bootstrap-datetimepicker.min.css") !!}
+@endsection
+
 @section('scripts')
  <!-- jquery.inputmask -->
  {!! HTML::script('public/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') !!}

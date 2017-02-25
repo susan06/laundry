@@ -79,19 +79,23 @@
   <!-- Table row -->
   <div class="row">
     <div class="col-xs-12 table">
-      <div class="title"><h4>@lang('app.items') ({{ $order->order_package->count() }})</h4></div>
+      <div class="title"><h4>@lang('app.items') ({{ $order->order_package->sum('quantity') }})</h4></div>
       <table class="table table-striped font-size-18">
         <thead>
           <tr>
+            <th>@lang('app.quantity')</th>
             <th>@lang('app.service')</th>
+            <th>@lang('app.price')</th>
             <th>@lang('app.sub_total')</th>
           </tr>
         </thead>
         <tbody>
         @foreach ($order->order_package as $key => $package)
             <tr>
+                <td>{{ $package->quantity }}</td>
                 <td>{{ $package->name }}</td>
                 <td>{{ $package->price }}</td>
+                <td>{!! $package->quantity * $package->price !!}</td>
             </tr>
         @endforeach
         </tbody>
@@ -110,12 +114,12 @@
             </tr>
               @if($order->discount)
               <tr>
-                <th>{{ $order->client_coupon->coupon->percentage }}</th>
+                <td>{{ $order->client_coupon->coupon->percentage }}</td>
                 <td>{{ $order->discount.' '.Settings::get('coin') }}</td>
               </tr>
               @endif
             <tr>
-              <th><strong>@lang('app.total'):</strong></th>
+              <td><strong>@lang('app.total'):</strong></td>
               <td><h4>{{ $order->total.' '.Settings::get('coin') }}</h4></td>
             </tr>
           </tbody>
@@ -164,7 +168,7 @@
 
 <div class="row">
   <div class="form-group">
-    <button type="button" class="btn btn-default btn-cancel col-sm-3 col-xs-12">@lang('app.back')</button>
+    <button type="button" class="btn btn-default btn-cancel col-sm-2 col-xs-12">@lang('app.back')</button>
   </div>
 </div>
 

@@ -954,4 +954,5 @@ return [
     'invite_email' => 'Invitación para laundyMovil',
     'save_img' => 'Guardar imagen',
     'items' => 'Items',
+    'quantity' => 'Cantidad',
 ]; 

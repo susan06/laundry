@@ -291,13 +291,24 @@ class OrderController extends Controller
         $client = $this->clients->find(Auth::user()->id);
         if ( $request->ajax() ) {
 
+            if(Auth::user()->role_id == 2) {
+                $view = 'orders.edit';
+            } else {
+                $view = 'orders.edit_back';
+            }
             return response()->json([
                 'success' => true,
-                'view' => view('orders.edit', compact('order', 'penalty', 'porcentaje', 'working_hours', 'client'))->render(),
+                'view' => view($view, compact('order', 'penalty', 'porcentaje', 'working_hours', 'client'))->render(),
             ]);
         }
 
-        return view('orders.edit', compact('order', 'penalty', 'porcentaje', 'working_hours', 'client'));
+        if(Auth::user()->role_id == 2) {
+            $view = 'orders.edit';
+        } else {
+            $view = 'orders.edit_back';
+        }
+
+        return view($view, compact('order', 'penalty', 'porcentaje', 'working_hours', 'client'));
     }
 
     /**

@@ -62,15 +62,19 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>@lang('app.quantity')</th>
             <th>@lang('app.service')</th>
+            <th>@lang('app.price')</th>
             <th>@lang('app.sub_total')</th>
           </tr>
         </thead>
         <tbody>
         @foreach ($order->order_package as $key => $package)
             <tr>
+                <td>{{ $package->quantity }}</td>
                 <td>{{ $package->name }}</td>
                 <td>{{ $package->price }}</td>
+                <td>{!! $package->quantity * $package->price !!}</td>
             </tr>
         @endforeach
         </tbody>

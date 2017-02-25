@@ -25,7 +25,7 @@
     <label class="control-label col-md-3 col-sm-3 col-xs-12 hor-form" for="@lang('app.birthday')">@lang('app.birthday')
     </label>
     <div class="col-md-3 col-sm-3 col-xs-12">
-    {!! Form::text('birthday', isset($user->birthday) ? $user->birthday : old('birthday'), ['class' => 'form-control col-md-4 col-xs-6 datetime', 'id' => 'birthday', 'readonly' => 'readonly']) !!}
+    {!! Form::text('birthday', isset($user->birthday) ? $user->birthday : old('birthday'), ['class' => 'form-control col-md-4 col-xs-6 birthday', 'id' => 'birthday', 'data-inputmask' => "'mask' : '99-99-9999'"]) !!}
     </div>
   </div> 
   <div class="form-group">
@@ -51,13 +51,9 @@
 
 <script>
   $(document).ready(function() {
-    $('#birthday').datetimepicker({
-      format: 'DD-MM-YYYY',
-      ignoreReadonly: true,
-      viewMode: 'years'
-    });
 
     $(".phones").inputmask();
+    $(".birthday").inputmask();
 
   });
 </script>

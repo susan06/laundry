@@ -55,6 +55,7 @@ class OrdersTableSeeder extends Seeder
 
         DB::table('orders_packages')->insert([
             'order_id' => 1,
+            'quantity' => 1,
             'name' => 'Bolsa 15 libras',
             'price' => 13,
             'created_at' => \Carbon\Carbon::now()
@@ -62,6 +63,7 @@ class OrdersTableSeeder extends Seeder
         
         DB::table('orders_packages')->insert([
             'order_id' => 2,
+            'quantity' => 2,
             'name' => 'Pack Test',
             'price' => 20,
             'created_at' => \Carbon\Carbon::now()
@@ -69,6 +71,7 @@ class OrdersTableSeeder extends Seeder
 
         DB::table('orders_packages')->insert([
             'order_id' => 3,
+            'quantity' => 3,
             'name' => 'Trajes',
             'price' => 17,
             'created_at' => \Carbon\Carbon::now()

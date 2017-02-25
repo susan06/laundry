@@ -16,6 +16,7 @@ class CreateOrdersPackagesTable extends Migration
         Schema::create('orders_packages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_id')->unsigned();
+            $table->integer('quantity')->default(1);
             $table->string('name');
             $table->double('price');
             $table->timestamps();

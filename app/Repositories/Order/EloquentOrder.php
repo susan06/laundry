@@ -410,7 +410,7 @@ class EloquentOrder extends Repository implements OrderRepository
     {
         $result = array();
         $query = OrderPackage::groupBy('name')
-            ->select('name', DB::raw('count(*) as total'));
+            ->select('name', DB::raw('sum(quantity) as total'));
 
         $result = $query->get()->toArray();
   

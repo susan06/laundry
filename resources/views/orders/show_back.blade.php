@@ -13,7 +13,7 @@
           <div class="x_content">
 
             <div id="content-table">
-              @include('orders.show_content')
+              @include('orders.show_content_back')
             </div>
 
           </div>

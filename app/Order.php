@@ -24,6 +24,7 @@ class Order extends Model
      */
     protected $fillable = [
         'bag_code',
+        'quantity',
     	'client_id', 
         'driver_id',
     	'client_location_id',
