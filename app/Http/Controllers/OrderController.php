@@ -172,12 +172,14 @@ class OrderController extends Controller
                 $order = $this->orders->create($data_order);
                 if ($order) {
                     $packages = $request->packages;
-                    $prices = $request['prices_'.$request->time_delivery];
+                    $quantity = $request->quantity;
+                    $prices = $request->prices;
                     foreach( $packages as $key => $value ) {
                         $this->orders->create_package([ 
                             'order_id' => $order->id,
                             'name' => $value,
-                            'price' => $prices[$key]
+                            'price' => $prices[$key],
+                            'quantity'  => (int)$quantity[$key],
                             ]
                         );
                     }
@@ -461,10 +463,16 @@ class OrderController extends Controller
         $payments = ['' => trans('app.select_method_payment')] + $methods->lists_payments();
         
         if ( $request->ajax() ) {
+
+            if(Auth::user()->role_id == 2) {
+                $view = 'orders.method_payments_content';
+            } else {
+                $view = 'orders.method_payments_content_back';
+            }
             if ($order) {
                 return response()->json([
                     'success' => true,
-                    'view' => view('orders.method_payments_content', compact('payments', 'order', 'modal'))->render(),
+                    'view' => view($view, compact('payments', 'order', 'modal'))->render(),
                 ]);
             } else {
                 return response()->json([
@@ -474,7 +482,13 @@ class OrderController extends Controller
             }
         }
 
-        return view('orders.method_payments', compact('payments', 'order','modal'));
+        if(Auth::user()->role_id == 2) {
+            $view = 'orders.method_payments';
+        } else {
+            $view = 'orders.method_payments_back';
+        }
+
+        return view($view, compact('payments', 'order','modal'));
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.invited_friends'))
+@section('page-title', trans('app.payments_order'))
 
 @section('content')
 
@@ -9,12 +9,14 @@
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-          <div class="x_title">
-            <h2>@lang('app.clients') <small>@lang('app.invite_friend')</small></h2>
+          <div class="page-title">
+            <div class="title_left">
+              <h3>@lang('app.method_payment_order')</h3>
+            </div>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
-              @include('clients.partials.invite_friend')
+            @include('orders.method_payments_content_back')
           </div>
         </div>
       </div>

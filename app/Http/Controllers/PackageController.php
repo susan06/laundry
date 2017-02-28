@@ -79,7 +79,7 @@ class PackageController extends Controller
         if ($package) {
             return response()->json([
                 'success' => true,
-                'details' => $package->toJson(),
+                'details' => ['name' => $package->name, 'category' => $package->package_category->name],
                 'prices'  => $package->package_price->toJson()
             ]);
         } else {
@@ -155,5 +155,32 @@ class PackageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function orderPreview(Request $request)
+    {
+        $pack = explode(',', substr($request->packages, 0, -1));
+        $quantity = explode(',', substr($request->quantity, 0, -1));
+        $time_delivery = $request->time;
+        $packages = array();
+
+        foreach ($pack as $key => $value) {
+            $details = $this->packages->find($value);
+            $packages[$key]['quantity'] = $quantity[$key];
+            $packages[$key]['name'] = $details->name;
+            $packages[$key]['category'] = $details->package_category->name; 
+            foreach ($details->package_price as $package_price) {
+                if($package_price->delivery_schedule == $time_delivery) {
+                    $price = $package_price->price;
+                }
+            }
+            
+            $packages[$key]['price'] = $price;
+        }
+
+        return response()->json([
+            'success' => true,
+            'view' => view('packages.order_preview', compact('packages'))->render(),
+        ]);
     }
 }

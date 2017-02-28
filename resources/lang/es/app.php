@@ -955,4 +955,8 @@ return [
     'save_img' => 'Guardar imagen',
     'items' => 'Items',
     'quantity' => 'Cantidad',
+    'save_order' => 'Guardar órden',
+    'order_preview' => 'órden previa',
+    'quant' => 'Cnt.',
+
 ]; 

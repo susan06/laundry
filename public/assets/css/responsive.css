@@ -395,6 +395,9 @@ label.hor-form{
 }
 }
 @media(max-width:480px){
+.package-description strong {
+    padding: 0px 0px 0 0px;
+}
 .full-left {
     width: 49%;
 }

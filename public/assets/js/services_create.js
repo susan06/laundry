@@ -18,87 +18,84 @@ $("#check_tomorrow").on("ifClicked", function() {
   $("#date_search").data('DateTimePicker').date(tomorrow2);
 });
 
-var add_cart = 0;
+$(document).ready(function () {
+    //Initialize tooltips
+    $('.nav-tabs > li a[title]').tooltip();
+    
+    //Wizard
+    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
 
-function add_package(package, prices) {
-
-   $('#packages_table').show();
-
-    var input = document.createElement("input");
-    var tr    = document.createElement("TR");
-    var td    = document.createElement("TD");  
-
-    var text_name = document.createTextNode(package.name); 
-
-    input.type  = 'hidden';
-    input.name  = 'packages[]';
-    input.value = package.name;
-
-    td.appendChild(input);
-    td.appendChild(text_name);
-
-    var td1    = document.createElement("TD"); 
-    var text_category = document.createTextNode($('#category option:selected').text()); 
-    td1.appendChild(text_category);
-
-    var td2    = document.createElement("TD"); 
-
-    $.each(prices, function(index, item) { 
-      var span    = document.createElement("span"); 
-      span.className = 'prices list_price_'+item.delivery_schedule;
-      var price = document.createTextNode(item.price); 
-      span.appendChild(price);    
-      td2.appendChild(span);  
-
-      var input_price = document.createElement("input");
-      input_price.type  = 'hidden';
-      input_price.name  = 'prices_'+item.delivery_schedule+'[]';
-      input_price.value = item.price;
-      td2.appendChild(input_price);             
+        var $target = $(e.target);
+    
+        if ($target.parent().hasClass('disabled')) {
+            return false;
+        }
     });
 
-    var td3    = document.createElement("TD");
+    $(".next-step").click(function (e) {
 
-    button               = document.createElement('button');
-    button.className     = 'btn btn-round btn-danger btn-md delete-package';
+        var $active = $('.wizard .nav-tabs li.active');
+        $active.next().removeClass('disabled');
+        nextTab($active);
 
-    var icon               = document.createElement('i');
-    icon.style.cursor  = 'pointer';
-    icon.className     = 'fa fa-trash';
-    
-    button.appendChild(icon);
-    td3.appendChild(button);
+    });
+    $(".prev-step").click(function (e) {
 
-    tr.appendChild(td); 
-    tr.appendChild(td1); 
-    tr.appendChild(td2);
-    tr.appendChild(td3);  
+        var $active = $('.wizard .nav-tabs li.active');
+        prevTab($active);
 
-    container = document.getElementById('packages_list');
-    container.appendChild(tr); 
+    });
+});
 
-    add_cart++;
-    show_price_by_time();
-};
+function nextTab(elem) {
+    $(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+    $(elem).prev().find('a[data-toggle="tab"]').click();
+}
 
-function show_price_by_time(){
+var add_cart = 0;
+var array_packages = [];
+
+function addCart() {
+    var packages = '';
+    var quantity = '';
+    array_packages.forEach(function(value, key) {
+      packages += key+',';
+      quantity += value+',';
+    });
     var time_selected = $('#time_delivery option:selected').val();
-    if(time_selected) {
-      $('.prices').hide();
-      $('.list_price_'+time_selected).show();
-    }  
     if(add_cart > 0) {
-      total();
+      $.ajax({
+          url: url_preview_order,
+          type:'GET',
+          data: {packages: packages, quantity:quantity, time: time_selected},
+          success: function(response) {
+              hideLoading();
+              if(response.success){
+                $('#packages_table').html(response.view);
+                total();
+              } else {
+                  notify('error', response.message);
+              }
+          },
+          error: function (status) {
+              hideLoading();
+              notify('error', status.statusText);
+          }
+      });
+    } else {
+      $('#packages_table').html('<p>seleccionar paquetes</p>');
     }
 }
 
+
 function total() {
-  if(add_cart > 0) {
-  var time_selected = $('#time_delivery option:selected').val();  
+  if(add_cart > 0) { 
   var sum = 0;    
   var container = document.getElementById('list_prices');  
     $("#packages_list tr").each( function() {       
-      var price = $(this).find('td:eq(2) span.list_price_'+time_selected);
+      var price = $(this).find('td:eq(4) span.prices-pack');
       if (price.text() != null) {
         sum += parseFloat(price.text());
       }             
@@ -111,52 +108,42 @@ function total() {
   }
 }   
 
-$(document).on('click', '.add-cart', function () {
-  var $this = $(this);
-  $this.addClass('not_clic');
-  $this.closest('.thumbnail').addClass('thumbnail-green');
-  $.ajax({
-      url: url_package_get_details,
-      type:'GET',
-      data: {'id': $this.attr('id') },
-      success: function(response) {
-          if(response.success){
-              notify('success', package_added);
-              add_package(JSON.parse(response.details), JSON.parse(response.prices));
-          } else {
-              $this.removeClass('not_clic');
-              $this.closest('.thumbnail').removeClass('thumbnail-green');
-              notify('error', response.message);
-          }
-         
-      }
-  });
+$(document).on('click', '.addOrder', function () {
+  addCart();
 });
 
-$(document).on('change', '#category', function () {
-  var $this = $(this);
-  var time_select = $('#time_delivery option:selected').val();
-  if($this.val()) {
-    showLoading();
-    $.ajax({
-        url: url_package_show_category,
-        type:'GET',
-        data: {'category': $this.val(), 'time_select': time_select },
-        success: function(response) {
-            hideLoading();
-            if(response.success){
-                $('#modal-title').text($('#category option:selected').text());
-                $('#content-modal').html(response.view);
-                $('#general-modal').modal('show');
-                
-            } else {
-              hideLoading();
-              notify('error', response.message);
+
+$('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldID = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $('#input-number-'+fieldID);
+    var currentVal = parseInt(input.val());
+
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > 0) {
+                input.val(currentVal - 1);
+                add_cart--;
+            } 
+            if(input.val() == 0) {
+              array_packages.splice(fieldID, 1);
             }
-           
+
+        } else if(type == 'plus') {
+
+            if(currentVal < 10) {
+                input.val(currentVal + 1);
+                array_packages[fieldID] = input.val();
+                add_cart++;
+            }
         }
-    });
-  }
+
+    } else {
+        input.val(0);
+    }
 });
 
 $(document).on('change', '#time_delivery', function () {

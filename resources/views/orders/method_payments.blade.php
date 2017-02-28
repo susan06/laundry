@@ -4,24 +4,16 @@
 
 @section('content')
 
-<div class="right_col" role="main">
-  <div class="">
-    <div class="row">
-      <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="x_panel">
-          <div class="page-title">
-            <div class="title_left">
-              <h3>@lang('app.method_payment_order')</h3>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-          <div class="x_content">
-            @include('orders.method_payments_content')
-          </div>
-        </div>
-      </div>
-    </div>
+<!--banner--> 
+  <div class="banner"> 
+    <h2 id="content-title">@lang('app.method_payment_order')</h2>
   </div>
+<!--//banner-->
+
+<div class="content">
+	<div id="content-table">
+  		@include('orders.method_payments_content')
+  	</div>
 </div>
 
 @endsection

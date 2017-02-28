@@ -41,7 +41,7 @@
                     </li>
 
                     <li role="presentation" class="disabled">
-                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                        <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="@lang('app.order_preview')">
                             <span class="round-tab">
                                 <i class="glyphicon glyphicon-ok"></i>
                             </span>
@@ -92,7 +92,7 @@
                         {{Form::hidden('client_location_id', '', ['id' => 'client_location_id'])}}
 
                         <ul class="border-top list-inline pull-right">
-                            <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
+                            <li><button type="button" class="btn btn-primary next-step">@lang('app.next')</button></li>
                         </ul>
                     </div>
 
@@ -156,8 +156,8 @@
                           </div>
                         
                         <ul class="border-top list-inline pull-right">
-                            <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
-                            <li><button type="button" class="btn btn-primary next-step">Siguiente</button></li>
+                            <li><button type="button" class="btn btn-default prev-step">@lang('app.back')</button></li>
+                            <li><button type="button" class="btn btn-primary next-step">@lang('app.next')</button></li>
                         </ul>
                     </div>
 
@@ -180,42 +180,39 @@
                                       @foreach($category->package as $package)
                                         @if($package->status)
                                         <tr>
-                                          <td style="float: left;">
-                                          <img src="{{ $package->image }}" width="100" height="100"></td>
                                           <td>
-                                          {!! '<strong>'.$package->name.'</strong>' !!}<br>
-                                          </td>
-                                          <td width="25%">
-                                                <div class="input-group">
-                                                  <span class="input-group-btn">
-                                                      <button type="button" class="btn btn-danger btn-number"  data-type="minus" data-field="quant[2]">
-                                                        <span class="glyphicon glyphicon-minus"></span>
-                                                      </button>
-                                                  </span>
-                                                  <input type="text" name="quant[2]" style="width: 50px;" class="form-control input-number" value="0" min="1" max="100">
-                                                  <span class="input-group-btn">
-                                                      <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="quant[2]">
-                                                          <span class="glyphicon glyphicon-plus"></span>
-                                                      </button>
-                                                  </span>
-                                              </div>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                        <td colspan="3"> 
-                                          <div class="accordion" id="accordion-2" role="tablist" aria-multiselectable="true">
-                                            <div class="panel questions">
-                                              <a class="panel-heading" role="tab" data-toggle="collapse" data-parent="#accordion-2" href="#collapse-description-{{ $package->id }}" aria-expanded="true" aria-controls="collapseOne">
-                                                <h6 class="panel-title">Descripción - {{ $package->name }}</h6>
-                                              </a>
-                                              <div id="collapse-description-{{ $package->id }}" class="panel-collapse collapse" role="tabpanel"">
-                                                <div class="panel-body question-answer">
-                                                  {!! $package->description !!}
+                                          <button type="button" class="btn btn-primary btn-number"  data-type="minus" data-field="{{$package->id}}"><i class="fa fa-minus"></i></button>
+                                          <td class="package-description">
+
+                                          <img src="{{ $package->image }}">
+
+                                           <strong><a href="#description-{{$package->id}}" data-toggle="modal">{{ $package->name }}</strong></a>
+
+                                           <div class="modal fade" id="description-{{$package->id}}" tabindex="-1" role="dialog" aria-labelledby="tos-label">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="@lang('app.terms_of_service')">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        <h3 class="modal-title">{{ $package->name }}</h3>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {!! $package->description !!}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default col-sm-2 col-xs-5" data-dismiss="modal">@lang('app.close')</button>
+                                                    </div>
                                                 </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </td>
+                                            </div>    
+                                           </div>
+                                          </td>
+                                          <td>
+                                            <input type="text" value="0" class="form-control input-number" id="input-number-{{$package->id}}" readonly="readonly">
+                                          </td>
+                                          <td>
+                                          <button type="button" class="btn btn-primary btn-number"  data-type="plus" data-field="{{$package->id}}"><i class="fa fa-plus"></i></button>
+                                          </td>
                                         </tr>
                                         @endif
                                         @endforeach
@@ -230,28 +227,16 @@
 
                         <ul class="border-top list-inline pull-right">
                             <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
-                            <li><button type="button" class="btn btn-primary btn-info-full next-step">Continuar</button></li>
+                            <li><button type="button" class="btn btn-primary btn-info-full next-step addOrder">@lang('app.next')</button></li>
                         </ul>
                     </div>
 
                     <div class="tab-pane" role="tabpanel" id="complete">
                       <div class="title">
-                        <h4> órden previa</h4>
+                        <h4>@lang('app.order_preview')</h4>
                       </div>
-                        <div class="row margin-bottom-10">
-                            <table class="table" id="packages_table">
-                              <thead>
-                              <tr>
-                                <th>@lang('app.name')</th>
-                                <th>@lang('app.category')</th>
-                                <th>@lang('app.price') {{ '('.Settings::get('coin').')' }}</th>
-                                <th width="10%"></th>
-                              </tr>
-                              </thead>
-                              <tbody id="packages_list" class="form-horizontal">
-                                <!-- load content locations -->
-                              </tbody>
-                            </table>
+                        <div class="row margin-bottom-10 padding-10"  id="packages_table">
+                           <!-- load packages -->
                         </div>
 
                         <div class="title">
@@ -311,7 +296,7 @@
 
                           @if($exist_address)
                           <div class="border-top pull-right">
-                            <button type="submit" class="btn btn-primary btn-submit col-md-2 col-sm-3 pull-right col-xs-12">@lang('app.save')</button>
+                            <button type="submit" class="btn btn-primary btn-submit col-md-2 col-sm-3 pull-right col-xs-12">@lang('app.save_order')</button>
                           </div>
                           @endif
                       {!! Form::close() !!}
@@ -347,6 +332,7 @@ var first_select_package = "{{ trans('app.first_select_package') }}";
   var url_package_get_details = "{{ route('package.get.details') }}";
   var url_package_show_category = "{{ route('package.show.category') }}";
   var url_validate_coupon = "{{ route('coupon.check') }}";
+  var url_preview_order = "{{ route('package.preview.order') }}";
   var endTime = '{!! Settings::get("time_close") !!}';
   var coin = "{{ Settings::get('coin') }}";
 
@@ -377,113 +363,6 @@ var first_select_package = "{{ trans('app.first_select_package') }}";
     daysOfWeekDisabled: day_disabled
   }); 
 
-  $(document).ready(function () {
-    //Initialize tooltips
-    $('.nav-tabs > li a[title]').tooltip();
-    
-    //Wizard
-    $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
-        var $target = $(e.target);
-    
-        if ($target.parent().hasClass('disabled')) {
-            return false;
-        }
-    });
-
-    $(".next-step").click(function (e) {
-
-        var $active = $('.wizard .nav-tabs li.active');
-        $active.next().removeClass('disabled');
-        nextTab($active);
-
-    });
-    $(".prev-step").click(function (e) {
-
-        var $active = $('.wizard .nav-tabs li.active');
-        prevTab($active);
-
-    });
-});
-
-function nextTab(elem) {
-    $(elem).next().find('a[data-toggle="tab"]').click();
-}
-function prevTab(elem) {
-    $(elem).prev().find('a[data-toggle="tab"]').click();
-}
-
-$('.btn-number').click(function(e){
-    e.preventDefault();
-    
-    fieldName = $(this).attr('data-field');
-    type      = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
-    var currentVal = parseInt(input.val());
-    if (!isNaN(currentVal)) {
-        if(type == 'minus') {
-            
-            if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
-            } 
-            if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
-            }
-
-        } else if(type == 'plus') {
-
-            if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('max')) {
-                $(this).attr('disabled', true);
-            }
-
-        }
-    } else {
-        input.val(0);
-    }
-});
-$('.input-number').focusin(function(){
-   $(this).data('oldValue', $(this).val());
-});
-$('.input-number').change(function() {
-    
-    minValue =  parseInt($(this).attr('min'));
-    maxValue =  parseInt($(this).attr('max'));
-    valueCurrent = parseInt($(this).val());
-    
-    name = $(this).attr('name');
-    if(valueCurrent >= minValue) {
-        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the minimum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
-    if(valueCurrent <= maxValue) {
-        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the maximum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
-    
-    
-});
-$(".input-number").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-             // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) || 
-             // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-    });
 </script>
 
 {!! HTML::script('public/assets/js/services_create.js') !!}

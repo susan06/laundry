@@ -65,17 +65,17 @@
                 </button>
       
               @if( $order->get_date_search() && !$order->order_penalty)
-               <button type="button" data-href="{{ route('order.edit', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content" data-title="@lang('app.edit_order')" data-toggle="tooltip" data-placement="top">
+               <button type="button" data-href="{{ route('order.edit', $order->id) }}" class="btn btn-primary create-edit-show" data-model="content" data-title="{{ trans('app.edit_order').' ID: '.$order->id }}" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                 </button>
               @endif
 
               @if($order->order_penalty)
-                <button type="button" data-href="{{ route('order.payment.penalty', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.method_payment_penalty')" data-toggle="tooltip" data-placement="top"><i class="fa fa-minus-square"></i>
+                <button type="button" data-href="{{ route('order.payment.penalty', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.method_payment_penalty') - {{ trans('app.order_id').': '.$order->id }}" data-toggle="tooltip" data-placement="top"><i class="fa fa-minus-square"></i>
                   </button>
                @endif
                 
-               <button type="button" data-href="{{ route('order.payment', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.method_payment')" data-toggle="tooltip" data-placement="top">
+               <button type="button" data-href="{{ route('order.payment', $order->id.'?modal=true') }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.method_payment') - {{ trans('app.order_id').': '.$order->id }}" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-money"></i>
                 </button>
             </td>

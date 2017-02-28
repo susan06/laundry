@@ -219,6 +219,7 @@
     */
     Route::get('package/show/category', 'PackageController@show_by_category')->name('package.show.category');
     Route::get('package/details', 'PackageController@details')->name('package.get.details');
+    Route::get('package/order/preview', 'PackageController@orderPreview')->name('package.preview.order');
     Route::resource('package', 'PackageController');
 
     /**
