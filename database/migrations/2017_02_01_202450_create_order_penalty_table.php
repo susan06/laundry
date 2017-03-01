@@ -19,7 +19,7 @@ class CreateOrderPenaltyTable extends Migration
             $table->integer('payment_method_id')->unsigned()->nullable();
             $table->integer('reference')->unique()->nullable();
             $table->double('amount', 15, 2);
-            $table->integer('percentage', 15, 2);
+            $table->double('percentage', 15, 2);
             $table->boolean('status')->default(false);
             $table->boolean('confirmed')->default(false);
             $table->timestamps();
