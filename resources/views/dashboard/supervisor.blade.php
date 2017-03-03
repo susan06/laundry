@@ -123,6 +123,20 @@
                 </div>
               </div>
 
+               <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Órdenes finalizadas por meses</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <div id="graph_bar4" style="width:100%; height:280px;"></div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
 
           </div>
@@ -178,6 +192,19 @@
           labels: ['órdenes'],
           barRatio: 0.4,
           barColors: ['#34495E', '#26B99A','#ACADAC', '#3498DB'],
+          xLabelAngle: 35,
+          hideHover: 'auto',
+          resize: true
+        });
+
+      Morris.Bar({
+          element: 'graph_bar4',
+          data: {!! json_encode($order_delivered['data']) !!},
+          xkey: 'month',
+          ykeys: ['value'],
+          labels: ['órdenes'],
+          barRatio: 0.4,
+          barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
           xLabelAngle: 35,
           hideHover: 'auto',
           resize: true

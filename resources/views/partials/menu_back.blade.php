@@ -26,10 +26,12 @@
       <div class="menu_section">
         <h3>{{ Auth::user()->role->display_name }}</h3>
         <ul class="nav side-menu">
+        @if (!Auth::user()->role->name == 'branch-representative')
         <li>
           <a href="{{ url('home') }}" title="@lang('app.home')"><i class="fa fa-home"></i> @lang('app.home')
           </a>
         </li>
+        @endif
         
         @if (Auth::user()->role->name == 'admin')
           @include('partials.menu_admin')

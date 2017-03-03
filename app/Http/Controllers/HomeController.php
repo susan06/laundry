@@ -70,13 +70,15 @@ class HomeController extends Controller
             $friend_invited['data'] = $clientFriend->chart_friend_invited();
             $order_packages['data'] = $this->orders->chart_order_packages();
             $order_payments['data'] = $this->orders->chart_order_payments();
+            $order_delivered['data'] = $this->orders->chart_order_delivered();
 
-            return view('dashboard.admin', compact('total', 'order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'friend_invited', 'order_packages', 'order_payments'));
+            return view('dashboard.admin', compact('total', 'order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'friend_invited', 'order_packages', 'order_payments', 'order_delivered'));
         }
 
         if (Auth::user()->role_id == 2) {
             $count = $this->orders->countDahsboard();
-            return view('dashboard.client', compact('count'));
+            $order_delivered['data'] = $this->orders->chart_order_delivered(Auth::user()->id);
+            return view('dashboard.client', compact('count', 'order_delivered'));
         }
 
         if (Auth::user()->role_id == 3) {
@@ -101,8 +103,8 @@ class HomeController extends Controller
             $order_by_hour_delivery['data'] = $this->orders->chart_order_by_hour_delivery(null, Auth::user()->id);
 
             $order_branchs['data'] = $this->orders->chart_order_branch(null, Auth::user()->id);
-
-            return view('dashboard.driver', compact('order_by_hour', 'order_by_hour_delivery', 'order_branchs'));
+            $order_delivered['data'] = $this->orders->chart_order_delivered(null, Auth::user()->id);
+            return view('dashboard.driver', compact('order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'order_delivered'));
         }
 
         if (Auth::user()->role_id == 4) {
@@ -135,13 +137,15 @@ class HomeController extends Controller
             $friend_invited['data'] = $clientFriend->chart_friend_invited();
             $order_packages['data'] = $this->orders->chart_order_packages();
             $order_payments['data'] = $this->orders->chart_order_payments();
+            $order_delivered['data'] = $this->orders->chart_order_delivered();
 
-            return view('dashboard.supervisor', compact('total', 'order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'friend_invited', 'order_packages', 'order_payments'));
+            return view('dashboard.supervisor', compact('total', 'order_by_hour', 'order_by_hour_delivery', 'order_branchs', 'friend_invited', 'order_packages', 'order_payments', 'order_delivered'));
         }
 
         if (Auth::user()->role_id == 5) {
             $this->select_branch($request, $branchOffice);
-            return view('dashboard.branch-representative');
+            $branch_offices = $branchOffice->where('representative_id', Auth::user()->id)->paginate(10);
+            return view('dashboard.branch-representative', compact('branch_offices'));
         }
     }
 

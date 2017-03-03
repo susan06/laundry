@@ -402,6 +402,57 @@ class EloquentOrder extends Repository implements OrderRepository
         return $result;
     }
 
+     /**
+     * echart data by orders delivery filter user
+     *
+     */
+    public function chart_order_delivered($client = null, $driver = null)
+    {
+        $months = [
+            1 => 'Jan', 
+            2 => 'Feb', 
+            3 => 'Mar', 
+            4 => 'Apr', 
+            5 => 'May', 
+            6 => 'Jun', 
+            7 => 'Jul', 
+            8 => 'Aug', 
+            9 => 'Sep', 
+            10 => 'Oct', 
+            11 => 'Nov', 
+            12 => 'Dec'
+        ];
+        $result = array();
+        $query = Order::where('status', 'delivered')
+            ->select(
+                DB::raw('count(*) as value'), 
+                DB::raw('MONTH(created_at) month'))
+            ->whereYear('created_at','=',date('Y'))
+            ->groupBy('month');
+
+        if($client) {
+            $result = $query->where('client_id', $client);
+        }
+        if($driver) {
+            $result = $query->where('driver_id', $driver);
+        }
+
+        $result = $query->get()->toArray();
+        
+        for ($i=1; $i <= 12; $i++) { 
+            $data[] = [  
+                "value" => 0,
+                "month" => $months[$i]
+            ];
+        }
+        
+        foreach ($result as $key => $value) {
+            $data[$value['month']-1]['value'] = $value['value']; 
+        }
+
+        return $data;
+    }
+
     /**
      * chart_order_packages
      *     

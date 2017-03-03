@@ -107,6 +107,7 @@
     */
     Route::get('admin-client/friends', 'Admin\ClientController@friends')->name('admin-client.friends');
     Route::get('admin-client/locations', 'Admin\ClientController@locations')->name('admin-client.map');
+     Route::get('admin-client/address/{client}', 'Admin\ClientController@editStatusLocations')->name('admin-client.address');
     Route::resource('admin-client', 'Admin\ClientController');
 
     /**

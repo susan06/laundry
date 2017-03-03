@@ -23,12 +23,13 @@ class ClientController extends Controller
      * UserController constructor.
      * @param UserRepository $roles
      */
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepository $users, ClientRepository $clients)
     {
         $this->middleware('auth');
         $this->middleware('locale'); 
         $this->middleware('timezone'); 
         $this->users = $users;
+        $this->clients= $clients;
     }
 
     /**
@@ -311,5 +312,32 @@ class ClientController extends Controller
         ]);
     }
     
+
+    public function editStatusLocations($client, Request $request) 
+    {
+        $message = false;
+        $client = $this->users->find($client);
+        $locations_status = [
+            'rejected' => trans("app.rejected"), 
+            'on_hold' => trans("app.on_hold"), 
+            'accepted' => trans("app.accepted")
+        ];
+        if( isset($request->id) && isset($request->status) ) {
+            $addresss = $this->clients->update_location($request->id,[
+                'status' => $request->status,
+                'reazon_status' => $request->reazon_status
+            ]);
+            $message = trans('app.location_updated');
+        }
+        if ( $request->ajax() ) {
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'view' => view('users.clients.list_locations', compact('client', 'locations_status'))->render(),
+            ]);
+        }
+
+        return view('users.clients.locations', compact('client', 'locations_status'));
+    }
     
 }

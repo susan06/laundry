@@ -17,6 +17,8 @@ class ClientLocationTableSeeder extends Seeder
     		'lng' => -80.782127,
     		'address' => 'panamá',
     		'label' => 1,
+            'confirmed' => true,
+            'status' => 'accepted',
             'description' => 'esto es una descripción',
          	'created_at' => \Carbon\Carbon::now()
         ]);

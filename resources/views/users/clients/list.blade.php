@@ -16,16 +16,17 @@
                   <span class="label label-{{ $client->labelClass() }}">{{ trans("app.{$client->status}") }}</span>
                 </td>
                 <td class="text-center">
-                    <button type="button" data-href="{{ route('admin-client.show', $client->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
-                                   title="@lang('app.view_client')" data-toggle="tooltip" data-placement="top">
+                    <button type="button" data-href="{{ route('admin-client.show', $client->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.view_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-search"></i>
                     </button>
-                    <a href="{{ route('admin-order.finance', $client->id) }}" class="btn btn-round btn-primary" title="@lang('app.history_financial')" data-toggle="tooltip" data-placement="top">
+                    <a href="{{ route('admin-order.finance', $client->id) }}" class="btn btn-round btn-primary" data-title="@lang('app.history_financial')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-bars"></i>
                     </a>
+                    <a href="{{ route('admin-client.address', $client->id) }}" class="btn btn-round btn-primary" data-title="@lang('app.address')" data-toggle="tooltip" data-placement="top">
+                    <i class="fa fa-location-arrow"></i>
+                    </a>
                     @if (Auth::user()->role->name == 'admin')
-                    <button type="button" data-href="{{ route('admin-client.edit', $client->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"
-                                   title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
+                    <button type="button" data-href="{{ route('admin-client.edit', $client->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal" data-title="@lang('app.edit_client')" data-toggle="tooltip" data-placement="top">
                     <i class="fa fa-edit"></i>
                     </button>
                       @if ($client->status == 'Banned')

@@ -115,6 +115,12 @@ interface OrderRepository extends RepositoryInterface
     public function chart_order_branch($client = null, $driver = null);
 
     /**
+     * echart data by orders delivery filter user
+     *
+     */
+    public function chart_order_delivered($client = null, $driver = null);
+
+    /**
      * chart_order_packages
      *     
      */

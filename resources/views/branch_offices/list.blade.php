@@ -21,10 +21,12 @@
           </td>
           <td class="text-center">
 
+          @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'supervisor')
               <button type="button" data-href="{{ route('admin-branch-office.edit', $branch_office->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="content"
-                 title="@lang('app.edit_branch_office')" data-toggle="tooltip" data-placement="top">
+                 data-title="@lang('app.edit_branch_office')" data-toggle="tooltip" data-placement="top">
                   <i class="fa fa-edit"></i>
               </button>
+            @endif
 
           @if($branch_office->services)
              <button type="button" data-href="{{ route('branch-office.services', $branch_office->id) }}" class="btn btn-round btn-primary create-edit-show" data-model="modal"

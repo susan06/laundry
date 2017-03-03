@@ -958,5 +958,6 @@ return [
     'save_order' => 'Guardar órden',
     'order_preview' => 'órden previa',
     'quant' => 'Cnt.',
+    'location_updated' => 'Localización actualizada',
 
 ]; 

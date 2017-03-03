@@ -586,4 +586,51 @@ $(document).ready(function() {
   });
 
 });
+
+function updateStatusAddress(id, status, reazon_status = ''){
+    $.ajax({
+        url: CURRENT_URL,
+        type:"GET",
+        data:{ id: id, 
+            status: status, 
+            reazon_status: reazon_status },
+        dataType: 'json',
+        success: function(response) {
+            hideLoading();
+            if(response.success){
+                $('#content-table').html(response.view);
+                if(response.message){
+                    notify('success', response.message);
+                }
+                loadResposiveTable();
+            } else {
+                notify('error', response.message);
+            }
+        },
+        error: function (status) {
+            hideLoading();
+            notify('error', status.statusText);
+        }
+    });
+}
+// update status address
+$(document).on('change', '#status_address', function (e) {
+    showLoading();
+    var $this = $(this);
+    if($this.val() == 'rejected') {
+        $('#reazon_status').val('');
+        hideLoading();
+        $('#reazon_status_modal').modal('show');
+        e.preventDefault();
+        $(document).on('click', '#update-status-address', function () {
+            if($('#reazon_status').val()) {
+                updateStatusAddress($this.data("id"), $this.val(), $('#reazon_status').val());
+                $('#reazon_status_modal').modal('hide');
+            }
+        });
+    } else {
+        updateStatusAddress($this.data("id"), $this.val());
+    }  
+});
+
 // /script general
